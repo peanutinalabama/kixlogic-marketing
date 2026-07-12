@@ -1,0 +1,134 @@
+---
+import Base from './Base.astro';
+
+interface Props {
+  title:       string;
+  description: string;
+  pubDate:     Date;
+  author:      string;
+  tags:        string[];
+  image?:      string;
+}
+
+const { title, description, pubDate, author, tags, image } = Astro.props;
+
+const dateStr = pubDate.toLocaleDateString('en-US', {
+  year: 'numeric', month: 'long', day: 'numeric',
+});
+---
+<Base title={title} description={description} image={image}>
+  <article class="blog-post-page">
+    <header class="blog-post-header container">
+      <div class="post-meta-top">
+        <a href="/blog" class="back-link">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          All posts
+        </a>
+        <time datetime={pubDate.toISOString()}>{dateStr}</time>
+      </div>
+
+      <h1 class="post-title">{title}</h1>
+      <p class="post-desc">{description}</p>
+
+      <div class="post-meta-bottom">
+        <span class="post-author">{author}</span>
+        <div class="post-tags">
+          {tags.map(t => <span class="tag">{t}</span>)}
+        </div>
+      </div>
+    </header>
+
+    {image && (
+      <div class="post-hero-image container">
+        <img src={image} alt="" loading="lazy" />
+      </div>
+    )}
+
+    <div class="blog-post-body container prose">
+      <slot />
+    </div>
+
+    <div class="post-footer container">
+      <a href="/blog" class="btn btn-outline">← Back to blog</a>
+    </div>
+  </article>
+</Base>
+
+<style>
+.blog-post-page { padding: 4rem 0 6rem; }
+
+.blog-post-header {
+  max-width: 760px;
+  margin: 0 auto 3rem;
+}
+
+.post-meta-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+.back-link {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--gold);
+  transition: gap 0.2s;
+}
+.back-link:hover { gap: 0.6rem; }
+
+.post-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+.post-desc {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+.post-meta-bottom {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.post-author {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text);
+}
+.post-tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.post-hero-image {
+  max-width: 760px;
+  margin: 0 auto 3rem;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.blog-post-body {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.post-footer {
+  max-width: 760px;
+  margin: 4rem auto 0;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+</style>

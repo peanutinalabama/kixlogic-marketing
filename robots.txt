@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kixlogic.com/sitemap.xml
+
+# Dashboard and admin pages — not for crawling
+Disallow: /dashboard.html
+Disallow: /admin.html

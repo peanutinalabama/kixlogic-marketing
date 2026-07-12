@@ -1,0 +1,164 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base
+  title="About"
+  description="Kixlogic builds workforce intelligence software for life sciences organizations — biotech, pharma, medical device, and clinical research."
+>
+  <section class="about-page section">
+    <div class="container about-inner">
+      <div class="about-header">
+        <span class="tag">About</span>
+        <h1>Workforce intelligence<br />for life sciences</h1>
+        <p class="about-lead">
+          We started Kixlogic to solve a problem we kept seeing: specialized scientific talent is
+          incredibly hard to find, evaluate, and pay competitively — and the tools available were
+          built for everyone, which meant they were great for no one.
+        </p>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-section">
+          <h2>What we build</h2>
+          <p>
+            Kixlogic Workforce Intelligence Platform is three products in one: an ATS purpose-built
+            for scientific roles, a compensation intelligence module with life-sciences-specific
+            benchmarks, and a sourcing engine that finds scientists who aren't on job boards.
+          </p>
+          <p>
+            Every feature is built for the specific complexity of scientific hiring — niche skill sets,
+            long time-to-fill cycles, highly competitive compensation, and candidate pools that are
+            measured in hundreds, not thousands.
+          </p>
+        </div>
+
+        <div class="about-section">
+          <h2>The bigger picture</h2>
+          <p>
+            Our long-term goal is simple: give every life sciences organization the same hiring and
+            compensation intelligence that only the largest pharma and biotech companies currently
+            have access to.
+          </p>
+          <p>
+            We call it the Bloomberg Terminal for scientific talent. A single place to see who to hire,
+            what to pay, where the talent exists, and how competitive your offers are — updated in
+            real time, not published once a year in a PDF nobody reads.
+          </p>
+        </div>
+      </div>
+
+      <div class="about-products">
+        <h2>Our products</h2>
+        <div class="products-list">
+          <div class="pl-item">
+            <div class="pl-icon teal">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="16" rx="2" stroke="#14B894" stroke-width="1.5"/><path d="M7 9h10M7 13h6" stroke="#14B894" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            <div>
+              <h3>Kixlogic ATS</h3>
+              <p>Applicant tracking, sourcing, and offer management for life sciences hiring teams.</p>
+              <a href="/ats">Learn more →</a>
+            </div>
+          </div>
+          <div class="pl-item">
+            <div class="pl-icon indigo">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 17l4-4 4 4 4-6 4 3" stroke="#6366F1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <h3>Kixlogic Comp</h3>
+              <p>Real-time compensation benchmarks, offer analysis, and workforce analytics for scientific roles.</p>
+              <a href="/comp">Learn more →</a>
+            </div>
+          </div>
+          <div class="pl-item">
+            <div class="pl-icon dim">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 9l9-6 9 6v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9z" stroke="#7ABFCC" stroke-width="1.5"/><path d="M9 22V12h6v10" stroke="#7ABFCC" stroke-width="1.5"/></svg>
+            </div>
+            <div>
+              <h3>ScientificGigs</h3>
+              <p>Life sciences job board at scientificgigs.com. All Kixlogic WIP jobs syndicate here automatically.</p>
+              <a href="https://scientificgigs.com" target="_blank" rel="noopener">Visit ScientificGigs →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-contact">
+        <h2>Get in touch</h2>
+        <p>Questions, partnership opportunities, or want a walkthrough? <a href="/contact">Contact us</a> or email us at <a href="mailto:hello@kixlogic.com">hello@kixlogic.com</a>.</p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+.about-page { padding-top: 5rem; }
+.about-inner { max-width: 860px; margin: 0 auto; }
+
+.about-header { margin-bottom: 4rem; }
+.about-header .tag { margin-bottom: 1.25rem; }
+.about-header h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  margin-bottom: 1.5rem;
+}
+.about-lead {
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  max-width: 700px;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 4rem;
+  padding-bottom: 4rem;
+  border-bottom: 1px solid var(--border);
+}
+.about-section h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+.about-section p { color: var(--text-muted); line-height: 1.7; margin-bottom: 1rem; font-size: 0.95rem; }
+
+.about-products { margin-bottom: 4rem; padding-bottom: 4rem; border-bottom: 1px solid var(--border); }
+.about-products h2 { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 2rem; }
+.products-list { display: flex; flex-direction: column; gap: 1.5rem; }
+.pl-item {
+  display: flex;
+  gap: 1.25rem;
+  padding: 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+.pl-icon {
+  width: 44px; height: 44px;
+  border-radius: 11px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.pl-icon.teal   { background: var(--gold-dim); }
+.pl-icon.indigo { background: var(--indigo-dim); }
+.pl-icon.dim    { background: rgba(122,191,204,0.1); }
+.pl-item h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 0.375rem; }
+.pl-item p  { font-size: 0.875rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+.pl-item a  { font-size: 0.875rem; color: var(--gold); font-weight: 600; transition: 0.2s; }
+.pl-item a:hover { color: var(--gold-light); }
+
+.about-contact h2  { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 0.75rem; }
+.about-contact p   { font-size: 0.95rem; color: var(--text-muted); }
+.about-contact a   { color: var(--gold); font-weight: 600; }
+.about-contact a:hover { color: var(--gold-light); }
+
+@media (max-width: 700px) {
+  .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+}
+</style>

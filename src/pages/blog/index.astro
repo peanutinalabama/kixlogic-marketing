@@ -1,0 +1,147 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = (await getCollection('blog'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const allTags = [...new Set(allPosts.flatMap(p => p.data.tags))].sort();
+---
+<Base
+  title="Blog"
+  description="Insights on scientific hiring, compensation benchmarks, and workforce intelligence from the Kixlogic team."
+>
+  <section class="blog-page section">
+    <div class="container">
+      <div class="blog-header">
+        <span class="tag">Blog</span>
+        <h1>From the Kixlogic team</h1>
+        <p>Hiring insights, comp benchmarks, and product updates for life sciences organizations.</p>
+      </div>
+
+      <div class="blog-tags-filter">
+        <span class="filter-label">Filter:</span>
+        {allTags.map(t => (
+          <button class="tag-filter-btn" data-tag={t}>{t}</button>
+        ))}
+        <button class="tag-filter-btn active" data-tag="all">All</button>
+      </div>
+
+      <div class="posts-grid" id="postsGrid">
+        {allPosts.map(post => {
+          const d = post.data.pubDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+          return (
+            <a
+              href={`/blog/${post.slug}`}
+              class="post-card card"
+              data-tags={post.data.tags.join(',')}
+            >
+              <div class="post-card-tags">
+                {post.data.tags.slice(0, 2).map(t => (
+                  <span class="tag" style="font-size:0.7rem;padding:0.15rem 0.6rem">{t}</span>
+                ))}
+              </div>
+              <h2>{post.data.title}</h2>
+              <p>{post.data.description}</p>
+              <div class="post-card-footer">
+                <span class="post-author">{post.data.author}</span>
+                <time datetime={post.data.pubDate.toISOString()}>{d}</time>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+const buttons = document.querySelectorAll('.tag-filter-btn');
+const cards   = document.querySelectorAll('.post-card');
+
+buttons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    buttons.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const tag = (btn as HTMLElement).dataset.tag ?? 'all';
+    cards.forEach(card => {
+      const tags = ((card as HTMLElement).dataset.tags ?? '').split(',');
+      (card as HTMLElement).style.display = (tag === 'all' || tags.includes(tag)) ? '' : 'none';
+    });
+  });
+});
+</script>
+
+<style>
+.blog-page { padding-top: 5rem; }
+.blog-header { text-align: center; margin-bottom: 3rem; }
+.blog-header .tag { margin-bottom: 1rem; }
+.blog-header h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  margin-bottom: 1rem;
+}
+.blog-header p { font-size: 1.05rem; color: var(--text-muted); max-width: 520px; margin: 0 auto; }
+
+.blog-tags-filter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 2.5rem;
+  justify-content: center;
+}
+.filter-label { font-size: 0.8rem; color: var(--text-dim); margin-right: 0.25rem; }
+.tag-filter-btn {
+  padding: 0.35rem 0.875rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: 0.2s;
+}
+.tag-filter-btn:hover { border-color: var(--border-gold); color: var(--text); }
+.tag-filter-btn.active {
+  background: var(--gold-dim);
+  border-color: var(--border-gold);
+  color: var(--gold);
+  font-weight: 600;
+}
+
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+.post-card { display: flex; flex-direction: column; gap: 0.875rem; text-decoration: none; }
+.post-card:hover h2 { color: var(--gold); }
+.post-card-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+.post-card h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--text);
+  transition: color 0.2s;
+}
+.post-card p { font-size: 0.875rem; color: var(--text-muted); line-height: 1.6; flex: 1; }
+.post-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border);
+}
+.post-author { font-weight: 600; color: var(--text-muted); }
+
+@media (max-width: 900px) { .posts-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .posts-grid { grid-template-columns: 1fr; } }
+</style>

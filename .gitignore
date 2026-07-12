@@ -1,0 +1,42 @@
+node_modules/
+dist/
+.astro/
+.env
+.env.*
+!.env.example
+
+# Legacy Netlify site files (not part of Astro build)
+index.html
+contact.html
+pricing.html
+privacy.html
+privacy-request.html
+terms.html
+security.html
+support.html
+sales-partner.html
+account.html
+incident-response.html
+report-content.html
+Kixlogic_Infographic.html
+netlify.toml
+sitemap.xml
+backup_headers
+.claude/
+.wellknown/
+kixlogic-teams.zip
+SMS/
+SMS.png
+*.png
+*.ico
+2 Color K.png
+Icon Update*.png
+Kix*.png
+Kixicon*.png
+Kixlogo*.png
+Klogo*.png
+Outline Icon*.png
+color.png
+outline.png
+favicon*.png
+favicon.ico
