@@ -1,0 +1,128 @@
+{
+  "seo": {
+    "title": "Kixlogic Workforce Intelligence Platform",
+    "description": "Kixlogic Workforce Intelligence Platform — practical, affordable workforce software for teams under 500. ATS, compensation intelligence, and more."
+  },
+  "greeting": {
+    "headline": "Hi there, welcome to Kixlogic",
+    "subheadline": "Kixlogic Workforce Intelligence Platform",
+    "buttons": [
+      { "label": "Start free trial", "href": "/ats/" },
+      { "label": "Compare plans", "href": "/pricing/" },
+      { "label": "Talk to us", "href": "/contact/" }
+    ]
+  },
+  "sections": [
+    {
+      "type": "hero",
+      "enabled": true,
+      "title": "Hire smarter. Your way.",
+      "description": "Kixlogic ATS is built for small and mid-sized businesses. Launch in 10 minutes — AI resume scoring, analytics, white-label careers pages, and more.",
+      "image": "/images/dashboard.png",
+      "ctaLabel": "Start free trial",
+      "ctaCheckout": "growth"
+    },
+    {
+      "type": "quicknav",
+      "enabled": true,
+      "items": [
+        { "icon": "💼", "label": "Shop ATS", "href": "/ats/" },
+        { "icon": "💳", "label": "See pricing", "href": "/pricing/" },
+        { "icon": "📧", "label": "Contact us", "href": "/contact/" },
+        { "icon": "🔐", "label": "Sign in", "href": "https://app.kixlogic.com/dashboard" },
+        { "icon": "🛟", "label": "Get support", "href": "/support/" },
+        { "icon": "🤝", "label": "Partners", "href": "/sales-partner/" }
+      ]
+    },
+    {
+      "type": "products",
+      "enabled": true,
+      "cards": [
+        {
+          "title": "Kixlogic ATS",
+          "description": "AI resume scoring, white-label careers pages, and advanced analytics — without the enterprise price tag.",
+          "image": "/images/dashboard.png",
+          "href": "/ats/",
+          "cta": "Explore Kixlogic ATS",
+          "soon": false
+        },
+        {
+          "title": "Plans & pricing",
+          "description": "Four plans from $49/month. Growth and Professional include a 14-day free trial.",
+          "image": "/images/pipeline.png",
+          "href": "/pricing/",
+          "cta": "Compare plans",
+          "soon": false
+        },
+        {
+          "title": "Talk to our team",
+          "description": "Questions about setup, demos, or partnerships? We respond within one business day.",
+          "image": "/og-default.png",
+          "href": "/contact/",
+          "cta": "Contact us",
+          "soon": false
+        },
+        {
+          "title": "Renumify",
+          "description": "Compensation intelligence with blended market rates. Industry-specific models coming soon.",
+          "image": "/og-default.png",
+          "href": "/comp/",
+          "cta": "Learn more",
+          "soon": true
+        }
+      ]
+    },
+    {
+      "type": "feature",
+      "enabled": true,
+      "greyBackground": true,
+      "title": "Pipeline management built for real hiring teams",
+      "description": "Drag-and-drop kanban, AI scoring, interview scheduling, offer letters, and 90+ customizable application questions — all in one cloud platform.",
+      "image": "/images/pipeline.png",
+      "ctaLabel": "Explore Kixlogic ATS",
+      "ctaHref": "/ats/"
+    },
+    {
+      "type": "ai",
+      "enabled": true,
+      "heading": "Get to know Kixlogic AI",
+      "cards": [
+        {
+          "title": "AI resume scoring",
+          "description": "Every applicant gets an instant match score against your job requirements — stars, percentage, and missing skills in seconds.",
+          "href": "/ats/#ats-features"
+        },
+        {
+          "title": "AI job descriptions",
+          "description": "Type a job title, pick your industry, and get a complete professional posting ready to edit and publish.",
+          "href": "/ats/#ats-features"
+        },
+        {
+          "title": "Compensation intelligence",
+          "description": "Renumify blends job postings, career sites, and BLS data into actionable pay benchmarks. Coming soon.",
+          "href": "/comp/"
+        }
+      ]
+    },
+    {
+      "type": "why",
+      "enabled": true,
+      "greyBackground": true,
+      "heading": "Why teams choose Kixlogic",
+      "cards": [
+        {
+          "title": "Built for teams under 500",
+          "description": "Not enterprise software with a small-business skin. Designed from scratch for practical hiring teams."
+        },
+        {
+          "title": "AI that earns its keep",
+          "description": "Resume scoring, JD writing, and setup assistance that solve real problems — not marketing checkboxes."
+        },
+        {
+          "title": "Live in minutes",
+          "description": "100% cloud SaaS. Sign up, brand your careers page, and start hiring the same day. No IT project required."
+        }
+      ]
+    }
+  ]
+}

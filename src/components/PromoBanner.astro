@@ -1,9 +1,17 @@
-<div class="promo-banner">
-  <div class="container promo-inner">
-    <span>Kixlogic Workforce Intelligence Platform — ATS, compensation intelligence, and more for teams under 500.</span>
-    <a href="/ats/">Learn more →</a>
+---
+import site from '../data/site.json';
+import type { SiteData } from '../lib/cms-types';
+
+const { promoBanner } = site as SiteData;
+---
+{promoBanner.enabled && (
+  <div class="promo-banner">
+    <div class="container promo-inner">
+      <span>{promoBanner.text}</span>
+      <a href={promoBanner.linkHref}>{promoBanner.linkLabel}</a>
+    </div>
   </div>
-</div>
+)}
 
 <style>
 .promo-banner {
