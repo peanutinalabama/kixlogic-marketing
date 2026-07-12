@@ -21,6 +21,7 @@ report-content.html
 Kixlogic_Infographic.html
 netlify.toml
 sitemap.xml
+!public/sitemap.xml
 backup_headers
 .claude/
 .wellknown/
@@ -28,15 +29,6 @@ kixlogic-teams.zip
 SMS/
 SMS.png
 *.png
+!public/**
 *.ico
-2 Color K.png
-Icon Update*.png
-Kix*.png
-Kixicon*.png
-Kixlogo*.png
-Klogo*.png
-Outline Icon*.png
-color.png
-outline.png
-favicon*.png
-favicon.ico
+!public/**

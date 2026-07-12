@@ -129,6 +129,27 @@ const stages = ['Post job', 'Source & apply', 'Screen & score', 'Interview', 'Of
     </div>
   </section>
 
+  <!-- ── Screenshots ── -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="tag">Product</span>
+        <h2>See it in action</h2>
+        <p>The dashboard your hiring team actually wants to use.</p>
+      </div>
+      <div class="screenshots-grid">
+        <figure class="screenshot-card card">
+          <img src="/images/dashboard.png" alt="Kixlogic ATS dashboard overview" loading="lazy" width="1200" height="675" />
+          <figcaption>Dashboard overview — open roles, pipeline stats, and recent activity</figcaption>
+        </figure>
+        <figure class="screenshot-card card">
+          <img src="/images/pipeline.png" alt="Kixlogic ATS candidate pipeline" loading="lazy" width="1200" height="675" />
+          <figcaption>Candidate pipeline — drag-and-drop stages with AI scores</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
   <!-- ── CTA ── -->
   <section class="section-sm cta-banner">
     <div class="container cta-inner">
@@ -300,9 +321,28 @@ const stages = ['Post job', 'Source & apply', 'Screen & score', 'Interview', 'Of
 .section-header h2 { font-family: 'Syne', sans-serif; font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 800; letter-spacing: -0.025em; margin-bottom: 1rem; }
 .section-header p  { font-size: 1.05rem; color: var(--text-muted); max-width: 520px; margin: 0 auto; }
 
+.screenshots-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+.screenshot-card { padding: 0; overflow: hidden; }
+.screenshot-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-bottom: 1px solid var(--border);
+}
+.screenshot-card figcaption {
+  padding: 1rem 1.25rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
 @media (max-width: 900px) {
   .product-hero-inner { grid-template-columns: 1fr; }
   .features-grid { grid-template-columns: repeat(2, 1fr); }
+  .screenshots-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 600px) {
   .features-grid { grid-template-columns: 1fr; }

@@ -1,0 +1,160 @@
+---
+import Base from '../layouts/Base.astro';
+
+const sections = [
+  {
+    title: 'Encryption',
+    icon: '🔒',
+    lead: 'All data is encrypted in transit and at rest.',
+    items: [
+      'TLS 1.2+ for every connection between your browser and our API',
+      'Encrypted database connections to Supabase Postgres',
+      'Secrets stored in Cloudflare Workers — never in source code',
+    ],
+  },
+  {
+    title: 'Infrastructure',
+    icon: '🌐',
+    lead: 'Hosted on modern cloud infrastructure with global edge delivery.',
+    items: [
+      'Application frontend on Cloudflare Pages',
+      'API runtime on Cloudflare Containers',
+      'Database on Supabase Postgres (U.S.)',
+      'Transactional email via Resend',
+    ],
+  },
+  {
+    title: 'Multi-Tenant Isolation',
+    icon: '🏢',
+    lead: 'Every customer\'s data is logically separated.',
+    items: [
+      'Tenant ID enforced on every database query',
+      'Recruiters can only access their own tenant\'s applicants and jobs',
+      'Super Admin access is platform-level only, with audit logging',
+    ],
+  },
+  {
+    title: 'Authentication & Access',
+    icon: '🔑',
+    lead: 'Secure account access with role-based permissions.',
+    items: [
+      'Email-and-password authentication with server-validated JWT sessions',
+      'Role-based access: Admin, Recruiter, Hiring Manager, Read-only',
+      'Password reset via secure one-time tokens',
+      'Session invalidation on password change',
+    ],
+  },
+  {
+    title: 'Audit Logging',
+    icon: '📋',
+    lead: 'Administrative actions are logged for accountability.',
+    items: [
+      'Stage changes, rejections, and offer actions recorded with user and timestamp',
+      'Super Admin actions logged with IP address',
+      'Activity log visible to tenant Admins in dashboard',
+    ],
+  },
+  {
+    title: 'Applicant Data',
+    icon: '👤',
+    lead: 'Candidate information is handled with care.',
+    items: [
+      'EEO data compartmentalized from main application records',
+      'Resume files stored securely and accessible only to authorized recruiters',
+      'Data retained per our Privacy Policy — deleted 90 days after account termination',
+    ],
+  },
+];
+---
+<Base
+  title="Security"
+  description="How Kixlogic protects your data — encryption, multi-tenant isolation, audit logging, and Cloudflare + Supabase infrastructure."
+>
+  <section class="security-page section">
+    <div class="container">
+      <header class="security-header">
+        <span class="tag">Security</span>
+        <h1>How we protect your data</h1>
+        <p>Kixlogic handles sensitive hiring and compensation data. Security is built into every layer — not bolted on after the fact.</p>
+        <p class="security-meta">Last reviewed: July 2026 &nbsp;·&nbsp; <a href="mailto:support@kixlogic.com">security@kixlogic.com</a></p>
+      </header>
+
+      <div class="security-grid">
+        {sections.map(s => (
+          <div class="security-card card">
+            <div class="security-icon">{s.icon}</div>
+            <h2>{s.title}</h2>
+            <p class="security-lead">{s.lead}</p>
+            <ul>
+              {s.items.map(item => <li>{item}</li>)}
+            </ul>
+          </div>
+        ))}
+      </div>
+
+      <div class="security-footer card">
+        <h2>Report a security concern</h2>
+        <p>If you discover a vulnerability or have a security-related question, contact us at <a href="mailto:support@kixlogic.com">support@kixlogic.com</a> with subject line "Security." We respond to security reports within 2 business days.</p>
+        <p>See also: <a href="/privacy">Privacy Policy</a> · <a href="/terms">Terms of Service</a></p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+.security-page { padding-top: 5rem; }
+.security-header { text-align: center; max-width: 640px; margin: 0 auto 4rem; }
+.security-header .tag { margin-bottom: 1rem; }
+.security-header h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  margin-bottom: 1rem;
+}
+.security-header p { font-size: 1.05rem; color: var(--text-muted); line-height: 1.7; }
+.security-meta { font-size: 0.8rem !important; color: var(--text-dim) !important; margin-top: 1rem !important; }
+.security-meta a { color: var(--gold); font-weight: 600; }
+
+.security-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+.security-card { display: flex; flex-direction: column; gap: 0.75rem; }
+.security-icon { font-size: 1.75rem; }
+.security-card h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+.security-lead { font-size: 0.9rem; color: var(--text-muted); }
+.security-card ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+.security-card li {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  padding-left: 1.25rem;
+  position: relative;
+}
+.security-card li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+  font-weight: 700;
+}
+
+.security-footer { max-width: 640px; margin: 0 auto; text-align: center; }
+.security-footer h2 { font-family: 'Syne', sans-serif; font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem; }
+.security-footer p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 0.5rem; }
+.security-footer a { color: var(--gold); font-weight: 600; }
+
+@media (max-width: 700px) { .security-grid { grid-template-columns: 1fr; } }
+</style>

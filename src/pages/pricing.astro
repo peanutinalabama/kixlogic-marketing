@@ -1,0 +1,320 @@
+---
+import Base from '../layouts/Base.astro';
+
+const plans = [
+  {
+    id: 'starter',
+    name: 'Starter',
+    price: '49',
+    period: 'per month',
+    desc: 'For a single recruiter or small team just getting started with structured hiring.',
+    featured: false,
+    cta: 'Get Started',
+    ctaStyle: 'outline',
+    features: [
+      { ok: true, text: '2 active job postings' },
+      { ok: true, text: '1 Admin + 1 Recruiter seat' },
+      { ok: true, text: 'White-label careers page' },
+      { ok: true, text: '8-stage kanban pipeline' },
+      { ok: true, text: 'Google for Jobs eligible*' },
+      { ok: true, text: 'Application auto-reply w/ merge tags' },
+      { ok: true, text: 'Mobile-ready forms' },
+      { ok: true, text: 'CSV export' },
+      { ok: true, text: 'Applicant source tracking' },
+      { ok: true, text: 'Talent community pool' },
+      { ok: true, text: 'EEO compliance reports' },
+      { ok: true, text: 'Activity log audit trail' },
+      { ok: true, text: 'Job cloning, reopen, close cascade' },
+      { ok: true, text: 'Per-tenant SMTP (Yahoo/Gmail/O365)' },
+      { ok: false, text: 'AI features' },
+      { ok: false, text: 'Interview scheduling' },
+      { ok: false, text: 'Employee referral portal' },
+      { ok: false, text: 'Offer letters & onboarding' },
+    ],
+  },
+  {
+    id: 'growth',
+    name: 'Growth',
+    price: '129',
+    period: 'per month',
+    desc: 'For growing teams ready to layer AI and automation on top of their hiring process.',
+    featured: false,
+    cta: 'Start Free Trial',
+    ctaStyle: 'outline',
+    features: [
+      { ok: true, text: '10 active job postings' },
+      { ok: true, text: '1 Admin + 5 Recruiter seats' },
+      { ok: true, text: 'Everything in Starter' },
+      { ok: true, text: 'AI resume scoring (200/mo)', highlight: true },
+      { ok: true, text: 'AI job description builder', highlight: true },
+      { ok: true, text: 'AI resume search (natural language)', highlight: true },
+      { ok: true, text: 'Rejection email workflow w/ reason codes', highlight: true },
+      { ok: true, text: 'Employee referral portal', highlight: true },
+      { ok: true, text: 'Interview scheduling + calendar invites', highlight: true },
+      { ok: false, text: 'Offer letters & e-signature' },
+      { ok: false, text: 'Onboarding portal' },
+      { ok: false, text: 'AI Salary Intelligence' },
+    ],
+  },
+  {
+    id: 'professional',
+    name: 'Professional',
+    price: '249',
+    period: 'per month',
+    desc: 'For established HR teams ready to automate the full employee lifecycle from offer through onboarding.',
+    featured: true,
+    badge: 'Most Popular',
+    cta: 'Start Free Trial',
+    ctaStyle: 'primary',
+    features: [
+      { ok: true, text: 'Unlimited job postings' },
+      { ok: true, text: 'Unlimited seats' },
+      { ok: true, text: 'Everything in Growth' },
+      { ok: true, text: 'AI resume scoring (750/mo)', highlight: true },
+      { ok: true, text: 'Applicant SMS texting (2,000/mo)', highlight: true },
+      { ok: true, text: 'Offer letter generation & PDF merge', highlight: true },
+      { ok: true, text: 'Candidate offer portal + e-signature', highlight: true },
+      { ok: true, text: 'Onboarding packet builder', highlight: true },
+      { ok: true, text: 'AI Salary Intelligence (BLS + regional)', highlight: true },
+      { ok: true, text: 'XML job feeds for Indeed + aggregators', highlight: true },
+      { ok: true, text: 'Priority support (24-hr response)', highlight: true },
+    ],
+  },
+  {
+    id: 'enterprise',
+    name: 'Enterprise',
+    price: 'Custom',
+    period: 'contact us',
+    desc: 'For large organizations that need unlimited scale with dedicated support.',
+    featured: false,
+    customPrice: true,
+    cta: 'Contact Sales',
+    ctaStyle: 'outline',
+    ctaHref: '/contact',
+    features: [
+      { ok: true, text: 'Unlimited job postings' },
+      { ok: true, text: 'Unlimited seats' },
+      { ok: true, text: 'Everything in Professional' },
+      { ok: true, text: 'Unlimited AI resume scoring', highlight: true },
+      { ok: true, text: 'Unlimited AI Salary Intelligence', highlight: true },
+      { ok: true, text: 'Custom contract & SLA', highlight: true },
+      { ok: true, text: 'Dedicated support contact', highlight: true },
+    ],
+  },
+];
+
+const faqs = [
+  {
+    q: 'Do I need to install any software?',
+    a: 'No. Kixlogic is 100% cloud-based — sign up, configure your branding, and your careers page and ATS dashboard are live in under 10 minutes from any browser. No downloads, no IT team required.',
+  },
+  {
+    q: 'What happens after the 14-day trial?',
+    a: "You'll choose a plan and enter your billing details. If you don't, your account pauses — your data is safe and you can reactivate anytime.",
+  },
+  {
+    q: 'Can I switch plans later?',
+    a: 'Yes, anytime. Upgrade from Starter to Growth or Professional and you\'ll get access to AI scoring, compliance tools, and more — effective immediately.',
+  },
+  {
+    q: 'What is the Workforce Intelligence Platform (WIP)?',
+    a: 'WIP is our life-sciences tier that bundles Kixlogic ATS with Comp Intelligence (market benchmarks, offer analysis, pay equity) and free ScientificGigs job board syndication. Contact us for WIP access.',
+  },
+  {
+    q: 'How does billing work?',
+    a: 'Subscriptions are billed monthly through Stripe. Manage your plan, update payment methods, or cancel anytime through the self-service billing portal in your dashboard.',
+  },
+];
+---
+<Base
+  title="Pricing"
+  description="Kixlogic ATS pricing for small and mid-sized businesses. Four plans starting at $49/month. 14-day free trial on Growth and Professional."
+>
+  <section class="pricing-page section">
+    <div class="container">
+      <div class="pricing-header">
+        <div class="wip-banner">
+          <span class="tag">Workforce Intelligence Platform</span>
+          <p>Life sciences customers: ask about <strong>WIP</strong> — ATS + Comp Intelligence + free ScientificGigs syndication.</p>
+          <a href="/contact" class="wip-link">Talk to us →</a>
+        </div>
+        <span class="tag">Kixlogic ATS · Simple, transparent pricing</span>
+        <h1>Pay for what you need</h1>
+        <p>Four plans built to grow with you. Growth and Professional include a <strong>14-day free trial</strong>. Card required — cancel before trial ends and pay nothing.</p>
+      </div>
+
+      <div class="pricing-grid">
+        {plans.map(plan => (
+          <div class={`pricing-card card ${plan.featured ? 'featured' : ''}`}>
+            {plan.badge && <div class="pricing-badge">{plan.badge}</div>}
+            <div class="pricing-plan">{plan.name}</div>
+            <div class={`pricing-price ${plan.customPrice ? 'custom' : ''}`}>
+              {!plan.customPrice && <><sup>$</sup>{plan.price}<sup class="tax">†</sup></>}
+              {plan.customPrice && plan.price}
+            </div>
+            <div class="pricing-period">{plan.period}</div>
+            <p class="pricing-desc">{plan.desc}</p>
+            <div class="pricing-divider"></div>
+            <ul class="pricing-features">
+              {plan.features.map(f => (
+                <li class={`pricing-feature ${f.ok ? 'active' : ''} ${f.highlight ? 'highlight' : ''}`}>
+                  <span class={f.ok ? 'check' : 'x'}>{f.ok ? '✓' : '✗'}</span>
+                  {f.text}
+                </li>
+              ))}
+            </ul>
+            <a
+              href={plan.ctaHref || 'https://app.kixlogic.com/dashboard'}
+              class={`pricing-cta ${plan.ctaStyle === 'primary' ? 'pricing-cta-primary' : 'pricing-cta-outline'}`}
+            >
+              {plan.cta}
+            </a>
+          </div>
+        ))}
+      </div>
+
+      <p class="pricing-note">
+        Growth and Professional plans include a <span>14-day free trial</span>. Card required — cancel before trial ends and pay nothing.
+        <em> * Google for Jobs eligibility depends on Google's crawl frequency for your careers page.</em>
+      </p>
+      <p class="pricing-tax-note">
+        <sup>†</sup> Prices shown are base subscription rates in U.S. dollars and do not include applicable taxes. Taxes calculated at checkout based on your billing address.
+      </p>
+
+      <div class="faq-wrap">
+        <h2>Frequently asked</h2>
+        {faqs.map(f => (
+          <details>
+            <summary>{f.q}</summary>
+            <div class="faq-body">{f.a}</div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+.pricing-page { padding-top: 5rem; }
+.pricing-header { text-align: center; margin-bottom: 3rem; }
+.pricing-header .tag { margin-bottom: 1rem; }
+.pricing-header h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 1rem;
+}
+.pricing-header p {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  max-width: 640px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+.pricing-header strong { color: var(--gold); }
+
+.wip-banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem 1.25rem;
+  background: linear-gradient(135deg, rgba(20,184,148,0.08), rgba(99,102,241,0.08));
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-lg);
+  padding: 1rem 1.5rem;
+  margin-bottom: 2rem;
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.wip-banner p { font-size: 0.9rem; color: var(--text-muted); margin: 0; flex: 1; min-width: 200px; text-align: left; }
+.wip-banner strong { color: var(--text); }
+.wip-link { font-size: 0.85rem; font-weight: 700; color: var(--gold); white-space: nowrap; }
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.pricing-card { position: relative; display: flex; flex-direction: column; padding: 1.5rem; }
+.pricing-card.featured {
+  border-color: var(--border-gold);
+  background: linear-gradient(135deg, rgba(20,184,148,0.06), var(--surface));
+  box-shadow: 0 0 60px rgba(20,184,148,0.1);
+}
+.pricing-badge {
+  position: absolute;
+  top: -13px; left: 50%; transform: translateX(-50%);
+  background: var(--gold); color: var(--navy);
+  padding: 0.25rem 1rem; border-radius: 99px;
+  font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;
+  white-space: nowrap;
+}
+.pricing-plan {
+  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.875rem;
+  text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 0.75rem;
+}
+.pricing-card.featured .pricing-plan { color: var(--gold); }
+.pricing-price {
+  font-family: 'Syne', sans-serif; font-weight: 800; font-size: 3rem;
+  color: var(--text); line-height: 1; margin-bottom: 0.25rem; letter-spacing: -2px;
+}
+.pricing-price.custom { font-size: 2rem; padding-top: 0.5rem; }
+.pricing-price sup { font-size: 1.5rem; vertical-align: super; }
+.pricing-price sup.tax { font-size: 0.5em; }
+.pricing-period { font-size: 0.825rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+.pricing-desc { font-size: 0.875rem; color: var(--text-muted); margin-bottom: 1.75rem; line-height: 1.5; }
+.pricing-divider { height: 1px; background: var(--border); margin-bottom: 1.5rem; }
+.pricing-features { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; margin-bottom: 2rem; flex: 1; }
+.pricing-feature { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.875rem; color: var(--text-dim); }
+.pricing-feature.active { color: var(--text-muted); }
+.pricing-feature.highlight { color: var(--gold); }
+.pricing-feature .check { color: var(--gold); flex-shrink: 0; }
+.pricing-feature .x { color: var(--text-dim); flex-shrink: 0; }
+.pricing-cta {
+  width: 100%; padding: 0.85rem; border-radius: 10px;
+  font-weight: 700; font-size: 0.95rem; text-align: center;
+  transition: var(--transition); display: block;
+}
+.pricing-cta-primary { background: var(--gold); color: var(--navy); }
+.pricing-cta-primary:hover { background: var(--gold-light); box-shadow: 0 8px 25px rgba(20,184,148,0.3); }
+.pricing-cta-outline { background: transparent; color: var(--text); border: 1.5px solid var(--border); }
+.pricing-cta-outline:hover { border-color: var(--border-gold); background: var(--gold-dim); }
+
+.pricing-note {
+  text-align: center; margin-top: 2rem;
+  font-size: 0.825rem; color: var(--text-dim);
+  max-width: 800px; margin-left: auto; margin-right: auto; line-height: 1.7;
+}
+.pricing-note span { color: var(--gold); }
+.pricing-tax-note {
+  text-align: center; margin-top: 0.85rem;
+  font-size: 0.75rem; color: var(--text-dim);
+}
+
+.faq-wrap { max-width: 760px; margin: 5rem auto 0; }
+.faq-wrap h2 {
+  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.5rem;
+  text-align: center; margin-bottom: 2rem;
+}
+details {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); margin-bottom: 0.75rem; overflow: hidden;
+}
+details[open] { border-color: var(--border-gold); }
+summary {
+  padding: 1.1rem 1.4rem; cursor: pointer;
+  font-weight: 600; font-size: 0.925rem; color: var(--text);
+  list-style: none; display: flex; justify-content: space-between; align-items: center;
+}
+summary::-webkit-details-marker { display: none; }
+summary::after { content: '+'; font-size: 1.4rem; color: var(--gold); font-weight: 300; }
+details[open] summary::after { content: '−'; }
+.faq-body { padding: 0 1.4rem 1.25rem; font-size: 0.875rem; color: var(--text-muted); line-height: 1.7; }
+
+@media (max-width: 1024px) { .pricing-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .pricing-grid { grid-template-columns: 1fr; } }
+</style>

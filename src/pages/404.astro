@@ -1,0 +1,56 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base
+  title="Page Not Found"
+  description="The page you're looking for doesn't exist on kixlogic.com."
+>
+  <section class="not-found section">
+    <div class="container not-found-inner">
+      <div class="not-found-code">404</div>
+      <h1>Page not found</h1>
+      <p>The page you're looking for doesn't exist or has been moved.</p>
+      <div class="not-found-actions">
+        <a href="/" class="btn btn-primary">Back to home</a>
+        <a href="/contact" class="btn btn-outline">Contact us</a>
+      </div>
+      <nav class="not-found-links">
+        <a href="/ats">Kixlogic ATS</a>
+        <a href="/comp">Kixlogic Comp</a>
+        <a href="/pricing">Pricing</a>
+        <a href="/blog">Blog</a>
+      </nav>
+    </div>
+  </section>
+</Base>
+
+<style>
+.not-found { padding-top: 8rem; text-align: center; min-height: 60vh; }
+.not-found-inner { max-width: 480px; margin: 0 auto; }
+.not-found-code {
+  font-family: 'Syne', sans-serif;
+  font-size: 6rem;
+  font-weight: 800;
+  color: var(--gold);
+  opacity: 0.3;
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+.not-found h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 0.75rem;
+}
+.not-found p { color: var(--text-muted); margin-bottom: 2rem; }
+.not-found-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 3rem; }
+.not-found-links {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  font-size: 0.875rem;
+}
+.not-found-links a { color: var(--text-dim); transition: color 0.2s; }
+.not-found-links a:hover { color: var(--gold); }
+</style>

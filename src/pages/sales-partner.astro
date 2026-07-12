@@ -1,0 +1,272 @@
+---
+import Base from '../layouts/Base.astro';
+
+const tiers = [
+  { plan: 'Starter', pays: '$49/mo', rate: '20%', earn: '$9.80/mo' },
+  { plan: 'Growth', pays: '$129/mo', rate: '25%', earn: '$32.25/mo', badge: true },
+  { plan: 'Professional', pays: '$249/mo', rate: '25%', earn: '$62.25/mo' },
+  { plan: 'Enterprise', pays: 'Custom', rate: '20%', earn: 'Negotiated' },
+];
+
+const bonuses = [
+  { accounts: '5 Active Accounts', amount: '+$100', desc: 'One-time bonus paid with your next commission cycle.' },
+  { accounts: '10 Active Accounts', amount: '+$250', desc: "You're building a real book. Bonus paid next cycle." },
+  { accounts: '25 Active Accounts', amount: '+$750', desc: 'Mid-tier milestone — recurring income is now serious.' },
+  { accounts: '50 Active Accounts', amount: '+$1,500', desc: 'Plus a permanent rate bump to 30% on Growth and Professional plans.', highlight: true },
+];
+
+const scenarios = [
+  { label: 'Part-Time Hustler', earn: '~$322/mo', detail: '10 accounts on Growth plan' },
+  { label: 'Active Rep', earn: '~$806/mo', detail: '25 accounts on Growth plan' },
+  { label: 'Full-Time Closer', earn: '~$3,112/mo', detail: '50 accounts on Professional plan' },
+  { label: 'Power Rep', earn: '~$5,000–6,000/mo', detail: '100 accounts, mixed plans' },
+];
+---
+<Base
+  title="Sales Partner Program"
+  description="Earn recurring monthly commissions selling Kixlogic ATS. Commission-only, no cap, no ceiling."
+>
+  <section class="partner-hero section">
+    <div class="container partner-hero-inner">
+      <span class="tag">Sales Partner Program</span>
+      <h1>Earn every month.<br /><span class="accent">No cap. No ceiling.</span></h1>
+      <p>Sell Kixlogic ATS to small businesses and earn recurring monthly commissions for every account you hold.</p>
+      <a href="#apply" class="btn btn-primary">Apply to become a partner</a>
+    </div>
+  </section>
+
+  <section class="section-sm">
+    <div class="container">
+      <div class="stats-bar">
+        <div class="stat"><div class="stat-num">25%</div><div class="stat-label">Recurring commission</div></div>
+        <div class="stat"><div class="stat-num">$0</div><div class="stat-label">Cost to join</div></div>
+        <div class="stat"><div class="stat-num">∞</div><div class="stat-label">No earning ceiling</div></div>
+      </div>
+
+      <div class="section-header">
+        <span class="tag">Commission Structure</span>
+        <h2>What you earn per account</h2>
+        <p>Commissions are recurring — you earn every month the customer stays active.</p>
+      </div>
+
+      <table class="commission-table">
+        <thead>
+          <tr><th>Plan</th><th>Customer Pays</th><th>Your Rate</th><th>Your Monthly Earnings</th></tr>
+        </thead>
+        <tbody>
+          {tiers.map(t => (
+            <tr>
+              <td>
+                <span class="plan-name">{t.plan}</span>
+                {t.badge && <span class="plan-badge">Popular</span>}
+              </td>
+              <td>{t.pays}</td>
+              <td>{t.rate}</td>
+              <td><span class="earn-amount">{t.earn}</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <div class="section-header" style="margin-top:4rem">
+        <span class="tag">Bonus Milestones</span>
+        <h2>Hit milestones, earn bonuses</h2>
+      </div>
+      <div class="bonus-grid">
+        {bonuses.map(b => (
+          <div class={`bonus-card card ${b.highlight ? 'highlight' : ''}`}>
+            <div class="bonus-accounts">{b.accounts}</div>
+            <div class="bonus-amount">{b.amount}</div>
+            <p>{b.desc}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="section-header" style="margin-top:4rem">
+        <span class="tag">Earnings Potential</span>
+        <h2>What top partners make</h2>
+      </div>
+      <div class="scenarios-grid">
+        {scenarios.map(s => (
+          <div class="scenario-card card">
+            <div class="scenario-label">{s.label}</div>
+            <div class="scenario-earn">{s.earn}</div>
+            <p>{s.detail}</p>
+          </div>
+        ))}
+      </div>
+
+      <div id="apply" class="apply-section">
+        <div class="section-header">
+          <span class="tag">Apply</span>
+          <h2>Join the partner program</h2>
+          <p>Tell us about yourself and we'll be in touch within 2 business days.</p>
+        </div>
+        <form class="apply-form card" id="partnerForm">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="name">Full name</label>
+              <input type="text" id="name" name="name" required placeholder="Jane Smith" />
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required placeholder="jane@company.com" />
+            </div>
+            <div class="form-group">
+              <label for="company">Company / affiliation</label>
+              <input type="text" id="company" name="company" placeholder="Optional" />
+            </div>
+            <div class="form-group">
+              <label for="experience">Sales experience</label>
+              <select id="experience" name="experience">
+                <option value="hr-consultant">HR consultant</option>
+                <option value="insurance">Insurance / benefits broker</option>
+                <option value="saas">SaaS / software sales</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label for="message">Why do you want to partner with Kixlogic?</label>
+              <textarea id="message" name="message" rows="4" required placeholder="Tell us about your network and sales approach..."></textarea>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:1rem">Submit application</button>
+          <p id="formMsg" class="form-msg"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+document.getElementById('partnerForm')?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const form = e.target as HTMLFormElement;
+  const msg  = document.getElementById('formMsg') as HTMLElement;
+  const btn  = form.querySelector('button[type=submit]') as HTMLButtonElement;
+  btn.disabled = true;
+  btn.textContent = 'Submitting…';
+  try {
+    const data = Object.fromEntries(new FormData(form).entries());
+    data.subject = 'partnership';
+    const res = await fetch('https://api.kixlogic.com/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    if (res.ok) {
+      form.innerHTML = '<div class="form-success"><h3>Application received!</h3><p>We\'ll review your application and respond within 2 business days.</p></div>';
+    } else throw new Error();
+  } catch {
+    btn.disabled = false;
+    btn.textContent = 'Submit application';
+    msg.textContent = 'Could not submit right now. Email hello@kixlogic.com directly.';
+    msg.style.color = '#ff6b6b';
+  }
+});
+</script>
+
+<style>
+.partner-hero { padding-top: 6rem; text-align: center; }
+.partner-hero-inner { max-width: 640px; margin: 0 auto; }
+.partner-hero .tag { margin-bottom: 1.25rem; }
+.partner-hero h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+.accent { color: var(--gold); }
+.partner-hero p { color: var(--text-muted); font-size: 1.05rem; margin-bottom: 2rem; line-height: 1.7; }
+
+.stats-bar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin-bottom: 4rem;
+}
+.stat { background: var(--navy-2); padding: 2rem; text-align: center; }
+.stat-num { font-family: 'Syne', sans-serif; font-size: 2.2rem; font-weight: 800; color: var(--gold); }
+.stat-label { font-size: 0.82rem; color: var(--text-dim); margin-top: 0.4rem; text-transform: uppercase; letter-spacing: 1px; }
+
+.section-header { text-align: center; margin-bottom: 2.5rem; }
+.section-header .tag { margin-bottom: 0.75rem; }
+.section-header h2 { font-family: 'Syne', sans-serif; font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 800; margin-bottom: 0.5rem; }
+.section-header p { color: var(--text-muted); font-size: 0.95rem; max-width: 520px; margin: 0 auto; }
+
+.commission-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin-bottom: 1rem; }
+.commission-table th {
+  background: var(--surface-2);
+  padding: 0.85rem 1rem;
+  text-align: left;
+  font-weight: 600;
+  border: 1px solid var(--border);
+}
+.commission-table td { padding: 0.85rem 1rem; border: 1px solid var(--border); color: var(--text-muted); }
+.plan-name { font-weight: 600; color: var(--text); }
+.plan-badge {
+  font-size: 0.65rem;
+  background: var(--gold-dim);
+  color: var(--gold);
+  padding: 0.15rem 0.5rem;
+  border-radius: 99px;
+  margin-left: 0.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.earn-amount { color: var(--gold); font-weight: 700; }
+
+.bonus-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; margin-bottom: 2rem; }
+.bonus-card { text-align: center; }
+.bonus-card.highlight { border-color: var(--border-gold); background: linear-gradient(135deg, rgba(20,184,148,0.06), var(--surface)); }
+.bonus-accounts { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+.bonus-amount { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; color: var(--gold); margin-bottom: 0.5rem; }
+.bonus-card p { font-size: 0.85rem; color: var(--text-dim); }
+
+.scenarios-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 4rem; }
+.scenario-card { text-align: center; }
+.scenario-label { font-size: 0.8rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; }
+.scenario-earn { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--gold); margin-bottom: 0.5rem; }
+.scenario-card p { font-size: 0.8rem; color: var(--text-muted); }
+
+.apply-section { max-width: 640px; margin: 0 auto; padding-top: 2rem; }
+.apply-form { display: flex; flex-direction: column; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+.form-group.full { grid-column: 1 / -1; }
+.form-group label { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); }
+.form-group input,
+.form-group select,
+.form-group textarea {
+  background: var(--navy);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  padding: 0.75rem 1rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--border-gold);
+}
+.form-msg { font-size: 0.85rem; text-align: center; min-height: 1rem; margin-top: 0.75rem; }
+.form-success { text-align: center; padding: 2rem; }
+.form-success h3 { font-family: 'Syne', sans-serif; color: var(--gold); margin-bottom: 0.5rem; }
+.form-success p { color: var(--text-muted); }
+
+@media (max-width: 800px) {
+  .stats-bar { grid-template-columns: 1fr; }
+  .bonus-grid { grid-template-columns: 1fr; }
+  .scenarios-grid { grid-template-columns: 1fr 1fr; }
+  .form-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) { .scenarios-grid { grid-template-columns: 1fr; } }
+</style>

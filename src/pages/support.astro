@@ -1,0 +1,171 @@
+---
+import Base from '../layouts/Base.astro';
+
+const contacts = [
+  {
+    title: 'Email Support',
+    desc: 'General questions, billing, and account help. We respond within one business day.',
+    action: 'support@kixlogic.com',
+    href: 'mailto:support@kixlogic.com',
+    primary: true,
+  },
+  {
+    title: 'Sales & Demos',
+    desc: 'Want a walkthrough of Kixlogic WIP? 30-minute demo with a live account.',
+    action: 'hello@kixlogic.com',
+    href: 'mailto:hello@kixlogic.com',
+    primary: false,
+  },
+  {
+    title: 'Documentation',
+    desc: 'In-app help, setup guides, and feature documentation inside your dashboard.',
+    action: 'Open dashboard',
+    href: 'https://app.kixlogic.com/dashboard',
+    primary: false,
+  },
+];
+
+const faqs = [
+  { q: 'How do I reset my password?', a: 'On the login screen, click "Forgot password" and enter your email. You\'ll receive a reset link within a few minutes.' },
+  { q: 'How do I invite a recruiter?', a: 'Go to Settings → Recruiters → Invite. Enter their email and assign a role (Admin or Recruiter).' },
+  { q: 'How do I set up my careers page?', a: 'Settings → Branding. Upload your logo, set colors, and your careers page is live at your tenant URL immediately.' },
+  { q: 'How do I cancel my subscription?', a: 'Dashboard → Settings → Billing → Manage subscription. Cancel anytime — takes effect at end of billing period.' },
+  { q: 'What are your support hours?', a: 'Email support: Monday–Friday, 9am–6pm ET. Professional and Enterprise plans receive priority response within 24 hours.' },
+];
+
+const sla = [
+  { plan: 'Starter', channel: 'Email', response: '2 business days' },
+  { plan: 'Growth', channel: 'Email', response: '1 business day' },
+  { plan: 'Professional', channel: 'Email (priority)', response: '24 hours' },
+  { plan: 'Enterprise', channel: 'Dedicated contact', response: 'Same business day' },
+];
+---
+<Base
+  title="Support"
+  description="Get help with Kixlogic ATS. Email support, documentation, and response times by plan."
+>
+  <section class="support-page section">
+    <div class="container">
+      <header class="support-header">
+        <span class="tag">Support</span>
+        <h1>We're here to help</h1>
+        <p>Questions about setup, billing, or features? Reach out — we respond fast.</p>
+      </header>
+
+      <div class="contact-grid">
+        {contacts.map(c => (
+          <div class="contact-card card">
+            <h3>{c.title}</h3>
+            <p>{c.desc}</p>
+            <a href={c.href} class={`btn ${c.primary ? 'btn-primary' : 'btn-outline'}`}>{c.action}</a>
+          </div>
+        ))}
+      </div>
+
+      <div class="sla-section">
+        <h2>Response times by plan</h2>
+        <table>
+          <thead>
+            <tr><th>Plan</th><th>Channel</th><th>Target response</th></tr>
+          </thead>
+          <tbody>
+            {sla.map(row => (
+              <tr>
+                <td>{row.plan}</td>
+                <td>{row.channel}</td>
+                <td>{row.response}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="faq-section">
+        <h2>Common questions</h2>
+        {faqs.map(f => (
+          <details>
+            <summary>{f.q}</summary>
+            <div class="faq-body">{f.a}</div>
+          </details>
+        ))}
+      </div>
+
+      <div class="support-cta">
+        <p>Can't find what you need? <a href="/contact">Send us a message</a> or email <a href="mailto:support@kixlogic.com">support@kixlogic.com</a>.</p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+.support-page { padding-top: 5rem; }
+.support-header { text-align: center; margin-bottom: 3rem; }
+.support-header .tag { margin-bottom: 1rem; }
+.support-header h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  margin-bottom: 0.75rem;
+}
+.support-header p { color: var(--text-muted); font-size: 1.05rem; }
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 4rem;
+}
+.contact-card { text-align: center; display: flex; flex-direction: column; gap: 0.75rem; align-items: center; }
+.contact-card h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; }
+.contact-card p { font-size: 0.85rem; color: var(--text-muted); flex: 1; line-height: 1.6; }
+
+.sla-section { margin-bottom: 4rem; }
+.sla-section h2, .faq-section h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+th {
+  background: var(--surface-2);
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+td {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+}
+
+.faq-section { margin-bottom: 3rem; }
+details {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 0.75rem;
+}
+details[open] { border-color: var(--border-gold); }
+summary {
+  padding: 1.1rem 1.4rem;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.925rem;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+}
+summary::-webkit-details-marker { display: none; }
+summary::after { content: '+'; color: var(--gold); font-size: 1.25rem; }
+details[open] summary::after { content: '−'; }
+.faq-body { padding: 0 1.4rem 1.25rem; font-size: 0.875rem; color: var(--text-muted); line-height: 1.7; }
+
+.support-cta { text-align: center; }
+.support-cta p { font-size: 0.9rem; color: var(--text-muted); }
+.support-cta a { color: var(--gold); font-weight: 600; }
+
+@media (max-width: 800px) { .contact-grid { grid-template-columns: 1fr; } }
+</style>
