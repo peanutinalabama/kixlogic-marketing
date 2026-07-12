@@ -31,7 +31,7 @@ const { title, description, effectiveDate = 'April 2, 2026' } = Astro.props;
 </Base>
 
 <style>
-.legal-page { padding-top: 5rem; }
+.legal-page { padding-top: 2rem; }
 .legal-inner { max-width: 800px; margin: 0 auto; }
 .legal-header { margin-bottom: 2.5rem; }
 .legal-header .breadcrumb {
@@ -44,9 +44,8 @@ const { title, description, effectiveDate = 'April 2, 2026' } = Astro.props;
 }
 .legal-header .breadcrumb:hover { color: var(--gold); }
 .legal-header h1 {
-  font-family: 'Syne', sans-serif;
   font-size: clamp(2rem, 4vw, 2.75rem);
-  font-weight: 800;
+  font-weight: 600;
   letter-spacing: -0.025em;
   margin-bottom: 0.75rem;
 }
@@ -54,9 +53,8 @@ const { title, description, effectiveDate = 'April 2, 2026' } = Astro.props;
 .legal-meta a { color: var(--gold); font-weight: 600; }
 
 :global(.legal-prose h2) {
-  font-family: 'Syne', sans-serif;
   font-size: 1.15rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--text);
   margin: 2.25rem 0 0.75rem;
   padding-top: 0.5rem;

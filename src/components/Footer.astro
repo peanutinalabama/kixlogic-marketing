@@ -1,118 +1,175 @@
 ---
 const year = new Date().getFullYear();
+
+const cols = [
+  {
+    title: "What's new",
+    links: [
+      { href: '/ats/', label: 'Kixlogic ATS' },
+      { href: '/#products', label: 'Renumify (coming soon)' },
+      { href: '/pricing/', label: 'Pricing updates' },
+    ],
+  },
+  {
+    title: 'Products',
+    links: [
+      { href: '/ats/', label: 'Kixlogic ATS' },
+      { href: '/comp/', label: 'Renumify' },
+      { href: '/pricing/', label: 'Plans & pricing' },
+    ],
+  },
+  {
+    title: 'Company',
+    links: [
+      { href: '/about/', label: 'About Kixlogic' },
+      { href: '/contact/', label: 'Contact us' },
+      { href: '/sales-partner/', label: 'Sales partners' },
+    ],
+  },
+  {
+    title: 'Resources',
+    links: [
+      { href: '/support/', label: 'Support' },
+      { href: '/security/', label: 'Security' },
+      { href: 'https://app.kixlogic.com/dashboard', label: 'Sign in' },
+    ],
+  },
+  {
+    title: 'Legal',
+    links: [
+      { href: '/privacy/', label: 'Privacy' },
+      { href: '/terms/', label: 'Terms of use' },
+      { href: '/security/', label: 'Trust center' },
+    ],
+  },
+];
 ---
 
-<footer>
-  <div class="container footer-grid">
-    <div class="footer-brand">
-      <a href="/" class="footer-logo" aria-label="Kixlogic home">
-        <img src="/Kixlogo-light.png" alt="Kixlogic" width="200" height="60" />
-      </a>
-      <div class="footer-copy">© {year} Kixlogic, LLC. All rights reserved.</div>
-      <div class="footer-legal">
-        <a href="/terms/">Terms of Service</a>
-        <span>·</span>
-        <a href="/privacy/">Privacy Policy</a>
-        <span>·</span>
-        <a href="/support/">Support</a>
-        <span>·</span>
-        <a href="/security/">Security</a>
-        <span>·</span>
-        <a href="/sales-partner/">Sales Partners</a>
+<footer class="site-footer">
+  <div class="container footer-main">
+    <div class="footer-follow">
+      <span class="footer-follow-label">Follow Kixlogic</span>
+      <div class="footer-social">
+        <a href="https://www.linkedin.com/company/112615588/" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="https://x.com/KixlogicATS" target="_blank" rel="noopener" aria-label="X">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.736-8.856L1.254 2.25H8.08l4.253 5.622 5.91-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <a href="https://www.facebook.com/people/Kixlogic-ATS/61590952245940/" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
       </div>
     </div>
 
-    <div class="footer-col">
-      <div class="footer-col-title">Products</div>
-      <a href="/ats/" class="footer-link footer-link-dot">
-        <span class="dot dot-teal"></span>Kixlogic ATS
-      </a>
-      <a href="/#products" class="footer-link footer-link-dot">
-        <span class="dot dot-indigo"></span>Renumify <span class="soon">SOON</span>
-      </a>
+    <div class="footer-cols">
+      {cols.map(col => (
+        <div class="footer-col">
+          <div class="footer-col-title">{col.title}</div>
+          {col.links.map(l => (
+            <a href={l.href} class="footer-link">{l.label}</a>
+          ))}
+        </div>
+      ))}
     </div>
+  </div>
 
-    <div class="footer-col">
-      <div class="footer-col-title">Company</div>
-      <a href="/" class="footer-link">Home</a>
-      <a href="/about/" class="footer-link">About</a>
-      <a href="/contact/" class="footer-link">Contact</a>
-    </div>
-
-    <div class="footer-col">
-      <div class="footer-col-title">Follow</div>
-      <a href="https://www.linkedin.com/company/112615588/" target="_blank" rel="noopener" class="footer-link footer-social">
-        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-        LinkedIn
-      </a>
-      <a href="https://x.com/KixlogicATS" target="_blank" rel="noopener" class="footer-link footer-social">
-        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.736-8.856L1.254 2.25H8.08l4.253 5.622 5.91-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-        X (Twitter)
-      </a>
-      <a href="https://www.facebook.com/people/Kixlogic-ATS/61590952245940/" target="_blank" rel="noopener" class="footer-link footer-social">
-        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-        Facebook
-      </a>
+  <div class="footer-bottom">
+    <div class="container footer-bottom-inner">
+      <div class="footer-bottom-left">
+        <img src="/Kixlogo-dark.png" alt="" width="80" height="17" class="footer-logo-sm" />
+        <span>English (United States)</span>
+      </div>
+      <div class="footer-bottom-links">
+        <a href="/contact/">Contact Kixlogic</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/terms/">Terms of use</a>
+        <a href="/security/">Security</a>
+        <span>© {year} Kixlogic, LLC</span>
+      </div>
     </div>
   </div>
 </footer>
 
 <style>
-footer {
+.site-footer {
+  background: var(--navy-2);
   border-top: 1px solid var(--border);
-  padding: 3rem 0;
-  position: relative;
-  z-index: 1;
+  margin-top: 2rem;
 }
-.footer-grid {
+.footer-main {
+  padding: 3rem 5% 2.5rem;
   display: grid;
-  grid-template-columns: 1fr auto auto auto;
+  grid-template-columns: 200px 1fr;
   gap: 3rem;
-  align-items: start;
 }
-.footer-logo img { height: 60px; width: auto; }
-.footer-copy { font-size: 0.8rem; color: var(--text-dim); margin-top: 0.35rem; }
-.footer-legal {
-  margin-top: 0.5rem;
+.footer-follow-label {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: var(--text);
+}
+.footer-social { display: flex; gap: 0.75rem; }
+.footer-social a {
+  color: var(--text-muted);
+  transition: color var(--transition);
+}
+.footer-social a:hover { color: var(--ms-blue); }
+
+.footer-cols {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.5rem;
+}
+.footer-col-title {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.65rem;
+}
+.footer-col { display: flex; flex-direction: column; gap: 0.35rem; }
+.footer-link {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  transition: color var(--transition);
+}
+.footer-link:hover { color: var(--text); text-decoration: underline; }
+
+.footer-bottom {
+  background: var(--navy-3);
+  border-top: 1px solid var(--border);
+  padding: 0.85rem 0;
+}
+.footer-bottom-inner {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   gap: 1rem;
   flex-wrap: wrap;
-  align-items: center;
-}
-.footer-legal a {
   font-size: 0.75rem;
-  color: var(--text-dim);
-  transition: color var(--transition);
+  color: var(--text-muted);
 }
-.footer-legal a:hover { color: var(--gold); }
-.footer-legal span { color: var(--text-dim); font-size: 0.75rem; }
-.footer-col-title {
-  font-size: 0.7rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: var(--text-dim);
-  margin-bottom: 0.75rem;
+.footer-bottom-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
-.footer-col { display: flex; flex-direction: column; gap: 0.5rem; }
-.footer-link {
-  font-size: 0.825rem;
-  color: var(--text-dim);
-  transition: color var(--transition);
-  background: none;
-  border: none;
-  text-align: left;
-  cursor: pointer;
+.footer-logo-sm { height: 17px; width: auto; opacity: 0.85; }
+.footer-bottom-links {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
 }
-.footer-link:hover { color: var(--gold); }
-.footer-link-dot { display: flex; align-items: center; gap: 0.45rem; }
-.dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-.dot-teal { background: var(--gold); }
-.dot-indigo { background: var(--indigo-light); }
-.soon { font-size: 0.65rem; color: var(--text-dim); font-weight: 600; margin-left: 0.25rem; }
-.footer-social { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
+.footer-bottom-links a:hover { text-decoration: underline; color: var(--text); }
 
-@media (max-width: 900px) {
-  .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+@media (max-width: 1000px) {
+  .footer-main { grid-template-columns: 1fr; }
+  .footer-cols { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 600px) {
+  .footer-cols { grid-template-columns: repeat(2, 1fr); }
+  .footer-bottom-inner { flex-direction: column; align-items: flex-start; }
 }
 </style>

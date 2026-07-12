@@ -1,4 +1,5 @@
 ---
+import PromoBanner from '../components/PromoBanner.astro';
 import Nav    from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import CheckoutScript from '../components/CheckoutScript.astro';
@@ -9,6 +10,7 @@ interface Props {
   description: string;
   image?:      string;
   canonical?:  string;
+  hidePromo?:  boolean;
 }
 
 const {
@@ -16,6 +18,7 @@ const {
   description,
   image     = '/og-default.png',
   canonical = Astro.url.href,
+  hidePromo = false,
 } = Astro.props;
 
 const fullTitle = title === 'Kixlogic' ? title : `${title} — Kixlogic`;
@@ -29,37 +32,25 @@ const fullTitle = title === 'Kixlogic' ? title : `${title} — Kixlogic`;
   <meta name="description" content={description} />
   <link rel="canonical" href={canonical} />
 
-  <!-- Favicon -->
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
 
-  <!-- Open Graph -->
   <meta property="og:type"        content="website" />
   <meta property="og:url"         content={canonical} />
   <meta property="og:title"       content={fullTitle} />
   <meta property="og:description" content={description} />
   <meta property="og:image"       content={new URL(image, Astro.site).href} />
 
-  <!-- Twitter Card -->
   <meta name="twitter:card"        content="summary_large_image" />
   <meta name="twitter:title"       content={fullTitle} />
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image"       content={new URL(image, Astro.site).href} />
-
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
 </head>
 <body>
-  <!-- Ambient orbs -->
-  <div class="orb orb-1" aria-hidden="true"></div>
-  <div class="orb orb-2" aria-hidden="true"></div>
-  <div class="orb orb-3" aria-hidden="true"></div>
-
+  {!hidePromo && <PromoBanner />}
   <Nav />
 
-  <main style="padding-top:68px">
+  <main>
     <slot />
   </main>
 

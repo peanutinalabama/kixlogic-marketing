@@ -2,150 +2,148 @@
 const pathname = Astro.url.pathname;
 const isActive = (path: string) =>
   path === '/' ? pathname === '/' : pathname === path || pathname.startsWith(path + '/');
+
+const links = [
+  { href: '/ats/', label: 'Kixlogic ATS' },
+  { href: '/pricing/', label: 'Pricing' },
+  { href: '/about/', label: 'About' },
+  { href: '/contact/', label: 'Contact' },
+];
 ---
 
-<nav id="nav">
+<header id="nav">
   <div class="nav-inner container">
     <a href="/" class="nav-logo" aria-label="Kixlogic home">
-      <img src="/Kixlogo-light.png" alt="Kixlogic" width="160" height="48" />
+      <img src="/Kixlogo-dark.png" alt="Kixlogic" width="108" height="23" />
     </a>
 
-    <div class="nav-links" id="navLinks">
-      <a href="/" class={`nav-link ${isActive('/') && pathname === '/' ? 'active' : ''}`}>Home</a>
-      <a href="/ats/" class={`nav-link ${isActive('/ats') ? 'active' : ''}`}>Kixlogic ATS</a>
-      <a href="/pricing/" class={`nav-link ${isActive('/pricing') ? 'active' : ''}`}>Pricing</a>
-      <a href="/about/" class={`nav-link ${isActive('/about') ? 'active' : ''}`}>About</a>
-      <a href="/contact/" class={`nav-link ${isActive('/contact') ? 'active' : ''}`}>Contact</a>
-    </div>
+    <nav class="nav-links" id="navLinks" aria-label="Main">
+      {links.map(l => (
+        <a href={l.href} class={`nav-link ${isActive(l.href.replace(/\/$/, '') || '/') ? 'active' : ''}`}>{l.label}</a>
+      ))}
+    </nav>
 
-    <div class="nav-right">
-      <a href="/ats/" class="nav-cta">Our Products</a>
-      <button class="nav-mobile-btn" id="navToggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+    <div class="nav-utils">
+      <a href="/contact/" class="nav-util" aria-label="Contact">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21" stroke-linecap="round"/></svg>
+      </a>
+      <a href="https://app.kixlogic.com/dashboard" class="nav-util nav-signin">Sign in</a>
+      <button class="nav-hamburger" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round"/></svg>
+      </button>
     </div>
   </div>
-</nav>
+</header>
 
-<div class="nav-mobile-menu" id="mobileMenu">
-  <a href="/" class="nav-mobile-link">Home</a>
-  <a href="/ats/" class="nav-mobile-link">Kixlogic ATS</a>
-  <a href="/pricing/" class="nav-mobile-link">Pricing</a>
-  <a href="/about/" class="nav-mobile-link">About</a>
-  <a href="/contact/" class="nav-mobile-link">Contact</a>
+<div class="nav-mobile" id="mobileMenu" hidden>
+  <div class="container nav-mobile-inner">
+    {links.map(l => (
+      <a href={l.href} class="nav-mobile-link">{l.label}</a>
+    ))}
+    <a href="https://app.kixlogic.com/dashboard" class="nav-mobile-link nav-mobile-signin">Sign in</a>
+  </div>
 </div>
 
 <style>
 #nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
+  position: sticky;
+  top: 0;
   z-index: 100;
-  height: 68px;
-  background: rgba(7, 11, 20, 0.7);
-  backdrop-filter: blur(20px);
+  background: #fff;
   border-bottom: 1px solid var(--border);
 }
-#nav.scrolled { background: rgba(7, 11, 20, 0.95); }
 .nav-inner {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  display: flex;
   align-items: center;
-  height: 68px;
-  gap: 1rem;
+  height: 54px;
+  gap: 1.5rem;
 }
-.nav-logo { justify-self: start; }
-.nav-logo img { height: 48px; width: auto; }
+.nav-logo { flex-shrink: 0; display: flex; align-items: center; }
+.nav-logo img { height: 23px; width: auto; }
+
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 0.25rem;
-  justify-self: center;
-}
-.nav-right {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  justify-self: end;
+  gap: 0;
+  flex: 1;
 }
 .nav-link {
-  padding: 0.45rem 0.85rem;
-  border-radius: 8px;
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--text-muted);
-  transition: color var(--transition), background var(--transition);
-}
-.nav-link:hover, .nav-link.active {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.8125rem;
   color: var(--text);
-  background: var(--surface);
+  border-bottom: 2px solid transparent;
+  transition: border-color var(--transition), color var(--transition);
 }
-.nav-cta {
-  margin-left: 0.5rem;
-  padding: 0.5rem 1.25rem;
-  background: var(--gold);
-  color: #061820;
-  border-radius: 8px;
-  font-weight: 700;
-  font-size: 0.875rem;
-  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+.nav-link:hover { border-bottom-color: var(--border); }
+.nav-link.active { border-bottom-color: var(--ms-blue); }
+
+.nav-utils {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-left: auto;
 }
-.nav-cta:hover {
-  background: var(--gold-light);
-  transform: translateY(-1px);
-  box-shadow: 0 8px 25px rgba(20, 184, 148, 0.3);
+.nav-util {
+  display: flex;
+  align-items: center;
+  color: var(--text);
+  padding: 0.35rem;
+  font-size: 0.8125rem;
+  transition: color var(--transition);
 }
-.nav-mobile-btn {
+.nav-util:hover { color: var(--ms-blue); }
+.nav-signin { padding: 0.35rem 0.5rem; font-weight: 400; }
+
+.nav-hamburger {
   display: none;
   background: none;
   border: none;
   color: var(--text);
-  font-size: 1.5rem;
-  padding: 0.25rem;
   cursor: pointer;
+  padding: 0.35rem;
 }
-.nav-mobile-menu {
-  display: none;
-  position: fixed;
-  top: 68px; left: 0; right: 0;
-  background: rgba(7, 11, 20, 0.98);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
-  padding: 1rem 1.5rem 1.5rem;
-  flex-direction: column;
-  gap: 0.5rem;
-  z-index: 99;
-}
-.nav-mobile-menu.open { display: flex; }
-.nav-mobile-link {
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 500;
-  color: var(--text-muted);
-  transition: color var(--transition), background var(--transition);
-}
-.nav-mobile-link:hover { color: var(--text); background: var(--surface); }
 
-@media (max-width: 900px) {
-  .nav-inner { grid-template-columns: 1fr auto; }
-  .nav-links, .nav-cta { display: none; }
-  .nav-mobile-btn { display: block; }
+.nav-mobile {
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  padding: 0.75rem 0 1rem;
+}
+.nav-mobile[hidden] { display: none; }
+.nav-mobile:not([hidden]) { display: block; }
+.nav-mobile-inner { display: flex; flex-direction: column; gap: 0.25rem; }
+.nav-mobile-link {
+  padding: 0.65rem 0;
+  font-size: 0.9375rem;
+  color: var(--text);
+  border-bottom: 1px solid var(--navy-2);
+}
+.nav-mobile-signin { color: var(--ms-blue); font-weight: 600; border: none; }
+
+@media (max-width: 860px) {
+  .nav-links, .nav-signin { display: none; }
+  .nav-hamburger { display: flex; }
 }
 </style>
 
 <script>
 const toggle = document.getElementById('navToggle');
 const menu   = document.getElementById('mobileMenu');
-const nav    = document.getElementById('nav');
 
 toggle?.addEventListener('click', () => {
-  const open = menu?.classList.toggle('open');
-  toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  const open = menu?.hasAttribute('hidden');
+  if (open) {
+    menu?.removeAttribute('hidden');
+    toggle.setAttribute('aria-expanded', 'true');
+  } else {
+    menu?.setAttribute('hidden', '');
+    toggle.setAttribute('aria-expanded', 'false');
+  }
 });
 
 menu?.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', () => menu?.classList.remove('open'));
-});
-
-window.addEventListener('scroll', () => {
-  nav?.classList.toggle('scrolled', window.scrollY > 20);
+  link.addEventListener('click', () => {
+    menu?.setAttribute('hidden', '');
+    toggle?.setAttribute('aria-expanded', 'false');
+  });
 });
 </script>
