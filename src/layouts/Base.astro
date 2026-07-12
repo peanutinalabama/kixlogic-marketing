@@ -1,6 +1,7 @@
 ---
 import Nav    from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import CheckoutScript from '../components/CheckoutScript.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -58,10 +59,11 @@ const fullTitle = title === 'Kixlogic' ? title : `${title} — Kixlogic`;
 
   <Nav />
 
-  <main>
+  <main style="padding-top:68px">
     <slot />
   </main>
 
   <Footer />
+  <CheckoutScript />
 </body>
 </html>

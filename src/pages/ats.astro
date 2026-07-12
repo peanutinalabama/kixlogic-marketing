@@ -1,105 +1,91 @@
 ---
 import Base from '../layouts/Base.astro';
-
-const features = [
-  {
-    title:   'AI-powered candidate scoring',
-    desc:    'Every applicant is automatically scored against your job description. Drag-and-drop pipeline. Bulk actions. Review 50 candidates in the time it used to take to review 10.',
-    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="#14B894" stroke-width="1.5"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="#14B894" stroke-width="1.5" stroke-linecap="round"/><path d="M16 11l1.5 1.5L20 10" stroke="#14B894" stroke-width="1.5" stroke-linecap="round"/></svg>`,
-  },
-  {
-    title:   'Scientific candidate sourcing',
-    desc:    'Search academic databases, research networks, and the open web for passive candidates — scientists who aren\'t on LinkedIn but whose work fits your role.',
-    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="#14B894" stroke-width="1.5"/><path d="M16.5 16.5l4 4" stroke="#14B894" stroke-width="1.5" stroke-linecap="round"/><path d="M8 11h6M11 8v6" stroke="#14B894" stroke-width="1.2" stroke-linecap="round"/></svg>`,
-  },
-  {
-    title:   'AI job description builder',
-    desc:    'Generate life-sciences-specific JDs in seconds. Biotech, pharma, med device, and clinical research templates. Includes required skills, salary range, and equity guidance.',
-    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-5z" stroke="#14B894" stroke-width="1.5"/><path d="M14 3v5h5M9 13h6M9 17h4" stroke="#14B894" stroke-width="1.4" stroke-linecap="round"/></svg>`,
-  },
-  {
-    title:   'Team collaboration',
-    desc:    'Multi-user hiring teams with role-based access. Structured scorecards, interview guides, and @mention comments. Everyone sees the same candidate, in real time.',
-    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="7" r="3" stroke="#14B894" stroke-width="1.5"/><circle cx="16" cy="9" r="2.5" stroke="#14B894" stroke-width="1.5"/><path d="M2 19c0-3.3 3.1-6 7-6" stroke="#14B894" stroke-width="1.5" stroke-linecap="round"/><path d="M13 19c0-2.8 2.2-5 5-5s5 2.2 5 5" stroke="#14B894" stroke-width="1.3" stroke-linecap="round" opacity=".7"/></svg>`,
-  },
-  {
-    title:   'Offer & onboarding flow',
-    desc:    'Generate, send, and track offer letters from the same platform. E-signature built in. Candidate completes onboarding forms before day one.',
-    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="#14B894" stroke-width="1.5"/><path d="M3 9h18" stroke="#14B894" stroke-width="1.5"/><path d="M9 14h6" stroke="#14B894" stroke-width="1.4" stroke-linecap="round"/></svg>`,
-  },
-  {
-    title:   'ScientificGigs job board syndication',
-    desc:    'WIP tenant jobs automatically post to ScientificGigs.com — a dedicated life-sciences job board. Zero extra work. Broader reach for your open roles.',
-    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#14B894" stroke-width="1.5"/><path d="M12 3a9 9 0 0 1 6 15.7" stroke="#14B894" stroke-width="1.3" stroke-linecap="round" opacity=".5"/><path d="M3 10h18M3 14h18" stroke="#14B894" stroke-width="1.2" stroke-linecap="round" opacity=".4"/><path d="M12 3c-2.5 2.5-4 5.6-4 9s1.5 6.5 4 9" stroke="#14B894" stroke-width="1.3"/></svg>`,
-  },
-];
-
-const stages = ['Post job', 'Source & apply', 'Screen & score', 'Interview', 'Offer', 'Onboard'];
+import { atsFeatures, tagLabels, steps } from '../data/ats-features';
 ---
 <Base
   title="Kixlogic ATS"
-  description="Applicant tracking system purpose-built for life sciences. AI candidate scoring, scientific sourcing, JD builder, team collaboration, and offer management."
+  description="Kixlogic ATS is built for small and mid-sized businesses. AI resume scoring, advanced analytics, white-label careers pages, and more. Launch in 10 minutes from any browser."
 >
-  <!-- ── Hero ── -->
-  <section class="product-hero section">
-    <div class="container product-hero-inner">
-      <div class="product-hero-content">
-        <a href="/" class="breadcrumb">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M8 3L4 7l4 4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-          Kixlogic
-        </a>
-        <div class="hero-badge" style="margin:1rem 0">
-          <span class="tag">Kixlogic ATS</span>
-        </div>
-        <h1>The ATS built for<br /><span class="accent">scientific talent</span></h1>
-        <p>
-          Most ATS platforms were designed for volume — retail, logistics, call centers.
-          Kixlogic ATS was designed for specificity: finding, evaluating, and hiring the specialized
-          scientists that life sciences organizations depend on.
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-content">
+        <div class="hero-eyebrow">✦ 100% cloud &nbsp;·&nbsp; No software to install</div>
+        <h1 class="hero-title">
+          Hire smarter.<br />
+          <span class="line-2">Your way.</span>
+        </h1>
+        <p class="hero-sub">
+          Kixlogic ATS is built for small and mid-sized businesses. Launch in 10 minutes from any browser — AI resume scoring, advanced analytics, white-label careers pages, and more. No software to install, no IT team required.
         </p>
         <div class="hero-actions">
-          <a href="https://app.kixlogic.com/dashboard" class="btn btn-primary">Start free trial</a>
-          <a href="/pricing" class="btn btn-outline">See pricing</a>
+          <button type="button" class="btn btn-primary btn-lg" data-checkout="growth">Start Free Trial →</button>
+          <a href="#ats-features" class="btn btn-outline btn-lg">See All Features</a>
         </div>
-        <p style="font-size:0.8rem;color:var(--text-dim);margin-top:0.5rem">14-day free trial · No credit card</p>
-      </div>
-      <div class="product-hero-visual" aria-hidden="true">
-        <div class="pipeline-preview">
-          <div class="pp-header">
-            <span>Candidate Pipeline</span>
-            <span style="color:var(--gold);font-size:0.75rem;font-weight:600">8 open roles</span>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <div class="hero-stat-num">14-day</div>
+            <div class="hero-stat-label">Free trial</div>
           </div>
-          {stages.map((s, i) => (
-            <div class={`pp-stage ${i === 3 ? 'active' : ''}`}>
-              <span class="pp-dot"></span>
-              <span class="pp-label">{s}</span>
-              {i < stages.length - 1 && <div class="pp-line"></div>}
+          <div class="hero-stat">
+            <div class="hero-stat-num">&lt;10min</div>
+            <div class="hero-stat-label">Setup time</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-num">AI</div>
+            <div class="hero-stat-label">Resume scoring</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual" aria-hidden="true">
+        <div class="dashboard-mock">
+          <div class="mock-bar">
+            <div class="mock-dots">
+              <span class="mock-dot red"></span>
+              <span class="mock-dot yellow"></span>
+              <span class="mock-dot green"></span>
             </div>
-          ))}
-          <div style="margin-top:1.5rem;display:flex;flex-direction:column;gap:0.5rem">
-            <div class="candidate-row highlighted">
-              <div class="c-avatar">JP</div>
-              <div>
-                <div class="c-name">J. Patel</div>
-                <div class="c-role">Sr. Bioinformatics Scientist</div>
-              </div>
-              <div class="c-score teal">94</div>
+            <div class="mock-title">Kixlogic ATS · Applications</div>
+          </div>
+          <div class="mock-body">
+            <div class="mock-nav">
+              <div class="mock-nav-item">📊 Overview</div>
+              <div class="mock-nav-item">💼 Job Postings</div>
+              <div class="mock-nav-item active">👥 Applications</div>
+              <div class="mock-nav-item">🗂️ Pipeline</div>
+              <div class="mock-nav-item">🔍 Resume Search</div>
+              <div class="mock-nav-item">📈 Reports</div>
             </div>
-            <div class="candidate-row">
-              <div class="c-avatar">MC</div>
-              <div>
-                <div class="c-name">M. Chen</div>
-                <div class="c-role">Regulatory Affairs Dir.</div>
+            <div class="mock-content">
+              <div class="mock-card">
+                <div class="mock-row">
+                  <div class="mock-avatar"></div>
+                  <div class="mock-lines">
+                    <div class="mock-line w60"></div>
+                    <div class="mock-line w40 gold"></div>
+                  </div>
+                  <span class="mock-badge green">New</span>
+                </div>
+                <div class="mock-score">
+                  <div class="mock-score-label">AI Resume Match</div>
+                  <div class="mock-score-meta">
+                    <span class="mock-stars">★★★★<span class="dim">★</span></span>
+                    <span class="match-pct">82% match</span>
+                  </div>
+                  <div class="mock-score-bar-bg"><div class="mock-score-bar"></div></div>
+                </div>
               </div>
-              <div class="c-score indigo">88</div>
-            </div>
-            <div class="candidate-row">
-              <div class="c-avatar">RO</div>
-              <div>
-                <div class="c-name">R. Okonkwo</div>
-                <div class="c-role">Clinical Research Assoc. II</div>
+              <div class="mock-card faded">
+                <div class="mock-row">
+                  <div class="mock-avatar purple"></div>
+                  <div class="mock-lines">
+                    <div class="mock-line w55"></div>
+                    <div class="mock-line w35"></div>
+                  </div>
+                  <span class="mock-badge blue">Review</span>
+                </div>
               </div>
-              <div class="c-score teal">82</div>
             </div>
           </div>
         </div>
@@ -107,42 +93,76 @@ const stages = ['Post job', 'Source & apply', 'Screen & score', 'Interview', 'Of
     </div>
   </section>
 
-  <!-- ── Features ── -->
-  <section class="section">
+  <!-- Features -->
+  <section class="section" id="ats-features">
     <div class="container">
-      <div class="section-header">
-        <span class="tag">Features</span>
-        <h2>Everything your hiring team needs</h2>
-        <p>One platform for the entire scientific recruiting workflow — from job post to first day.</p>
-      </div>
+      <span class="section-tag">✦ Full feature breakdown</span>
+      <h2 class="section-title">Everything Kixlogic ATS can do</h2>
+      <p class="section-sub">Four plans, one platform. Start lean and scale up as your hiring grows — from Starter through Enterprise.</p>
+
       <div class="features-grid">
-        {features.map(f => (
-          <div class="feature-card card">
-            <div class="feature-icon" set:html={f.icon} />
-            <div>
-              <h3>{f.title}</h3>
-              <p>{f.desc}</p>
-            </div>
+        {atsFeatures.map(f => (
+          <div class={`feature-card ${f.wide ? 'wide' : ''}`}>
+            <div class="feature-icon">{f.icon}</div>
+            <div class="feature-title">{f.title}</div>
+            <div class="feature-desc">{f.desc}</div>
+            <div class={`feature-tag tag-${f.tag}`}>{tagLabels[f.tag]}</div>
+          </div>
+        ))}
+      </div>
+
+      <p class="feature-footnote">
+        * Search engine indexing depends on each crawler's schedule (typically 1–2 weeks for new sites). Other job boards (Indeed, LinkedIn, ZipRecruiter) require their own paid or free employer accounts.
+      </p>
+
+      <div class="teams-banner">
+        <div>
+          <span class="section-tag">✦ Included with Growth+</span>
+          <div class="teams-title">Manager Review Workflow</div>
+          <div class="teams-desc">
+            Forward applicants directly to hiring managers with one click. A full application summary — name, contact info, employment history, skills, and availability — lands in their inbox instantly. Every send is automatically logged in the applicant record with a timestamp. No logins required for the manager.
+          </div>
+          <a href="/pricing/" class="btn btn-outline" style="margin-top:1.5rem">See Pricing →</a>
+        </div>
+        <div class="teams-logo">📤</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="section steps-section">
+    <div class="container">
+      <div class="text-center">
+        <span class="section-tag">✦ Simple by design</span>
+      </div>
+      <h2 class="section-title text-center">Up and running in minutes</h2>
+      <p class="section-sub text-center mx-auto">Sign up from any browser — you'll be posting jobs and reviewing applications in under 10 minutes.</p>
+      <div class="steps">
+        {steps.map(s => (
+          <div class="step">
+            <div class="step-num">{s.num}</div>
+            <div class="step-title">{s.title}</div>
+            <div class="step-desc">{s.desc}</div>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- ── Screenshots ── -->
+  <!-- Screenshots -->
   <section class="section">
     <div class="container">
-      <div class="section-header">
-        <span class="tag">Product</span>
-        <h2>See it in action</h2>
-        <p>The dashboard your hiring team actually wants to use.</p>
+      <div class="text-center">
+        <span class="section-tag">✦ Product</span>
       </div>
+      <h2 class="section-title text-center">See it in action</h2>
+      <p class="section-sub text-center mx-auto">The dashboard your hiring team actually wants to use.</p>
       <div class="screenshots-grid">
-        <figure class="screenshot-card card">
+        <figure class="screenshot-card">
           <img src="/images/dashboard.png" alt="Kixlogic ATS dashboard overview" loading="lazy" width="1200" height="675" />
           <figcaption>Dashboard overview — open roles, pipeline stats, and recent activity</figcaption>
         </figure>
-        <figure class="screenshot-card card">
+        <figure class="screenshot-card">
           <img src="/images/pipeline.png" alt="Kixlogic ATS candidate pipeline" loading="lazy" width="1200" height="675" />
           <figcaption>Candidate pipeline — drag-and-drop stages with AI scores</figcaption>
         </figure>
@@ -150,204 +170,337 @@ const stages = ['Post job', 'Source & apply', 'Screen & score', 'Interview', 'Of
     </div>
   </section>
 
-  <!-- ── CTA ── -->
-  <section class="section-sm cta-banner">
-    <div class="container cta-inner">
-      <div>
-        <h2>Start hiring better scientists today</h2>
-        <p>Join life sciences teams using Kixlogic ATS to cut time-to-hire and improve offer acceptance.</p>
-      </div>
-      <div class="cta-actions">
-        <a href="https://app.kixlogic.com/dashboard" class="btn btn-primary">Start free trial</a>
-        <a href="/pricing" class="btn btn-outline">View pricing</a>
-      </div>
+  <!-- CTA -->
+  <section class="section cta-section">
+    <div class="container text-center">
+      <span class="section-tag">✦ Start today</span>
+      <h2 class="section-title">Ready to hire smarter?</h2>
+      <p class="section-sub mx-auto">Start your 14-day free trial today. Everything runs in the cloud — you'll be up and running in minutes.</p>
+      <button type="button" class="btn btn-primary btn-lg" data-checkout="growth">Start Free Trial →</button>
+      <p class="cta-note">Card required. Cancel before trial ends and pay nothing.</p>
     </div>
   </section>
 </Base>
 
 <style>
-.product-hero { padding-top: 5rem; }
-.product-hero-inner {
+.hero {
+  padding: 4rem 0;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+.hero-inner {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
   align-items: center;
 }
-.breadcrumb {
+.hero-eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 0.3rem;
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  transition: color 0.2s;
+  padding: 0.35rem 1rem;
+  border-radius: 99px;
+  background: var(--gold-dim);
+  border: 1px solid var(--border-gold);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 1.5rem;
 }
-.breadcrumb:hover { color: var(--gold); }
-.product-hero-content h1 {
+.hero-title {
   font-family: 'Syne', sans-serif;
-  font-size: clamp(2rem, 4vw, 3.25rem);
   font-weight: 800;
-  letter-spacing: -0.025em;
-  line-height: 1.15;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  line-height: 1.1;
+  letter-spacing: -2px;
   margin-bottom: 1.25rem;
 }
-.accent { color: var(--gold); }
-.product-hero-content p {
-  color: var(--text-muted);
-  font-size: 1.05rem;
-  line-height: 1.7;
-  margin-bottom: 2rem;
+.line-2 {
+  background: linear-gradient(135deg, var(--gold), var(--gold-light), #fff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
-.hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+.hero-sub {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  line-height: 1.75;
+  margin-bottom: 2rem;
+  max-width: 480px;
+}
+.hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+.btn-lg { padding: 0.95rem 2.25rem; font-size: 1rem; border-radius: 12px; }
+.hero-stats { display: flex; gap: 2rem; flex-wrap: wrap; }
+.hero-stat-num {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1.5rem;
+  color: var(--gold);
+  line-height: 1;
+}
+.hero-stat-label { font-size: 0.78rem; color: var(--text-dim); margin-top: 2px; }
 
-/* Pipeline visual */
-.product-hero-visual {}
-.pipeline-preview {
+.hero-visual { position: relative; }
+.hero-visual::before {
+  content: '';
+  position: absolute;
+  inset: -40px;
+  background: radial-gradient(ellipse at center, rgba(20,184,148,0.08), transparent 70%);
+  pointer-events: none;
+  z-index: -1;
+}
+.dashboard-mock {
   background: var(--navy-2);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  padding: 1.5rem;
+  overflow: hidden;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+  animation: mockFloat 6s ease-in-out infinite;
 }
-.pp-header {
+@keyframes mockFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+.mock-bar {
+  background: var(--navy-3);
+  padding: 0.65rem 1rem;
   display: flex;
-  justify-content: space-between;
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--text);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  margin-bottom: 1.25rem;
-  padding-bottom: 0.875rem;
+  align-items: center;
+  gap: 0.5rem;
   border-bottom: 1px solid var(--border);
 }
-.pp-stage {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.375rem 0;
+.mock-dots { display: flex; gap: 5px; }
+.mock-dot { width: 10px; height: 10px; border-radius: 50%; }
+.mock-dot.red { background: #ef4444; }
+.mock-dot.yellow { background: #f59e0b; }
+.mock-dot.green { background: #22c55e; }
+.mock-title { font-size: 0.72rem; color: var(--text-dim); margin-left: 0.5rem; font-family: 'Syne', sans-serif; }
+.mock-body { padding: 1rem; display: grid; grid-template-columns: 140px 1fr; gap: 0.75rem; min-height: 280px; }
+.mock-nav { display: flex; flex-direction: column; gap: 0.25rem; }
+.mock-nav-item {
+  padding: 0.45rem 0.65rem;
+  border-radius: 7px;
+  font-size: 0.68rem;
+  color: var(--text-dim);
 }
-.pp-dot {
-  width: 10px; height: 10px;
-  border-radius: 50%;
-  background: var(--surface-2);
-  border: 2px solid var(--border);
-  flex-shrink: 0;
-  z-index: 1;
-}
-.pp-stage.active .pp-dot {
-  background: var(--gold);
-  border-color: var(--gold);
-  box-shadow: 0 0 0 4px var(--gold-dim);
-}
-.pp-label { font-size: 0.875rem; color: var(--text-muted); }
-.pp-stage.active .pp-label { color: var(--text); font-weight: 600; }
-.pp-line {
-  position: absolute;
-  left: 4.5px;
-  top: 100%;
-  width: 1px;
-  height: 100%;
-  background: var(--border);
-}
-
-.candidate-row {
-  display: flex;
-  align-items: center;
-  gap: 0.875rem;
-  padding: 0.625rem 0.875rem;
-  border-radius: 10px;
+.mock-nav-item.active { background: rgba(20,184,148,0.15); color: var(--gold); }
+.mock-content { display: flex; flex-direction: column; gap: 0.6rem; }
+.mock-card {
   background: var(--surface);
   border: 1px solid var(--border);
-}
-.candidate-row.highlighted {
-  border-color: var(--border-gold);
-  background: var(--gold-dim);
-}
-.c-avatar {
-  width: 32px; height: 32px;
   border-radius: 8px;
-  background: rgba(255,255,255,0.1);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.65rem;
-  font-weight: 700;
-  color: var(--text-muted);
+  padding: 0.75rem;
+}
+.mock-card.faded { opacity: 0.7; }
+.mock-row { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem; }
+.mock-avatar {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold), #2563eb);
   flex-shrink: 0;
 }
-.c-name { font-size: 0.8rem; font-weight: 600; color: var(--text); }
-.c-role { font-size: 0.7rem; color: var(--text-muted); }
-.c-score {
-  margin-left: auto;
+.mock-avatar.purple { background: linear-gradient(135deg, #7c3aed, #2563eb); }
+.mock-lines { flex: 1; }
+.mock-line { height: 8px; border-radius: 4px; background: var(--surface-2); margin-bottom: 5px; }
+.mock-line.w60 { width: 60%; }
+.mock-line.w55 { width: 55%; }
+.mock-line.w40 { width: 40%; }
+.mock-line.w35 { width: 35%; }
+.mock-line.gold { background: rgba(20,184,148,0.15); }
+.mock-badge { font-size: 0.6rem; font-weight: 700; padding: 2px 6px; border-radius: 4px; }
+.mock-badge.green { background: rgba(34,197,94,0.15); color: #4ade80; }
+.mock-badge.blue { background: rgba(37,99,235,0.15); color: #60a5fa; }
+.mock-score {
+  background: rgba(20,184,148,0.1);
+  border: 1px solid var(--border-gold);
+  border-radius: 6px;
+  padding: 0.5rem;
+}
+.mock-score-label { font-size: 0.6rem; color: var(--text-dim); margin-bottom: 0.25rem; }
+.mock-score-meta { display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.3rem; }
+.mock-stars { font-size: 0.65rem; }
+.mock-stars .dim { color: var(--text-dim); }
+.match-pct { font-size: 0.65rem; color: var(--gold); font-weight: 700; }
+.mock-score-bar-bg { height: 6px; background: var(--surface-2); border-radius: 3px; }
+.mock-score-bar { height: 6px; border-radius: 3px; background: linear-gradient(90deg, var(--gold), var(--gold-light)); width: 82%; }
+
+.section-tag {
+  display: inline-flex;
+  padding: 0.3rem 0.85rem;
+  border-radius: 99px;
+  background: var(--gold-dim);
+  border: 1px solid var(--border-gold);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 1.25rem;
+}
+.section-title {
   font-family: 'Syne', sans-serif;
   font-weight: 800;
-  font-size: 1.1rem;
+  font-size: clamp(2rem, 4vw, 3rem);
+  letter-spacing: -1px;
+  margin-bottom: 1rem;
 }
-.c-score.teal   { color: var(--gold); }
-.c-score.indigo { color: var(--indigo-light); }
+.section-sub {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  max-width: 560px;
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+}
+.text-center { text-align: center; }
+.mx-auto { margin-left: auto; margin-right: auto; }
 
-/* Features */
 .features-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
+  margin-bottom: 1rem;
 }
 .feature-card {
-  display: flex;
-  gap: 1rem;
+  padding: 1.75rem;
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.feature-card:hover {
+  border-color: var(--border-gold);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+.feature-card.wide {
+  grid-column: span 2;
+  background: linear-gradient(135deg, rgba(20,184,148,0.08), rgba(10,95,117,0.08));
+  border-color: rgba(20,184,148,0.3);
 }
 .feature-icon {
-  width: 44px; height: 44px;
-  background: var(--surface-2);
-  border-radius: 11px;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
+  width: 48px; height: 48px;
+  border-radius: 12px;
+  background: var(--gold-dim);
+  border: 1px solid var(--border-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  margin-bottom: 1.1rem;
 }
-.feature-card h3 {
+.feature-title {
   font-family: 'Syne', sans-serif;
-  font-size: 1rem;
   font-weight: 700;
-  color: var(--text);
+  font-size: 1rem;
   margin-bottom: 0.5rem;
 }
-.feature-card p { font-size: 0.875rem; color: var(--text-muted); line-height: 1.6; }
+.feature-desc { font-size: 0.875rem; color: var(--text-muted); line-height: 1.65; }
+.feature-tag {
+  display: inline-block;
+  margin-top: 0.85rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.tag-starter { background: rgba(59,130,246,0.12); color: #60a5fa; }
+.tag-growth { background: rgba(20,184,148,0.12); color: #14B894; }
+.tag-professional { background: rgba(139,92,246,0.12); color: #a78bfa; }
+.feature-footnote {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  margin: 0.75rem 0 2rem;
+}
 
-/* CTA */
-.cta-banner { background: linear-gradient(135deg, rgba(20,184,148,0.08), rgba(99,102,241,0.08)); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-.cta-inner { display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
-.cta-inner h2 { font-family: 'Syne', sans-serif; font-size: 1.75rem; font-weight: 800; margin-bottom: 0.5rem; }
-.cta-inner p { color: var(--text-muted); }
-.cta-actions { display: flex; gap: 1rem; flex-shrink: 0; }
-.section-header { text-align: center; margin-bottom: 3.5rem; }
-.section-header .tag { margin-bottom: 1rem; }
-.section-header h2 { font-family: 'Syne', sans-serif; font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 800; letter-spacing: -0.025em; margin-bottom: 1rem; }
-.section-header p  { font-size: 1.05rem; color: var(--text-muted); max-width: 520px; margin: 0 auto; }
-
-.screenshots-grid {
+.teams-banner {
+  background: linear-gradient(135deg, rgba(37,99,235,0.1), rgba(20,184,148,0.05));
+  border: 1px solid rgba(37,99,235,0.2);
+  border-radius: var(--radius-lg);
+  padding: 3rem;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
+  grid-template-columns: 1fr auto;
+  gap: 2rem;
+  align-items: center;
 }
-.screenshot-card { padding: 0; overflow: hidden; }
-.screenshot-card img {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-bottom: 1px solid var(--border);
+.teams-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
 }
-.screenshot-card figcaption {
-  padding: 1rem 1.25rem;
-  font-size: 0.85rem;
-  color: var(--text-muted);
+.teams-desc { font-size: 0.925rem; color: var(--text-muted); line-height: 1.65; max-width: 520px; }
+.teams-logo {
+  width: 80px; height: 80px;
+  border-radius: 16px;
+  background: rgba(37,99,235,0.2);
+  border: 1px solid rgba(37,99,235,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
 }
+
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; position: relative; margin-top: 3rem; }
+.steps::before {
+  content: '';
+  position: absolute;
+  top: 32px; left: 10%; right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-gold), transparent);
+}
+.step { text-align: center; padding: 0 0.5rem; }
+.step-num {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  background: var(--gold-dim);
+  border: 1px solid var(--border-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1.25rem;
+  color: var(--gold);
+  margin: 0 auto 1rem;
+  position: relative;
+  z-index: 1;
+}
+.step-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem; margin-bottom: 0.4rem; }
+.step-desc { font-size: 0.825rem; color: var(--text-muted); line-height: 1.6; }
+
+.screenshots-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.screenshot-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.screenshot-card img { width: 100%; height: auto; display: block; border-bottom: 1px solid var(--border); }
+.screenshot-card figcaption { padding: 1rem 1.25rem; font-size: 0.85rem; color: var(--text-muted); }
+
+.cta-section { padding-bottom: 6rem; }
+.cta-note { margin-top: 1rem; font-size: 0.8rem; color: var(--text-dim); }
 
 @media (max-width: 900px) {
-  .product-hero-inner { grid-template-columns: 1fr; }
-  .features-grid { grid-template-columns: repeat(2, 1fr); }
+  .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  .hero-visual { display: none; }
+  .features-grid { grid-template-columns: 1fr 1fr; }
+  .feature-card.wide { grid-column: span 2; }
+  .steps { grid-template-columns: 1fr 1fr; }
+  .steps::before { display: none; }
+  .teams-banner { grid-template-columns: 1fr; }
+  .teams-logo { display: none; }
   .screenshots-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 600px) {
   .features-grid { grid-template-columns: 1fr; }
-  .feature-card { flex-direction: column; }
-  .cta-inner { flex-direction: column; text-align: center; }
-  .cta-actions { justify-content: center; }
+  .feature-card.wide { grid-column: auto; }
+  .steps { grid-template-columns: 1fr; }
 }
 </style>

@@ -1,138 +1,118 @@
 ---
 const year = new Date().getFullYear();
 ---
+
 <footer>
-  <div class="container footer-inner">
+  <div class="container footer-grid">
     <div class="footer-brand">
       <a href="/" class="footer-logo" aria-label="Kixlogic home">
-        <svg width="24" height="24" viewBox="0 0 32 32" fill="none">
-          <rect width="32" height="32" rx="8" fill="#14B894"/>
-          <path d="M8 8h4v16H8zM20 8l-6 8 6 8h4.5l-6-8 6-8H20z" fill="#061820"/>
-        </svg>
-        <span>Kixlogic</span>
+        <img src="/Kixlogo-light.png" alt="Kixlogic" width="200" height="60" />
       </a>
-      <p>Workforce intelligence for life sciences. Bloomberg Terminal for scientific talent.</p>
+      <div class="footer-copy">© {year} Kixlogic, LLC. All rights reserved.</div>
+      <div class="footer-legal">
+        <a href="/terms/">Terms of Service</a>
+        <span>·</span>
+        <a href="/privacy/">Privacy Policy</a>
+        <span>·</span>
+        <a href="/support/">Support</a>
+        <span>·</span>
+        <a href="/security/">Security</a>
+        <span>·</span>
+        <a href="/sales-partner/">Sales Partners</a>
+      </div>
     </div>
 
-    <div class="footer-links">
-      <div class="footer-col">
-        <h4>Products</h4>
-        <a href="/ats">Kixlogic ATS</a>
-        <a href="/comp">Kixlogic Comp</a>
-        <a href="/pricing">Pricing</a>
-      </div>
-      <div class="footer-col">
-        <h4>Company</h4>
-        <a href="/about">About</a>
-        <a href="/blog">Blog</a>
-        <a href="/contact">Contact</a>
-        <a href="/sales-partner">Sales Partners</a>
-      </div>
-      <div class="footer-col">
-        <h4>Legal</h4>
-        <a href="/privacy">Privacy Policy</a>
-        <a href="/terms">Terms of Service</a>
-        <a href="/security">Security</a>
-        <a href="/support">Support</a>
-      </div>
-      <div class="footer-col">
-        <h4>Platform</h4>
-        <a href="https://app.kixlogic.com/dashboard">Sign In</a>
-        <a href="https://scientificgigs.com" target="_blank" rel="noopener">ScientificGigs</a>
-        <a href="https://www.renumify.com" target="_blank" rel="noopener">Renumify</a>
-      </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Products</div>
+      <a href="/ats/" class="footer-link footer-link-dot">
+        <span class="dot dot-teal"></span>Kixlogic ATS
+      </a>
+      <a href="/#products" class="footer-link footer-link-dot">
+        <span class="dot dot-indigo"></span>Renumify <span class="soon">SOON</span>
+      </a>
     </div>
-  </div>
-  <div class="footer-bottom container">
-    <span>&copy; {year} Kixlogic. All rights reserved.</span>
-    <div class="footer-bottom-links">
-      <a href="/privacy">Privacy</a>
-      <a href="/terms">Terms</a>
-      <a href="/security">Security</a>
+
+    <div class="footer-col">
+      <div class="footer-col-title">Company</div>
+      <a href="/" class="footer-link">Home</a>
+      <a href="/about/" class="footer-link">About</a>
+      <a href="/contact/" class="footer-link">Contact</a>
+    </div>
+
+    <div class="footer-col">
+      <div class="footer-col-title">Follow</div>
+      <a href="https://www.linkedin.com/company/112615588/" target="_blank" rel="noopener" class="footer-link footer-social">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+      <a href="https://x.com/KixlogicATS" target="_blank" rel="noopener" class="footer-link footer-social">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.736-8.856L1.254 2.25H8.08l4.253 5.622 5.91-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        X (Twitter)
+      </a>
+      <a href="https://www.facebook.com/people/Kixlogic-ATS/61590952245940/" target="_blank" rel="noopener" class="footer-link footer-social">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        Facebook
+      </a>
     </div>
   </div>
 </footer>
 
 <style>
 footer {
-  border-top: 1px solid rgba(255,255,255,0.06);
-  padding: 4rem 0 2rem;
+  border-top: 1px solid var(--border);
+  padding: 3rem 0;
   position: relative;
   z-index: 1;
 }
-.footer-inner {
+.footer-grid {
   display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 4rem;
-  margin-bottom: 3rem;
+  grid-template-columns: 1fr auto auto auto;
+  gap: 3rem;
+  align-items: start;
 }
-.footer-brand {
+.footer-logo img { height: 60px; width: auto; }
+.footer-copy { font-size: 0.8rem; color: var(--text-dim); margin-top: 0.35rem; }
+.footer-legal {
+  margin-top: 0.5rem;
   display: flex;
-  flex-direction: column;
   gap: 1rem;
-}
-.footer-logo {
-  display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 0.625rem;
-  font-family: 'Syne', sans-serif;
+}
+.footer-legal a {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  transition: color var(--transition);
+}
+.footer-legal a:hover { color: var(--gold); }
+.footer-legal span { color: var(--text-dim); font-size: 0.75rem; }
+.footer-col-title {
+  font-size: 0.7rem;
   font-weight: 700;
-  font-size: 1.1rem;
-  color: #F0F4FF;
-}
-.footer-brand p {
-  font-size: 0.875rem;
-  color: #7ABFCC;
-  line-height: 1.6;
-  max-width: 240px;
-}
-.footer-links {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2rem;
-}
-.footer-col {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-.footer-col h4 {
-  font-family: 'Syne', sans-serif;
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #F0F4FF;
-  margin-bottom: 0.25rem;
+  letter-spacing: 1.5px;
+  color: var(--text-dim);
+  margin-bottom: 0.75rem;
 }
-.footer-col a {
-  font-size: 0.875rem;
-  color: #7ABFCC;
-  transition: color 0.2s;
+.footer-col { display: flex; flex-direction: column; gap: 0.5rem; }
+.footer-link {
+  font-size: 0.825rem;
+  color: var(--text-dim);
+  transition: color var(--transition);
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
 }
-.footer-col a:hover { color: #14B894; }
-.footer-bottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 1.5rem;
-  border-top: 1px solid rgba(255,255,255,0.06);
-  font-size: 0.8rem;
-  color: #3D6370;
-}
-.footer-bottom-links {
-  display: flex;
-  gap: 1.5rem;
-}
-.footer-bottom-links a { color: #3D6370; transition: color 0.2s; }
-.footer-bottom-links a:hover { color: #7ABFCC; }
+.footer-link:hover { color: var(--gold); }
+.footer-link-dot { display: flex; align-items: center; gap: 0.45rem; }
+.dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.dot-teal { background: var(--gold); }
+.dot-indigo { background: var(--indigo-light); }
+.soon { font-size: 0.65rem; color: var(--text-dim); font-weight: 600; margin-left: 0.25rem; }
+.footer-social { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
 
 @media (max-width: 900px) {
-  .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
-  .footer-links  { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 480px) {
-  .footer-links  { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-  .footer-bottom { flex-direction: column; gap: 0.75rem; text-align: center; }
+  .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
 }
 </style>

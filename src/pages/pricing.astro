@@ -16,13 +16,13 @@ const plans = [
       { ok: true, text: '1 Admin + 1 Recruiter seat' },
       { ok: true, text: 'White-label careers page' },
       { ok: true, text: '8-stage kanban pipeline' },
-      { ok: true, text: 'Google for Jobs eligible*' },
+      { ok: true, text: 'Search-engine job result eligible*' },
       { ok: true, text: 'Application auto-reply w/ merge tags' },
       { ok: true, text: 'Mobile-ready forms' },
       { ok: true, text: 'CSV export' },
       { ok: true, text: 'Applicant source tracking' },
       { ok: true, text: 'Talent community pool' },
-      { ok: true, text: 'EEO compliance reports' },
+      { ok: true, text: 'Advanced analytics dashboard' },
       { ok: true, text: 'Activity log audit trail' },
       { ok: true, text: 'Job cloning, reopen, close cascade' },
       { ok: true, text: 'Per-tenant SMTP (Yahoo/Gmail/O365)' },
@@ -48,9 +48,14 @@ const plans = [
       { ok: true, text: 'AI resume scoring (200/mo)', highlight: true },
       { ok: true, text: 'AI job description builder', highlight: true },
       { ok: true, text: 'AI resume search (natural language)', highlight: true },
+      { ok: true, text: 'AI setup assistant in-dashboard', highlight: true },
       { ok: true, text: 'Rejection email workflow w/ reason codes', highlight: true },
+      { ok: true, text: 'Welcome email template on hire', highlight: true },
+      { ok: true, text: 'Forward to hiring manager', highlight: true },
       { ok: true, text: 'Employee referral portal', highlight: true },
       { ok: true, text: 'Interview scheduling + calendar invites', highlight: true },
+      { ok: true, text: 'Talent community matching', highlight: true },
+      { ok: true, text: 'Custom color schemes + advanced branding', highlight: true },
       { ok: false, text: 'Offer letters & e-signature' },
       { ok: false, text: 'Onboarding portal' },
       { ok: false, text: 'AI Salary Intelligence' },
@@ -73,10 +78,16 @@ const plans = [
       { ok: true, text: 'AI resume scoring (750/mo)', highlight: true },
       { ok: true, text: 'Applicant SMS texting (2,000/mo)', highlight: true },
       { ok: true, text: 'Offer letter generation & PDF merge', highlight: true },
+      { ok: true, text: 'Offer approval workflow (internal reviewer)', highlight: true },
       { ok: true, text: 'Candidate offer portal + e-signature', highlight: true },
-      { ok: true, text: 'Onboarding packet builder', highlight: true },
+      { ok: true, text: 'Onboarding packet builder (multi-doc)', highlight: true },
+      { ok: true, text: 'Candidate onboarding portal + e-signature', highlight: true },
+      { ok: true, text: 'Custom reports (build, save, run)', highlight: true },
+      { ok: true, text: 'Scheduled CSV report delivery', highlight: true },
       { ok: true, text: 'AI Salary Intelligence (BLS + regional)', highlight: true },
+      { ok: true, text: 'Per-applicant document library', highlight: true },
       { ok: true, text: 'XML job feeds for Indeed + aggregators', highlight: true },
+      { ok: true, text: 'Advanced analytics dashboard', highlight: true },
       { ok: true, text: 'Priority support (24-hr response)', highlight: true },
     ],
   },
@@ -99,30 +110,27 @@ const plans = [
       { ok: true, text: 'Unlimited AI Salary Intelligence', highlight: true },
       { ok: true, text: 'Custom contract & SLA', highlight: true },
       { ok: true, text: 'Dedicated support contact', highlight: true },
+      { ok: true, text: 'OFCCP compliance (on roadmap)', highlight: true },
     ],
   },
 ];
 
 const faqs = [
   {
-    q: 'Do I need to install any software?',
-    a: 'No. Kixlogic is 100% cloud-based — sign up, configure your branding, and your careers page and ATS dashboard are live in under 10 minutes from any browser. No downloads, no IT team required.',
-  },
-  {
     q: 'What happens after the 14-day trial?',
     a: "You'll choose a plan and enter your billing details. If you don't, your account pauses — your data is safe and you can reactivate anytime.",
   },
   {
     q: 'Can I switch plans later?',
-    a: 'Yes, anytime. Upgrade from Starter to Growth or Professional and you\'ll get access to AI scoring, compliance tools, and more — effective immediately.',
+    a: 'Yes, anytime. Upgrade from Starter to Growth or Professional and you\'ll get access to AI scoring, advanced analytics, and more — effective immediately.',
   },
   {
-    q: 'What is the Workforce Intelligence Platform (WIP)?',
-    a: 'WIP is our life-sciences tier that bundles Kixlogic ATS with Comp Intelligence (market benchmarks, offer analysis, pay equity) and free ScientificGigs job board syndication. Contact us for WIP access.',
+    q: 'Is my applicant data secure?',
+    a: 'Yes. Data is encrypted in transit and at rest. Our web infrastructure is protected by Cloudflare, including DDoS mitigation, Web Application Firewall, and SSL/TLS attack protection.',
   },
   {
-    q: 'How does billing work?',
-    a: 'Subscriptions are billed monthly through Stripe. Manage your plan, update payment methods, or cancel anytime through the self-service billing portal in your dashboard.',
+    q: 'Do I need to install any software?',
+    a: 'No. Kixlogic is 100% cloud-based — sign up, configure your branding, and your careers page and ATS dashboard are live in under 10 minutes from any browser.',
   },
 ];
 ---
@@ -133,12 +141,7 @@ const faqs = [
   <section class="pricing-page section">
     <div class="container">
       <div class="pricing-header">
-        <div class="wip-banner">
-          <span class="tag">Workforce Intelligence Platform</span>
-          <p>Life sciences customers: ask about <strong>WIP</strong> — ATS + Comp Intelligence + free ScientificGigs syndication.</p>
-          <a href="/contact" class="wip-link">Talk to us →</a>
-        </div>
-        <span class="tag">Kixlogic ATS · Simple, transparent pricing</span>
+        <span class="tag">✦ Simple, transparent pricing</span>
         <h1>Pay for what you need</h1>
         <p>Four plans built to grow with you. Growth and Professional include a <strong>14-day free trial</strong>. Card required — cancel before trial ends and pay nothing.</p>
       </div>
@@ -163,19 +166,21 @@ const faqs = [
                 </li>
               ))}
             </ul>
-            <a
-              href={plan.ctaHref || 'https://app.kixlogic.com/dashboard'}
-              class={`pricing-cta ${plan.ctaStyle === 'primary' ? 'pricing-cta-primary' : 'pricing-cta-outline'}`}
-            >
-              {plan.cta}
-            </a>
+            {plan.ctaHref ? (
+              <a href={plan.ctaHref} class={`pricing-cta ${plan.ctaStyle === 'primary' ? 'pricing-cta-primary' : 'pricing-cta-outline'}`}>
+                {plan.cta}
+              </a>
+            ) : (
+              <button type="button" data-checkout={plan.id} class={`pricing-cta ${plan.ctaStyle === 'primary' ? 'pricing-cta-primary' : 'pricing-cta-outline'}`}>
+                {plan.cta}
+              </button>
+            )}
           </div>
         ))}
       </div>
 
       <p class="pricing-note">
-        Growth and Professional plans include a <span>14-day free trial</span>. Card required — cancel before trial ends and pay nothing.
-        <em> * Google for Jobs eligibility depends on Google's crawl frequency for your careers page.</em>
+        Growth and Professional plans include a <span>14-day free trial</span>. Card required — cancel before trial ends and pay nothing. Manage your subscription, update payment methods, or cancel anytime through your self-service billing portal. AI scoring overages billed at $0.15/application.
       </p>
       <p class="pricing-tax-note">
         <sup>†</sup> Prices shown are base subscription rates in U.S. dollars and do not include applicable taxes. Taxes calculated at checkout based on your billing address.
@@ -278,6 +283,7 @@ const faqs = [
   width: 100%; padding: 0.85rem; border-radius: 10px;
   font-weight: 700; font-size: 0.95rem; text-align: center;
   transition: var(--transition); display: block;
+  border: none; cursor: pointer; font-family: inherit;
 }
 .pricing-cta-primary { background: var(--gold); color: var(--navy); }
 .pricing-cta-primary:hover { background: var(--gold-light); box-shadow: 0 8px 25px rgba(20,184,148,0.3); }

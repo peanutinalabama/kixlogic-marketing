@@ -1,255 +1,87 @@
 ---
 import Base from '../layouts/Base.astro';
-
-const modules = [
-  {
-    title: 'Market Lookup',
-    desc:  'Instant pay benchmarks for any life sciences role. Location-adjusted, experience-tiered, and broken down by base, bonus, equity, and total comp.',
-    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="#6366F1" stroke-width="1.5"/><path d="M16.5 16.5l4 4" stroke="#6366F1" stroke-width="1.5" stroke-linecap="round"/><path d="M8 11h6M11 8v6" stroke="#6366F1" stroke-width="1.2" stroke-linecap="round"/></svg>`,
-  },
-  {
-    title: 'Offer Analyzer',
-    desc:  'Paste in an offer package — base, bonus, equity, benefits — and get a competitiveness score, negotiation guidance, and comp-to-market delta instantly.',
-    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 17l4-4 4 4 4-6 4 3" stroke="#6366F1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="19" cy="5" r="3" fill="#6366F1" opacity=".3"/></svg>`,
-  },
-  {
-    title: 'Pay Equity',
-    desc:  'Upload your workforce CSV. Identify pay gaps by gender, department, and tenure. Export a remediation report in one click.',
-    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 3v18M3 12h18" stroke="#6366F1" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="#6366F1" stroke-width="1.5" opacity=".3"/></svg>`,
-  },
-  {
-    title: 'Compa-Ratio & Workforce',
-    desc:  'Import your team CSV and calculate compa-ratios for every employee. See who is below, at, and above band — and what it costs to bring everyone to midpoint.',
-    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="3" stroke="#6366F1" stroke-width="1.5"/><path d="M7 16l3-3 3 3 4-5" stroke="#6366F1" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
-  },
-  {
-    title: 'Pay Compression',
-    desc:  'Visualize salary distribution by tenure and role. Identify where you are unintentionally rewarding new hires more than tenured employees.',
-    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="6" cy="18" r="2" fill="#6366F1" opacity=".6"/><circle cx="10" cy="14" r="2" fill="#6366F1"/><circle cx="15" cy="10" r="2" fill="#6366F1" opacity=".6"/><circle cx="19" cy="7" r="2" fill="#6366F1" opacity=".3"/></svg>`,
-  },
-  {
-    title: 'Batch Salary Reports',
-    desc:  'Generate comp benchmarks for multiple roles at once. Useful for budget season, headcount planning, or onboarding a new hiring manager.',
-    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M6 6h12M6 10h12M6 14h8" stroke="#6366F1" stroke-width="1.5" stroke-linecap="round"/><rect x="13" y="13" width="8" height="8" rx="2" fill="#6366F1" opacity=".2" stroke="#6366F1" stroke-width="1.3"/><path d="M15.5 17l1.5 1.5 3-3" stroke="#6366F1" stroke-width="1.2" stroke-linecap="round"/></svg>`,
-  },
-];
-
-const industries = ['Biotech', 'Pharma', 'Medical Device', 'Clinical Research', 'Regulatory Affairs', 'Bioinformatics', 'Medical Affairs', 'Quality & Validation'];
 ---
 <Base
-  title="Kixlogic Comp"
-  description="Compensation intelligence for life sciences. Market benchmarks, offer analysis, pay equity, and compa-ratio reporting for biotech, pharma, and medical device organizations."
+  title="Renumify"
+  description="Renumify — compensation intelligence from Kixlogic. Blended market rates from job postings, career sites, and BLS data. Coming soon."
 >
-  <!-- ── Hero ── -->
-  <section class="product-hero section">
-    <div class="container product-hero-inner">
-      <div class="product-hero-content">
-        <a href="/" class="breadcrumb">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M8 3L4 7l4 4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-          Kixlogic
-        </a>
-        <div style="margin:1rem 0"><span class="tag indigo-tag">Kixlogic Comp</span></div>
-        <h1>Compensation intelligence<br /><span class="accent-indigo">for life sciences</span></h1>
-        <p>
-          Broad industry surveys lag the market by 18 months and average away the details that matter.
-          Kixlogic Comp gives hiring managers and HR teams real-time benchmarks built specifically
-          for scientific roles — by title, location, experience, and discipline.
-        </p>
-        <div class="hero-actions">
-          <a href="https://app.kixlogic.com/dashboard" class="btn btn-indigo">Try Comp Intelligence</a>
-          <a href="/pricing" class="btn btn-outline">See pricing</a>
-        </div>
+  <section class="section coming-soon">
+    <div class="container text-center">
+      <div class="product-icon">📊</div>
+      <span class="section-tag">Coming Soon</span>
+      <h1 class="section-title">Renumify</h1>
+      <p class="product-tagline">Compensation Intelligence</p>
+      <p class="section-sub mx-auto">
+        Blended market rates from job postings, company career sites, and BLS data. Start with a general all-purpose model, then upgrade to industry-specific models for Healthcare, Insurance, Sales, Real Estate, and Restaurants.
+      </p>
+      <div class="badges">
+        <span class="badge badge-soon">Coming Soon</span>
+        <span class="badge badge-indigo">AI-Powered</span>
       </div>
-      <div class="product-hero-visual" aria-hidden="true">
-        <div class="comp-card-preview">
-          <div class="cc-header">
-            <span class="cc-role">Sr. Bioinformatics Scientist</span>
-            <span class="cc-location">Boston, MA · Biotech</span>
-          </div>
-          <div class="cc-ranges">
-            <div class="range-row">
-              <span class="range-label">P25</span>
-              <div class="range-bar-wrap"><div class="range-bar" style="width:60%"></div></div>
-              <span class="range-val">$115K</span>
-            </div>
-            <div class="range-row highlight-row">
-              <span class="range-label">P50</span>
-              <div class="range-bar-wrap"><div class="range-bar mid" style="width:80%"></div></div>
-              <span class="range-val">$138K</span>
-            </div>
-            <div class="range-row">
-              <span class="range-label">P75</span>
-              <div class="range-bar-wrap"><div class="range-bar" style="width:100%"></div></div>
-              <span class="range-val">$165K</span>
-            </div>
-          </div>
-          <div class="cc-score-row">
-            <div class="cc-score-item">
-              <div class="score-val indigo">88</div>
-              <div class="score-label">Offer score</div>
-            </div>
-            <div class="cc-score-item">
-              <div class="score-val teal">+12%</div>
-              <div class="score-label">ML premium</div>
-            </div>
-            <div class="cc-score-item">
-              <div class="score-val">$162K</div>
-              <div class="score-label">Rec. offer</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── Industries ── -->
-  <section class="section-sm industries-strip">
-    <div class="container">
-      <p class="industries-label">Benchmarks available for</p>
-      <div class="industries-pills">
-        {industries.map(i => <span class="industry-pill">{i}</span>)}
-      </div>
-    </div>
-  </section>
-
-  <!-- ── Modules ── -->
-  <section class="section">
-    <div class="container">
-      <div class="section-header">
-        <span class="tag indigo-tag">Modules</span>
-        <h2>The full compensation toolkit</h2>
-        <p>Six modules covering every comp decision — from a single offer to an entire workforce review.</p>
-      </div>
-      <div class="features-grid">
-        {modules.map(m => (
-          <div class="feature-card card">
-            <div class="feature-icon" set:html={m.icon} />
-            <div>
-              <h3>{m.title}</h3>
-              <p>{m.desc}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- ── CTA ── -->
-  <section class="section-sm cta-banner-indigo">
-    <div class="container cta-inner">
-      <div>
-        <h2>Know what to pay before you offer</h2>
-        <p>Stop guessing. Life-sciences-specific benchmarks in seconds — for any role, in any market.</p>
-      </div>
-      <div class="cta-actions">
-        <a href="https://app.kixlogic.com/dashboard" class="btn btn-indigo">Open Comp Intelligence</a>
-        <a href="/pricing" class="btn btn-outline">View pricing</a>
-      </div>
+      <p style="margin-top:2rem">
+        <a href="/" class="btn btn-outline">← Back to Kixlogic</a>
+        <a href="/ats/" class="btn btn-primary" style="margin-left:0.75rem">Explore Kixlogic ATS →</a>
+      </p>
     </div>
   </section>
 </Base>
 
 <style>
-.product-hero { padding-top: 5rem; }
-.product-hero-inner {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
+.coming-soon { padding: 6rem 0; min-height: 60vh; display: flex; align-items: center; }
+.text-center { text-align: center; }
+.product-icon {
+  width: 72px; height: 72px;
+  border-radius: 18px;
+  background: var(--indigo-dim);
+  border: 1px solid rgba(99,102,241,0.3);
+  display: flex;
   align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  margin: 0 auto 1.5rem;
 }
-.breadcrumb {
-  display: inline-flex; align-items: center; gap: 0.3rem;
-  font-size: 0.85rem; color: var(--text-muted); transition: color 0.2s;
-}
-.breadcrumb:hover { color: var(--gold); }
-
-.indigo-tag { background: var(--indigo-dim); border-color: var(--border-indigo); color: var(--indigo-light); }
-
-.product-hero-content h1 {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(2rem, 4vw, 3.25rem);
-  font-weight: 800;
-  letter-spacing: -0.025em;
-  line-height: 1.15;
+.section-tag {
+  display: inline-flex;
+  padding: 0.3rem 0.85rem;
+  border-radius: 99px;
+  background: var(--gold-dim);
+  border: 1px solid var(--border-gold);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
   margin-bottom: 1.25rem;
 }
-.accent-indigo { color: var(--indigo-light); }
-.product-hero-content p {
-  color: var(--text-muted); font-size: 1.05rem; line-height: 1.7; margin-bottom: 2rem;
+.section-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin-bottom: 0.5rem;
 }
-.hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
-
-.btn-indigo {
-  display: inline-flex; align-items: center; gap: 0.5rem;
-  padding: 0.75rem 1.75rem; border-radius: var(--radius);
-  background: var(--indigo); color: #fff;
-  font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.95rem;
-  transition: var(--transition); border: none; text-decoration: none; cursor: pointer;
+.product-tagline {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--indigo-light);
+  margin-bottom: 1.5rem;
 }
-.btn-indigo:hover { background: var(--indigo-light); transform: translateY(-1px); }
-
-/* Comp preview card */
-.comp-card-preview {
-  background: var(--navy-2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 1.5rem;
-}
-.cc-header { margin-bottom: 1.25rem; }
-.cc-role { display: block; font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--text); margin-bottom: 0.25rem; }
-.cc-location { font-size: 0.8rem; color: var(--text-muted); }
-.cc-ranges { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.5rem; }
-.range-row { display: flex; align-items: center; gap: 0.875rem; }
-.range-label { font-size: 0.75rem; font-weight: 700; color: var(--text-dim); width: 28px; }
-.range-bar-wrap { flex: 1; height: 6px; background: var(--surface-2); border-radius: 4px; overflow: hidden; }
-.range-bar { height: 100%; background: rgba(99,102,241,0.35); border-radius: 4px; }
-.range-bar.mid { background: var(--indigo); }
-.range-val { font-size: 0.85rem; font-weight: 600; color: var(--text); min-width: 44px; text-align: right; }
-
-.cc-score-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; padding-top: 1.25rem; border-top: 1px solid var(--border); }
-.cc-score-item { text-align: center; }
-.score-val { font-family: 'Syne', sans-serif; font-size: 1.25rem; font-weight: 800; color: var(--text); }
-.score-val.indigo { color: var(--indigo-light); }
-.score-val.teal   { color: var(--gold); }
-.score-label { font-size: 0.7rem; color: var(--text-dim); margin-top: 3px; }
-
-/* Industries */
-.industries-strip { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-.industries-label { font-size: 0.8rem; color: var(--text-dim); text-align: center; margin-bottom: 1rem; }
-.industries-pills { display: flex; flex-wrap: wrap; gap: 0.625rem; justify-content: center; }
-.industry-pill {
-  padding: 0.35rem 0.875rem;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  font-size: 0.8rem;
+.section-sub {
+  font-size: 1.05rem;
   color: var(--text-muted);
+  max-width: 560px;
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
 }
-
-/* Shared */
-.section-header { text-align: center; margin-bottom: 3.5rem; }
-.section-header .tag { margin-bottom: 1rem; }
-.section-header h2 { font-family: 'Syne', sans-serif; font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 800; letter-spacing: -0.025em; margin-bottom: 1rem; }
-.section-header p  { font-size: 1.05rem; color: var(--text-muted); max-width: 520px; margin: 0 auto; }
-.features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-.feature-card { display: flex; gap: 1rem; }
-.feature-icon { width: 44px; height: 44px; background: var(--surface-2); border-radius: 11px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.feature-card h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.5rem; }
-.feature-card p  { font-size: 0.875rem; color: var(--text-muted); line-height: 1.6; }
-.cta-banner-indigo { background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(20,184,148,0.06)); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-.cta-inner { display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
-.cta-inner h2 { font-family: 'Syne', sans-serif; font-size: 1.75rem; font-weight: 800; margin-bottom: 0.5rem; }
-.cta-inner p  { color: var(--text-muted); }
-.cta-actions  { display: flex; gap: 1rem; flex-shrink: 0; }
-
-@media (max-width: 900px) {
-  .product-hero-inner { grid-template-columns: 1fr; }
-  .features-grid { grid-template-columns: 1fr 1fr; }
+.mx-auto { margin-left: auto; margin-right: auto; }
+.badges { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; }
+.badge {
+  padding: 0.2rem 0.65rem;
+  border-radius: 99px;
+  font-size: 0.7rem;
+  font-weight: 700;
 }
-@media (max-width: 600px) {
-  .features-grid { grid-template-columns: 1fr; }
-  .feature-card { flex-direction: column; }
-  .cta-inner { flex-direction: column; text-align: center; }
-  .cta-actions { justify-content: center; }
-}
+.badge-soon { background: rgba(245,158,11,0.12); color: #F59E0B; border: 1px solid rgba(245,158,11,0.28); }
+.badge-indigo { background: var(--indigo-dim); color: var(--indigo-light); border: 1px solid rgba(99,102,241,0.3); }
 </style>
