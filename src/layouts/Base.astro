@@ -47,8 +47,8 @@ const fullTitle = title === 'Kixlogic' ? title : `${title} — Kixlogic`;
   <meta name="twitter:image"       content={new URL(image, Astro.site).href} />
 </head>
 <body>
-  {!hidePromo && <PromoBanner />}
   <Nav />
+  {!hidePromo && <PromoBanner />}
 
   <main>
     <slot />

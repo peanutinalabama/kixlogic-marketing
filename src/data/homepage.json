@@ -29,6 +29,7 @@
         { "icon": "💼", "label": "Shop ATS", "href": "/ats/" },
         { "icon": "💳", "label": "See pricing", "href": "/pricing/" },
         { "icon": "📧", "label": "Contact us", "href": "/contact/" },
+        { "icon": "📝", "label": "Read the blog", "href": "/blog/" },
         { "icon": "🔐", "label": "Sign in", "href": "https://app.kixlogic.com/dashboard" },
         { "icon": "🛟", "label": "Get support", "href": "/support/" },
         { "icon": "🤝", "label": "Partners", "href": "/sales-partner/" }
@@ -63,9 +64,9 @@
           "soon": false
         },
         {
-          "title": "Renumify",
+          "title": "Kixlogic CMP",
           "description": "Compensation intelligence with blended market rates. Industry-specific models coming soon.",
-          "image": "/og-default.png",
+          "image": "/Kixlogo-light.png",
           "href": "/comp/",
           "cta": "Learn more",
           "soon": true
@@ -99,7 +100,7 @@
         },
         {
           "title": "Compensation intelligence",
-          "description": "Renumify blends job postings, career sites, and BLS data into actionable pay benchmarks. Coming soon.",
+          "description": "Kixlogic CMP blends job postings, career sites, and BLS data into actionable pay benchmarks. Coming soon.",
           "href": "/comp/"
         }
       ]

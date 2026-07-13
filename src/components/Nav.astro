@@ -6,6 +6,7 @@ const isActive = (path: string) =>
 const links = [
   { href: '/ats/', label: 'Kixlogic ATS' },
   { href: '/pricing/', label: 'Pricing' },
+  { href: '/blog/', label: 'Blog' },
   { href: '/about/', label: 'About' },
   { href: '/contact/', label: 'Contact' },
 ];
@@ -14,7 +15,7 @@ const links = [
 <header id="nav">
   <div class="nav-inner container">
     <a href="/" class="nav-logo" aria-label="Kixlogic home">
-      <img src="/Kixlogo-dark.png" alt="Kixlogic" width="108" height="23" />
+      <img src="/Kixlogo-light.png" alt="Kixlogic" height="28" />
     </a>
 
     <nav class="nav-links" id="navLinks" aria-label="Main">
@@ -59,7 +60,7 @@ const links = [
   gap: 1.5rem;
 }
 .nav-logo { flex-shrink: 0; display: flex; align-items: center; }
-.nav-logo img { height: 23px; width: auto; }
+.nav-logo img { height: 28px; width: auto; display: block; }
 
 .nav-links {
   display: flex;

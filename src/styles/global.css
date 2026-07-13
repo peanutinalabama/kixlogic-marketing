@@ -131,6 +131,11 @@ img { max-width: 100%; display: block; }
   width: 100%;
   background: var(--navy-2);
 }
+.ms-card-img[src*="Kixlogo"] {
+  object-fit: contain;
+  padding: 1.5rem;
+  background: #fff;
+}
 .ms-card-body { padding: 1.5rem 1.5rem 1.75rem; flex: 1; display: flex; flex-direction: column; }
 .ms-card-title {
   font-size: 1.25rem;

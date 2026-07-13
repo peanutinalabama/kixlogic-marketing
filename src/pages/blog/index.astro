@@ -73,14 +73,24 @@ buttons.forEach(btn => {
 </script>
 
 <style>
-.blog-page { padding-top: 5rem; }
+.blog-page { padding-top: 2rem; }
 .blog-header { text-align: center; margin-bottom: 3rem; }
-.blog-header .tag { margin-bottom: 1rem; }
+.blog-header .tag {
+  display: inline-block;
+  margin-bottom: 1rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-pill);
+  background: #e8f4fd;
+  color: var(--ms-blue);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
 .blog-header h1 {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 800;
-  letter-spacing: -0.025em;
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
   margin-bottom: 1rem;
 }
 .blog-header p { font-size: 1.05rem; color: var(--text-muted); max-width: 520px; margin: 0 auto; }
@@ -99,18 +109,18 @@ buttons.forEach(btn => {
   border-radius: 999px;
   font-size: 0.8rem;
   font-weight: 500;
-  background: var(--surface);
+  background: #fff;
   border: 1px solid var(--border);
   color: var(--text-muted);
   cursor: pointer;
-  font-family: 'DM Sans', sans-serif;
+  font-family: inherit;
   transition: 0.2s;
 }
-.tag-filter-btn:hover { border-color: var(--border-gold); color: var(--text); }
+.tag-filter-btn:hover { border-color: var(--ms-blue); color: var(--text); }
 .tag-filter-btn.active {
-  background: var(--gold-dim);
-  border-color: var(--border-gold);
-  color: var(--gold);
+  background: #e8f4fd;
+  border-color: var(--ms-blue);
+  color: var(--ms-blue);
   font-weight: 600;
 }
 
@@ -119,13 +129,13 @@ buttons.forEach(btn => {
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
 }
-.post-card { display: flex; flex-direction: column; gap: 0.875rem; text-decoration: none; }
-.post-card:hover h2 { color: var(--gold); }
+.post-card { display: flex; flex-direction: column; gap: 0.875rem; text-decoration: none; background: #fff; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem; }
+.post-card:hover { border-color: var(--ms-blue); box-shadow: var(--shadow-hover); }
+.post-card:hover h2 { color: var(--ms-blue); }
 .post-card-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; }
 .post-card h2 {
-  font-family: 'Syne', sans-serif;
   font-size: 1.1rem;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.4;
   color: var(--text);
   transition: color 0.2s;
