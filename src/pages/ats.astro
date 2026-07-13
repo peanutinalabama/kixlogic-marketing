@@ -150,26 +150,121 @@ import { atsFeatures, tagLabels, steps } from '../data/ats-features';
     </div>
   </section>
 
-  <!-- Screenshots -->
-  <section class="section">
+  <!-- Screenshots carousel -->
+  <section class="section" id="screenshots">
     <div class="container">
       <div class="text-center">
         <span class="section-tag">✦ Product</span>
       </div>
       <h2 class="section-title text-center">See it in action</h2>
-      <p class="section-sub text-center mx-auto">The dashboard your hiring team actually wants to use.</p>
-      <div class="screenshots-grid">
-        <figure class="screenshot-card">
-          <img src="/images/dashboard.png" alt="Kixlogic ATS dashboard overview" loading="lazy" width="1200" height="675" />
-          <figcaption>Dashboard overview — open roles, pipeline stats, and recent activity</figcaption>
-        </figure>
-        <figure class="screenshot-card">
-          <img src="/images/pipeline.png" alt="Kixlogic ATS candidate pipeline" loading="lazy" width="1200" height="675" />
-          <figcaption>Candidate pipeline — drag-and-drop stages with AI scores</figcaption>
-        </figure>
+      <p class="section-sub text-center mx-auto">Every screen your team will actually use — live product screenshots.</p>
+
+      <div class="carousel" id="sc-carousel" aria-label="Product screenshots">
+        <!-- Tab bar -->
+        <div class="carousel-tabs" role="tablist">
+          {[
+            'Overview','Applications','Pipeline','Job Postings',
+            'Applicant Search','Talent Community','Sourcing','AI Assistant',
+            'Referrals','Documents','Reporting','Admin',
+            'Setup Guide','Comp Intelligence','Analytics'
+          ].map((label, i) => (
+            <button
+              class={`carousel-tab${i === 0 ? ' active' : ''}`}
+              role="tab"
+              aria-selected={i === 0 ? 'true' : 'false'}
+              data-index={i}
+              type="button"
+            >{label}</button>
+          ))}
+        </div>
+
+        <!-- Slides -->
+        <div class="carousel-track">
+          {[
+            { file:'01-overview',          cap:'Dashboard overview — open roles, pipeline stats, and recent activity at a glance.' },
+            { file:'02-applications',      cap:'Applications list — sortable, filterable, with stage badges and AI score indicators.' },
+            { file:'03-pipeline',          cap:'Kanban pipeline — drag-and-drop candidates across every hiring stage.' },
+            { file:'04-job-postings',      cap:'Job postings — publish, clone, and track applicant counts per role.' },
+            { file:'05-applicant-search',  cap:'Applicant search — full-text search across your entire candidate pool.' },
+            { file:'06-talent-community',  cap:'Talent community — opted-in candidates ready for future openings.' },
+            { file:'07-sourcing',          cap:'AI sourcing — describe your ideal hire and get a ranked pipeline in seconds.' },
+            { file:'08-ai-assistant',      cap:'AI Setup Assistant — guided configuration powered by Claude.' },
+            { file:'09-referrals',         cap:'Employee referrals — track status from submission through hire.' },
+            { file:'10-documents',         cap:'Documents — offer letter templates and onboarding packets in one place.' },
+            { file:'11-reporting',         cap:'Custom reports — choose any field, filter by stage or date, export to CSV.' },
+            { file:'12-admin',             cap:'Admin panel — invite users, configure forms, manage company settings.' },
+            { file:'13-setup-guide',       cap:'Setup guide — checklist-driven onboarding so nothing falls through the cracks.' },
+            { file:'14-comp-intelligence', cap:'Comp Intelligence — market pay lookup, offer analysis, pay equity, and more.' },
+            { file:'15-analytics',         cap:'Analytics — hiring funnel, source effectiveness, time-to-hire by role.' },
+          ].map(({ file, cap }, i) => (
+            <figure class={`carousel-slide${i === 0 ? ' active' : ''}`} data-index={i} aria-hidden={i !== 0 ? 'true' : 'false'}>
+              <div class="carousel-img-wrap">
+                <img
+                  src={`/images/screenshots/${file}.png`}
+                  alt={cap}
+                  loading={i === 0 ? 'eager' : 'lazy'}
+                  width="1366" height="768"
+                />
+              </div>
+              <figcaption>{cap}</figcaption>
+            </figure>
+          ))}
+        </div>
+
+        <!-- Prev / Next -->
+        <div class="carousel-controls">
+          <button class="carousel-btn" id="sc-prev" aria-label="Previous screenshot" type="button">‹</button>
+          <div class="carousel-dots" id="sc-dots" aria-hidden="true">
+            {Array.from({length:15}).map((_,i) => (
+              <span class={`carousel-dot${i === 0 ? ' active' : ''}`} data-index={i}></span>
+            ))}
+          </div>
+          <button class="carousel-btn" id="sc-next" aria-label="Next screenshot" type="button">›</button>
+        </div>
       </div>
     </div>
   </section>
+
+  <script>
+    (function () {
+      const tabs   = Array.from(document.querySelectorAll('#sc-carousel .carousel-tab'));
+      const slides = Array.from(document.querySelectorAll('#sc-carousel .carousel-slide'));
+      const dots   = Array.from(document.querySelectorAll('#sc-dots .carousel-dot'));
+      let current  = 0;
+      let timer;
+
+      function go(n) {
+        const total = slides.length;
+        const next  = ((n % total) + total) % total;
+        slides[current].classList.remove('active');
+        slides[current].setAttribute('aria-hidden', 'true');
+        tabs[current].classList.remove('active');
+        tabs[current].setAttribute('aria-selected', 'false');
+        dots[current].classList.remove('active');
+
+        current = next;
+        slides[current].classList.add('active');
+        slides[current].setAttribute('aria-hidden', 'false');
+        tabs[current].classList.add('active');
+        tabs[current].setAttribute('aria-selected', 'true');
+        dots[current].classList.add('active');
+        tabs[current].scrollIntoView({ block: 'nearest', inline: 'nearest' });
+      }
+
+      function startAuto() { timer = setInterval(() => go(current + 1), 5000); }
+      function stopAuto()  { clearInterval(timer); }
+
+      tabs.forEach((tab, i) => tab.addEventListener('click', () => { stopAuto(); go(i); startAuto(); }));
+      dots.forEach((dot, i) => dot.addEventListener('click', () => { stopAuto(); go(i); startAuto(); }));
+      document.getElementById('sc-prev').addEventListener('click', () => { stopAuto(); go(current - 1); startAuto(); });
+      document.getElementById('sc-next').addEventListener('click', () => { stopAuto(); go(current + 1); startAuto(); });
+
+      document.getElementById('sc-carousel').addEventListener('mouseenter', stopAuto);
+      document.getElementById('sc-carousel').addEventListener('mouseleave', startAuto);
+
+      startAuto();
+    })();
+  </script>
 
   <!-- CTA -->
   <section class="section cta-section">
@@ -293,10 +388,10 @@ import { atsFeatures, tagLabels, steps } from '../data/ats-features';
 .mock-avatar {
   width: 24px; height: 24px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--gold), #2563eb);
+  background: linear-gradient(135deg, var(--gold), #0A5F75);
   flex-shrink: 0;
 }
-.mock-avatar.purple { background: linear-gradient(135deg, #7c3aed, #2563eb); }
+.mock-avatar.purple { background: linear-gradient(135deg, #7c3aed, #0A5F75); }
 .mock-lines { flex: 1; }
 .mock-line { height: 8px; border-radius: 4px; background: var(--surface-2); margin-bottom: 5px; }
 .mock-line.w60 { width: 60%; }
@@ -306,7 +401,7 @@ import { atsFeatures, tagLabels, steps } from '../data/ats-features';
 .mock-line.gold { background: rgba(20,184,148,0.15); }
 .mock-badge { font-size: 0.6rem; font-weight: 700; padding: 2px 6px; border-radius: 4px; }
 .mock-badge.green { background: rgba(34,197,94,0.15); color: #4ade80; }
-.mock-badge.blue { background: rgba(37,99,235,0.15); color: #60a5fa; }
+.mock-badge.blue { background: rgba(10,95,117,0.15); color: #0A9FB5; }
 .mock-score {
   background: rgba(20,184,148,0.1);
   border: 1px solid var(--border-gold);
@@ -413,8 +508,8 @@ import { atsFeatures, tagLabels, steps } from '../data/ats-features';
 }
 
 .teams-banner {
-  background: linear-gradient(135deg, rgba(37,99,235,0.1), rgba(20,184,148,0.05));
-  border: 1px solid rgba(37,99,235,0.2);
+  background: linear-gradient(135deg, rgba(10,95,117,0.1), rgba(20,184,148,0.05));
+  border: 1px solid rgba(10,95,117,0.2);
   border-radius: var(--radius-lg);
   padding: 3rem;
   display: grid;
@@ -432,8 +527,8 @@ import { atsFeatures, tagLabels, steps } from '../data/ats-features';
 .teams-logo {
   width: 80px; height: 80px;
   border-radius: 16px;
-  background: rgba(37,99,235,0.2);
-  border: 1px solid rgba(37,99,235,0.3);
+  background: rgba(10,95,117,0.2);
+  border: 1px solid rgba(10,95,117,0.3);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -468,15 +563,91 @@ import { atsFeatures, tagLabels, steps } from '../data/ats-features';
 .step-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem; margin-bottom: 0.4rem; }
 .step-desc { font-size: 0.825rem; color: var(--text-muted); line-height: 1.6; }
 
-.screenshots-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-.screenshot-card {
+/* ── Carousel ────────────────────────────────────────────── */
+.carousel { width: 100%; }
+
+.carousel-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1.25rem;
+  justify-content: center;
+}
+.carousel-tab {
+  padding: 0.35rem 0.85rem;
+  border-radius: 99px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s;
+  white-space: nowrap;
+}
+.carousel-tab:hover { border-color: var(--border-gold); color: var(--text); }
+.carousel-tab.active {
+  background: var(--gold-dim);
+  border-color: var(--border-gold);
+  color: var(--gold);
+}
+
+.carousel-track { position: relative; }
+.carousel-slide {
+  display: none;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   overflow: hidden;
 }
-.screenshot-card img { width: 100%; height: auto; display: block; border-bottom: 1px solid var(--border); }
-.screenshot-card figcaption { padding: 1rem 1.25rem; font-size: 0.85rem; color: var(--text-muted); }
+.carousel-slide.active { display: block; }
+.carousel-img-wrap {
+  position: relative;
+  width: 100%;
+  line-height: 0;
+}
+.carousel-slide img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-bottom: 1px solid var(--border);
+}
+.carousel-slide figcaption {
+  padding: 1rem 1.25rem;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+.carousel-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+.carousel-btn {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.18s;
+  display: flex; align-items: center; justify-content: center;
+}
+.carousel-btn:hover { border-color: var(--border-gold); color: var(--gold); }
+.carousel-dots { display: flex; gap: 6px; }
+.carousel-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--border);
+  cursor: pointer;
+  transition: background 0.18s, transform 0.18s;
+}
+.carousel-dot.active { background: var(--gold); transform: scale(1.25); }
 
 .cta-section { padding-bottom: 6rem; }
 .cta-note { margin-top: 1rem; font-size: 0.8rem; color: var(--text-dim); }
@@ -490,7 +661,8 @@ import { atsFeatures, tagLabels, steps } from '../data/ats-features';
   .steps::before { display: none; }
   .teams-banner { grid-template-columns: 1fr; }
   .teams-logo { display: none; }
-  .screenshots-grid { grid-template-columns: 1fr; }
+  .carousel-tabs { gap: 0.3rem; }
+  .carousel-tab { font-size: 0.7rem; padding: 0.3rem 0.65rem; }
 }
 @media (max-width: 600px) {
   .features-grid { grid-template-columns: 1fr; }
