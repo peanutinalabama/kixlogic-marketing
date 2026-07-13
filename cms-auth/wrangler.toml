@@ -1,0 +1,11 @@
+# Decap CMS GitHub OAuth proxy → cms-auth.kixlogic.com
+# Deploy: cd cms-auth && npx wrangler deploy
+# Secrets: GITHUB_OAUTH_ID, GITHUB_OAUTH_SECRET
+
+name = "cms-auth"
+main = "src/index.js"
+compatibility_date = "2026-07-01"
+
+[[routes]]
+pattern = "cms-auth.kixlogic.com"
+custom_domain = true

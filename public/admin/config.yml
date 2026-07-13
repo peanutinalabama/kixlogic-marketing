@@ -8,9 +8,8 @@ backend:
   name: github
   repo: peanutinalabama/kixlogic-marketing
   branch: main
-  # After OAuth proxy is deployed, uncomment and set your proxy URL:
-  # base_url: https://YOUR_OAUTH_PROXY.example.com
-  # auth_endpoint: auth
+  base_url: https://cms-auth.kixlogic.com
+  auth_endpoint: auth
 
 # Uncomment for local editing with `npm run cms`:
 # local_backend: true
