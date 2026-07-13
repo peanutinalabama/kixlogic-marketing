@@ -3,37 +3,234 @@ import Base from '../layouts/Base.astro';
 ---
 <Base
   title="Kixlogic CMP"
-  description="Kixlogic CMP — compensation intelligence from Kixlogic. Blended market rates from job postings, career sites, and BLS data. Coming soon."
+  description="Kixlogic CMP — compensation intelligence from market rates to payday. Market benchmarks, merit cycles, pay equity, and commission tracking for teams under 500."
 >
-  <section class="section coming-soon">
-    <div class="container text-center">
-      <img src="/Kixlogo-light.png" alt="Kixlogic" class="cmp-logo" width="200" height="48" />
-      <span class="section-tag">Coming Soon</span>
-      <h1 class="section-title">Kixlogic CMP</h1>
-      <p class="product-tagline">Compensation Intelligence</p>
-      <p class="section-sub mx-auto">
-        Blended market rates from job postings, company career sites, and BLS data. Start with a general all-purpose model, then upgrade to industry-specific models for life sciences, healthcare, and more.
-      </p>
-      <div class="badges">
-        <span class="badge badge-soon">Coming Soon</span>
-        <span class="badge badge-indigo">AI-Powered</span>
+  <section class="cmp-hero">
+    <div class="container cmp-hero-inner">
+      <div class="cmp-hero-copy">
+        <span class="cmp-eyebrow">Compensation Intelligence</span>
+        <h1>
+          Compensation intelligence from market rates to <span class="cmp-accent">payday.</span>
+        </h1>
+        <p>
+          Market benchmarks, merit cycles, pay equity, and commission tracking — one platform for hiring, budgeting, and showing every dollar earned.
+        </p>
+        <div class="cmp-hero-actions">
+          <a href="/contact/" class="btn btn-cmp-primary">Get notified at launch →</a>
+          <a href="https://app.kixlogic.com/dashboard" class="btn btn-cmp-outline">Sign in</a>
+        </div>
       </div>
-      <p style="margin-top:2rem">
-        <a href="/" class="btn btn-outline">← Back to Kixlogic</a>
-        <a href="/ats/" class="btn btn-primary" style="margin-left:0.75rem">Explore Kixlogic ATS →</a>
-      </p>
+      <div class="cmp-analyze-card" aria-hidden="true">
+        <h2>Analyze a role</h2>
+        <p class="cmp-field-label">Compensation model</p>
+        <div class="cmp-models">
+          <span class="cmp-model active">General</span>
+          <span class="cmp-model">Healthcare</span>
+          <span class="cmp-model">Sales</span>
+        </div>
+        <label class="cmp-field-label">Job title</label>
+        <div class="cmp-input">e.g. Marketing Manager, Software Engineer</div>
+        <div class="cmp-row">
+          <div>
+            <label class="cmp-field-label">City</label>
+            <div class="cmp-input">e.g. Chicago</div>
+          </div>
+          <div>
+            <label class="cmp-field-label">State</label>
+            <div class="cmp-input">Select state</div>
+          </div>
+        </div>
+        <div class="cmp-row">
+          <div>
+            <label class="cmp-field-label">Experience</label>
+            <div class="cmp-input filled">3–5 years</div>
+          </div>
+          <div>
+            <label class="cmp-field-label">Company size</label>
+            <div class="cmp-input filled">11–50 employees</div>
+          </div>
+        </div>
+        <div class="cmp-cta-mock">Try it free →</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="section-heading">What Kixlogic CMP does</h2>
+      <div class="cmp-features">
+        <div class="cmp-feature">
+          <h3>Market benchmarks</h3>
+          <p>Blend job postings, career sites, and BLS data into role-specific pay ranges by city, state, and experience.</p>
+        </div>
+        <div class="cmp-feature">
+          <h3>Merit cycles</h3>
+          <p>Plan increases with budget guardrails and manager-ready recommendations before payroll runs.</p>
+        </div>
+        <div class="cmp-feature">
+          <h3>Pay equity</h3>
+          <p>Surface gaps by gender, department, and tenure so you can fix compression before it becomes retention risk.</p>
+        </div>
+        <div class="cmp-feature">
+          <h3>Offer competitiveness</h3>
+          <p>Score offers against market in real time — give recruiters and managers confidence at the offer stage.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-grey">
+    <div class="container cmp-cta-band">
+      <div>
+        <span class="section-tag">Coming soon</span>
+        <h2>Kixlogic CMP launches inside the Workforce Intelligence Platform</h2>
+        <p>Pair compensation intelligence with Kixlogic ATS so hiring and pay decisions stay in one workflow.</p>
+      </div>
+      <div class="cmp-cta-buttons">
+        <a href="/ats/" class="btn btn-primary">Explore Kixlogic ATS</a>
+        <a href="/contact/" class="btn btn-outline">Talk to us</a>
+      </div>
     </div>
   </section>
 </Base>
 
 <style>
-.coming-soon { padding: 4rem 0; min-height: 55vh; display: flex; align-items: center; }
-.text-center { text-align: center; }
-.cmp-logo {
-  height: 48px;
-  width: auto;
-  margin: 0 auto 1.5rem;
+.cmp-hero {
+  background: linear-gradient(160deg, #0b1f3f 0%, #102a54 55%, #0d2244 100%);
+  color: #fff;
+  padding: 3.5rem 0 4rem;
+}
+.cmp-hero-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  align-items: center;
+}
+.cmp-eyebrow {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #7ee0b8;
+  margin-bottom: 1rem;
+}
+.cmp-hero-copy h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 600;
+  line-height: 1.15;
+  margin-bottom: 1rem;
+}
+.cmp-accent { color: #1db980; }
+.cmp-hero-copy p {
+  font-size: 1rem;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.82);
+  max-width: 520px;
+  margin-bottom: 1.5rem;
+}
+.cmp-hero-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.btn-cmp-primary {
+  background: #1db980;
+  color: #fff;
+  border: none;
+  padding: 0.7rem 1.25rem;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 0.9375rem;
+}
+.btn-cmp-primary:hover { background: #17a06d; }
+.btn-cmp-outline {
+  border: 1px solid rgba(255,255,255,0.35);
+  color: #fff;
+  padding: 0.7rem 1.25rem;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 0.9375rem;
+}
+.btn-cmp-outline:hover { border-color: #fff; }
+
+.cmp-analyze-card {
+  background: #fff;
+  color: var(--text);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+}
+.cmp-analyze-card h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+.cmp-field-label {
   display: block;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.35rem;
+}
+.cmp-models { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+.cmp-model {
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-pill);
+  background: #f3f4f6;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.cmp-model.active { background: #d7f5e8; color: #0f6b4d; }
+.cmp-input {
+  border: 1px solid var(--border);
+  background: #f9fafb;
+  border-radius: 8px;
+  padding: 0.65rem 0.75rem;
+  font-size: 0.8125rem;
+  color: #9ca3af;
+  margin-bottom: 0.85rem;
+}
+.cmp-input.filled { color: var(--text); }
+.cmp-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+.cmp-cta-mock {
+  margin-top: 0.5rem;
+  background: #1db980;
+  color: #fff;
+  text-align: center;
+  font-weight: 600;
+  padding: 0.8rem;
+  border-radius: 10px;
+}
+
+.section-heading {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+.cmp-features {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+.cmp-feature {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+}
+.cmp-feature h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
+.cmp-feature p { font-size: 0.875rem; color: var(--text-muted); line-height: 1.55; }
+
+.cmp-cta-band {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
 }
 .section-tag {
   display: inline-flex;
@@ -45,37 +242,19 @@ import Base from '../layouts/Base.astro';
   font-weight: 700;
   color: #ca5010;
   text-transform: uppercase;
-  letter-spacing: 1.5px;
-  margin-bottom: 1.25rem;
+  letter-spacing: 1px;
+  margin-bottom: 0.75rem;
 }
-.section-title {
+.cmp-cta-band h2 {
+  font-size: clamp(1.35rem, 3vw, 1.75rem);
   font-weight: 600;
-  font-size: clamp(2rem, 4vw, 3rem);
   margin-bottom: 0.5rem;
 }
-.product-tagline {
-  font-size: 0.85rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--ms-blue);
-  margin-bottom: 1.5rem;
+.cmp-cta-band p { color: var(--text-muted); max-width: 520px; }
+.cmp-cta-buttons { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+@media (max-width: 900px) {
+  .cmp-hero-inner { grid-template-columns: 1fr; }
+  .cmp-features { grid-template-columns: 1fr; }
 }
-.section-sub {
-  font-size: 1.05rem;
-  color: var(--text-muted);
-  max-width: 560px;
-  line-height: 1.7;
-  margin-bottom: 1.5rem;
-}
-.mx-auto { margin-left: auto; margin-right: auto; }
-.badges { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; }
-.badge {
-  padding: 0.2rem 0.65rem;
-  border-radius: 99px;
-  font-size: 0.7rem;
-  font-weight: 700;
-}
-.badge-soon { background: #fff4ce; color: #ca5010; border: 1px solid #fde7a0; }
-.badge-indigo { background: #e8f4fd; color: var(--ms-blue); border: 1px solid #b3d6f5; }
 </style>

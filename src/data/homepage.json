@@ -1,15 +1,15 @@
 {
   "seo": {
     "title": "Kixlogic Workforce Intelligence Platform",
-    "description": "Kixlogic Workforce Intelligence Platform — practical, affordable workforce software for teams under 500. ATS, compensation intelligence, and more."
+    "description": "Kixlogic Workforce Intelligence Platform — practical, affordable workforce software for teams under 500. Kixlogic ATS for hiring and Kixlogic CMP for compensation intelligence."
   },
   "greeting": {
     "headline": "Hi there, welcome to Kixlogic",
-    "subheadline": "Kixlogic Workforce Intelligence Platform",
+    "subheadline": "Hiring and compensation intelligence for teams under 500",
     "buttons": [
-      { "label": "Start free trial", "href": "/ats/" },
-      { "label": "Compare plans", "href": "/pricing/" },
-      { "label": "Talk to us", "href": "/contact/" }
+      { "label": "Explore Kixlogic ATS", "href": "/ats/" },
+      { "label": "Explore Kixlogic CMP", "href": "/comp/" },
+      { "label": "Compare plans", "href": "/pricing/" }
     ]
   },
   "sections": [
@@ -19,20 +19,29 @@
       "title": "Hire smarter. Your way.",
       "description": "Kixlogic ATS is built for small and mid-sized businesses. Launch in 10 minutes — AI resume scoring, analytics, white-label careers pages, and more.",
       "image": "/images/dashboard.png",
-      "ctaLabel": "Start free trial",
-      "ctaCheckout": "growth"
+      "ctaLabel": "Explore Kixlogic ATS",
+      "ctaHref": "/ats/"
+    },
+    {
+      "type": "hero",
+      "enabled": true,
+      "greyBackground": true,
+      "title": "Compensation intelligence from market rates to payday.",
+      "description": "Market benchmarks, merit cycles, pay equity, and commission tracking — one platform for hiring, budgeting, and showing every dollar earned.",
+      "image": "/images/cmp-analyze.svg",
+      "ctaLabel": "Explore Kixlogic CMP",
+      "ctaHref": "/comp/"
     },
     {
       "type": "quicknav",
       "enabled": true,
       "items": [
-        { "icon": "💼", "label": "Shop ATS", "href": "/ats/" },
+        { "icon": "💼", "label": "Kixlogic ATS", "href": "/ats/" },
+        { "icon": "📊", "label": "Kixlogic CMP", "href": "/comp/" },
         { "icon": "💳", "label": "See pricing", "href": "/pricing/" },
-        { "icon": "📧", "label": "Contact us", "href": "/contact/" },
         { "icon": "📝", "label": "Read the blog", "href": "/blog/" },
-        { "icon": "🔐", "label": "Sign in", "href": "https://app.kixlogic.com/dashboard" },
-        { "icon": "🛟", "label": "Get support", "href": "/support/" },
-        { "icon": "🤝", "label": "Partners", "href": "/sales-partner/" }
+        { "icon": "📧", "label": "Contact us", "href": "/contact/" },
+        { "icon": "🛟", "label": "Get support", "href": "/support/" }
       ]
     },
     {
@@ -46,6 +55,14 @@
           "href": "/ats/",
           "cta": "Explore Kixlogic ATS",
           "soon": false
+        },
+        {
+          "title": "Kixlogic CMP",
+          "description": "Compensation intelligence with blended market rates, pay equity analysis, and merit cycle planning.",
+          "image": "/Kixlogo-light.png",
+          "href": "/comp/",
+          "cta": "Explore Kixlogic CMP",
+          "soon": true
         },
         {
           "title": "Plans & pricing",
@@ -62,14 +79,6 @@
           "href": "/contact/",
           "cta": "Contact us",
           "soon": false
-        },
-        {
-          "title": "Kixlogic CMP",
-          "description": "Compensation intelligence with blended market rates. Industry-specific models coming soon.",
-          "image": "/Kixlogo-light.png",
-          "href": "/comp/",
-          "cta": "Learn more",
-          "soon": true
         }
       ]
     },
@@ -82,6 +91,15 @@
       "image": "/images/pipeline.png",
       "ctaLabel": "Explore Kixlogic ATS",
       "ctaHref": "/ats/"
+    },
+    {
+      "type": "feature",
+      "enabled": true,
+      "title": "Pay decisions backed by real market data",
+      "description": "Benchmark roles by title, location, and experience. Model merit increases, spot pay equity gaps, and give managers confidence at offer time.",
+      "image": "/images/cmp-analyze.svg",
+      "ctaLabel": "Explore Kixlogic CMP",
+      "ctaHref": "/comp/"
     },
     {
       "type": "ai",
@@ -113,11 +131,11 @@
       "cards": [
         {
           "title": "Built for teams under 500",
-          "description": "Not enterprise software with a small-business skin. Designed from scratch for practical hiring teams."
+          "description": "Not enterprise software with a small-business skin. Designed from scratch for practical hiring and HR teams."
         },
         {
-          "title": "AI that earns its keep",
-          "description": "Resume scoring, JD writing, and setup assistance that solve real problems — not marketing checkboxes."
+          "title": "ATS + CMP in one platform",
+          "description": "Hire the right people and pay them fairly — without juggling separate recruiting and compensation tools."
         },
         {
           "title": "Live in minutes",

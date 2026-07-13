@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="420" viewBox="0 0 640 420" role="img" aria-label="Analyze a role preview">
+  <rect width="640" height="420" rx="16" fill="#ffffff"/>
+  <text x="32" y="44" fill="#1a1a1a" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="600">Analyze a role</text>
+  <text x="32" y="72" fill="#6b7280" font-family="Segoe UI, Arial, sans-serif" font-size="12">Compensation model</text>
+  <rect x="32" y="84" width="88" height="34" rx="17" fill="#d7f5e8" stroke="#1db980" stroke-width="1.5"/>
+  <text x="76" y="106" fill="#0f6b4d" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="600" text-anchor="middle">General</text>
+  <rect x="128" y="84" width="104" height="34" rx="17" fill="#f3f4f6"/>
+  <text x="180" y="106" fill="#6b7280" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle">Healthcare</text>
+  <rect x="240" y="84" width="96" height="34" rx="17" fill="#f3f4f6"/>
+  <text x="288" y="106" fill="#6b7280" font-family="Segoe UI, Arial, sans-serif" font-size="12" text-anchor="middle">Sales</text>
+  <text x="32" y="148" fill="#6b7280" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="600">JOB TITLE</text>
+  <rect x="32" y="156" width="576" height="40" rx="8" fill="#f9fafb" stroke="#e5e7eb"/>
+  <text x="44" y="181" fill="#9ca3af" font-family="Segoe UI, Arial, sans-serif" font-size="13">e.g. Marketing Manager, Software Engineer</text>
+  <text x="32" y="224" fill="#6b7280" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="600">CITY</text>
+  <rect x="32" y="232" width="272" height="40" rx="8" fill="#f9fafb" stroke="#e5e7eb"/>
+  <text x="44" y="257" fill="#9ca3af" font-family="Segoe UI, Arial, sans-serif" font-size="13">e.g. Chicago</text>
+  <text x="336" y="224" fill="#6b7280" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="600">STATE</text>
+  <rect x="336" y="232" width="272" height="40" rx="8" fill="#f9fafb" stroke="#e5e7eb"/>
+  <text x="348" y="257" fill="#9ca3af" font-family="Segoe UI, Arial, sans-serif" font-size="13">Select state</text>
+  <text x="32" y="300" fill="#6b7280" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="600">EXPERIENCE</text>
+  <rect x="32" y="308" width="272" height="40" rx="8" fill="#f9fafb" stroke="#e5e7eb"/>
+  <text x="44" y="333" fill="#374151" font-family="Segoe UI, Arial, sans-serif" font-size="13">35 years</text>
+  <text x="336" y="300" fill="#6b7280" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="600">COMPANY SIZE</text>
+  <rect x="336" y="308" width="272" height="40" rx="8" fill="#f9fafb" stroke="#e5e7eb"/>
+  <text x="348" y="333" fill="#374151" font-family="Segoe UI, Arial, sans-serif" font-size="13">1150 employees</text>
+  <rect x="32" y="364" width="576" height="44" rx="10" fill="#1db980"/>
+  <text x="320" y="392" fill="#ffffff" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="600" text-anchor="middle">Try it free ’</text>
+</svg>

@@ -5,8 +5,8 @@ const isActive = (path: string) =>
 
 const links = [
   { href: '/ats/', label: 'Kixlogic ATS' },
+  { href: '/comp/', label: 'Kixlogic CMP' },
   { href: '/pricing/', label: 'Pricing' },
-  { href: '/blog/', label: 'Blog' },
   { href: '/about/', label: 'About' },
   { href: '/contact/', label: 'Contact' },
 ];
@@ -28,7 +28,6 @@ const links = [
       <a href="/contact/" class="nav-util" aria-label="Contact">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21" stroke-linecap="round"/></svg>
       </a>
-      <a href="https://app.kixlogic.com/dashboard" class="nav-util nav-signin">Sign in</a>
       <button class="nav-hamburger" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round"/></svg>
       </button>
@@ -41,7 +40,6 @@ const links = [
     {links.map(l => (
       <a href={l.href} class="nav-mobile-link">{l.label}</a>
     ))}
-    <a href="https://app.kixlogic.com/dashboard" class="nav-mobile-link nav-mobile-signin">Sign in</a>
   </div>
 </div>
 
@@ -93,8 +91,6 @@ const links = [
   transition: color var(--transition);
 }
 .nav-util:hover { color: var(--ms-blue); }
-.nav-signin { padding: 0.35rem 0.5rem; font-weight: 400; }
-
 .nav-hamburger {
   display: none;
   background: none;
@@ -118,10 +114,8 @@ const links = [
   color: var(--text);
   border-bottom: 1px solid var(--navy-2);
 }
-.nav-mobile-signin { color: var(--ms-blue); font-weight: 600; border: none; }
-
 @media (max-width: 860px) {
-  .nav-links, .nav-signin { display: none; }
+  .nav-links { display: none; }
   .nav-hamburger { display: flex; }
 }
 </style>
