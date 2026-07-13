@@ -23,14 +23,11 @@
       "ctaHref": "/ats/"
     },
     {
-      "type": "hero",
+      "type": "cmp-card",
       "enabled": true,
       "greyBackground": true,
       "title": "Compensation intelligence from market rates to payday.",
-      "description": "Market benchmarks, merit cycles, pay equity, and commission tracking — one platform for hiring, budgeting, and showing every dollar earned.",
-      "image": "/images/cmp-analyze.svg",
-      "ctaLabel": "Explore Kixlogic CMP",
-      "ctaHref": "/comp/"
+      "description": "Market benchmarks, merit cycles, pay equity, and commission tracking — one platform for hiring, budgeting, and showing every dollar earned."
     },
     {
       "type": "quicknav",
