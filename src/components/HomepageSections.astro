@@ -378,8 +378,11 @@ const sections = data.sections.filter(s => s.enabled !== false);
   .products-grid { grid-template-columns: repeat(2, 1fr); }
   .quicknav-grid { grid-template-columns: repeat(3, 1fr); }
 }
-.cmp-card-section { padding: 3rem 0; }
-.cmp-card-section.section-grey { background: var(--navy-2); }
+.cmp-card-section {
+  padding: 3rem 0;
+  background: linear-gradient(160deg, #0b1f3f 0%, #102a54 55%, #0d2244 100%);
+  color: #fff;
+}
 .cmp-card-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
