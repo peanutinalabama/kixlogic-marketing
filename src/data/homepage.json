@@ -31,7 +31,7 @@
     },
     {
       "type": "products",
-      "enabled": true,
+      "enabled": false,
       "cards": [
         {
           "title": "Kixlogic ATS",
