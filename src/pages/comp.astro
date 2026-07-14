@@ -1,5 +1,97 @@
 ---
 import Base from '../layouts/Base.astro';
+
+const featureGroups = [
+  {
+    label: 'Platform tools — included on every plan',
+    sub: 'Merit cycles, deal tracking, earnings, and commission tools come with every account.',
+    tagClass: 'tag-platform',
+    tagLabel: 'Platform · Included',
+    items: [
+      { icon: '📋', title: 'Merit Cycles', desc: 'Annual increase management — employee import, pool budgeting, manager worksheets, approval chains, compa-ratio vs market, AI pay letters, and spend reports.' },
+      { icon: '📝', title: 'Deals & Policies', desc: 'Log real estate closings and insurance policies as your source of truth for commission math.' },
+      { icon: '💰', title: 'Earnings Ledger', desc: 'Per-deal gross → split → fees → net breakdown so agents see exactly what they earned.' },
+      { icon: '⚡', title: 'Commission Tools', desc: 'Rules engine, income forecast, plan simulator, broker dashboard, renewals, audit, comp advisor, and more.' },
+      { icon: '🤝', title: 'Built to Pair With Kixlogic ATS', desc: 'Compensation intelligence inside the hiring workflow — benchmark the role when you post it, score the package when you make the offer.' },
+    ],
+  },
+  {
+    label: 'General model — hiring & comp tools',
+    sub: 'All-purpose compensation intelligence for any role, any industry — blended market ranges, offer scoring, job descriptions, pay equity, and strategy reports.',
+    tagClass: 'tag-general',
+    tagLabel: 'General',
+    items: [
+      { icon: '📊', title: 'Salary Benchmark', desc: 'Blended market ranges from job postings, company career sites, and BLS OEWS — observed, likely, and competitive bands.' },
+      { icon: '⚖️', title: 'Offer Analyzer', desc: 'Score your draft offer and get a suggested winning package — base, bonus, and sign-on to land top candidates.' },
+      { icon: '✍️', title: 'Job Description Builder', desc: 'AI job postings grounded in your market analysis — standard version or with comp language.' },
+      { icon: '🔄', title: 'JD Refinement', desc: 'Iterate on any generated posting with natural-language instructions.' },
+      { icon: '✨', title: 'Skill Premiums & Negotiation', desc: 'Skill value breakdown and counter-offer guidance so you know what each qualification is worth.' },
+      { icon: '⚖️', title: 'Internal Pay Equity Analysis', desc: 'Compare internal pay gaps across roles and levels using your merit cycle employee data.' },
+      { icon: '📉', title: 'Pay Compression Analysis', desc: 'Detect tenure inversions and grade/title spreads that create retention and equity risk.' },
+      { icon: '📑', title: 'Compensation Strategy Report', desc: 'Executive summary of market position, hiring plan, and budget implications.' },
+    ],
+  },
+  {
+    label: 'Healthcare model',
+    sub: 'Built for hospitals, clinics, and health systems where credentials and shifts drive pay.',
+    tagClass: 'tag-healthcare',
+    tagLabel: 'Healthcare',
+    items: [
+      { icon: '🏥', title: 'Clinical Comp Benchmarks', desc: 'Role ladders and license premiums tuned for acute, outpatient, and long-term care settings.' },
+      { icon: '🌙', title: 'Shift Differential Modeling', desc: 'Night, weekend, and call pay impact on total clinical compensation.' },
+      { icon: '💊', title: 'Sign-On & Relocation Benchmarks', desc: 'Sign-on bonus, relocation, and retention clawback norms by clinical setting.' },
+    ],
+  },
+  {
+    label: 'Insurance model',
+    sub: 'Calibrated for carriers, agencies, and MGAs where commission structures dominate.',
+    tagClass: 'tag-insurance',
+    tagLabel: 'Insurance',
+    items: [
+      { icon: '📚', title: 'Book-of-Business Valuation', desc: 'Value an insurance book from policies, renewals, and commission trail.' },
+      { icon: '🔄', title: 'Renewal & Residual Tracking', desc: 'Track recurring renewal income, decay, and chargebacks.' },
+      { icon: '📊', title: 'Split Benchmarking', desc: 'Compare producer splits against network benchmark data.' },
+      { icon: '🧾', title: '1099 Tax Intelligence', desc: 'Self-employment tax estimates, quarterly schedule, and deduction guide.' },
+      { icon: '🛡️', title: 'Producer Comp Optimizer', desc: 'AI modeling for new-business vs renewal splits and overrides.' },
+    ],
+  },
+  {
+    label: 'Sales model',
+    sub: 'Tuned for quota-carrying roles where OTE, accelerators, and territory define the deal.',
+    tagClass: 'tag-sales',
+    tagLabel: 'Sales',
+    items: [
+      { icon: '📈', title: 'OTE & Quota Modeling', desc: 'Base/variable splits, accelerators, and attainment tier analysis.' },
+      { icon: '🎯', title: 'Sales Comp Optimization', desc: 'Compare plan designs and model quota attainment scenarios.' },
+      { icon: '⚡', title: 'SPIF & Accelerator Modeling', desc: 'Model short-term incentives and accelerator tiers on total earnings.' },
+    ],
+  },
+  {
+    label: 'Real Estate model',
+    sub: 'Designed for brokerages and teams where splits, caps, and GCI — not salary — matter.',
+    tagClass: 'tag-realestate',
+    tagLabel: 'Real Estate',
+    items: [
+      { icon: '🏠', title: 'Split & Cap Modeling', desc: 'Agent splits, desk fees, team overrides, and cap structures on every deal.' },
+      { icon: '📊', title: 'Split Benchmarking', desc: 'Compare your brokerage split against network benchmark data.' },
+      { icon: '📈', title: 'GCI Income Forecast', desc: 'Pipeline closings and renewals projected to next month and year.' },
+      { icon: '🏠', title: 'GCI & Split Benchmark', desc: 'Model agent GCI, net after split and desk fees, and cap impact.' },
+      { icon: '🧮', title: 'Plan Simulator', desc: 'Compare 70/30 vs 90/10 plans side-by-side before you change comp.' },
+      { icon: '🔍', title: 'Commission Audit', desc: 'AI reconciles broker statements against your rules — flags underpayments.' },
+    ],
+  },
+  {
+    label: 'Restaurants model',
+    sub: 'Built for operators juggling tip credit, FOH/BOH splits, and razor-thin margins.',
+    tagClass: 'tag-restaurants',
+    tagLabel: 'Restaurants',
+    items: [
+      { icon: '🍽️', title: 'Tip Pool, Shift & Seasonal Simulator', desc: 'State tip-credit presets, pool math, shift premiums, and seasonal staffing — not just AI estimates.' },
+      { icon: '🏪', title: 'Multi-Unit GM & Hourly Ladder', desc: 'GM bands and FOH/BOH hourly ladders scaled by unit count and concept type.' },
+      { icon: '👨‍🍳', title: 'FOH/BOH Benchmarks', desc: 'Role ladders by concept type — fast casual, fine dining, QSR.' },
+    ],
+  },
+];
 ---
 <Base
   title="Kixlogic CMP"
@@ -62,58 +154,24 @@ import Base from '../layouts/Base.astro';
     <div class="container">
       <span class="feat-section-tag">✦ Full feature breakdown</span>
       <h2 class="feat-section-title">Everything Kixlogic CMP can do</h2>
-      <p class="feat-section-sub">One platform for market benchmarks, merit cycles, pay equity, and commission tracking — launching inside the Kixlogic Workforce Intelligence Platform.</p>
+      <p class="feat-section-sub">One general model, five industry specialists — plus platform tools like merit cycles, earnings, and commission tracking included on every plan.</p>
 
-      <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-icon">📊</div>
-          <div class="feature-title">Role-Based Market Benchmarks</div>
-          <div class="feature-desc">Blend job postings, career sites, and BLS data into role-specific pay ranges. Benchmark any position by job title, city, state, and years of experience — low, median, and high figures you can defend.</div>
-          <div class="feature-tag tag-data">Market Data</div>
+      {featureGroups.map(group => (
+        <div class="feat-group">
+          <div class="feat-group-label">{group.label}</div>
+          <p class="feat-group-sub">{group.sub}</p>
+          <div class="features-grid">
+            {group.items.map(f => (
+              <div class="feature-card">
+                <div class="feature-icon">{f.icon}</div>
+                <div class="feature-title">{f.title}</div>
+                <div class="feature-desc">{f.desc}</div>
+                <div class={`feature-tag ${group.tagClass}`}>{group.tagLabel}</div>
+              </div>
+            ))}
+          </div>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon">🏭</div>
-          <div class="feature-title">Industry Compensation Models</div>
-          <div class="feature-desc">Six purpose-built models — General, Healthcare, Insurance, Sales, Real Estate, and Restaurants — so benchmarks reflect how each industry actually pays, not a one-size-fits-all average.</div>
-          <div class="feature-tag tag-data">Market Data</div>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">🔍</div>
-          <div class="feature-title">Analyze Any Role in Seconds</div>
-          <div class="feature-desc">Enter a job title, location, experience level, and company size — get a complete compensation picture instantly. No spreadsheet wrangling, no stale survey data.</div>
-          <div class="feature-tag tag-data">Market Data</div>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">📈</div>
-          <div class="feature-title">Merit Cycle Planning</div>
-          <div class="feature-desc">Plan annual increases with budget guardrails and manager-ready recommendations before payroll runs. Every dollar allocated on purpose instead of by gut feel.</div>
-          <div class="feature-tag tag-planning">Planning</div>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">🎯</div>
-          <div class="feature-title">Offer Competitiveness Scoring</div>
-          <div class="feature-desc">Score offers against the market in real time — see whether a package is below, at, or above market before it goes out. Give recruiters and managers confidence at the offer stage.</div>
-          <div class="feature-tag tag-planning">Planning</div>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">⚖️</div>
-          <div class="feature-title">Pay Equity Analysis</div>
-          <div class="feature-desc">Surface pay gaps by gender, department, and tenure. Spot compression early and fix it before it becomes a retention risk — or a legal one.</div>
-          <div class="feature-tag tag-equity">Pay Equity</div>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">💰</div>
-          <div class="feature-title">Commission Tracking</div>
-          <div class="feature-desc">Track commission-based earnings alongside base pay so every dollar earned is visible — one ledger for hiring, budgeting, and showing employees exactly what payday looks like.</div>
-          <div class="feature-tag tag-earnings">Earnings</div>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">🤝</div>
-          <div class="feature-title">Built to Pair With Kixlogic ATS</div>
-          <div class="feature-desc">Compensation intelligence inside the hiring workflow — benchmark the role when you post it, score the package when you make the offer. Hiring and pay decisions in one platform.</div>
-          <div class="feature-tag tag-platform">Platform</div>
-        </div>
-      </div>
+      ))}
     </div>
   </section>
 
@@ -318,11 +376,29 @@ import Base from '../layouts/Base.astro';
   font-weight: 700;
   text-transform: uppercase;
 }
-.tag-data     { background: rgba(20,184,148,0.12); color: #14B894; }
-.tag-planning { background: rgba(59,130,246,0.12); color: #3b82f6; }
-.tag-equity   { background: rgba(139,92,246,0.12); color: #8b5cf6; }
-.tag-earnings { background: rgba(202,80,16,0.12);  color: #ca5010; }
-.tag-platform { background: rgba(10,95,117,0.12);  color: #0A5F75; }
+.tag-platform    { background: rgba(10,95,117,0.12);  color: #0A5F75; }
+.tag-general     { background: rgba(20,184,148,0.12); color: #14B894; }
+.tag-healthcare  { background: rgba(239,68,68,0.12);  color: #dc2626; }
+.tag-insurance   { background: rgba(59,130,246,0.12); color: #3b82f6; }
+.tag-sales       { background: rgba(139,92,246,0.12); color: #8b5cf6; }
+.tag-realestate  { background: rgba(202,80,16,0.12);  color: #ca5010; }
+.tag-restaurants { background: rgba(236,72,153,0.12); color: #db2777; }
+
+.feat-group { margin-bottom: 2.5rem; }
+.feat-group-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ms-blue);
+  margin-bottom: 0.35rem;
+}
+.feat-group-sub {
+  font-size: 0.9375rem;
+  color: var(--text-muted);
+  margin-bottom: 1.25rem;
+  max-width: 640px;
+}
 
 .cmp-cta-band {
   display: flex;
