@@ -1,6 +1,7 @@
 ---
 import type { HomepageData } from '../lib/cms-types';
 import { getCollection } from 'astro:content';
+import BlogTeaser from './BlogTeaser.astro';
 
 interface Props {
   data: HomepageData;
@@ -30,6 +31,27 @@ const atsSlides = [
   { icon: '📉', tag: 'growth',  title: 'Analytics',            desc: 'Funnel conversion and source performance at a glance.' },
 ];
 const slideTagLabels = { starter: 'All Plans', growth: 'Growth+', professional: 'Professional' };
+
+const cmpSlides = [
+  { icon: '📋', tag: 'platform',    title: 'Merit Cycles',                desc: 'Annual increase management — employee import, pool budgeting, approval chains, and AI pay letters.' },
+  { icon: '💰', tag: 'platform',    title: 'Earnings Ledger',             desc: 'Per-deal gross → split → fees → net breakdown so people see exactly what they earned.' },
+  { icon: '⚡', tag: 'platform',    title: 'Commission Tools',            desc: 'Rules engine, income forecast, plan simulator, broker dashboard, renewals, and audit.' },
+  { icon: '📊', tag: 'general',     title: 'Salary Benchmark',            desc: 'Blended market ranges from job postings, company sites, and BLS OEWS — observed, likely, competitive.' },
+  { icon: '⚖️', tag: 'general',     title: 'Offer Analyzer',              desc: 'Score your draft offer and get a suggested winning package — base, bonus, and sign-on.' },
+  { icon: '✍️', tag: 'general',     title: 'Job Description Builder',      desc: 'AI job postings grounded in your market analysis — standard version or with comp language.' },
+  { icon: '⚖️', tag: 'general',     title: 'Internal Pay Equity Analysis',desc: 'Compare internal pay gaps across roles and levels using your merit cycle employee data.' },
+  { icon: '📑', tag: 'general',     title: 'Compensation Strategy Report', desc: 'Executive summary of market position, hiring plan, and budget implications.' },
+  { icon: '🏥', tag: 'healthcare',  title: 'Clinical Comp Benchmarks',    desc: 'Role ladders and license premiums tuned for acute, outpatient, and long-term care settings.' },
+  { icon: '🛡️', tag: 'insurance',   title: 'Producer Comp Optimizer',     desc: 'AI modeling for new-business vs renewal splits and overrides for carriers and agencies.' },
+  { icon: '📈', tag: 'sales',       title: 'OTE & Quota Modeling',        desc: 'Base/variable splits, accelerators, and attainment tier analysis for quota-carrying roles.' },
+  { icon: '🏠', tag: 'realestate',  title: 'Split & Cap Modeling',        desc: 'Agent splits, desk fees, team overrides, and cap structures on every deal.' },
+  { icon: '🔍', tag: 'realestate',  title: 'Commission Audit',            desc: 'AI reconciles broker statements against your rules — flags underpayments automatically.' },
+  { icon: '🍽️', tag: 'restaurants', title: 'Tip Pool & Shift Simulator',  desc: 'State tip-credit presets, pool math, shift premiums, and seasonal staffing.' },
+];
+const cmpTagLabels = {
+  platform: 'Platform', general: 'General', healthcare: 'Healthcare',
+  insurance: 'Insurance', sales: 'Sales', realestate: 'Real Estate', restaurants: 'Restaurants',
+};
 const sections = data.sections.filter(s => s.enabled !== false);
 ---
 {data.greeting && (
@@ -236,6 +258,36 @@ const sections = data.sections.filter(s => s.enabled !== false);
         </div>
       </section>
     );
+  }
+
+  if (section.type === 'cmp-carousel') {
+    return (
+      <section class="section ats-carousel-section cmp-carousel-section">
+        <div class="container">
+          <h2 class="section-heading">Everything inside Kixlogic CMP</h2>
+          <div class="feature-carousel">
+            <button class="feat-arrow prev" aria-label="Previous features">‹</button>
+            <div class="feat-viewport">
+              <div class="feat-track">
+                {[...cmpSlides, ...cmpSlides].map(s => (
+                  <div class="feat-card">
+                    <div class="feat-card-icon">{s.icon}</div>
+                    <h3>{s.title}</h3>
+                    <p>{s.desc}</p>
+                    <div class={`feat-card-tag cmp-tag-${s.tag}`}>{cmpTagLabels[s.tag]}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <button class="feat-arrow next" aria-label="Next features">›</button>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (section.type === 'blog-teaser') {
+    return <BlogTeaser />;
   }
 
   if (section.type === 'cmp-card') {
@@ -584,6 +636,13 @@ const sections = data.sections.filter(s => s.enabled !== false);
 .feat-card-tag.tag-starter { background: rgba(59,130,246,0.12); color: #60a5fa; }
 .feat-card-tag.tag-growth { background: rgba(20,184,148,0.12); color: #14B894; }
 .feat-card-tag.tag-professional { background: rgba(139,92,246,0.12); color: #a78bfa; }
+.feat-card-tag.cmp-tag-platform    { background: rgba(10,95,117,0.12);  color: #0A5F75; }
+.feat-card-tag.cmp-tag-general     { background: rgba(20,184,148,0.12); color: #14B894; }
+.feat-card-tag.cmp-tag-healthcare  { background: rgba(239,68,68,0.12);  color: #dc2626; }
+.feat-card-tag.cmp-tag-insurance   { background: rgba(59,130,246,0.12); color: #3b82f6; }
+.feat-card-tag.cmp-tag-sales       { background: rgba(139,92,246,0.12); color: #8b5cf6; }
+.feat-card-tag.cmp-tag-realestate  { background: rgba(202,80,16,0.12);  color: #ca5010; }
+.feat-card-tag.cmp-tag-restaurants { background: rgba(236,72,153,0.12); color: #db2777; }
 .feat-arrow {
   position: absolute;
   top: 50%;
@@ -732,10 +791,10 @@ const sections = data.sections.filter(s => s.enabled !== false);
 </style>
 
 <script>
-const track = document.getElementById('featTrack');
+document.querySelectorAll('.feature-carousel').forEach(carousel => {
+  const track = carousel.querySelector('.feat-track');
+  if (!track || track.children.length === 0) return;
 
-if (track) {
-  const carousel = track.closest('.feature-carousel');
   const total = track.children.length / 2;
   let index = 0;
   let timer;
@@ -765,13 +824,13 @@ if (track) {
   const startAuto = () => { timer = setInterval(next, 3000); };
   const resetAuto = () => { clearInterval(timer); startAuto(); };
 
-  document.getElementById('featPrev')?.addEventListener('click', () => { prev(); resetAuto(); });
-  document.getElementById('featNext')?.addEventListener('click', () => { next(); resetAuto(); });
+  carousel.querySelector('.feat-arrow.prev')?.addEventListener('click', () => { prev(); resetAuto(); });
+  carousel.querySelector('.feat-arrow.next')?.addEventListener('click', () => { next(); resetAuto(); });
 
-  carousel?.addEventListener('mouseenter', () => clearInterval(timer));
-  carousel?.addEventListener('mouseleave', startAuto);
+  carousel.addEventListener('mouseenter', () => clearInterval(timer));
+  carousel.addEventListener('mouseleave', startAuto);
   window.addEventListener('resize', () => setX(false));
 
   startAuto();
-}
+});
 </script>
