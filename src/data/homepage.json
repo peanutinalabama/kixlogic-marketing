@@ -16,6 +16,7 @@
     {
       "type": "hero",
       "enabled": true,
+      "eyebrow": "Kixlogic ATS",
       "title": "Hire smarter. Your way.",
       "description": "Kixlogic ATS is built for small and mid-sized businesses. Launch in 10 minutes — AI resume scoring, analytics, white-label careers pages, and more.",
       "image": "/images/screenshots/01-overview.png",
@@ -50,6 +51,7 @@
       "type": "cmp-card",
       "enabled": true,
       "greyBackground": true,
+      "eyebrow": "Kixlogic CMP",
       "title": "Compensation intelligence from market rates to payday.",
       "description": "Market benchmarks, merit cycles, pay equity, and commission tracking — one platform for hiring, budgeting, and showing every dollar earned."
     },
