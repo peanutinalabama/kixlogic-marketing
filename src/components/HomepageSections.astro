@@ -483,9 +483,14 @@ const sections = data.sections.filter(s => s.enabled !== false);
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
-  align-items: center;
+  align-items: stretch;
 }
-.cmp-card-content { color: #fff; }
+.cmp-card-content {
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 .cmp-card-content h2 {
   font-size: clamp(1.5rem, 3vw, 2rem);
   font-weight: 600;
