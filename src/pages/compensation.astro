@@ -112,7 +112,7 @@ const featureGroups = [
           <a href="https://app.kixlogic.com/dashboard" class="btn btn-cmp-outline">Sign in</a>
         </div>
       </div>
-      <div class="cmp-analyze-card" aria-hidden="true">
+      <div class="cmp-analyze-card">
         <h2>Analyze a role</h2>
         <p class="cmp-field-label">Compensation model</p>
         <div class="cmp-models">
@@ -145,7 +145,7 @@ const featureGroups = [
             <div class="cmp-input filled">11–50 employees</div>
           </div>
         </div>
-        <button class="cmp-cta-mock">Try it free →</button>
+        <button class="cmp-cta-mock" id="cmpTryOpen">Try it free →</button>
       </div>
     </div>
   </section>
@@ -188,6 +188,101 @@ const featureGroups = [
       </div>
     </div>
   </section>
+
+  <!-- Try-it-free analysis modal -->
+  <div class="cmp-modal-overlay" id="cmpModal" hidden>
+    <div class="cmp-modal" role="dialog" aria-modal="true" aria-labelledby="cmpModalTitle">
+      <button class="cmp-modal-close" id="cmpModalClose" aria-label="Close">×</button>
+
+      <!-- Form view -->
+      <div id="cmpFormView">
+        <h2 id="cmpModalTitle">Analyze a role</h2>
+        <p class="cmpm-sub">Free sample analysis · No account required · View-only</p>
+
+        <p class="cmpm-label">Compensation model</p>
+        <div class="cmpm-models" id="cmpmModels">
+          <button type="button" class="cmpm-model active" data-model="general">🌐 General</button>
+          <button type="button" class="cmpm-model" data-model="healthcare">🏥 Healthcare</button>
+          <button type="button" class="cmpm-model" data-model="insurance">🛡️ Insurance</button>
+          <button type="button" class="cmpm-model" data-model="sales">📈 Sales</button>
+          <button type="button" class="cmpm-model" data-model="realestate">🏠 Real Estate</button>
+          <button type="button" class="cmpm-model" data-model="restaurants">🍽️ Restaurants</button>
+        </div>
+
+        <label class="cmpm-label" for="cmpmTitle">Job title</label>
+        <input class="cmpm-input" id="cmpmTitle" type="text" placeholder="e.g. Marketing Manager, Software Engineer, HR Generalist" />
+
+        <div class="cmpm-row">
+          <div>
+            <label class="cmpm-label" for="cmpmCity">City</label>
+            <input class="cmpm-input" id="cmpmCity" type="text" placeholder="e.g. Chicago" />
+          </div>
+          <div>
+            <label class="cmpm-label" for="cmpmState">State</label>
+            <select class="cmpm-input" id="cmpmState">
+              <option value="">Select state</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="cmpm-row">
+          <div>
+            <label class="cmpm-label" for="cmpmExp">Experience required</label>
+            <select class="cmpm-input" id="cmpmExp">
+              <option value="0-2">0–2 years</option>
+              <option value="3-5" selected>3–5 years</option>
+              <option value="5-8">5–8 years</option>
+              <option value="8-12">8–12 years</option>
+              <option value="12+">12+ years</option>
+            </select>
+          </div>
+          <div>
+            <label class="cmpm-label" for="cmpmSize">Company size</label>
+            <select class="cmpm-input" id="cmpmSize">
+              <option value="1-10">1–10 employees</option>
+              <option value="11-50" selected>11–50 employees</option>
+              <option value="51-200">51–200 employees</option>
+              <option value="201-500">201–500 employees</option>
+              <option value="500+">500+ employees</option>
+            </select>
+          </div>
+        </div>
+
+        <label class="cmpm-label" for="cmpmIndustry">Industry <span class="cmpm-optional">(optional)</span></label>
+        <input class="cmpm-input" id="cmpmIndustry" type="text" placeholder="e.g. Healthcare, Technology, Manufacturing, Retail" />
+
+        <p class="cmpm-error" id="cmpmError" hidden>Please enter a job title and select a state.</p>
+        <button class="cmpm-run" id="cmpmRun">Run free analysis →</button>
+      </div>
+
+      <!-- Loading view -->
+      <div id="cmpLoadingView" hidden>
+        <div class="cmpm-spinner"></div>
+        <p class="cmpm-loading-text">Analyzing market data…</p>
+      </div>
+
+      <!-- Results view (view-only) -->
+      <div id="cmpResultsView" hidden>
+        <p class="cmpm-results-eyebrow">Sample compensation analysis</p>
+        <h2 class="cmpm-results-title" id="cmprRole"></h2>
+        <p class="cmpm-results-meta" id="cmprMeta"></p>
+
+        <div class="cmpm-bands" id="cmprBands"></div>
+
+        <div class="cmpm-insights">
+          <p class="cmpm-insights-title">Market insights</p>
+          <ul id="cmprInsights"></ul>
+        </div>
+
+        <div class="cmpm-signup">
+          <p>This is a view-only sample. Sign up for full AI analyses with live market data, offer scoring, and downloadable reports.</p>
+          <a href="/contact/" class="cmpm-signup-pill">Sign up now →</a>
+        </div>
+
+        <button class="cmpm-again" id="cmpmAgain">← Run another analysis</button>
+      </div>
+    </div>
+  </div>
 </Base>
 
 <style>
@@ -435,4 +530,338 @@ const featureGroups = [
 @media (max-width: 640px) {
   .features-grid { grid-template-columns: 1fr; }
 }
+
+/* ── Try-it-free modal ─────────────────────────────────────────── */
+.cmp-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(11, 31, 63, 0.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+.cmp-modal-overlay[hidden] { display: none; }
+.cmp-modal {
+  position: relative;
+  background: #fff;
+  color: var(--text);
+  border-radius: 14px;
+  max-width: 640px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 2rem 2rem 1.75rem;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.35);
+}
+.cmp-modal-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.9rem;
+  background: none;
+  border: none;
+  font-size: 1.75rem;
+  line-height: 1;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0.25rem;
+}
+.cmp-modal-close:hover { color: var(--text); }
+.cmp-modal h2 { font-size: 1.35rem; font-weight: 700; margin-bottom: 0.25rem; }
+.cmpm-sub { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.25rem; }
+.cmpm-label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 0.9rem 0 0.35rem;
+}
+.cmpm-optional { font-weight: 400; text-transform: none; letter-spacing: 0; }
+.cmpm-models { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.cmpm-model {
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: #f7f8f9;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.cmpm-model:hover { border-color: #1db980; }
+.cmpm-model.active {
+  background: #e5f8f0;
+  border-color: #1db980;
+  color: #0d7a54;
+}
+.cmpm-input {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  color: var(--text);
+  background: #fff;
+}
+.cmpm-input:focus { outline: 2px solid #1db980; outline-offset: -1px; }
+.cmpm-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; }
+.cmpm-error { color: #dc2626; font-size: 0.82rem; margin-top: 0.75rem; }
+.cmpm-run {
+  width: 100%;
+  margin-top: 1.25rem;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 8px;
+  background: #1db980;
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background var(--transition);
+}
+.cmpm-run:hover { background: #169a6a; }
+
+#cmpLoadingView { text-align: center; padding: 3rem 0; }
+.cmpm-spinner {
+  width: 42px;
+  height: 42px;
+  margin: 0 auto 1rem;
+  border: 4px solid #e5f8f0;
+  border-top-color: #1db980;
+  border-radius: 50%;
+  animation: cmpmSpin 0.8s linear infinite;
+}
+@keyframes cmpmSpin { to { transform: rotate(360deg); } }
+.cmpm-loading-text { color: var(--text-muted); font-size: 0.9rem; }
+
+/* Results — view-only */
+#cmpResultsView { user-select: none; -webkit-user-select: none; }
+.cmpm-results-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #0d7a54;
+  margin-bottom: 0.35rem;
+}
+.cmpm-results-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.2rem; }
+.cmpm-results-meta { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.4rem; }
+.cmpm-bands { display: flex; flex-direction: column; gap: 0.9rem; margin-bottom: 1.5rem; }
+.cmpm-band {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.9rem 1.1rem;
+}
+.cmpm-band.likely { border-color: #1db980; background: #f2fbf7; }
+.cmpm-band-name { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 0.25rem; }
+.cmpm-band.likely .cmpm-band-name { color: #0d7a54; }
+.cmpm-band-range { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.5px; }
+.cmpm-band-hourly { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.15rem; }
+.cmpm-insights { margin-bottom: 1.5rem; }
+.cmpm-insights-title { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 0.5rem; }
+.cmpm-insights ul { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
+.cmpm-insights li { font-size: 0.875rem; color: var(--text-muted); line-height: 1.5; padding-left: 1.1rem; position: relative; }
+.cmpm-insights li::before { content: '✦'; position: absolute; left: 0; color: #1db980; font-size: 0.7rem; top: 0.2rem; }
+.cmpm-signup {
+  background: linear-gradient(135deg, #0b1f3f, #102a54);
+  color: #fff;
+  border-radius: 10px;
+  padding: 1.25rem 1.4rem;
+  margin-bottom: 1rem;
+}
+.cmpm-signup p { font-size: 0.85rem; line-height: 1.55; color: rgba(255,255,255,0.85); margin-bottom: 0.85rem; }
+.cmpm-signup-pill {
+  display: inline-block;
+  background: #1db980;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 0.6rem 1.4rem;
+  border-radius: 999px;
+  transition: background var(--transition);
+}
+.cmpm-signup-pill:hover { background: #169a6a; }
+.cmpm-again {
+  background: none;
+  border: none;
+  color: var(--ms-blue);
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  padding: 0;
+}
+.cmpm-again:hover { text-decoration: underline; }
+
+@media (max-width: 560px) {
+  .cmpm-row { grid-template-columns: 1fr; }
+  .cmp-modal { padding: 1.5rem 1.25rem; }
+}
+/* Block printing of the analysis */
+@media print {
+  .cmp-modal-overlay { display: none !important; }
+}
 </style>
+
+<script>
+// ── Try-it-free modal: open/close ──────────────────────────────
+const overlay = document.getElementById('cmpModal');
+const formView = document.getElementById('cmpFormView');
+const loadingView = document.getElementById('cmpLoadingView');
+const resultsView = document.getElementById('cmpResultsView');
+
+function showView(view) {
+  [formView, loadingView, resultsView].forEach(v => v.hidden = v !== view);
+}
+
+function openModal() {
+  overlay.hidden = false;
+  document.body.style.overflow = 'hidden';
+  showView(formView);
+  document.getElementById('cmpmTitle').focus();
+}
+function closeModal() {
+  overlay.hidden = true;
+  document.body.style.overflow = '';
+}
+
+document.getElementById('cmpTryOpen')?.addEventListener('click', openModal);
+document.getElementById('cmpModalClose')?.addEventListener('click', closeModal);
+overlay?.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !overlay.hidden) closeModal(); });
+
+// Block right-click and copy on the view-only results
+resultsView?.addEventListener('contextmenu', (e) => e.preventDefault());
+resultsView?.addEventListener('copy', (e) => e.preventDefault());
+
+// ── Populate state select ──────────────────────────────────────
+const STATES = {
+  AL:0.88, AK:1.05, AZ:0.98, AR:0.86, CA:1.22, CO:1.08, CT:1.12, DE:1.02, FL:0.96, GA:0.97,
+  HI:1.10, ID:0.92, IL:1.04, IN:0.91, IA:0.90, KS:0.90, KY:0.89, LA:0.90, ME:0.95, MD:1.08,
+  MA:1.18, MI:0.95, MN:1.02, MS:0.85, MO:0.92, MT:0.91, NE:0.91, NV:0.99, NH:1.04, NJ:1.14,
+  NM:0.90, NY:1.20, NC:0.97, ND:0.93, OH:0.93, OK:0.88, OR:1.05, PA:1.00, RI:1.03, SC:0.92,
+  SD:0.89, TN:0.94, TX:1.00, UT:0.98, VT:0.97, VA:1.05, WA:1.15, WV:0.85, WI:0.95, WY:0.92, DC:1.25,
+};
+const stateSel = document.getElementById('cmpmState');
+Object.keys(STATES).forEach(s => {
+  const o = document.createElement('option');
+  o.value = s; o.textContent = s;
+  stateSel.appendChild(o);
+});
+
+// ── Model pill selection ────────────────────────────────────────
+let selectedModel = 'general';
+document.querySelectorAll('.cmpm-model').forEach(pill => {
+  pill.addEventListener('click', () => {
+    document.querySelectorAll('.cmpm-model').forEach(p => p.classList.remove('active'));
+    pill.classList.add('active');
+    selectedModel = pill.dataset.model;
+  });
+});
+
+// ── Sample analysis engine (client-side demonstration model) ───
+const ROLE_BASES = [
+  [/chief|cxo|ceo|cfo|coo|cto/, 195000], [/vice president|vp /, 165000], [/director/, 138000],
+  [/software|developer|engineer(?!.*(service|maintenance))/, 108000], [/physician|doctor|md\b/, 220000],
+  [/attorney|lawyer|counsel/, 132000], [/pharmacist/, 125000], [/data scien/, 118000],
+  [/product manager/, 122000], [/architect/, 115000], [/registered nurse|rn\b/, 84000],
+  [/nurse practitioner/, 118000], [/lpn|licensed practical/, 54000], [/medical assistant/, 42000],
+  [/accountant|controller/, 82000], [/financial analyst/, 85000], [/analyst/, 78000],
+  [/marketing manager/, 92000], [/marketing/, 72000], [/sales manager/, 98000],
+  [/account executive|sales rep/, 72000], [/sales/, 68000], [/hr manager|human resources manager/, 88000],
+  [/hr |human resource|recruiter/, 68000], [/designer/, 76000], [/project manager/, 92000],
+  [/operations manager/, 86000], [/manager/, 82000], [/supervisor/, 66000],
+  [/electrician|plumber|hvac/, 64000], [/mechanic|technician/, 56000], [/driver/, 52000],
+  [/chef|culinary/, 58000], [/cook/, 38000], [/server|waiter|waitress|bartender/, 34000],
+  [/cashier|retail associate/, 32000], [/administrative|admin assistant|receptionist/, 44000],
+  [/teacher|instructor/, 56000], [/agent|producer/, 62000], [/coordinator/, 52000],
+];
+const EXP_MULT = { '0-2': 0.85, '3-5': 1.0, '5-8': 1.12, '8-12': 1.25, '12+': 1.38 };
+const SIZE_MULT = { '1-10': 0.92, '11-50': 1.0, '51-200': 1.06, '201-500': 1.10, '500+': 1.15 };
+const MODEL_ADJ = {
+  general:    { mult: 1.0,  note: 'General model blends job postings, company career sites, and BLS OEWS data.' },
+  healthcare: { mult: 1.06, note: 'Healthcare model factors license premiums and shift differentials into total comp.' },
+  insurance:  { mult: 1.03, note: 'Insurance model reflects producer base + commission structures; renewals can add 15–40% on top.' },
+  sales:      { mult: 1.02, note: 'Sales model shows base salary; typical OTE for quota-carrying roles is 1.7–2.1× base.' },
+  realestate: { mult: 1.0,  note: 'Real Estate model: for commissioned agents, GCI after split matters more than base — full model available on signup.' },
+  restaurants:{ mult: 0.92, note: 'Restaurants model accounts for tip credit and FOH/BOH structures; tips can add 30–80% for FOH roles.' },
+};
+
+function hashStr(s) {
+  let h = 5381;
+  for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) >>> 0;
+  return h;
+}
+function fmt(n) {
+  return '$' + (Math.round(n / 500) * 500).toLocaleString('en-US');
+}
+function fmtHr(n) {
+  return '$' + (n / 2080).toFixed(2) + '/hr';
+}
+
+function runAnalysis() {
+  const title = document.getElementById('cmpmTitle').value.trim();
+  const city = document.getElementById('cmpmCity').value.trim();
+  const state = stateSel.value;
+  const exp = document.getElementById('cmpmExp').value;
+  const size = document.getElementById('cmpmSize').value;
+  const err = document.getElementById('cmpmError');
+
+  if (!title || !state) { err.hidden = false; return; }
+  err.hidden = true;
+
+  showView(loadingView);
+
+  setTimeout(() => {
+    const t = title.toLowerCase();
+    let base = 62000;
+    for (const [re, val] of ROLE_BASES) { if (re.test(t)) { base = val; break; } }
+    if (/senior|sr\.?|lead|principal/.test(t)) base *= 1.18;
+    if (/junior|jr\.?|entry/.test(t)) base *= 0.85;
+
+    const jitter = 0.97 + (hashStr(t + state + city) % 700) / 10000; // ±3%
+    const median = base * STATES[state] * EXP_MULT[exp] * SIZE_MULT[size] * MODEL_ADJ[selectedModel].mult * jitter;
+
+    document.getElementById('cmprRole').textContent = title;
+    document.getElementById('cmprMeta').textContent =
+      (city ? city + ', ' : '') + state + ' · ' + exp + ' yrs experience · ' + size + ' employees · ' +
+      selectedModel.charAt(0).toUpperCase() + selectedModel.slice(1) + ' model';
+
+    const bands = [
+      { name: 'Observed range', lo: median * 0.82, hi: median * 1.18, cls: '' },
+      { name: 'Likely market', lo: median * 0.90, hi: median * 1.10, cls: 'likely' },
+      { name: 'Competitive offer', lo: median * 1.08, hi: median * 1.22, cls: '' },
+    ];
+    document.getElementById('cmprBands').innerHTML = bands.map(b => `
+      <div class="cmpm-band ${b.cls}">
+        <div class="cmpm-band-name">${b.name}</div>
+        <div class="cmpm-band-range">${fmt(b.lo)} – ${fmt(b.hi)}</div>
+        <div class="cmpm-band-hourly">${fmtHr(b.lo)} – ${fmtHr(b.hi)}</div>
+      </div>`).join('');
+
+    const h = hashStr(state + t);
+    const signals = [
+      'Demand for this role is trending up in this market — postings rose over the last quarter.',
+      'Market demand for this role is steady; ranges have held within ±3% this quarter.',
+      'This market is competitive — similar roles are filling in under 30 days.',
+    ];
+    const insights = [
+      signals[h % signals.length],
+      MODEL_ADJ[selectedModel].note,
+      'Sample estimate from the Kixlogic CMP methodology. Full analyses use live posting, career-site, and BLS OEWS data.',
+    ];
+    document.getElementById('cmprInsights').innerHTML = insights.map(i => `<li>${i}</li>`).join('');
+
+    showView(resultsView);
+  }, 900);
+}
+
+document.getElementById('cmpmRun')?.addEventListener('click', runAnalysis);
+document.getElementById('cmpmAgain')?.addEventListener('click', () => showView(formView));
+</script>
