@@ -104,16 +104,8 @@ const atsPlans = [
     cta: 'Contact Sales',
     ctaStyle: 'outline',
     ctaHref: '/contact',
-    features: [
-      { ok: true, text: 'Unlimited job postings' },
-      { ok: true, text: 'Unlimited seats' },
-      { ok: true, text: 'Everything in Professional' },
-      { ok: true, text: 'Unlimited AI resume scoring', highlight: true },
-      { ok: true, text: 'Unlimited AI Salary Intelligence', highlight: true },
-      { ok: true, text: 'Custom contract & SLA', highlight: true },
-      { ok: true, text: 'Dedicated support contact', highlight: true },
-      { ok: true, text: 'OFCCP compliance (on roadmap)', highlight: true },
-    ],
+    hideFeatures: true,
+    features: [],
   },
 ];
 
@@ -243,17 +235,27 @@ const faqs = [
               {!plan.customPrice && <><sup>$</sup>{plan.price}<sup class="tax">†</sup></>}
               {plan.customPrice && plan.price}
             </div>
-            <div class="pricing-period">{plan.period}</div>
+            <div class="pricing-period">
+              {plan.period === 'contact us' ? (
+                <>Contact <a href="/contact/" class="contact-link">Kixlogic</a> for a quote</>
+              ) : (
+                plan.period
+              )}
+            </div>
             <p class="pricing-desc">{plan.desc}</p>
-            <div class="pricing-divider"></div>
-            <ul class="pricing-features">
-              {plan.features.map(f => (
-                <li class={`pricing-feature ${f.ok ? 'active' : ''} ${f.highlight ? 'highlight' : ''}`}>
-                  <span class={f.ok ? 'check' : 'x'}>{f.ok ? '✓' : '✗'}</span>
-                  {f.text}
-                </li>
-              ))}
-            </ul>
+            {!plan.hideFeatures && (
+              <>
+                <div class="pricing-divider"></div>
+                <ul class="pricing-features">
+                  {plan.features.map(f => (
+                    <li class={`pricing-feature ${f.ok ? 'active' : ''} ${f.highlight ? 'highlight' : ''}`}>
+                      <span class={f.ok ? 'check' : 'x'}>{f.ok ? '✓' : '✗'}</span>
+                      {f.text}
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
             {plan.ctaHref ? (
               <a href={plan.ctaHref} class={`pricing-cta ${plan.ctaStyle === 'primary' ? 'pricing-cta-primary' : 'pricing-cta-outline'}`}>
                 {plan.cta}
@@ -430,6 +432,8 @@ const faqs = [
 .pricing-price sup { font-size: 1.5rem; vertical-align: super; }
 .pricing-price sup.tax { font-size: 0.5em; }
 .pricing-period { font-size: 0.825rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+.pricing-period a.contact-link { color: var(--ms-blue); font-weight: 600; text-decoration: none; }
+.pricing-period a.contact-link:hover { text-decoration: underline; }
 .ciu-amount { font-size: 0.9rem; font-weight: 600; color: var(--ms-blue); margin-bottom: 1rem; }
 .pricing-desc { font-size: 0.875rem; color: var(--text-muted); margin-bottom: 1.75rem; line-height: 1.5; }
 .pricing-divider { height: 1px; background: var(--border); margin-bottom: 1.5rem; }
