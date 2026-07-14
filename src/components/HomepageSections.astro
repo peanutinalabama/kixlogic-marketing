@@ -216,15 +216,19 @@ const sections = data.sections.filter(s => s.enabled !== false);
       <section class="section ats-carousel-section">
         <div class="container">
           <h2 class="section-heading">Everything inside Kixlogic ATS</h2>
-        </div>
-        <div class="feature-marquee">
-          <div class="feature-marquee-track">
-            {[...atsSlides, ...atsSlides].map(s => (
-              <div class="feature-marquee-card">
-                <h3>{s.title}</h3>
-                <p>{s.desc}</p>
+          <div class="feature-carousel">
+            <button class="feat-arrow prev" id="featPrev" aria-label="Previous features">‹</button>
+            <div class="feat-viewport">
+              <div class="feat-track" id="featTrack">
+                {[...atsSlides, ...atsSlides].map(s => (
+                  <div class="feat-card">
+                    <h3>{s.title}</h3>
+                    <p>{s.desc}</p>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
+            <button class="feat-arrow next" id="featNext" aria-label="Next features">›</button>
           </div>
         </div>
       </section>
@@ -514,29 +518,53 @@ const sections = data.sections.filter(s => s.enabled !== false);
 }
 .blog-author { font-weight: 600; }
 
-.feature-marquee {
+.feature-carousel {
+  position: relative;
+}
+.feat-viewport {
   overflow: hidden;
-  width: 100%;
 }
-.feature-marquee-track {
+.feat-track {
   display: flex;
-  width: max-content;
-  animation: featureScroll 60s linear infinite;
+  transition: transform 0.5s ease;
 }
-.feature-marquee:hover .feature-marquee-track { animation-play-state: paused; }
-.feature-marquee-card {
-  flex: 0 0 320px;
+.feat-card {
+  flex: 0 0 calc((100% - 3rem) / 3);
   margin-right: 1.5rem;
+  box-sizing: border-box;
   background: #fff;
   border: 1px solid #b5b5b5;
   border-radius: var(--radius-lg);
   padding: 1.5rem;
 }
-.feature-marquee-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
-.feature-marquee-card p { font-size: 0.875rem; color: var(--text-muted); line-height: 1.55; }
-@keyframes featureScroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+.feat-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
+.feat-card p { font-size: 0.875rem; color: var(--text-muted); line-height: 1.55; }
+.feat-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #b5b5b5;
+  background: #fff;
+  color: var(--text);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-card);
+}
+.feat-arrow:hover { box-shadow: var(--shadow-hover); }
+.feat-arrow.prev { left: -20px; }
+.feat-arrow.next { right: -20px; }
+@media (max-width: 768px) {
+  .feat-card { flex: 0 0 calc(100% - 1.5rem); }
+  .feat-arrow.prev { left: 4px; }
+  .feat-arrow.next { right: 4px; }
 }
 
 .cmp-card-section {
@@ -657,3 +685,48 @@ const sections = data.sections.filter(s => s.enabled !== false);
   .blog-grid { grid-template-columns: 1fr; }
 }
 </style>
+
+<script>
+const track = document.getElementById('featTrack');
+
+if (track) {
+  const carousel = track.closest('.feature-carousel');
+  const total = track.children.length / 2;
+  let index = 0;
+  let timer;
+
+  const step = () => {
+    const card = track.children[0];
+    return card.getBoundingClientRect().width + parseFloat(getComputedStyle(card).marginRight);
+  };
+
+  const setX = (animate) => {
+    track.style.transition = animate ? 'transform 0.5s ease' : 'none';
+    track.style.transform = `translateX(-${index * step()}px)`;
+    if (!animate) void track.offsetWidth;
+  };
+
+  const next = () => {
+    if (index >= total) { index -= total; setX(false); }
+    index += 1;
+    setX(true);
+  };
+  const prev = () => {
+    if (index <= 0) { index += total; setX(false); }
+    index -= 1;
+    setX(true);
+  };
+
+  const startAuto = () => { timer = setInterval(next, 3000); };
+  const resetAuto = () => { clearInterval(timer); startAuto(); };
+
+  document.getElementById('featPrev')?.addEventListener('click', () => { prev(); resetAuto(); });
+  document.getElementById('featNext')?.addEventListener('click', () => { next(); resetAuto(); });
+
+  carousel?.addEventListener('mouseenter', () => clearInterval(timer));
+  carousel?.addEventListener('mouseleave', startAuto);
+  window.addEventListener('resize', () => setX(false));
+
+  startAuto();
+}
+</script>

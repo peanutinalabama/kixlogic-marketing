@@ -130,7 +130,7 @@
     },
     {
       "type": "ai",
-      "enabled": true,
+      "enabled": false,
       "heading": "Get to know Kixlogic AI",
       "cards": [
         {
