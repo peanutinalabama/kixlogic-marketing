@@ -248,7 +248,15 @@ import { atsFeatures, tagLabels, steps } from '../data/ats-features';
         tabs[current].classList.add('active');
         tabs[current].setAttribute('aria-selected', 'true');
         dots[current].classList.add('active');
-        tabs[current].scrollIntoView({ block: 'nearest', inline: 'nearest' });
+        // Scroll only the tab strip horizontally — scrollIntoView here scrolled the
+        // whole page down to the carousel on every auto-advance.
+        const strip = tabs[current].closest('.carousel-tabs');
+        if (strip && strip.scrollWidth > strip.clientWidth) {
+          strip.scrollTo({
+            left: tabs[current].offsetLeft - strip.clientWidth / 2 + tabs[current].offsetWidth / 2,
+            behavior: 'smooth',
+          });
+        }
       }
 
       function startAuto() { timer = setInterval(() => go(current + 1), 5000); }
