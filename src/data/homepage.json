@@ -81,7 +81,7 @@
     },
     {
       "type": "blog-posts",
-      "enabled": true
+      "enabled": false
     },
     {
       "type": "feature",
