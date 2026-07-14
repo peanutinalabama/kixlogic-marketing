@@ -26,7 +26,7 @@
       "type": "why",
       "enabled": true,
       "greyBackground": false,
-      "heading": "Why teams choose Kixlogic",
+      "heading": "Why teams choose Kixlogic ATS",
       "cards": [
         {
           "title": "Built for teams under 500",
@@ -41,6 +41,10 @@
           "description": "100% cloud SaaS. Sign up, brand your careers page, and start hiring the same day. No IT project required."
         }
       ]
+    },
+    {
+      "type": "ats-carousel",
+      "enabled": true
     },
     {
       "type": "cmp-card",

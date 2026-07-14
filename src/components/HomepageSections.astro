@@ -11,6 +11,24 @@ const { data } = Astro.props;
 const allPosts = (await getCollection('blog'))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 4);
+
+const atsSlides = [
+  { img: '/images/screenshots/01-overview.png',         title: 'Overview Dashboard',   desc: 'Pipeline breakdown, recent applications, and hiring stats at a glance.' },
+  { img: '/images/screenshots/02-applications.png',     title: 'Applications',         desc: 'Every applicant in one place with AI match scores and stage tracking.' },
+  { img: '/images/screenshots/03-pipeline.png',         title: 'Pipeline',             desc: 'Drag-and-drop kanban to move candidates through every hiring stage.' },
+  { img: '/images/screenshots/04-job-postings.png',     title: 'Job Postings',         desc: 'Create, publish, and syndicate roles to Google Jobs and your careers page.' },
+  { img: '/images/screenshots/05-applicant-search.png', title: 'Applicant Search',     desc: 'Search every resume in your database by skill, title, or keyword.' },
+  { img: '/images/screenshots/06-talent-community.png', title: 'Talent Community',     desc: 'Nurture interested candidates before a role even opens.' },
+  { img: '/images/screenshots/07-sourcing.png',         title: 'Sourcing',             desc: 'Automated open-web sourcing finds candidates while you sleep.' },
+  { img: '/images/screenshots/08-ai-assistant.png',     title: 'AI Assistant',         desc: 'Generate job descriptions, screening questions, and outreach in seconds.' },
+  { img: '/images/screenshots/09-referrals.png',        title: 'Referrals',            desc: 'Track employee referrals from submission to hire.' },
+  { img: '/images/screenshots/10-documents.png',        title: 'Documents',            desc: 'Offer letters, templates, and document management built in.' },
+  { img: '/images/screenshots/11-reporting.png',        title: 'Reporting',            desc: 'Scheduled reports and hiring metrics delivered automatically.' },
+  { img: '/images/screenshots/12-admin.png',            title: 'Admin',                desc: 'Roles, permissions, branding, and team management.' },
+  { img: '/images/screenshots/13-setup-guide.png',      title: 'Setup Guide',          desc: 'A guided checklist that gets you live in minutes.' },
+  { img: '/images/screenshots/14-comp-intelligence.png',title: 'Comp Intelligence',    desc: 'Market pay data right where you make offer decisions.' },
+  { img: '/images/screenshots/15-analytics.png',        title: 'Analytics',            desc: 'Funnel conversion and source performance at a glance.' },
+];
 const sections = data.sections.filter(s => s.enabled !== false);
 ---
 {data.greeting && (
@@ -186,6 +204,36 @@ const sections = data.sections.filter(s => s.enabled !== false);
                 </a>
               );
             })}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (section.type === 'ats-carousel') {
+    return (
+      <section class="section ats-carousel-section">
+        <div class="container">
+          <h2 class="section-heading">Everything inside Kixlogic ATS</h2>
+          <div class="ats-carousel" id="atsCarousel">
+            <div class="ats-carousel-track" id="atsCarouselTrack">
+              {atsSlides.map(s => (
+                <figure class="ats-slide">
+                  <img src={s.img} alt={`${s.title} screenshot`} loading="lazy" />
+                  <figcaption>
+                    <strong>{s.title}</strong>
+                    <span>{s.desc}</span>
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+            <button class="ats-carousel-arrow prev" id="atsPrev" aria-label="Previous feature">‹</button>
+            <button class="ats-carousel-arrow next" id="atsNext" aria-label="Next feature">›</button>
+            <div class="ats-carousel-dots" id="atsDots">
+              {atsSlides.map((s, i) => (
+                <button class={`ats-dot ${i === 0 ? 'active' : ''}`} data-index={i} aria-label={`Go to ${s.title}`}></button>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -403,7 +451,7 @@ const sections = data.sections.filter(s => s.enabled !== false);
 }
 .why-card {
   background: #fff;
-  border: 1px solid var(--border);
+  border: 1px solid #b5b5b5;
   border-radius: var(--radius-lg);
   padding: 1.5rem;
 }
@@ -461,6 +509,76 @@ const sections = data.sections.filter(s => s.enabled !== false);
   color: var(--text-dim);
 }
 .blog-author { font-weight: 600; }
+
+.ats-carousel {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #b5b5b5;
+  border-radius: var(--radius-lg);
+  background: #fff;
+}
+.ats-carousel-track {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+.ats-slide {
+  flex: 0 0 100%;
+  margin: 0;
+}
+.ats-slide img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.ats-slide figcaption {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 1rem 1.5rem 1.25rem;
+  border-top: 1px solid var(--border);
+}
+.ats-slide figcaption strong { font-size: 1rem; font-weight: 600; }
+.ats-slide figcaption span { font-size: 0.875rem; color: var(--text-muted); }
+.ats-carousel-arrow {
+  position: absolute;
+  top: 40%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.92);
+  color: var(--text);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-card);
+}
+.ats-carousel-arrow:hover { background: #fff; box-shadow: var(--shadow-hover); }
+.ats-carousel-arrow.prev { left: 1rem; }
+.ats-carousel-arrow.next { right: 1rem; }
+.ats-carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0 1rem 1rem;
+  flex-wrap: wrap;
+}
+.ats-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: none;
+  background: #d0d0d0;
+  cursor: pointer;
+  padding: 0;
+  transition: background var(--transition), transform var(--transition);
+}
+.ats-dot:hover { background: #a0a0a0; }
+.ats-dot.active { background: var(--ms-blue); transform: scale(1.25); }
 
 .cmp-card-section {
   padding: 3rem 0;
@@ -580,3 +698,38 @@ const sections = data.sections.filter(s => s.enabled !== false);
   .blog-grid { grid-template-columns: 1fr; }
 }
 </style>
+
+<script>
+const carousel = document.getElementById('atsCarousel');
+const track    = document.getElementById('atsCarouselTrack');
+
+if (carousel && track) {
+  const slides = track.children.length;
+  const dots   = carousel.querySelectorAll('.ats-dot');
+  let index = 0;
+  let timer;
+
+  function goTo(i) {
+    index = (i + slides) % slides;
+    track.style.transform = `translateX(-${index * 100}%)`;
+    dots.forEach((d, di) => d.classList.toggle('active', di === index));
+  }
+
+  function startAuto() {
+    timer = setInterval(() => goTo(index + 1), 4000);
+  }
+  function resetAuto() {
+    clearInterval(timer);
+    startAuto();
+  }
+
+  document.getElementById('atsPrev')?.addEventListener('click', () => { goTo(index - 1); resetAuto(); });
+  document.getElementById('atsNext')?.addEventListener('click', () => { goTo(index + 1); resetAuto(); });
+  dots.forEach((d, di) => d.addEventListener('click', () => { goTo(di); resetAuto(); }));
+
+  carousel.addEventListener('mouseenter', () => clearInterval(timer));
+  carousel.addEventListener('mouseleave', startAuto);
+
+  startAuto();
+}
+</script>
