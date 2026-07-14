@@ -25,7 +25,7 @@
     {
       "type": "why",
       "enabled": true,
-      "greyBackground": true,
+      "greyBackground": false,
       "heading": "Why teams choose Kixlogic",
       "cards": [
         {
