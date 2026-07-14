@@ -4,9 +4,1024 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex" />
-  <title>Kixlogic Site Admin</title>
+  <title>Kixlogic Blog Admin</title>
+
+  <!-- CKEditor 5 -->
+  <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/44.3.0/ckeditor5.css" />
+  <script src="https://cdn.ckeditor.com/ckeditor5/44.3.0/ckeditor5.umd.js"></script>
+
+  <style>
+    /* ── Reset & tokens ───────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:        #0f0f0f;
+      --sidebar:   #141414;
+      --panel:     #141414;
+      --surface:   #1c1c1c;
+      --border:    #2a2a2a;
+      --gold:      #c9a84c;
+      --gold-dim:  #a07a30;
+      --text:      #e8e8e8;
+      --text-muted:#9a9a9a;
+      --text-dim:  #666;
+      --red:       #e05c5c;
+      --green:     #4caf82;
+      --blue:      #4a90d9;
+      --amber:     #d97706;
+      --radius:    8px;
+    }
+    html, body { height: 100%; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); font-size: 14px; }
+
+    /* ── Passcode gate ───────────────────────────────────────── */
+    #kx-gate {
+      position: fixed; inset: 0; background: #0d1117;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 99999;
+    }
+    #kx-gate.hidden { display: none; }
+    .kx-box {
+      background: #161b22; border: 1px solid #30363d; border-radius: 12px;
+      padding: 2.5rem 2rem; width: 100%; max-width: 360px; text-align: center;
+    }
+    .kx-logo { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; color: #e6edf3; margin-bottom: 0.25rem; }
+    .kx-logo span { color: #c9a84c; }
+    .kx-box h1 { font-size: 1rem; font-weight: 600; color: #e6edf3; margin: 0 0 0.25rem; }
+    .kx-box p { font-size: 0.8rem; color: #8b949e; margin: 0 0 1.5rem; }
+    .kx-box input {
+      width: 100%; padding: 0.65rem 1rem; border-radius: 8px; border: 1px solid #30363d;
+      background: #0d1117; color: #e6edf3; font-size: 1.25rem; letter-spacing: 0.3em;
+      text-align: center; outline: none; margin-bottom: 1rem; font-family: inherit;
+    }
+    .kx-box input:focus { border-color: #c9a84c; }
+    .kx-box button {
+      width: 100%; padding: 0.65rem 1rem; border-radius: 8px; border: none;
+      background: #c9a84c; color: #0d1117; font-size: 0.9rem; font-weight: 700;
+      cursor: pointer; font-family: inherit;
+    }
+    .kx-box button:hover { background: #e0bf6a; }
+    .kx-err { font-size: 0.8rem; color: #f0706a; margin-top: 0.75rem; min-height: 1.2em; }
+
+    /* ── App shell ───────────────────────────────────────────── */
+    #kx-app { display: none; height: 100%; }
+    #kx-app.visible { display: flex; }
+
+    /* ── Left sidebar ────────────────────────────────────────── */
+    #sidebar {
+      width: 260px; min-width: 260px; background: var(--sidebar);
+      border-right: 1px solid var(--border); display: flex; flex-direction: column;
+      height: 100%; overflow: hidden;
+    }
+    .sidebar-top {
+      padding: 1rem 1rem 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .brand { font-size: 1.1rem; font-weight: 800; letter-spacing: -0.02em; color: var(--text); margin-bottom: 0.75rem; }
+    .brand span { color: var(--gold); }
+    .brand small { font-size: 0.65rem; font-weight: 500; color: var(--text-dim); letter-spacing: 0; display: block; margin-top: 0.1rem; }
+    .btn-new {
+      width: 100%; padding: 0.55rem 1rem; border-radius: var(--radius); border: none;
+      background: var(--gold); color: #0d0d0d; font-size: 0.82rem; font-weight: 700;
+      cursor: pointer; font-family: inherit; text-align: center; display: block; transition: 0.15s;
+    }
+    .btn-new:hover { background: #e0bf6a; }
+
+    .filter-tabs {
+      display: flex; gap: 0; border-bottom: 1px solid var(--border);
+      overflow-x: auto;
+    }
+    .filter-tab {
+      flex: 1; padding: 0.55rem 0.4rem; font-size: 0.73rem; font-weight: 500;
+      color: var(--text-muted); background: none; border: none; cursor: pointer;
+      font-family: inherit; border-bottom: 2px solid transparent; white-space: nowrap; transition: 0.15s;
+    }
+    .filter-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+    .filter-tab:hover { color: var(--text); }
+
+    #posts-list { flex: 1; overflow-y: auto; }
+    .post-item {
+      padding: 0.75rem 1rem; border-bottom: 1px solid var(--border);
+      cursor: pointer; transition: 0.1s; display: flex; flex-direction: column; gap: 0.35rem;
+    }
+    .post-item:hover { background: var(--surface); }
+    .post-item.active { background: rgba(201,168,76,0.08); border-left: 2px solid var(--gold); padding-left: calc(1rem - 2px); }
+    .post-item-title { font-size: 0.82rem; font-weight: 600; color: var(--text); line-height: 1.4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .post-item-meta { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
+    .post-item-date { font-size: 0.7rem; color: var(--text-dim); }
+    .post-item-actions { display: flex; gap: 0.25rem; align-items: center; }
+    .btn-del {
+      padding: 0.15rem 0.4rem; font-size: 0.65rem; background: none; border: 1px solid var(--border);
+      color: var(--text-dim); border-radius: 4px; cursor: pointer; font-family: inherit; transition: 0.15s;
+    }
+    .btn-del:hover { border-color: var(--red); color: var(--red); }
+
+    /* Status badges */
+    .badge {
+      display: inline-flex; align-items: center; padding: 0.15rem 0.5rem;
+      border-radius: 999px; font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em;
+    }
+    .badge-draft      { background: rgba(154,154,154,0.15); color: #9a9a9a; }
+    .badge-scheduled  { background: rgba(217,119,6,0.15);   color: #f59e0b; }
+    .badge-published  { background: rgba(76,175,130,0.15);  color: #4caf82; }
+
+    /* ── Main editor ──────────────────────────────────────────── */
+    #editor-area {
+      flex: 1; min-width: 0; display: flex; flex-direction: column; height: 100%;
+      overflow: hidden;
+    }
+
+    #editor-toolbar {
+      display: flex; align-items: center; gap: 0.5rem; padding: 0.65rem 1.25rem;
+      border-bottom: 1px solid var(--border); flex-wrap: wrap;
+      background: var(--sidebar);
+    }
+    #editor-toolbar .toolbar-left { display: flex; align-items: center; gap: 0.5rem; flex: 1; }
+    #editor-toolbar .toolbar-right { display: flex; align-items: center; gap: 0.5rem; }
+    .btn-toolbar {
+      padding: 0.4rem 0.875rem; border-radius: var(--radius); border: 1px solid var(--border);
+      background: var(--surface); color: var(--text); font-size: 0.78rem; font-weight: 500;
+      cursor: pointer; font-family: inherit; transition: 0.15s;
+    }
+    .btn-toolbar:hover { border-color: var(--gold); color: var(--gold); }
+    .btn-toolbar.primary { background: var(--gold); border-color: var(--gold); color: #0d0d0d; font-weight: 700; }
+    .btn-toolbar.primary:hover { background: #e0bf6a; border-color: #e0bf6a; }
+    .btn-toolbar:disabled { opacity: 0.4; cursor: not-allowed; }
+    #status-badge-toolbar { }
+
+    #title-input {
+      width: 100%; padding: 1.25rem 1.5rem 0.75rem;
+      font-size: 1.6rem; font-weight: 700; background: transparent; border: none;
+      color: var(--text); font-family: inherit; outline: none; letter-spacing: -0.02em;
+      line-height: 1.3;
+    }
+    #title-input::placeholder { color: var(--text-dim); }
+
+    #ckeditor-wrap {
+      flex: 1; overflow-y: auto; padding: 0 1.5rem 2rem;
+    }
+
+    /* CKEditor dark theme overrides */
+    .ck.ck-editor { height: 100%; }
+    .ck.ck-editor__editable_inline {
+      min-height: 500px !important;
+      background: transparent !important;
+      color: var(--text) !important;
+      border: none !important;
+      box-shadow: none !important;
+      padding: 0 !important;
+    }
+    .ck.ck-toolbar { background: var(--surface) !important; border-color: var(--border) !important; border-radius: var(--radius) !important; margin-bottom: 0.75rem; }
+    .ck.ck-toolbar__separator { background: var(--border) !important; }
+    .ck.ck-button { color: var(--text-muted) !important; }
+    .ck.ck-button:hover { background: var(--bg) !important; color: var(--text) !important; }
+    .ck.ck-button.ck-on { background: rgba(201,168,76,0.15) !important; color: var(--gold) !important; }
+    .ck-content h1,h2,h3,h4 { color: var(--text) !important; }
+    .ck-content p,li { color: var(--text-muted) !important; }
+    .ck-content a { color: var(--gold) !important; }
+    .ck-content blockquote { border-left: 3px solid var(--gold) !important; color: var(--text-muted) !important; background: var(--surface) !important; }
+    .ck-content pre { background: var(--surface) !important; color: var(--text) !important; }
+    .ck-content table { border-collapse: collapse !important; }
+    .ck-content table td, .ck-content table th { border: 1px solid var(--border) !important; color: var(--text-muted) !important; }
+
+    /* Empty state */
+    #empty-state {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      height: 100%; gap: 1rem; color: var(--text-dim);
+    }
+    #empty-state svg { opacity: 0.3; }
+    #empty-state p { font-size: 0.9rem; }
+
+    /* ── Right panel ──────────────────────────────────────────── */
+    #right-panel {
+      width: 320px; min-width: 320px; background: var(--panel);
+      border-left: 1px solid var(--border); display: flex; flex-direction: column;
+      height: 100%; overflow: hidden;
+    }
+    .panel-tabs {
+      display: flex; border-bottom: 1px solid var(--border);
+    }
+    .panel-tab {
+      flex: 1; padding: 0.65rem 0.5rem; font-size: 0.78rem; font-weight: 600;
+      color: var(--text-muted); background: none; border: none; cursor: pointer;
+      font-family: inherit; border-bottom: 2px solid transparent; transition: 0.15s;
+    }
+    .panel-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+    .panel-tab:hover { color: var(--text); }
+    .panel-body { flex: 1; overflow-y: auto; padding: 1rem; display: none; }
+    .panel-body.active { display: block; }
+
+    /* ── AI Tab ── */
+    .ai-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 1rem; }
+    .ai-action-btn {
+      padding: 0.5rem 0.5rem; border-radius: var(--radius); border: 1px solid var(--border);
+      background: var(--surface); color: var(--text-muted); font-size: 0.72rem; font-weight: 500;
+      cursor: pointer; font-family: inherit; text-align: left; transition: 0.15s; line-height: 1.3;
+    }
+    .ai-action-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .ai-chat { display: flex; flex-direction: column; gap: 0.75rem; min-height: 200px; background: var(--surface); border-radius: var(--radius); padding: 0.75rem; margin-bottom: 0.75rem; max-height: 320px; overflow-y: auto; }
+    .ai-msg { font-size: 0.8rem; line-height: 1.6; }
+    .ai-msg.user { color: var(--text-muted); }
+    .ai-msg.ai { color: var(--text); background: rgba(201,168,76,0.05); padding: 0.5rem 0.75rem; border-radius: 6px; border-left: 2px solid var(--gold); white-space: pre-wrap; }
+    .ai-msg.thinking { color: var(--text-dim); font-style: italic; }
+    .ai-input-row { display: flex; gap: 0.5rem; }
+    .ai-input {
+      flex: 1; padding: 0.5rem 0.75rem; border-radius: var(--radius); border: 1px solid var(--border);
+      background: var(--surface); color: var(--text); font-size: 0.78rem; font-family: inherit; outline: none;
+      resize: none; min-height: 60px;
+    }
+    .ai-input:focus { border-color: var(--gold); }
+    .ai-send {
+      padding: 0.5rem 0.75rem; border-radius: var(--radius); border: none;
+      background: var(--gold); color: #0d0d0d; font-size: 0.75rem; font-weight: 700;
+      cursor: pointer; font-family: inherit; align-self: flex-end;
+    }
+    .ai-send:hover { background: #e0bf6a; }
+    .ai-send:disabled { opacity: 0.4; cursor: not-allowed; }
+    .ai-insert-btn {
+      width: 100%; margin-top: 0.5rem; padding: 0.4rem; border-radius: var(--radius);
+      border: 1px solid var(--border); background: none; color: var(--text-muted);
+      font-size: 0.72rem; cursor: pointer; font-family: inherit; display: none;
+    }
+    .ai-insert-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* ── SEO Tab ── */
+    .seo-field { margin-bottom: 1rem; }
+    .seo-label {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.72rem; font-weight: 600; color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.35rem;
+    }
+    .char-count { font-size: 0.68rem; font-weight: 500; }
+    .char-ok { color: var(--green); }
+    .char-warn { color: var(--amber); }
+    .char-bad { color: var(--red); }
+    .seo-input, .seo-textarea {
+      width: 100%; padding: 0.5rem 0.75rem; border-radius: var(--radius);
+      border: 1px solid var(--border); background: var(--surface); color: var(--text);
+      font-size: 0.8rem; font-family: inherit; outline: none;
+    }
+    .seo-input:focus, .seo-textarea:focus { border-color: var(--gold); }
+    .seo-textarea { resize: vertical; min-height: 80px; }
+    .seo-checklist { margin-top: 1rem; display: flex; flex-direction: column; gap: 0.4rem; }
+    .seo-check { display: flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; }
+    .seo-check-icon { width: 14px; height: 14px; flex-shrink: 0; }
+    .seo-check.pass { color: var(--green); }
+    .seo-check.fail { color: var(--text-dim); }
+
+    /* ── Settings Tab ── */
+    .settings-section { margin-bottom: 1.25rem; }
+    .settings-label { font-size: 0.72rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.35rem; display: block; }
+    .settings-input, .settings-textarea {
+      width: 100%; padding: 0.5rem 0.75rem; border-radius: var(--radius);
+      border: 1px solid var(--border); background: var(--surface); color: var(--text);
+      font-size: 0.8rem; font-family: inherit; outline: none;
+    }
+    .settings-input:focus, .settings-textarea:focus { border-color: var(--gold); }
+    .settings-textarea { resize: vertical; min-height: 72px; }
+    .settings-toggle { display: flex; align-items: center; gap: 0.75rem; }
+    .toggle-switch {
+      width: 36px; height: 20px; background: var(--border); border-radius: 999px;
+      position: relative; cursor: pointer; transition: 0.2s; flex-shrink: 0;
+    }
+    .toggle-switch.on { background: var(--gold); }
+    .toggle-switch::after {
+      content: ''; position: absolute; left: 3px; top: 3px;
+      width: 14px; height: 14px; background: #fff; border-radius: 999px; transition: 0.2s;
+    }
+    .toggle-switch.on::after { left: 19px; }
+    .toggle-label { font-size: 0.78rem; color: var(--text-muted); }
+
+    /* ── Toast ────────────────────────────────────────────────── */
+    #toast-container { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 9999; display: flex; flex-direction: column; gap: 0.5rem; }
+    .toast {
+      padding: 0.65rem 1rem; border-radius: var(--radius); font-size: 0.8rem; font-weight: 500;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.5); animation: slideIn 0.2s ease;
+      max-width: 320px;
+    }
+    .toast-success { background: var(--green); color: #0d0d0d; }
+    .toast-error   { background: var(--red); color: #fff; }
+    .toast-info    { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
+    @keyframes slideIn { from { transform: translateX(1rem); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+    /* ── Scrollbar ────────────────────────────────────────────── */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--text-dim); }
+  </style>
 </head>
 <body>
-  <script src="https://unpkg.com/decap-cms@^3.3.3/dist/decap-cms.js"></script>
+
+<!-- Passcode gate -->
+<div id="kx-gate">
+  <div class="kx-box">
+    <div class="kx-logo">Kix<span>logic</span></div>
+    <h1>Blog Admin</h1>
+    <p>Enter your passcode to continue</p>
+    <input type="password" id="kx-passcode" maxlength="6" placeholder="····" autocomplete="off" autofocus />
+    <button onclick="kxUnlock()">Unlock</button>
+    <div class="kx-err" id="kx-err"></div>
+  </div>
+</div>
+
+<!-- Main App -->
+<div id="kx-app">
+
+  <!-- Left sidebar -->
+  <aside id="sidebar">
+    <div class="sidebar-top">
+      <div class="brand">Kix<span>logic</span><small>Blog Admin</small></div>
+      <button class="btn-new" onclick="newPost()">+ New Post</button>
+    </div>
+
+    <div class="filter-tabs">
+      <button class="filter-tab active" data-filter="all"  onclick="setFilter('all',this)">All</button>
+      <button class="filter-tab" data-filter="draft"       onclick="setFilter('draft',this)">Draft</button>
+      <button class="filter-tab" data-filter="scheduled"   onclick="setFilter('scheduled',this)">Sched</button>
+      <button class="filter-tab" data-filter="published"   onclick="setFilter('published',this)">Live</button>
+    </div>
+
+    <div id="posts-list"></div>
+  </aside>
+
+  <!-- Editor area -->
+  <main id="editor-area">
+    <!-- Empty state -->
+    <div id="empty-state">
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+        <rect x="8" y="6" width="32" height="36" rx="3" stroke="currentColor" stroke-width="2"/>
+        <line x1="14" y1="16" x2="34" y2="16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="14" y1="22" x2="34" y2="22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="14" y1="28" x2="26" y2="28" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <p>Select a post or create a new one</p>
+    </div>
+
+    <!-- Editor (hidden until post selected) -->
+    <div id="editor-wrap" style="display:none; display:flex; flex-direction:column; height:100%;">
+      <div id="editor-toolbar">
+        <div class="toolbar-left">
+          <span id="status-badge-toolbar"></span>
+        </div>
+        <div class="toolbar-right">
+          <button class="btn-toolbar" onclick="saveDraft()">Save Draft</button>
+          <button class="btn-toolbar" onclick="previewPost()">Preview</button>
+          <button class="btn-toolbar" id="btn-schedule" onclick="schedulePost()" disabled>Schedule</button>
+          <button class="btn-toolbar primary" onclick="publishPost()">Publish Now</button>
+        </div>
+      </div>
+
+      <input id="title-input" type="text" placeholder="Post title…" oninput="onTitleInput()" />
+
+      <div id="ckeditor-wrap">
+        <div id="ck-editor-el"></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Right panel -->
+  <aside id="right-panel">
+    <div class="panel-tabs">
+      <button class="panel-tab active" onclick="setTab('ai',this)">AI</button>
+      <button class="panel-tab" onclick="setTab('seo',this)">SEO</button>
+      <button class="panel-tab" onclick="setTab('settings',this)">Settings</button>
+    </div>
+
+    <!-- AI Tab -->
+    <div class="panel-body active" id="tab-ai">
+      <div class="ai-actions">
+        <button class="ai-action-btn" onclick="aiQuick('outline')">📋 Generate outline</button>
+        <button class="ai-action-btn" onclick="aiQuick('write_intro')">✍️ Write intro</button>
+        <button class="ai-action-btn" onclick="aiQuick('title_suggestions')">💡 Suggest titles</button>
+        <button class="ai-action-btn" onclick="aiQuick('seo_meta')">🔍 Meta description</button>
+        <button class="ai-action-btn" onclick="aiQuick('expand')">📈 Expand selection</button>
+        <button class="ai-action-btn" onclick="aiQuick('fix_grammar')">✅ Fix grammar</button>
+        <button class="ai-action-btn" onclick="aiQuick('rewrite')">🔄 Rewrite</button>
+        <button class="ai-action-btn" onclick="aiQuick('social_caption')">📣 Social caption</button>
+      </div>
+      <div class="ai-chat" id="ai-chat"></div>
+      <div class="ai-input-row">
+        <textarea class="ai-input" id="ai-user-input" placeholder="Ask AI anything about this post…" rows="3" onkeydown="aiInputKey(event)"></textarea>
+        <button class="ai-send" id="ai-send-btn" onclick="aiSend()">Send</button>
+      </div>
+      <button class="ai-insert-btn" id="ai-insert-btn" onclick="aiInsert()">↑ Insert last response into editor</button>
+    </div>
+
+    <!-- SEO Tab -->
+    <div class="panel-body" id="tab-seo">
+      <div class="seo-field">
+        <div class="seo-label">Slug</div>
+        <input type="text" class="seo-input" id="seo-slug" placeholder="post-url-slug" oninput="syncSlug()" />
+      </div>
+      <div class="seo-field">
+        <div class="seo-label">Focus keyword</div>
+        <input type="text" class="seo-input" id="seo-keyword" placeholder="e.g. life sciences hiring" oninput="updateSeoChecklist()" />
+      </div>
+      <div class="seo-field">
+        <div class="seo-label">
+          SEO title
+          <span class="char-count" id="seo-title-count">0/60</span>
+        </div>
+        <input type="text" class="seo-input" id="seo-title-inp" placeholder="Override page title for search engines…" oninput="updateSeoChecklist()" maxlength="80" />
+      </div>
+      <div class="seo-field">
+        <div class="seo-label">
+          Meta description
+          <span class="char-count" id="seo-meta-count">0/160</span>
+        </div>
+        <textarea class="seo-textarea" id="seo-meta-inp" placeholder="Search engine description (150-160 chars ideal)…" oninput="updateSeoChecklist()" maxlength="200"></textarea>
+      </div>
+      <div class="seo-field">
+        <div class="seo-label">OG image URL</div>
+        <input type="url" class="seo-input" id="seo-og-image" placeholder="https://…" />
+      </div>
+      <div class="seo-checklist" id="seo-checklist"></div>
+    </div>
+
+    <!-- Settings Tab -->
+    <div class="panel-body" id="tab-settings">
+      <div class="settings-section">
+        <label class="settings-label">Author</label>
+        <input type="text" class="settings-input" id="set-author" value="Kixlogic Team" />
+      </div>
+      <div class="settings-section">
+        <label class="settings-label">Tags (comma separated)</label>
+        <input type="text" class="settings-input" id="set-tags" placeholder="hiring, life sciences, comp" />
+      </div>
+      <div class="settings-section">
+        <label class="settings-label">Excerpt</label>
+        <textarea class="settings-textarea" id="set-excerpt" placeholder="Short summary shown in post cards…"></textarea>
+      </div>
+      <div class="settings-section">
+        <label class="settings-label">Cover image URL</label>
+        <input type="url" class="settings-input" id="set-cover" placeholder="https://…" />
+      </div>
+      <div class="settings-section">
+        <label class="settings-label">Schedule date/time</label>
+        <input type="datetime-local" class="settings-input" id="set-scheduled-at" oninput="checkSchedule()" />
+      </div>
+      <div class="settings-section">
+        <div class="settings-toggle">
+          <div class="toggle-switch" id="toggle-webhook" onclick="toggleWebhook()"></div>
+          <span class="toggle-label">Fire social webhook on publish</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+</div>
+
+<div id="toast-container"></div>
+
+<script>
+// ── Constants ─────────────────────────────────────────────────────────────────
+const API = 'https://api.kixlogic.com/api';
+const Q   = (s) => `${s}${s.includes('?')?'&':'?'}tenant=kixlogic`;
+
+// ── State ─────────────────────────────────────────────────────────────────────
+let ckEditor        = null;
+let posts           = [];
+let currentPost     = null;
+let currentFilter   = 'all';
+let autoSaveTimer   = null;
+let lastAiReply     = '';
+let webhookEnabled  = false;
+
+// ── Passcode gate ─────────────────────────────────────────────────────────────
+(function checkAuth() {
+  if (sessionStorage.getItem('kx_blog_admin_auth') === '1') unlockApp();
+})();
+
+function kxUnlock() {
+  const val = document.getElementById('kx-passcode').value.trim();
+  if (val === '3718') {
+    sessionStorage.setItem('kx_blog_admin_auth', '1');
+    unlockApp();
+  } else {
+    document.getElementById('kx-err').textContent = 'Incorrect passcode';
+    document.getElementById('kx-passcode').value = '';
+    document.getElementById('kx-passcode').focus();
+  }
+}
+
+document.getElementById('kx-passcode').addEventListener('keydown', e => {
+  if (e.key === 'Enter') kxUnlock();
+});
+
+function unlockApp() {
+  document.getElementById('kx-gate').classList.add('hidden');
+  const app = document.getElementById('kx-app');
+  app.style.display = 'flex';
+  app.classList.add('visible');
+  initApp();
+}
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+async function initApp() {
+  await initEditor();
+  await loadPosts();
+}
+
+// ── CKEditor init ─────────────────────────────────────────────────────────────
+async function initEditor() {
+  const {
+    ClassicEditor, Essentials, Paragraph, Heading,
+    Bold, Italic, Underline, Strikethrough,
+    BlockQuote, CodeBlock, Code,
+    List, Table, TableToolbar,
+    Link, Image, ImageUpload, ImageToolbar, ImageStyle, ImageResize,
+    HorizontalLine, SourceEditing,
+  } = CKEDITOR;
+
+  class BlogMediaUploadAdapter {
+    constructor(loader) { this.loader = loader; }
+    async upload() {
+      const file = await this.loader.file;
+      const fd   = new FormData();
+      fd.append('file', file);
+      const res  = await fetch(Q(`${API}/blog/media/upload`), { method: 'POST', body: fd });
+      if (!res.ok) throw new Error('Upload failed');
+      const { url } = await res.json();
+      return { default: url };
+    }
+    abort() {}
+  }
+
+  function BlogUploadPlugin(editor) {
+    editor.plugins.get('FileRepository').createUploadAdapter = (loader) =>
+      new BlogMediaUploadAdapter(loader);
+  }
+
+  ckEditor = await ClassicEditor.create(document.getElementById('ck-editor-el'), {
+    plugins: [
+      Essentials, Paragraph, Heading,
+      Bold, Italic, Underline, Strikethrough,
+      BlockQuote, CodeBlock, Code,
+      List, Table, TableToolbar,
+      Link, Image, ImageUpload, ImageToolbar, ImageStyle, ImageResize,
+      HorizontalLine, SourceEditing,
+      BlogUploadPlugin,
+    ],
+    toolbar: {
+      items: [
+        'heading', '|',
+        'bold', 'italic', 'underline', 'strikethrough', '|',
+        'blockQuote', 'codeBlock', '|',
+        'bulletedList', 'numberedList', '|',
+        'insertTable', 'link', 'uploadImage', 'horizontalLine', '|',
+        'sourceEditing',
+      ],
+    },
+    heading: {
+      options: [
+        { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+        { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+        { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
+        { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' },
+      ],
+    },
+    image: {
+      toolbar: ['imageStyle:inline', 'imageStyle:block', 'imageStyle:side', '|', 'imageTextAlternative'],
+    },
+    table: { contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells'] },
+  });
+
+  ckEditor.model.document.on('change:data', () => {
+    clearTimeout(autoSaveTimer);
+    if (currentPost) {
+      autoSaveTimer = setTimeout(() => saveDraft(true), 3000);
+    }
+  });
+}
+
+// ── Posts list ────────────────────────────────────────────────────────────────
+async function loadPosts() {
+  try {
+    const url = currentFilter === 'all'
+      ? Q(`${API}/blog/posts`)
+      : Q(`${API}/blog/posts?status=${currentFilter}`);
+    const res  = await fetch(url);
+    const data = await res.json();
+    posts = data.posts || [];
+    renderPostsList();
+  } catch(e) {
+    toast('Failed to load posts', 'error');
+  }
+}
+
+function renderPostsList() {
+  const el = document.getElementById('posts-list');
+  if (!posts.length) {
+    el.innerHTML = '<div style="padding:1.5rem 1rem;color:var(--text-dim);font-size:0.78rem;text-align:center">No posts yet</div>';
+    return;
+  }
+  el.innerHTML = posts.map(p => `
+    <div class="post-item ${currentPost?.id === p.id ? 'active' : ''}" onclick="openPost('${p.id}')">
+      <div class="post-item-title">${escHtml(p.title || '(untitled)')}</div>
+      <div class="post-item-meta">
+        <span class="badge badge-${p.status}">${p.status}</span>
+        <div class="post-item-actions">
+          <span class="post-item-date">${formatDate(p.created_at)}</span>
+          <button class="btn-del" title="Delete" onclick="event.stopPropagation();deletePost('${p.id}','${escHtml(p.title||'')}')">✕</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function setFilter(f, btn) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  loadPosts();
+}
+
+// ── Open / New post ───────────────────────────────────────────────────────────
+async function openPost(id) {
+  const post = posts.find(p => p.id === id);
+  if (!post) return;
+  currentPost = post;
+  showEditor();
+  populateEditor(post);
+  renderPostsList();
+}
+
+function newPost() {
+  currentPost = {
+    id: null, title: '', slug: '', status: 'draft',
+    content_html: '', excerpt: '', cover_image_url: '',
+    author: 'Kixlogic Team', tags: [], scheduled_at: null,
+    published_at: null, meta_title: '', meta_description: '',
+    og_image_url: '', focus_keyword: '', webhook_on_publish: false,
+  };
+  showEditor();
+  populateEditor(currentPost);
+}
+
+function showEditor() {
+  document.getElementById('empty-state').style.display = 'none';
+  const wrap = document.getElementById('editor-wrap');
+  wrap.style.display = 'flex';
+}
+
+function populateEditor(post) {
+  document.getElementById('title-input').value = post.title || '';
+  if (ckEditor) ckEditor.setData(post.content_html || '');
+
+  // SEO
+  document.getElementById('seo-slug').value     = post.slug          || '';
+  document.getElementById('seo-keyword').value  = post.focus_keyword || '';
+  document.getElementById('seo-title-inp').value = post.meta_title   || '';
+  document.getElementById('seo-meta-inp').value  = post.meta_description || '';
+  document.getElementById('seo-og-image').value  = post.og_image_url || '';
+
+  // Settings
+  document.getElementById('set-author').value   = post.author        || 'Kixlogic Team';
+  document.getElementById('set-tags').value     = (post.tags || []).join(', ');
+  document.getElementById('set-excerpt').value  = post.excerpt       || '';
+  document.getElementById('set-cover').value    = post.cover_image_url || '';
+  if (post.scheduled_at) {
+    const dt = new Date(post.scheduled_at);
+    document.getElementById('set-scheduled-at').value = toLocalDatetime(dt);
+  } else {
+    document.getElementById('set-scheduled-at').value = '';
+  }
+  webhookEnabled = post.webhook_on_publish || false;
+  document.getElementById('toggle-webhook').classList.toggle('on', webhookEnabled);
+
+  updateStatusBadge(post.status);
+  updateSeoChecklist();
+  checkSchedule();
+}
+
+function collectPost() {
+  const title     = document.getElementById('title-input').value.trim();
+  const slug      = document.getElementById('seo-slug').value.trim()
+                    || slugify(title);
+  const tags      = document.getElementById('set-tags').value
+                    .split(',').map(t => t.trim()).filter(Boolean);
+  const schedVal  = document.getElementById('set-scheduled-at').value;
+  const scheduled = schedVal ? new Date(schedVal).toISOString() : null;
+
+  return {
+    id:               currentPost?.id || undefined,
+    title,
+    slug,
+    status:           currentPost?.status || 'draft',
+    content_html:     ckEditor ? ckEditor.getData() : '',
+    excerpt:          document.getElementById('set-excerpt').value.trim(),
+    cover_image_url:  document.getElementById('set-cover').value.trim(),
+    author:           document.getElementById('set-author').value.trim() || 'Kixlogic Team',
+    tags,
+    scheduled_at:     scheduled,
+    published_at:     currentPost?.published_at || null,
+    meta_title:       document.getElementById('seo-title-inp').value.trim(),
+    meta_description: document.getElementById('seo-meta-inp').value.trim(),
+    og_image_url:     document.getElementById('seo-og-image').value.trim(),
+    focus_keyword:    document.getElementById('seo-keyword').value.trim(),
+    webhook_on_publish: webhookEnabled,
+  };
+}
+
+// ── Save ──────────────────────────────────────────────────────────────────────
+async function saveDraft(silent = false) {
+  if (!currentPost && !document.getElementById('title-input').value.trim()) return;
+  try {
+    const payload = collectPost();
+    payload.status = currentPost?.status === 'published' ? 'published' : 'draft';
+    const res  = await fetch(Q(`${API}/blog/posts`), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    if (!res.ok) throw new Error(await res.text());
+    const { post } = await res.json();
+    currentPost = post;
+    updateStatusBadge(post.status);
+    if (!silent) toast('Saved', 'success');
+    await loadPosts();
+  } catch(e) {
+    if (!silent) toast('Save failed: ' + e.message, 'error');
+  }
+}
+
+// ── Delete ────────────────────────────────────────────────────────────────────
+async function deletePost(id, title) {
+  if (!confirm(`Delete "${title}"?`)) return;
+  try {
+    const res = await fetch(Q(`${API}/blog/posts/${id}`), { method: 'DELETE' });
+    if (!res.ok) throw new Error(await res.text());
+    if (currentPost?.id === id) {
+      currentPost = null;
+      document.getElementById('empty-state').style.display = '';
+      document.getElementById('editor-wrap').style.display = 'none';
+    }
+    toast('Deleted', 'success');
+    await loadPosts();
+  } catch(e) {
+    toast('Delete failed: ' + e.message, 'error');
+  }
+}
+
+// ── Publish ───────────────────────────────────────────────────────────────────
+async function publishPost() {
+  if (!currentPost?.id) {
+    await saveDraft(true);
+    if (!currentPost?.id) { toast('Save the post first', 'error'); return; }
+  }
+  try {
+    await saveDraft(true);
+    const res  = await fetch(Q(`${API}/blog/posts/${currentPost.id}/publish`), { method: 'POST' });
+    if (!res.ok) throw new Error(await res.text());
+    const { post } = await res.json();
+    currentPost = post;
+    updateStatusBadge('published');
+    toast('Published!', 'success');
+    await loadPosts();
+  } catch(e) {
+    toast('Publish failed: ' + e.message, 'error');
+  }
+}
+
+// ── Schedule ──────────────────────────────────────────────────────────────────
+async function schedulePost() {
+  const schedVal = document.getElementById('set-scheduled-at').value;
+  if (!schedVal) { toast('Set a schedule date/time first', 'error'); return; }
+  const dt = new Date(schedVal);
+  if (dt <= new Date()) { toast('Schedule must be in the future', 'error'); return; }
+
+  if (!currentPost?.id) await saveDraft(true);
+  try {
+    const payload = collectPost();
+    payload.status = 'scheduled';
+    payload.scheduled_at = dt.toISOString();
+    const res  = await fetch(Q(`${API}/blog/posts`), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    if (!res.ok) throw new Error(await res.text());
+    const { post } = await res.json();
+    currentPost = post;
+    updateStatusBadge('scheduled');
+    toast('Scheduled!', 'success');
+    await loadPosts();
+  } catch(e) {
+    toast('Schedule failed: ' + e.message, 'error');
+  }
+}
+
+// ── Preview ───────────────────────────────────────────────────────────────────
+function previewPost() {
+  const slug = document.getElementById('seo-slug').value.trim()
+               || slugify(document.getElementById('title-input').value);
+  if (!slug) { toast('Save the post first', 'error'); return; }
+  window.open(`https://kixlogic.com/blog/${slug}?preview=1`, '_blank');
+}
+
+// ── Status badge ──────────────────────────────────────────────────────────────
+function updateStatusBadge(status) {
+  if (currentPost) currentPost.status = status;
+  document.getElementById('status-badge-toolbar').innerHTML =
+    `<span class="badge badge-${status}">${status}</span>`;
+}
+
+// ── Title input ───────────────────────────────────────────────────────────────
+function onTitleInput() {
+  const title = document.getElementById('title-input').value;
+  const slugEl = document.getElementById('seo-slug');
+  if (!slugEl.value || (currentPost && slugEl.value === slugify(currentPost.title || ''))) {
+    slugEl.value = slugify(title);
+  }
+  updateSeoChecklist();
+}
+
+// ── Schedule check ────────────────────────────────────────────────────────────
+function checkSchedule() {
+  const val = document.getElementById('set-scheduled-at').value;
+  const btn = document.getElementById('btn-schedule');
+  if (val && new Date(val) > new Date()) {
+    btn.disabled = false;
+  } else {
+    btn.disabled = true;
+  }
+}
+
+// ── Panel tabs ────────────────────────────────────────────────────────────────
+function setTab(name, btn) {
+  document.querySelectorAll('.panel-tab').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.panel-body').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-' + name).classList.add('active');
+}
+
+// ── SEO helpers ───────────────────────────────────────────────────────────────
+function syncSlug() {
+  // User manually editing slug — just let it update
+  updateSeoChecklist();
+}
+
+function updateSeoChecklist() {
+  const title   = document.getElementById('title-input').value;
+  const keyword = document.getElementById('seo-keyword').value.toLowerCase().trim();
+  const seoT    = document.getElementById('seo-title-inp').value;
+  const meta    = document.getElementById('seo-meta-inp').value;
+  const slug    = document.getElementById('seo-slug').value;
+  const content = ckEditor ? ckEditor.getData().replace(/<[^>]+>/g, ' ') : '';
+  const wordCount = content.trim().split(/\s+/).filter(Boolean).length;
+
+  // Char counts
+  const titleLen = seoT.length;
+  const metaLen  = meta.length;
+  const tCountEl = document.getElementById('seo-title-count');
+  const mCountEl = document.getElementById('seo-meta-count');
+  tCountEl.textContent = `${titleLen}/60`;
+  tCountEl.className = 'char-count ' + (titleLen >= 50 && titleLen <= 60 ? 'char-ok' : titleLen > 60 ? 'char-bad' : 'char-warn');
+  mCountEl.textContent = `${metaLen}/160`;
+  mCountEl.className = 'char-count ' + (metaLen >= 150 && metaLen <= 160 ? 'char-ok' : metaLen > 160 ? 'char-bad' : 'char-warn');
+
+  const checks = [
+    { label: 'Keyword in page title',       pass: keyword && (title.toLowerCase().includes(keyword) || seoT.toLowerCase().includes(keyword)) },
+    { label: 'Keyword in meta description', pass: keyword && meta.toLowerCase().includes(keyword) },
+    { label: 'Keyword in slug',             pass: keyword && slug.toLowerCase().includes(keyword.replace(/\s+/g,'-')) },
+    { label: 'SEO title 50-60 chars',       pass: titleLen >= 50 && titleLen <= 60 },
+    { label: 'Meta description 150-160 chars', pass: metaLen >= 150 && metaLen <= 160 },
+    { label: 'Content ≥ 300 words',         pass: wordCount >= 300 },
+  ];
+
+  document.getElementById('seo-checklist').innerHTML = checks.map(c => `
+    <div class="seo-check ${c.pass ? 'pass' : 'fail'}">
+      <svg class="seo-check-icon" viewBox="0 0 14 14" fill="none">
+        ${c.pass
+          ? '<circle cx="7" cy="7" r="6" fill="#4caf82" opacity="0.2"/><path d="M4.5 7l2 2 3-3" stroke="#4caf82" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>'
+          : '<circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1" opacity="0.4"/>'}
+      </svg>
+      ${c.label}
+    </div>
+  `).join('');
+}
+
+// ── Settings toggle ───────────────────────────────────────────────────────────
+function toggleWebhook() {
+  webhookEnabled = !webhookEnabled;
+  document.getElementById('toggle-webhook').classList.toggle('on', webhookEnabled);
+}
+
+// ── AI ─────────────────────────────────────────────────────────────────────────
+async function aiQuick(mode) {
+  const content = ckEditor ? ckEditor.getData().replace(/<[^>]+>/g,' ').trim() : '';
+  const title   = document.getElementById('title-input').value;
+  await aiCall(mode, content || title, `Blog title: ${title}`);
+}
+
+async function aiSend() {
+  const inp = document.getElementById('ai-user-input');
+  const msg = inp.value.trim();
+  if (!msg) return;
+  inp.value = '';
+  const content = ckEditor ? ckEditor.getData().replace(/<[^>]+>/g,' ').trim() : '';
+  addAiMsg(msg, 'user');
+  await aiCall('rewrite', msg, `Blog title: ${document.getElementById('title-input').value}\n\nCurrent content:\n${content.slice(0,2000)}`);
+}
+
+function aiInputKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); aiSend(); }
+}
+
+async function aiCall(mode, content, context) {
+  const btn  = document.getElementById('ai-send-btn');
+  btn.disabled = true;
+
+  const thinkingEl = addAiMsg('Thinking…', 'thinking');
+
+  try {
+    const res = await fetch(Q(`${API}/blog/ai/assist`), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ mode, content, context }),
+    });
+    if (!res.ok) throw new Error(await res.text());
+    const { reply } = await res.json();
+    lastAiReply = reply;
+
+    thinkingEl.remove();
+    const replyEl = addAiMsg('', 'ai');
+    // Simulate streaming
+    let i = 0;
+    const interval = setInterval(() => {
+      if (i >= reply.length) {
+        clearInterval(interval);
+        document.getElementById('ai-insert-btn').style.display = 'block';
+        return;
+      }
+      const chunk = reply.slice(i, i + 3);
+      replyEl.textContent += chunk;
+      i += 3;
+      const chat = document.getElementById('ai-chat');
+      chat.scrollTop = chat.scrollHeight;
+    }, 20);
+  } catch(e) {
+    thinkingEl.textContent = '⚠ ' + e.message;
+    thinkingEl.className = 'ai-msg fail';
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+function addAiMsg(text, type) {
+  const chat = document.getElementById('ai-chat');
+  const div  = document.createElement('div');
+  div.className = 'ai-msg ' + type;
+  div.textContent = text;
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
+  return div;
+}
+
+function aiInsert() {
+  if (!lastAiReply || !ckEditor) return;
+  const html = lastAiReply.replace(/\n/g, '<br>');
+  ckEditor.model.change(writer => {
+    const insertPosition = ckEditor.model.document.selection.getLastPosition();
+    ckEditor.model.insertContent(
+      ckEditor.data.processor.toView(html),
+      insertPosition
+    );
+  });
+  // Simpler fallback: append to editor
+  const current = ckEditor.getData();
+  ckEditor.setData(current + '<p>' + lastAiReply.replace(/\n\n/g,'</p><p>').replace(/\n/g,'<br>') + '</p>');
+  toast('Inserted into editor', 'success');
+}
+
+// ── Toast ─────────────────────────────────────────────────────────────────────
+function toast(msg, type = 'info') {
+  const c = document.getElementById('toast-container');
+  const t = document.createElement('div');
+  t.className = `toast toast-${type}`;
+  t.textContent = msg;
+  c.appendChild(t);
+  setTimeout(() => t.remove(), 3500);
+}
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+function slugify(str) {
+  return (str || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
+function escHtml(s) {
+  return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function formatDate(iso) {
+  if (!iso) return '';
+  const d = new Date(iso);
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+function toLocalDatetime(d) {
+  const pad = n => String(n).padStart(2,'0');
+  return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+</script>
 </body>
 </html>
