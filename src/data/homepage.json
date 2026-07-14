@@ -8,7 +8,7 @@
     "subheadline": "Hiring and compensation intelligence for teams under 500",
     "buttons": [
       { "label": "Explore Kixlogic ATS", "href": "/ats/" },
-      { "label": "Explore Kixlogic CMP", "href": "/comp/" },
+      { "label": "Explore Kixlogic CMP", "href": "/compensation/" },
       { "label": "Compare plans", "href": "/pricing/" }
     ]
   },
@@ -71,7 +71,7 @@
           "title": "Kixlogic CMP",
           "description": "Compensation intelligence with blended market rates, pay equity analysis, and merit cycle planning.",
           "image": "/Kixlogo-light.png",
-          "href": "/comp/",
+          "href": "/compensation/",
           "cta": "Explore Kixlogic CMP",
           "soon": true
         },
@@ -98,7 +98,7 @@
       "enabled": true,
       "items": [
         { "icon": "💼", "label": "Kixlogic ATS", "href": "/ats/" },
-        { "icon": "📊", "label": "Kixlogic CMP", "href": "/comp/" },
+        { "icon": "📊", "label": "Kixlogic CMP", "href": "/compensation/" },
         { "icon": "💳", "label": "See pricing", "href": "/pricing/" },
         { "icon": "📝", "label": "Read the blog", "href": "/blog/" },
         { "icon": "📧", "label": "Contact us", "href": "/contact/" },
@@ -126,7 +126,7 @@
       "description": "Benchmark roles by title, location, and experience. Model merit increases, spot pay equity gaps, and give managers confidence at offer time.",
       "image": "/images/cmp-analyze.svg",
       "ctaLabel": "Explore Kixlogic CMP",
-      "ctaHref": "/comp/"
+      "ctaHref": "/compensation/"
     },
     {
       "type": "ai",
@@ -146,7 +146,7 @@
         {
           "title": "Compensation intelligence",
           "description": "Kixlogic CMP blends job postings, career sites, and BLS data into actionable pay benchmarks. Coming soon.",
-          "href": "/comp/"
+          "href": "/compensation/"
         }
       ]
     }
