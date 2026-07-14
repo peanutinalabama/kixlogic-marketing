@@ -161,7 +161,7 @@ const sections = data.sections.filter(s => s.enabled !== false);
     return (
       <section class={`cmp-card-section ${section.greyBackground ? 'section-grey' : ''}`}>
         <div class="container">
-          <span class="cmp-card-label">Kixlogic CMP</span>
+          <a href="/comp/" class="btn btn-cmp-pill">Explore Kixlogic CMP</a>
           <div class="cmp-card-container">
             <div class="cmp-card-content">
               <h2>{section.title}</h2>
@@ -384,15 +384,25 @@ const sections = data.sections.filter(s => s.enabled !== false);
   background: linear-gradient(160deg, #0b1f3f 0%, #102a54 55%, #0d2244 100%);
   color: #fff;
 }
-.cmp-card-label {
-  display: inline-block;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #7ee0b8;
+.btn-cmp-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.55rem 1.5rem;
+  border-radius: 999px;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  background: #1db980;
+  color: #fff;
   margin-bottom: 1.5rem;
+  display: block;
+  width: fit-content;
 }
+.btn-cmp-pill:hover { background: #17a06d; }
 .cmp-card-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
