@@ -348,22 +348,29 @@ const sections = data.sections.filter(s => s.enabled !== false);
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  background: var(--ms-blue-light);
+  background: var(--ms-blue);
   border-radius: var(--radius-lg);
 }
+.hero-card-copy .section-eyebrow { color: #9fd8e8; }
 .hero-card-copy h2 {
   font-size: clamp(1.5rem, 3vw, 2.25rem);
   font-weight: 600;
   line-height: 1.2;
   margin-bottom: 0.75rem;
+  color: #fff;
 }
 .hero-card-copy p {
   font-size: 0.9375rem;
-  color: var(--text-muted);
+  color: rgba(255,255,255,0.85);
   line-height: 1.6;
   margin-bottom: 1.5rem;
   max-width: 420px;
 }
+.hero-card-copy .btn-primary {
+  background: #fff;
+  color: var(--ms-blue);
+}
+.hero-card-copy .btn-primary:hover { background: var(--ms-blue-light); }
 .hero-card-visual {
   display: flex;
   align-items: center;
