@@ -13,22 +13,23 @@ const allPosts = (await getCollection('blog'))
   .slice(0, 4);
 
 const atsSlides = [
-  { img: '/images/screenshots/01-overview.png',         title: 'Overview Dashboard',   desc: 'Pipeline breakdown, recent applications, and hiring stats at a glance.' },
-  { img: '/images/screenshots/02-applications.png',     title: 'Applications',         desc: 'Every applicant in one place with AI match scores and stage tracking.' },
-  { img: '/images/screenshots/03-pipeline.png',         title: 'Pipeline',             desc: 'Drag-and-drop kanban to move candidates through every hiring stage.' },
-  { img: '/images/screenshots/04-job-postings.png',     title: 'Job Postings',         desc: 'Create, publish, and syndicate roles to Google Jobs and your careers page.' },
-  { img: '/images/screenshots/05-applicant-search.png', title: 'Applicant Search',     desc: 'Search every resume in your database by skill, title, or keyword.' },
-  { img: '/images/screenshots/06-talent-community.png', title: 'Talent Community',     desc: 'Nurture interested candidates before a role even opens.' },
-  { img: '/images/screenshots/07-sourcing.png',         title: 'Sourcing',             desc: 'Automated open-web sourcing finds candidates while you sleep.' },
-  { img: '/images/screenshots/08-ai-assistant.png',     title: 'AI Assistant',         desc: 'Generate job descriptions, screening questions, and outreach in seconds.' },
-  { img: '/images/screenshots/09-referrals.png',        title: 'Referrals',            desc: 'Track employee referrals from submission to hire.' },
-  { img: '/images/screenshots/10-documents.png',        title: 'Documents',            desc: 'Offer letters, templates, and document management built in.' },
-  { img: '/images/screenshots/11-reporting.png',        title: 'Reporting',            desc: 'Scheduled reports and hiring metrics delivered automatically.' },
-  { img: '/images/screenshots/12-admin.png',            title: 'Admin',                desc: 'Roles, permissions, branding, and team management.' },
-  { img: '/images/screenshots/13-setup-guide.png',      title: 'Setup Guide',          desc: 'A guided checklist that gets you live in minutes.' },
-  { img: '/images/screenshots/14-comp-intelligence.png',title: 'Comp Intelligence',    desc: 'Market pay data right where you make offer decisions.' },
-  { img: '/images/screenshots/15-analytics.png',        title: 'Analytics',            desc: 'Funnel conversion and source performance at a glance.' },
+  { icon: '📊', tag: 'starter', title: 'Overview Dashboard',   desc: 'Pipeline breakdown, recent applications, and hiring stats at a glance.' },
+  { icon: '📥', tag: 'starter', title: 'Applications',         desc: 'Every applicant in one place with AI match scores and stage tracking.' },
+  { icon: '🗂️', tag: 'starter', title: 'Pipeline',             desc: 'Drag-and-drop kanban to move candidates through every hiring stage.' },
+  { icon: '📢', tag: 'starter', title: 'Job Postings',         desc: 'Create, publish, and syndicate roles to Google Jobs and your careers page.' },
+  { icon: '🔍', tag: 'growth',  title: 'Applicant Search',     desc: 'Search every resume in your database by skill, title, or keyword.' },
+  { icon: '🌐', tag: 'starter', title: 'Talent Community',     desc: 'Nurture interested candidates before a role even opens.' },
+  { icon: '🎯', tag: 'growth',  title: 'Sourcing',             desc: 'Automated open-web sourcing finds candidates while you sleep.' },
+  { icon: '✨', tag: 'growth',  title: 'AI Assistant',         desc: 'Generate job descriptions, screening questions, and outreach in seconds.' },
+  { icon: '🤝', tag: 'growth',  title: 'Referrals',            desc: 'Track employee referrals from submission to hire.' },
+  { icon: '📄', tag: 'professional', title: 'Documents',       desc: 'Offer letters, templates, and document management built in.' },
+  { icon: '📈', tag: 'professional', title: 'Reporting',       desc: 'Scheduled reports and hiring metrics delivered automatically.' },
+  { icon: '⚙️', tag: 'starter', title: 'Admin',                desc: 'Roles, permissions, branding, and team management.' },
+  { icon: '📖', tag: 'starter', title: 'Setup Guide',          desc: 'A guided checklist that gets you live in minutes.' },
+  { icon: '💰', tag: 'professional', title: 'Comp Intelligence', desc: 'Market pay data right where you make offer decisions.' },
+  { icon: '📉', tag: 'growth',  title: 'Analytics',            desc: 'Funnel conversion and source performance at a glance.' },
 ];
+const slideTagLabels = { starter: 'All Plans', growth: 'Growth+', professional: 'Professional' };
 const sections = data.sections.filter(s => s.enabled !== false);
 ---
 {data.greeting && (
@@ -222,8 +223,10 @@ const sections = data.sections.filter(s => s.enabled !== false);
               <div class="feat-track" id="featTrack">
                 {[...atsSlides, ...atsSlides].map(s => (
                   <div class="feat-card">
+                    <div class="feat-card-icon">{s.icon}</div>
                     <h3>{s.title}</h3>
                     <p>{s.desc}</p>
+                    <div class={`feat-card-tag tag-${s.tag}`}>{slideTagLabels[s.tag]}</div>
                   </div>
                 ))}
               </div>
@@ -544,13 +547,43 @@ const sections = data.sections.filter(s => s.enabled !== false);
   margin-right: 1.5rem;
   box-sizing: border-box;
   background: #fff;
-  border: 1px solid #b5b5b5;
+  border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  padding: 1.5rem;
+  padding: 1.75rem;
   min-height: 220px;
+  transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
 }
-.feat-card h3 { font-size: 1.35rem; font-weight: 600; margin-bottom: 0.75rem; }
-.feat-card p { font-size: 1.1rem; color: var(--text-muted); line-height: 1.55; }
+.feat-card:hover {
+  border-color: var(--border-gold);
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-4px);
+}
+.feat-card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: var(--gold-dim);
+  border: 1px solid var(--border-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  margin-bottom: 1.1rem;
+}
+.feat-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
+.feat-card p { font-size: 0.875rem; color: var(--text-muted); line-height: 1.65; }
+.feat-card-tag {
+  display: inline-block;
+  margin-top: 0.85rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.feat-card-tag.tag-starter { background: rgba(59,130,246,0.12); color: #60a5fa; }
+.feat-card-tag.tag-growth { background: rgba(20,184,148,0.12); color: #14B894; }
+.feat-card-tag.tag-professional { background: rgba(139,92,246,0.12); color: #a78bfa; }
 .feat-arrow {
   position: absolute;
   top: 50%;
