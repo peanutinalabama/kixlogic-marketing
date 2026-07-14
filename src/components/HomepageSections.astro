@@ -312,16 +312,16 @@ const sections = data.sections.filter(s => s.enabled !== false);
 }
 .hero-card-visual {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
   background: #fff;
-  padding: 1rem;
 }
 .hero-card-visual img {
   width: 100%;
-  height: auto;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-card);
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .quicknav-grid {
