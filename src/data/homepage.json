@@ -23,15 +23,15 @@
       "ctaHref": "/ats/"
     },
     {
-      "type": "blog-posts",
-      "enabled": true
-    },
-    {
       "type": "cmp-card",
       "enabled": true,
       "greyBackground": true,
       "title": "Compensation intelligence from market rates to payday.",
       "description": "Market benchmarks, merit cycles, pay equity, and commission tracking — one platform for hiring, budgeting, and showing every dollar earned."
+    },
+    {
+      "type": "blog-posts",
+      "enabled": true
     },
     {
       "type": "products",
