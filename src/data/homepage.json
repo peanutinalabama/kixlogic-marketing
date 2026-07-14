@@ -23,6 +23,26 @@
       "ctaHref": "/ats/"
     },
     {
+      "type": "why",
+      "enabled": true,
+      "greyBackground": true,
+      "heading": "Why teams choose Kixlogic",
+      "cards": [
+        {
+          "title": "Built for teams under 500",
+          "description": "Not enterprise software with a small-business skin. Designed from scratch for practical hiring and HR teams."
+        },
+        {
+          "title": "ATS + CMP in one platform",
+          "description": "Hire the right people and pay them fairly — without juggling separate recruiting and compensation tools."
+        },
+        {
+          "title": "Live in minutes",
+          "description": "100% cloud SaaS. Sign up, brand your careers page, and start hiring the same day. No IT project required."
+        }
+      ]
+    },
+    {
       "type": "cmp-card",
       "enabled": true,
       "greyBackground": true,
@@ -121,26 +141,6 @@
           "title": "Compensation intelligence",
           "description": "Kixlogic CMP blends job postings, career sites, and BLS data into actionable pay benchmarks. Coming soon.",
           "href": "/comp/"
-        }
-      ]
-    },
-    {
-      "type": "why",
-      "enabled": true,
-      "greyBackground": true,
-      "heading": "Why teams choose Kixlogic",
-      "cards": [
-        {
-          "title": "Built for teams under 500",
-          "description": "Not enterprise software with a small-business skin. Designed from scratch for practical hiring and HR teams."
-        },
-        {
-          "title": "ATS + CMP in one platform",
-          "description": "Hire the right people and pay them fairly — without juggling separate recruiting and compensation tools."
-        },
-        {
-          "title": "Live in minutes",
-          "description": "100% cloud SaaS. Sign up, brand your careers page, and start hiring the same day. No IT project required."
         }
       ]
     }
