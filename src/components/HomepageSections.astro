@@ -216,25 +216,15 @@ const sections = data.sections.filter(s => s.enabled !== false);
       <section class="section ats-carousel-section">
         <div class="container">
           <h2 class="section-heading">Everything inside Kixlogic ATS</h2>
-          <div class="ats-carousel" id="atsCarousel">
-            <div class="ats-carousel-track" id="atsCarouselTrack">
-              {atsSlides.map(s => (
-                <figure class="ats-slide">
-                  <img src={s.img} alt={`${s.title} screenshot`} loading="lazy" />
-                  <figcaption>
-                    <strong>{s.title}</strong>
-                    <span>{s.desc}</span>
-                  </figcaption>
-                </figure>
-              ))}
-            </div>
-            <button class="ats-carousel-arrow prev" id="atsPrev" aria-label="Previous feature">‹</button>
-            <button class="ats-carousel-arrow next" id="atsNext" aria-label="Next feature">›</button>
-            <div class="ats-carousel-dots" id="atsDots">
-              {atsSlides.map((s, i) => (
-                <button class={`ats-dot ${i === 0 ? 'active' : ''}`} data-index={i} aria-label={`Go to ${s.title}`}></button>
-              ))}
-            </div>
+        </div>
+        <div class="feature-marquee">
+          <div class="feature-marquee-track">
+            {[...atsSlides, ...atsSlides].map(s => (
+              <div class="feature-marquee-card">
+                <h3>{s.title}</h3>
+                <p>{s.desc}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -523,75 +513,30 @@ const sections = data.sections.filter(s => s.enabled !== false);
 }
 .blog-author { font-weight: 600; }
 
-.ats-carousel {
-  position: relative;
+.feature-marquee {
   overflow: hidden;
+  width: 100%;
+}
+.feature-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: featureScroll 60s linear infinite;
+}
+.feature-marquee:hover .feature-marquee-track { animation-play-state: paused; }
+.feature-marquee-card {
+  flex: 0 0 320px;
+  margin-right: 1.5rem;
+  background: #fff;
   border: 1px solid #b5b5b5;
   border-radius: var(--radius-lg);
-  background: #fff;
+  padding: 1.5rem;
 }
-.ats-carousel-track {
-  display: flex;
-  transition: transform 0.5s ease;
+.feature-marquee-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
+.feature-marquee-card p { font-size: 0.875rem; color: var(--text-muted); line-height: 1.55; }
+@keyframes featureScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
-.ats-slide {
-  flex: 0 0 100%;
-  margin: 0;
-}
-.ats-slide img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-.ats-slide figcaption {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  padding: 1rem 1.5rem 1.25rem;
-  border-top: 1px solid var(--border);
-}
-.ats-slide figcaption strong { font-size: 1rem; font-weight: 600; }
-.ats-slide figcaption span { font-size: 0.875rem; color: var(--text-muted); }
-.ats-carousel-arrow {
-  position: absolute;
-  top: 40%;
-  transform: translateY(-50%);
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 1px solid var(--border);
-  background: rgba(255,255,255,0.92);
-  color: var(--text);
-  font-size: 1.5rem;
-  line-height: 1;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: var(--shadow-card);
-}
-.ats-carousel-arrow:hover { background: #fff; box-shadow: var(--shadow-hover); }
-.ats-carousel-arrow.prev { left: 1rem; }
-.ats-carousel-arrow.next { right: 1rem; }
-.ats-carousel-dots {
-  display: flex;
-  justify-content: center;
-  gap: 0.4rem;
-  padding: 0 1rem 1rem;
-  flex-wrap: wrap;
-}
-.ats-dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  border: none;
-  background: #d0d0d0;
-  cursor: pointer;
-  padding: 0;
-  transition: background var(--transition), transform var(--transition);
-}
-.ats-dot:hover { background: #a0a0a0; }
-.ats-dot.active { background: var(--ms-blue); transform: scale(1.25); }
 
 .cmp-card-section {
   padding: 3rem 0;
@@ -711,38 +656,3 @@ const sections = data.sections.filter(s => s.enabled !== false);
   .blog-grid { grid-template-columns: 1fr; }
 }
 </style>
-
-<script>
-const carousel = document.getElementById('atsCarousel');
-const track    = document.getElementById('atsCarouselTrack');
-
-if (carousel && track) {
-  const slides = track.children.length;
-  const dots   = carousel.querySelectorAll('.ats-dot');
-  let index = 0;
-  let timer;
-
-  function goTo(i) {
-    index = (i + slides) % slides;
-    track.style.transform = `translateX(-${index * 100}%)`;
-    dots.forEach((d, di) => d.classList.toggle('active', di === index));
-  }
-
-  function startAuto() {
-    timer = setInterval(() => goTo(index + 1), 4000);
-  }
-  function resetAuto() {
-    clearInterval(timer);
-    startAuto();
-  }
-
-  document.getElementById('atsPrev')?.addEventListener('click', () => { goTo(index - 1); resetAuto(); });
-  document.getElementById('atsNext')?.addEventListener('click', () => { goTo(index + 1); resetAuto(); });
-  dots.forEach((d, di) => d.addEventListener('click', () => { goTo(di); resetAuto(); }));
-
-  carousel.addEventListener('mouseenter', () => clearInterval(timer));
-  carousel.addEventListener('mouseleave', startAuto);
-
-  startAuto();
-}
-</script>
