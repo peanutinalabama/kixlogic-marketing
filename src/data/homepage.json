@@ -68,6 +68,18 @@
       ]
     },
     {
+      "type": "quicknav",
+      "enabled": true,
+      "items": [
+        { "icon": "💼", "label": "Kixlogic ATS", "href": "/ats/" },
+        { "icon": "📊", "label": "Kixlogic CMP", "href": "/comp/" },
+        { "icon": "💳", "label": "See pricing", "href": "/pricing/" },
+        { "icon": "📝", "label": "Read the blog", "href": "/blog/" },
+        { "icon": "📧", "label": "Contact us", "href": "/contact/" },
+        { "icon": "🛟", "label": "Get support", "href": "/support/" }
+      ]
+    },
+    {
       "type": "blog-posts",
       "enabled": true
     },
