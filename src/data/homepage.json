@@ -73,7 +73,7 @@
     },
     {
       "type": "feature",
-      "enabled": true,
+      "enabled": false,
       "greyBackground": true,
       "title": "Pipeline management built for real hiring teams",
       "description": "Drag-and-drop kanban, AI scoring, interview scheduling, offer letters, and 90+ customizable application questions — all in one cloud platform.",
@@ -83,7 +83,7 @@
     },
     {
       "type": "feature",
-      "enabled": true,
+      "enabled": false,
       "title": "Pay decisions backed by real market data",
       "description": "Benchmark roles by title, location, and experience. Model merit increases, spot pay equity gaps, and give managers confidence at offer time.",
       "image": "/images/cmp-analyze.svg",
