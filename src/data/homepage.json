@@ -30,10 +30,6 @@
       "description": "Market benchmarks, merit cycles, pay equity, and commission tracking — one platform for hiring, budgeting, and showing every dollar earned."
     },
     {
-      "type": "blog-posts",
-      "enabled": true
-    },
-    {
       "type": "products",
       "enabled": true,
       "cards": [
@@ -70,6 +66,10 @@
           "soon": false
         }
       ]
+    },
+    {
+      "type": "blog-posts",
+      "enabled": true
     },
     {
       "type": "feature",
