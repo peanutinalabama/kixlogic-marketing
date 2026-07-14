@@ -1,11 +1,16 @@
 ---
 import type { HomepageData } from '../lib/cms-types';
+import { getCollection } from 'astro:content';
 
 interface Props {
   data: HomepageData;
 }
 
 const { data } = Astro.props;
+
+const allPosts = (await getCollection('blog'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 4);
 const sections = data.sections.filter(s => s.enabled !== false);
 ---
 {data.greeting && (
@@ -151,6 +156,36 @@ const sections = data.sections.filter(s => s.enabled !== false);
                 <p>{w.description}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (section.type === 'blog-posts') {
+    return (
+      <section class="section">
+        <div class="container">
+          <h2 class="section-heading">Latest from the blog</h2>
+          <div class="blog-grid">
+            {allPosts.map(post => {
+              const d = post.data.pubDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+              return (
+                <a href={`/blog/${post.slug}`} class="blog-card card">
+                  <div class="blog-card-header">
+                    {post.data.tags.slice(0, 1).map(t => (
+                      <span class="tag">{t}</span>
+                    ))}
+                  </div>
+                  <h3>{post.data.title}</h3>
+                  <p>{post.data.description}</p>
+                  <div class="blog-card-footer">
+                    <span class="blog-author">{post.data.author}</span>
+                    <time>{d}</time>
+                  </div>
+                </a>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -378,6 +413,54 @@ const sections = data.sections.filter(s => s.enabled !== false);
   .products-grid { grid-template-columns: repeat(2, 1fr); }
   .quicknav-grid { grid-template-columns: repeat(3, 1fr); }
 }
+.section-heading {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+.blog-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+}
+.blog-card:hover {
+  box-shadow: var(--shadow-hover);
+}
+.blog-card-header {
+  margin-bottom: 0.5rem;
+}
+.blog-card h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+.blog-card p {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+  margin-bottom: 1rem;
+  flex: 1;
+}
+.blog-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+.blog-author { font-weight: 600; }
+
 .cmp-card-section {
   padding: 3rem 0;
   background: linear-gradient(160deg, #0b1f3f 0%, #102a54 55%, #0d2244 100%);
@@ -471,5 +554,10 @@ const sections = data.sections.filter(s => s.enabled !== false);
   .products-grid { grid-template-columns: 1fr; }
   .quicknav-grid { grid-template-columns: repeat(2, 1fr); }
   .cmp-card-container { grid-template-columns: 1fr; }
+  .blog-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 600px) {
+  .blog-grid { grid-template-columns: 1fr; }
 }
 </style>
