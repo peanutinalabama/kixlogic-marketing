@@ -188,7 +188,7 @@ const cmpPlans = [
   },
 ];
 
-const faqs = [
+const atsFaqs = [
   {
     q: 'What happens after the 14-day trial?',
     a: "You'll choose a plan and enter your billing details. If you don't, your account pauses — your data is safe and you can reactivate anytime.",
@@ -204,6 +204,25 @@ const faqs = [
   {
     q: 'Do I need to install any software?',
     a: 'No. Kixlogic is 100% cloud-based — sign up, configure your branding, and your careers page and ATS dashboard are live in under 10 minutes from any browser.',
+  },
+];
+
+const cmpFaqs = [
+  {
+    q: 'What is a CIU?',
+    a: 'A CIU (Compensation Intelligence Unit) is one analysis — a salary benchmark, offer analysis, job description builder run, or AI hiring tool. You pay for decisions, not compute. Your plan includes a monthly CIU allotment; overage packs available anytime.',
+  },
+  {
+    q: 'Can I switch plans later?',
+    a: 'Yes, anytime. Upgrade or downgrade your plan and adjust your CIU allotment to match your hiring volume — changes take effect immediately.',
+  },
+  {
+    q: 'Are industry model add-ons required?',
+    a: 'No. Every account includes the General model for any role, any industry. Industry models (Healthcare, Insurance, Sales, Real Estate, Restaurants) are optional add-ons for specialized benchmarks and tools.',
+  },
+  {
+    q: 'Is my compensation data secure?',
+    a: 'Yes. All employee and compensation data is encrypted in transit and at rest. Our infrastructure is protected by Cloudflare with DDoS mitigation, Web Application Firewall, and SSL/TLS protection.',
   },
 ];
 ---
@@ -309,9 +328,19 @@ const faqs = [
         <sup>†</sup> Prices shown are base subscription rates in U.S. dollars and do not include applicable taxes. Taxes calculated at checkout based on your billing address.
       </p>
 
-      <div class="faq-wrap">
+      <div class="faq-wrap" id="ats-faq">
         <h2>Frequently asked</h2>
-        {faqs.map(f => (
+        {atsFaqs.map(f => (
+          <details>
+            <summary>{f.q}</summary>
+            <div class="faq-body">{f.a}</div>
+          </details>
+        ))}
+      </div>
+
+      <div class="faq-wrap" id="cmp-faq" style="display: none;">
+        <h2>Frequently asked</h2>
+        {cmpFaqs.map(f => (
           <details>
             <summary>{f.q}</summary>
             <div class="faq-body">{f.a}</div>
@@ -504,9 +533,11 @@ document.querySelectorAll('.pricing-tab').forEach(tab => {
 
     document.querySelectorAll('.pricing-tab').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.pricing-tab-content').forEach(c => c.classList.remove('active'));
+    document.querySelectorAll('.faq-wrap').forEach(f => f.style.display = 'none');
 
     tab.classList.add('active');
     document.getElementById(tabName + '-tab').classList.add('active');
+    document.getElementById(tabName + '-faq').style.display = 'block';
   });
 });
 </script>
