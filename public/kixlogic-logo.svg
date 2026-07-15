@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 90" fill="none">
+  <!-- Large sparkle star: center 28,45 outer r=18 inner r=4.5 -->
+  <path d="M28,27 L32.5,40.5 L46,45 L32.5,49.5 L28,63 L23.5,49.5 L10,45 L23.5,40.5 Z" fill="#0a5f75"/>
+  <!-- Medium sparkle star: center 55,19 outer r=9 inner r=2.25 -->
+  <path d="M55,10 L57.25,16.75 L64,19 L57.25,21.25 L55,28 L52.75,21.25 L46,19 L52.75,16.75 Z" fill="#0a5f75"/>
+  <!-- Small sparkle star: center 10,65 outer r=7 inner r=1.75 -->
+  <path d="M10,58 L11.75,63.25 L17,65 L11.75,66.75 L10,72 L8.25,66.75 L3,65 L8.25,63.25 Z" fill="#0a5f75"/>
+  <!-- Wordmark text -->
+  <text x="72" y="70" font-family="'Syne','Nunito','Trebuchet MS','Segoe UI',sans-serif" font-size="54" font-weight="800" fill="#0a5f75">Kixlogic</text>
+</svg>
