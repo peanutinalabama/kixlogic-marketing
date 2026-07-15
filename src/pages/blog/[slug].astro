@@ -1,25 +1,30 @@
 ---
-import { getCollection } from 'astro:content';
+export const prerender = false;
 import BlogPost from '../../layouts/BlogPost.astro';
 
-export async function getStaticPaths() {
-  const posts = await getCollection('blog');
-  return posts.map(post => ({
-    params: { slug: post.slug },
-    props:  { post },
-  }));
+const { slug } = Astro.params;
+const preview = Astro.url.searchParams.get('preview') === '1';
+
+let post: any;
+try {
+  const url = `https://api.kixlogic.com/api/blog/posts/${slug}/public${preview ? '?preview=1' : ''}`;
+  const res = await fetch(url);
+  if (!res.ok) return Astro.redirect('/blog', 302);
+  const data = await res.json();
+  post = data.post;
+} catch {
+  return Astro.redirect('/blog', 302);
 }
 
-const { post } = Astro.props;
-const { Content } = await post.render();
+if (!post) return Astro.redirect('/blog', 302);
 ---
 <BlogPost
-  title={post.data.title}
-  description={post.data.description}
-  pubDate={post.data.pubDate}
-  author={post.data.author}
-  tags={post.data.tags}
-  image={post.data.image}
+  title={post.title}
+  description={post.meta_description || post.excerpt || ''}
+  pubDate={new Date(post.published_at || post.created_at)}
+  author={post.author}
+  tags={post.tags || []}
+  image={post.cover_image_url || undefined}
 >
-  <Content />
+  <div set:html={post.content_html} />
 </BlogPost>

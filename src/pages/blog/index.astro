@@ -1,11 +1,19 @@
 ---
+export const prerender = false;
 import Base from '../../layouts/Base.astro';
-import { getCollection } from 'astro:content';
 
-const allPosts = (await getCollection('blog'))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+let allPosts: any[] = [];
+try {
+  const res = await fetch('https://api.kixlogic.com/api/blog/posts-public');
+  if (res.ok) {
+    const data = await res.json();
+    allPosts = data.posts || [];
+  }
+} catch {
+  // fall through with empty list
+}
 
-const allTags = [...new Set(allPosts.flatMap(p => p.data.tags))].sort();
+const allTags = [...new Set(allPosts.flatMap((p: any) => p.tags || []))].sort();
 ---
 <Base
   title="Blog"
@@ -21,35 +29,40 @@ const allTags = [...new Set(allPosts.flatMap(p => p.data.tags))].sort();
 
       <div class="blog-tags-filter">
         <span class="filter-label">Filter:</span>
-        {allTags.map(t => (
+        {allTags.map((t: string) => (
           <button class="tag-filter-btn" data-tag={t}>{t}</button>
         ))}
         <button class="tag-filter-btn active" data-tag="all">All</button>
       </div>
 
       <div class="posts-grid" id="postsGrid">
-        {allPosts.map(post => {
-          const d = post.data.pubDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+        {allPosts.map((post: any) => {
+          const dateStr = post.published_at
+            ? new Date(post.published_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
+            : '';
           return (
             <a
               href={`/blog/${post.slug}`}
               class="post-card card"
-              data-tags={post.data.tags.join(',')}
+              data-tags={(post.tags || []).join(',')}
             >
               <div class="post-card-tags">
-                {post.data.tags.slice(0, 2).map(t => (
+                {(post.tags || []).slice(0, 2).map((t: string) => (
                   <span class="tag" style="font-size:0.7rem;padding:0.15rem 0.6rem">{t}</span>
                 ))}
               </div>
-              <h2>{post.data.title}</h2>
-              <p>{post.data.description}</p>
+              <h2>{post.title}</h2>
+              <p>{post.excerpt || post.meta_description || ''}</p>
               <div class="post-card-footer">
-                <span class="post-author">{post.data.author}</span>
-                <time datetime={post.data.pubDate.toISOString()}>{d}</time>
+                <span class="post-author">{post.author}</span>
+                {dateStr && <time datetime={new Date(post.published_at).toISOString()}>{dateStr}</time>}
               </div>
             </a>
           );
         })}
+        {allPosts.length === 0 && (
+          <p style="color:var(--text-muted);grid-column:1/-1;text-align:center;padding:3rem 0">No posts yet.</p>
+        )}
       </div>
     </div>
   </section>
