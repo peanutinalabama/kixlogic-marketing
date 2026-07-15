@@ -316,9 +316,9 @@
   <div class="kx-box">
     <div class="kx-logo">Kix<span>logic</span></div>
     <h1>Blog Admin</h1>
-    <p>Enter your passcode to continue</p>
-    <input type="password" id="kx-passcode" maxlength="6" placeholder="····" autocomplete="off" autofocus />
-    <button onclick="kxUnlock()">Unlock</button>
+    <p>Enter your admin key to continue</p>
+    <input type="password" id="kx-passcode" placeholder="Admin key" autocomplete="off" autofocus />
+    <button id="kx-unlock-btn" onclick="kxUnlock()">Unlock</button>
     <div class="kx-err" id="kx-err"></div>
   </div>
 </div>
@@ -477,6 +477,19 @@
 const API = 'https://api.kixlogic.com/api';
 const Q   = (s) => `${s}${s.includes('?')?'&':'?'}tenant=kixlogic`;
 
+// Admin key is entered at the gate, kept only in this tab's sessionStorage, and sent
+// as a header on every API request. The server (worker shim) validates it — the client
+// never checks correctness, so bypassing the UI gate gains nothing.
+const ADMIN_KEY = () => sessionStorage.getItem('kx_blog_admin_key') || '';
+const _origFetch = window.fetch.bind(window);
+window.fetch = (url, opts = {}) => {
+  const u = typeof url === 'string' ? url : (url && url.url) || '';
+  if (u.includes('api.kixlogic.com')) {
+    opts = { ...opts, headers: { ...(opts.headers || {}), 'X-Blog-Admin-Key': ADMIN_KEY() } };
+  }
+  return _origFetch(url, opts);
+};
+
 // ── State ─────────────────────────────────────────────────────────────────────
 let ckEditor        = null;
 let posts           = [];
@@ -488,16 +501,39 @@ let webhookEnabled  = false;
 
 // ── Passcode gate ─────────────────────────────────────────────────────────────
 (function checkAuth() {
-  if (sessionStorage.getItem('kx_blog_admin_auth') === '1') unlockApp();
+  // A stored key just restores the session UI; the server re-validates on every call,
+  // and loadPosts() will surface a 401 if the key is stale.
+  if (ADMIN_KEY()) unlockApp();
 })();
 
-function kxUnlock() {
+async function kxUnlock() {
   const val = document.getElementById('kx-passcode').value.trim();
-  if (val === '3718') {
-    sessionStorage.setItem('kx_blog_admin_auth', '1');
-    unlockApp();
-  } else {
-    document.getElementById('kx-err').textContent = 'Incorrect passcode';
+  const err = document.getElementById('kx-err');
+  const btn = document.getElementById('kx-unlock-btn');
+  if (!val) { err.textContent = 'Enter your admin key'; return; }
+
+  // Validate against the server, not a hardcoded string. The key is stored first so the
+  // fetch wrapper sends it, then a lightweight admin call proves it.
+  sessionStorage.setItem('kx_blog_admin_key', val);
+  err.textContent = '';
+  btn.disabled = true;
+  btn.textContent = 'Checking…';
+  try {
+    const res = await fetch(Q(`${API}/blog/posts`));
+    if (res.ok) {
+      unlockApp();
+      return;
+    }
+    sessionStorage.removeItem('kx_blog_admin_key');
+    err.textContent = res.status === 401
+      ? 'Incorrect admin key'
+      : (res.status === 503 ? 'Admin auth not configured on the server' : `Sign-in failed (${res.status})`);
+  } catch {
+    sessionStorage.removeItem('kx_blog_admin_key');
+    err.textContent = 'Could not reach the server';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Unlock';
     document.getElementById('kx-passcode').value = '';
     document.getElementById('kx-passcode').focus();
   }
