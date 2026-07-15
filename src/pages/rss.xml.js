@@ -1,27 +1,38 @@
 import rss from '@astrojs/rss';
-import { getCollection } from 'astro:content';
 
-// Prerender to a static /rss.xml so feed pollers (Make/Zapier/dlvr.it) and readers
-// get a cacheable feed. Rebuilt on every deploy — a new published post appears here.
-export const prerender = true;
+// SSR (not prerendered) so the feed reflects live posts from the blog API — the same
+// source the /blog page and the publish→social webhook use. A new published post shows
+// up here without a site rebuild, which is what feed pollers (Make/Zapier/dlvr.it) watch.
+export const prerender = false;
 
 export async function GET(context) {
-  const posts = (await getCollection('blog')).sort(
-    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-  );
+  let posts = [];
+  try {
+    const res = await fetch('https://api.kixlogic.com/api/blog/posts-public');
+    if (res.ok) {
+      const data = await res.json();
+      posts = Array.isArray(data.posts) ? data.posts : [];
+    }
+  } catch {
+    // fall through with empty list — always return a valid (possibly empty) feed
+  }
+
+  const items = posts
+    .filter((p) => p.published_at)
+    .map((p) => ({
+      title: p.title,
+      description: p.meta_description || p.excerpt || '',
+      pubDate: new Date(p.published_at),
+      author: p.author || 'Kixlogic Team',
+      categories: p.tags || [],
+      link: `/blog/${p.slug}/`,
+    }));
 
   return rss({
     title: 'Kixlogic Blog',
     description: 'Hiring, compensation, and workforce intelligence insights from Kixlogic.',
     site: context.site,
-    items: posts.map((post) => ({
-      title: post.data.title,
-      description: post.data.description,
-      pubDate: post.data.pubDate,
-      author: post.data.author,
-      categories: post.data.tags,
-      link: `/blog/${post.slug}/`,
-    })),
+    items,
     customData: `<language>en-us</language>`,
   });
 }
