@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import ProductToggle from '../components/ProductToggle.astro';
 
 const featureGroups = [
   {
@@ -97,6 +98,8 @@ const featureGroups = [
   title="Kixlogic CMP"
   description="Kixlogic CMP — compensation intelligence from market rates to payday. Market benchmarks, merit cycles, pay equity, and commission tracking for teams under 500."
 >
+  <ProductToggle active="cmp" />
+
   <section class="cmp-hero">
     <div class="container cmp-hero-inner">
       <div class="cmp-hero-copy">

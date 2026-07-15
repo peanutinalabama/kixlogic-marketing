@@ -1,0 +1,60 @@
+---
+// Segmented ATS / CMP switcher shown at the top of both product pages.
+const { active } = Astro.props; // 'ats' | 'cmp'
+---
+<div class="product-toggle-wrap">
+  <div class="product-toggle" role="tablist" aria-label="Kixlogic products">
+    <a
+      href="/ats/"
+      class={`product-toggle-btn ${active === 'ats' ? 'active' : ''}`}
+      aria-current={active === 'ats' ? 'page' : undefined}
+    >Hiring and Recruiting</a>
+    <a
+      href="/compensation/"
+      class={`product-toggle-btn ${active === 'cmp' ? 'active' : ''}`}
+      aria-current={active === 'cmp' ? 'page' : undefined}
+    >HR and Compensation</a>
+  </div>
+</div>
+
+<style>
+  .product-toggle-wrap {
+    display: flex;
+    justify-content: center;
+    padding: 24px 16px 0;
+  }
+  .product-toggle {
+    display: inline-flex;
+    gap: 4px;
+    background: #ffffff;
+    border: 1px solid var(--border, #e0e0e0);
+    border-radius: var(--radius-pill, 999px);
+    padding: 5px;
+    box-shadow: var(--shadow-card, 0 2px 4px rgba(0, 0, 0, 0.06));
+  }
+  .product-toggle-btn {
+    padding: 10px 26px;
+    border-radius: var(--radius-pill, 999px);
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--text, #242424);
+    text-decoration: none;
+    transition: all var(--transition, 0.2s ease);
+    white-space: nowrap;
+  }
+  .product-toggle-btn:hover {
+    color: var(--ms-blue, #0A5F75);
+    background: var(--ms-blue-dim, rgba(10, 95, 117, 0.12));
+  }
+  .product-toggle-btn.active {
+    background: var(--ms-blue, #0A5F75);
+    color: #ffffff;
+  }
+  .product-toggle-btn.active:hover {
+    background: var(--ms-blue-hover, #084F62);
+    color: #ffffff;
+  }
+  @media (max-width: 520px) {
+    .product-toggle-btn { padding: 8px 14px; font-size: 0.85rem; }
+  }
+</style>

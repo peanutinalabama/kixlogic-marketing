@@ -1,11 +1,14 @@
 ---
 import Base from '../layouts/Base.astro';
+import ProductToggle from '../components/ProductToggle.astro';
 import { atsFeatures, tagLabels, steps } from '../data/ats-features';
 ---
 <Base
   title="Kixlogic ATS"
   description="Kixlogic ATS is built for small and mid-sized businesses. AI resume scoring, advanced analytics, white-label careers pages, and more. Launch in 10 minutes from any browser."
 >
+  <ProductToggle active="ats" />
+
   <!-- Hero -->
   <section class="hero">
     <div class="container hero-inner">
