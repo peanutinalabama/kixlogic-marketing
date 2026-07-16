@@ -1,9 +1,17 @@
 ---
-import { getCollection } from 'astro:content';
-
-const posts = (await getCollection('blog'))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 3);
+let posts: any[] = [];
+try {
+  const res = await fetch('https://api.kixlogic.com/api/blog/posts-public');
+  if (res.ok) {
+    const data = await res.json();
+    posts = (Array.isArray(data.posts) ? data.posts : [])
+      .filter((p: any) => p.published_at)
+      .sort((a: any, b: any) => new Date(b.published_at).valueOf() - new Date(a.published_at).valueOf())
+      .slice(0, 3);
+  }
+} catch {
+  posts = [];
+}
 ---
 {posts.length > 0 && (
   <section class="section section-grey" id="blog">
@@ -13,17 +21,18 @@ const posts = (await getCollection('blog'))
         <a href="/blog/" class="blog-teaser-link">View all posts →</a>
       </div>
       <div class="blog-teaser-grid">
-        {posts.map(post => {
-          const date = post.data.pubDate.toLocaleDateString('en-US', {
+        {posts.map((post: any) => {
+          const dt = new Date(post.published_at);
+          const date = dt.toLocaleDateString('en-US', {
             month: 'short',
             day: 'numeric',
             year: 'numeric',
           });
           return (
-            <a href={`/blog/${post.slug}`} class="blog-teaser-card">
-              <time datetime={post.data.pubDate.toISOString()}>{date}</time>
-              <h3>{post.data.title}</h3>
-              <p>{post.data.description}</p>
+            <a href={`/blog/${post.slug}/`} class="blog-teaser-card">
+              <time datetime={dt.toISOString()}>{date}</time>
+              <h3>{post.title}</h3>
+              <p>{post.excerpt || post.meta_description || ''}</p>
               <span class="blog-teaser-cta">Read article →</span>
             </a>
           );

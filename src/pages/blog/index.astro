@@ -42,10 +42,13 @@ const allTags = [...new Set(allPosts.flatMap((p: any) => p.tags || []))].sort();
             : '';
           return (
             <a
-              href={`/blog/${post.slug}`}
+              href={`/blog/${post.slug}/`}
               class="post-card card"
               data-tags={(post.tags || []).join(',')}
             >
+              {post.cover_image_url && (
+                <img class="post-card-cover" src={post.cover_image_url} alt="" loading="lazy" />
+              )}
               <div class="post-card-tags">
                 {(post.tags || []).slice(0, 2).map((t: string) => (
                   <span class="tag" style="font-size:0.7rem;padding:0.15rem 0.6rem">{t}</span>
@@ -142,9 +145,17 @@ buttons.forEach(btn => {
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
 }
-.post-card { display: flex; flex-direction: column; gap: 0.875rem; text-decoration: none; background: #fff; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem; }
+.post-card { display: flex; flex-direction: column; gap: 0.875rem; text-decoration: none; background: #fff; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem; overflow: hidden; }
 .post-card:hover { border-color: var(--ms-blue); box-shadow: var(--shadow-hover); }
 .post-card:hover h2 { color: var(--ms-blue); }
+.post-card-cover {
+  width: calc(100% + 2.5rem);
+  margin: -1.25rem -1.25rem 0;
+  height: 140px;
+  object-fit: cover;
+  display: block;
+  background: var(--navy-2, #f1f5f9);
+}
 .post-card-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; }
 .post-card h2 {
   font-size: 1.1rem;

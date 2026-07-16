@@ -17,14 +17,22 @@ try {
 }
 
 if (!post) return Astro.redirect('/blog', 302);
+
+const seoTitle = post.meta_title || post.title;
+const description = post.meta_description || post.excerpt || '';
+const coverImage = post.cover_image_url || undefined;
+const ogImage = post.og_image_url || post.cover_image_url || undefined;
 ---
 <BlogPost
   title={post.title}
-  description={post.meta_description || post.excerpt || ''}
+  seoTitle={seoTitle}
+  description={description}
   pubDate={new Date(post.published_at || post.created_at)}
   author={post.author}
   tags={post.tags || []}
-  image={post.cover_image_url || undefined}
+  image={coverImage}
+  ogImage={ogImage}
+  slug={post.slug}
 >
   <div set:html={post.content_html} />
 </BlogPost>

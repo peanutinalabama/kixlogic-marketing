@@ -1,4 +1,6 @@
 ---
+// SSR so homepage blog teaser reflects live CMS posts without a rebuild.
+export const prerender = false;
 import Base from '../layouts/Base.astro';
 import HomepageSections from '../components/HomepageSections.astro';
 import homepage from '../data/homepage.json';

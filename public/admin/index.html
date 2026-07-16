@@ -43,8 +43,8 @@
       background: #161b22; border: 1px solid #30363d; border-radius: 12px;
       padding: 2.5rem 2rem; width: 100%; max-width: 360px; text-align: center;
     }
-    .kx-logo { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; color: #e6edf3; margin-bottom: 0.25rem; }
-    .kx-logo span { color: #c9a84c; }
+    .kx-logo { margin: 0 auto 0.75rem; }
+    .kx-logo img { height: 36px; width: auto; display: block; margin: 0 auto; }
     .kx-box h1 { font-size: 1rem; font-weight: 600; color: #e6edf3; margin: 0 0 0.25rem; }
     .kx-box p { font-size: 0.8rem; color: #8b949e; margin: 0 0 1.5rem; }
     .kx-box input {
@@ -75,9 +75,9 @@
       padding: 1rem 1rem 0.75rem;
       border-bottom: 1px solid var(--border);
     }
-    .brand { font-size: 1.1rem; font-weight: 800; letter-spacing: -0.02em; color: var(--text); margin-bottom: 0.75rem; }
-    .brand span { color: var(--gold); }
-    .brand small { font-size: 0.65rem; font-weight: 500; color: var(--text-dim); letter-spacing: 0; display: block; margin-top: 0.1rem; }
+    .brand { margin-bottom: 0.75rem; }
+    .brand img { height: 28px; width: auto; display: block; }
+    .brand small { font-size: 0.65rem; font-weight: 500; color: var(--text-dim); letter-spacing: 0; display: block; margin-top: 0.35rem; }
     .btn-new {
       width: 100%; padding: 0.55rem 1rem; border-radius: var(--radius); border: none;
       background: var(--gold); color: #0d0d0d; font-size: 0.82rem; font-weight: 700;
@@ -266,6 +266,35 @@
     .seo-check-icon { width: 14px; height: 14px; flex-shrink: 0; }
     .seo-check.pass { color: var(--green); }
     .seo-check.fail { color: var(--text-dim); }
+    .serp-preview {
+      margin: 0 0 1rem; padding: 0.85rem; border-radius: var(--radius);
+      background: #fff; color: #202124; border: 1px solid var(--border);
+    }
+    .serp-url { font-size: 0.72rem; color: #202124; margin-bottom: 0.2rem; word-break: break-all; }
+    .serp-title { font-size: 1rem; color: #1a0dab; line-height: 1.3; margin-bottom: 0.2rem; }
+    .serp-desc { font-size: 0.78rem; color: #4d5156; line-height: 1.4; }
+
+    /* ── Social Tab ── */
+    .social-hint {
+      font-size: 0.75rem; color: var(--text-muted); line-height: 1.45;
+      margin-bottom: 1rem; padding: 0.65rem 0.75rem; border-radius: var(--radius);
+      background: rgba(74,144,217,0.08); border: 1px solid rgba(74,144,217,0.25);
+    }
+    .social-url-row {
+      display: flex; gap: 0.4rem; align-items: center; margin-bottom: 1rem;
+    }
+    .social-url-row input { flex: 1; }
+    .social-actions { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.4rem; }
+    .btn-mini {
+      padding: 0.3rem 0.55rem; border-radius: 6px; border: 1px solid var(--border);
+      background: var(--surface); color: var(--text); font-size: 0.7rem; font-weight: 600;
+      cursor: pointer; font-family: inherit; text-decoration: none; display: inline-flex; align-items: center;
+    }
+    .btn-mini:hover { border-color: var(--gold); color: var(--gold); }
+    .social-sent {
+      display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.85rem;
+    }
+    .social-sent .badge { font-size: 0.62rem; }
 
     /* ── Settings Tab ── */
     .settings-section { margin-bottom: 1.25rem; }
@@ -314,7 +343,7 @@
 <!-- Passcode gate -->
 <div id="kx-gate">
   <div class="kx-box">
-    <div class="kx-logo">Kix<span>logic</span></div>
+    <div class="kx-logo"><img src="/logo-wordmark-white.png" alt="Kixlogic" /></div>
     <h1>Blog Admin</h1>
     <p>Enter your admin key to continue</p>
     <input type="password" id="kx-passcode" placeholder="Admin key" autocomplete="off" autofocus />
@@ -329,7 +358,10 @@
   <!-- Left sidebar -->
   <aside id="sidebar">
     <div class="sidebar-top">
-      <div class="brand">Kix<span>logic</span><small>Blog Admin</small></div>
+      <div class="brand">
+        <img src="/logo-wordmark-white.png" alt="Kixlogic" />
+        <small>Blog Admin</small>
+      </div>
       <button class="btn-new" onclick="newPost()">+ New Post</button>
     </div>
 
@@ -383,6 +415,7 @@
     <div class="panel-tabs">
       <button class="panel-tab active" onclick="setTab('ai',this)">AI</button>
       <button class="panel-tab" onclick="setTab('seo',this)">SEO</button>
+      <button class="panel-tab" onclick="setTab('social',this)">Social</button>
       <button class="panel-tab" onclick="setTab('settings',this)">Settings</button>
     </div>
 
@@ -408,6 +441,11 @@
 
     <!-- SEO Tab -->
     <div class="panel-body" id="tab-seo">
+      <div class="serp-preview" id="serp-preview" aria-label="Google search preview">
+        <div class="serp-url" id="serp-url">https://kixlogic.com/blog/</div>
+        <div class="serp-title" id="serp-title">Post title — Kixlogic</div>
+        <div class="serp-desc" id="serp-desc">Meta description preview…</div>
+      </div>
       <div class="seo-field">
         <div class="seo-label">Slug</div>
         <input type="text" class="seo-input" id="seo-slug" placeholder="post-url-slug" oninput="syncSlug()" />
@@ -432,9 +470,62 @@
       </div>
       <div class="seo-field">
         <div class="seo-label">OG image URL</div>
-        <input type="url" class="seo-input" id="seo-og-image" placeholder="https://…" />
+        <input type="url" class="seo-input" id="seo-og-image" placeholder="https://…" oninput="refreshSocialDrafts()" />
       </div>
       <div class="seo-checklist" id="seo-checklist"></div>
+    </div>
+
+    <!-- Social Tab -->
+    <div class="panel-body" id="tab-social">
+      <div class="social-hint">
+        Copy platform-ready text and open LinkedIn, Facebook, or X to post manually.
+        Zapier auto-post is optional and currently paused — use this tab after Publish.
+      </div>
+      <div class="social-sent" id="social-sent-badges"></div>
+      <div class="seo-field">
+        <div class="seo-label">Public URL</div>
+        <div class="social-url-row">
+          <input type="text" class="seo-input" id="social-post-url" readonly />
+          <button type="button" class="btn-mini" onclick="copySocialField('social-post-url')">Copy URL</button>
+        </div>
+      </div>
+      <div class="seo-field">
+        <div class="seo-label">
+          LinkedIn
+          <span class="char-count" id="li-count">0/3000</span>
+        </div>
+        <textarea class="seo-textarea" id="social-linkedin" rows="5" oninput="updateSocialCounts()"></textarea>
+        <div class="social-actions">
+          <button type="button" class="btn-mini" onclick="copySocialField('social-linkedin')">Copy</button>
+          <a class="btn-mini" id="li-share" href="#" target="_blank" rel="noopener">Open LinkedIn</a>
+        </div>
+      </div>
+      <div class="seo-field">
+        <div class="seo-label">
+          Facebook
+          <span class="char-count" id="fb-count">0/2000</span>
+        </div>
+        <textarea class="seo-textarea" id="social-facebook" rows="4" oninput="updateSocialCounts()"></textarea>
+        <div class="social-actions">
+          <button type="button" class="btn-mini" onclick="copySocialField('social-facebook')">Copy</button>
+          <a class="btn-mini" id="fb-share" href="#" target="_blank" rel="noopener">Open Facebook</a>
+        </div>
+      </div>
+      <div class="seo-field">
+        <div class="seo-label">
+          X (Twitter)
+          <span class="char-count" id="x-count">0/280</span>
+        </div>
+        <textarea class="seo-textarea" id="social-x" rows="3" oninput="updateSocialCounts()"></textarea>
+        <div class="social-actions">
+          <button type="button" class="btn-mini" onclick="copySocialField('social-x')">Copy</button>
+          <a class="btn-mini" id="x-share" href="#" target="_blank" rel="noopener">Open X</a>
+        </div>
+      </div>
+      <div class="social-actions" style="margin-top:0.5rem">
+        <button type="button" class="btn-mini" onclick="refreshSocialDrafts(true)">Reset from post</button>
+        <button type="button" class="btn-mini" onclick="aiQuick('social_caption')">AI captions</button>
+      </div>
     </div>
 
     <!-- Settings Tab -->
@@ -449,7 +540,7 @@
       </div>
       <div class="settings-section">
         <label class="settings-label">Excerpt</label>
-        <textarea class="settings-textarea" id="set-excerpt" placeholder="Short summary shown in post cards…"></textarea>
+        <textarea class="settings-textarea" id="set-excerpt" placeholder="Short summary shown in post cards…" oninput="refreshSocialDrafts()"></textarea>
       </div>
       <div class="settings-section">
         <label class="settings-label">Cover image URL</label>
@@ -462,7 +553,10 @@
       <div class="settings-section">
         <div class="settings-toggle">
           <div class="toggle-switch" id="toggle-webhook" onclick="toggleWebhook()"></div>
-          <span class="toggle-label">Fire social webhook on publish</span>
+          <span class="toggle-label">Auto-post via Zapier when configured (optional)</span>
+        </div>
+        <div style="font-size:0.7rem;color:var(--text-dim);margin-top:0.4rem;line-height:1.4">
+          Manual posting: use the Social tab after publish. Zapier automation is paused.
         </div>
       </div>
     </div>
@@ -497,7 +591,7 @@ let currentPost     = null;
 let currentFilter   = 'all';
 let autoSaveTimer   = null;
 let lastAiReply     = '';
-let webhookEnabled  = false;
+let webhookEnabled  = true;
 
 // ── Passcode gate ─────────────────────────────────────────────────────────────
 (function checkAuth() {
@@ -721,11 +815,13 @@ function populateEditor(post) {
   } else {
     document.getElementById('set-scheduled-at').value = '';
   }
-  webhookEnabled = post.webhook_on_publish || false;
+  webhookEnabled = !!post.webhook_on_publish;
   document.getElementById('toggle-webhook').classList.toggle('on', webhookEnabled);
+  renderSocialSentBadges(post);
 
   updateStatusBadge(post.status);
   updateSeoChecklist();
+  refreshSocialDrafts(true);
   checkSchedule();
 }
 
@@ -808,10 +904,16 @@ async function publishPost() {
     await saveDraft(true);
     const res  = await fetch(Q(`${API}/blog/posts/${currentPost.id}/publish`), { method: 'POST' });
     if (!res.ok) throw new Error(await res.text());
-    const { post } = await res.json();
+    const { post, social } = await res.json();
     currentPost = post;
     updateStatusBadge('published');
-    toast('Published!', 'success');
+    if (social?.ok) toast('Published & queued to LinkedIn, Facebook & X', 'success');
+    else if (social?.skipped === 'no_webhook') toast('Published — open Social tab to post manually', 'success');
+    else if (social?.skipped === 'disabled') toast('Published — open Social tab to post manually', 'success');
+    else toast('Published! Open Social tab to share', 'success');
+    refreshSocialDrafts(true);
+    renderSocialSentBadges(post);
+    setTab('social', document.querySelector('.panel-tab[onclick*="social"]'));
     await loadPosts();
   } catch(e) {
     toast('Publish failed: ' + e.message, 'error');
@@ -869,6 +971,7 @@ function onTitleInput() {
     slugEl.value = slugify(title);
   }
   updateSeoChecklist();
+  refreshSocialDrafts(false);
 }
 
 // ── Schedule check ────────────────────────────────────────────────────────────
@@ -886,14 +989,26 @@ function checkSchedule() {
 function setTab(name, btn) {
   document.querySelectorAll('.panel-tab').forEach(b => b.classList.remove('active'));
   document.querySelectorAll('.panel-body').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
+  if (btn) btn.classList.add('active');
+  else {
+    const match = [...document.querySelectorAll('.panel-tab')].find(b => (b.getAttribute('onclick') || '').includes(`'${name}'`));
+    if (match) match.classList.add('active');
+  }
   document.getElementById('tab-' + name).classList.add('active');
+  if (name === 'social') refreshSocialDrafts(false);
+  if (name === 'seo') updateSeoChecklist();
 }
 
 // ── SEO helpers ───────────────────────────────────────────────────────────────
 function syncSlug() {
-  // User manually editing slug — just let it update
   updateSeoChecklist();
+  refreshSocialDrafts(false);
+}
+
+function postPublicUrl() {
+  const slug = document.getElementById('seo-slug').value.trim()
+    || slugify(document.getElementById('title-input').value);
+  return slug ? `https://kixlogic.com/blog/${slug}/` : 'https://kixlogic.com/blog/';
 }
 
 function updateSeoChecklist() {
@@ -904,6 +1019,7 @@ function updateSeoChecklist() {
   const slug    = document.getElementById('seo-slug').value;
   const content = ckEditor ? ckEditor.getData().replace(/<[^>]+>/g, ' ') : '';
   const wordCount = content.trim().split(/\s+/).filter(Boolean).length;
+  const url = postPublicUrl();
 
   // Char counts
   const titleLen = seoT.length;
@@ -915,6 +1031,11 @@ function updateSeoChecklist() {
   mCountEl.textContent = `${metaLen}/160`;
   mCountEl.className = 'char-count ' + (metaLen >= 150 && metaLen <= 160 ? 'char-ok' : metaLen > 160 ? 'char-bad' : 'char-warn');
 
+  const displayTitle = (seoT || title || 'Post title').trim();
+  document.getElementById('serp-url').textContent = url;
+  document.getElementById('serp-title').textContent = displayTitle.includes('Kixlogic') ? displayTitle : `${displayTitle} — Kixlogic`;
+  document.getElementById('serp-desc').textContent = (meta || 'Meta description preview…').slice(0, 160);
+
   const checks = [
     { label: 'Keyword in page title',       pass: keyword && (title.toLowerCase().includes(keyword) || seoT.toLowerCase().includes(keyword)) },
     { label: 'Keyword in meta description', pass: keyword && meta.toLowerCase().includes(keyword) },
@@ -922,6 +1043,7 @@ function updateSeoChecklist() {
     { label: 'SEO title 50-60 chars',       pass: titleLen >= 50 && titleLen <= 60 },
     { label: 'Meta description 150-160 chars', pass: metaLen >= 150 && metaLen <= 160 },
     { label: 'Content ≥ 300 words',         pass: wordCount >= 300 },
+    { label: 'OG or cover image set',       pass: !!(document.getElementById('seo-og-image').value.trim() || document.getElementById('set-cover').value.trim()) },
   ];
 
   document.getElementById('seo-checklist').innerHTML = checks.map(c => `
@@ -934,6 +1056,127 @@ function updateSeoChecklist() {
       ${c.label}
     </div>
   `).join('');
+}
+
+// ── Social helpers (manual LinkedIn / Facebook / X) ───────────────────────────
+function buildDefaultSocialCopy() {
+  const title = document.getElementById('title-input').value.trim() || 'New from Kixlogic';
+  const caption = (
+    document.getElementById('seo-meta-inp').value.trim()
+    || document.getElementById('set-excerpt').value.trim()
+    || title
+  ).slice(0, 500);
+  const url = postPublicUrl();
+  return {
+    url,
+    linkedin: `${title}\n\n${caption}\n\n${url}`.slice(0, 3000),
+    facebook: `${title}\n\n${caption}\n\n${url}`.slice(0, 2000),
+    x: `${title}\n\n${url}`.slice(0, 280),
+  };
+}
+
+function refreshSocialDrafts(force = false) {
+  const urlEl = document.getElementById('social-post-url');
+  if (!urlEl) return;
+  const defaults = buildDefaultSocialCopy();
+  urlEl.value = defaults.url;
+  const li = document.getElementById('social-linkedin');
+  const fb = document.getElementById('social-facebook');
+  const x  = document.getElementById('social-x');
+  if (force || !li.value.trim()) li.value = defaults.linkedin;
+  if (force || !fb.value.trim()) fb.value = defaults.facebook;
+  if (force || !x.value.trim())  x.value  = defaults.x;
+  updateSocialCounts();
+  updateSocialShareLinks();
+}
+
+function updateSocialCounts() {
+  const set = (id, elId, max) => {
+    const n = document.getElementById(elId).value.length;
+    const el = document.getElementById(id);
+    el.textContent = `${n}/${max}`;
+    el.className = 'char-count ' + (n > max ? 'char-bad' : n > max * 0.9 ? 'char-warn' : 'char-ok');
+  };
+  set('li-count', 'social-linkedin', 3000);
+  set('fb-count', 'social-facebook', 2000);
+  set('x-count', 'social-x', 280);
+  updateSocialShareLinks();
+}
+
+function updateSocialShareLinks() {
+  const url = document.getElementById('social-post-url').value || postPublicUrl();
+  const xText = document.getElementById('social-x').value.trim();
+  document.getElementById('li-share').href =
+    `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
+  document.getElementById('fb-share').href =
+    `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+  document.getElementById('x-share').href =
+    `https://twitter.com/intent/tweet?text=${encodeURIComponent(xText)}`;
+}
+
+async function copySocialField(id) {
+  const el = document.getElementById(id);
+  const text = el?.value || '';
+  if (!text) { toast('Nothing to copy', 'error'); return; }
+  try {
+    await navigator.clipboard.writeText(text);
+    toast('Copied', 'success');
+  } catch {
+    el.select();
+    document.execCommand('copy');
+    toast('Copied', 'success');
+  }
+}
+
+function renderSocialSentBadges(post) {
+  const wrap = document.getElementById('social-sent-badges');
+  if (!wrap) return;
+  const flags = [
+    ['LinkedIn', post?.linkedin_sent],
+    ['Facebook', post?.facebook_sent],
+    ['X', post?.x_sent],
+  ];
+  if (!flags.some(([, v]) => v)) {
+    wrap.innerHTML = '<span class="badge badge-draft">Not auto-posted yet — use Copy / Open below</span>';
+    return;
+  }
+  wrap.innerHTML = flags.map(([label, sent]) =>
+    `<span class="badge ${sent ? 'badge-published' : 'badge-draft'}">${label}: ${sent ? 'sent' : '—'}</span>`
+  ).join('');
+}
+
+function applyAiSeoMeta(reply) {
+  try {
+    const m = reply.match(/\{[\s\S]*\}/);
+    if (!m) return false;
+    const data = JSON.parse(m[0]);
+    if (data.title) document.getElementById('seo-title-inp').value = String(data.title).slice(0, 80);
+    if (data.description) document.getElementById('seo-meta-inp').value = String(data.description).slice(0, 200);
+    updateSeoChecklist();
+    refreshSocialDrafts(true);
+    toast('SEO fields filled from AI', 'success');
+    return true;
+  } catch { return false; }
+}
+
+function applyAiSocialCaptions(reply) {
+  try {
+    const m = reply.match(/\{[\s\S]*\}/);
+    if (!m) return false;
+    const data = JSON.parse(m[0]);
+    const url = postPublicUrl();
+    if (data.linkedin) document.getElementById('social-linkedin').value = String(data.linkedin).includes('http') ? data.linkedin : `${data.linkedin}\n\n${url}`;
+    if (data.facebook) document.getElementById('social-facebook').value = String(data.facebook).includes('http') ? data.facebook : `${data.facebook}\n\n${url}`;
+    if (data.x) {
+      let x = String(data.x);
+      if (!x.includes('http')) x = `${x}\n${url}`;
+      document.getElementById('social-x').value = x.slice(0, 280);
+    }
+    updateSocialCounts();
+    setTab('social', document.querySelector('.panel-tab[onclick*="social"]'));
+    toast('Social captions filled from AI', 'success');
+    return true;
+  } catch { return false; }
 }
 
 // ── Settings toggle ───────────────────────────────────────────────────────────
@@ -981,12 +1224,13 @@ async function aiCall(mode, content, context) {
 
     thinkingEl.remove();
     const replyEl = addAiMsg('', 'ai');
-    // Simulate streaming
     let i = 0;
     const interval = setInterval(() => {
       if (i >= reply.length) {
         clearInterval(interval);
         document.getElementById('ai-insert-btn').style.display = 'block';
+        if (mode === 'seo_meta') applyAiSeoMeta(reply);
+        if (mode === 'social_caption') applyAiSocialCaptions(reply);
         return;
       }
       const chunk = reply.slice(i, i + 3);
@@ -1015,17 +1259,11 @@ function addAiMsg(text, type) {
 
 function aiInsert() {
   if (!lastAiReply || !ckEditor) return;
-  const html = lastAiReply.replace(/\n/g, '<br>');
-  ckEditor.model.change(writer => {
-    const insertPosition = ckEditor.model.document.selection.getLastPosition();
-    ckEditor.model.insertContent(
-      ckEditor.data.processor.toView(html),
-      insertPosition
-    );
-  });
-  // Simpler fallback: append to editor
+  const html = '<p>' + lastAiReply
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>') + '</p>';
   const current = ckEditor.getData();
-  ckEditor.setData(current + '<p>' + lastAiReply.replace(/\n\n/g,'</p><p>').replace(/\n/g,'<br>') + '</p>');
+  ckEditor.setData(current + html);
   toast('Inserted into editor', 'success');
 }
 

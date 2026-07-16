@@ -3,6 +3,8 @@ Allow: /
 
 Sitemap: https://kixlogic.com/sitemap.xml
 
-# Dashboard and admin pages — not for crawling
+# Admin / app surfaces — not for crawling
+Disallow: /admin/
+Disallow: /admin
 Disallow: /dashboard.html
 Disallow: /admin.html
