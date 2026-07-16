@@ -1,10 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 90" fill="none">
-  <!-- Large sparkle star: center 40,45 outer r=18 inner r=4.5 -->
-  <path d="M40,27 L44.5,40.5 L58,45 L44.5,49.5 L40,63 L35.5,49.5 L22,45 L35.5,40.5 Z" fill="#0a5f75"/>
-  <!-- Medium sparkle star: center 67,19 outer r=9 inner r=2.25 -->
-  <path d="M67,10 L69.25,16.75 L76,19 L69.25,21.25 L67,28 L64.75,21.25 L58,19 L64.75,16.75 Z" fill="#0a5f75"/>
-  <!-- Small sparkle star: center 22,65 outer r=7 inner r=1.75 -->
-  <path d="M22,58 L23.75,63.25 L29,65 L23.75,66.75 L22,72 L20.25,66.75 L15,65 L20.25,63.25 Z" fill="#0a5f75"/>
-  <!-- Wordmark text -->
-  <text x="84" y="70" font-family="'Syne','Nunito','Trebuchet MS','Segoe UI',sans-serif" font-size="54" font-weight="800" fill="#0a5f75">Kixlogic</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 96" fill="none">
+  <!-- Network icon: left-pointing triangle of 3 nodes -->
+  <g fill="currentColor" stroke="currentColor">
+    <!-- Connecting lines -->
+    <line x1="18" y1="48" x2="58" y2="18" stroke-width="5.5" stroke-linecap="round"/>
+    <line x1="18" y1="48" x2="58" y2="78" stroke-width="5.5" stroke-linecap="round"/>
+    <line x1="58" y1="18" x2="58" y2="78" stroke-width="5.5" stroke-linecap="round"/>
+    <!-- Nodes -->
+    <circle cx="18" cy="48" r="9"/>
+    <circle cx="58" cy="18" r="9"/>
+    <circle cx="58" cy="78" r="9"/>
+  </g>
+  <!-- Wordmark -->
+  <text
+    x="82"
+    y="66"
+    font-family="Inter, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
+    font-size="56"
+    font-weight="600"
+    letter-spacing="-0.5"
+    fill="currentColor"
+  >Kixlogic</text>
 </svg>
