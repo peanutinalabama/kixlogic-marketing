@@ -1,11 +1,13 @@
 ---
 const pathname = Astro.url.pathname;
 const isActive = (path: string) =>
-  path === '/' ? pathname === '/' : pathname === path || pathname.startsWith(path + '/');
+  path === '/' ? pathname === '/' : pathname === path || pathname.startsWith(path);
 
 const links = [
-  { href: '/ats/', label: 'Kixlogic ATS' },
-  { href: '/compensation/', label: 'Kixlogic CMP' },
+  { href: '/#products', label: 'Products' },
+  { href: '/hired/', label: 'Hired' },
+  { href: '/comp/', label: 'Comp' },
+  { href: '/sourcer/', label: 'Sourcer' },
   { href: '/pricing/', label: 'Pricing' },
   { href: '/about/', label: 'About' },
   { href: '/blog/', label: 'Blog' },
@@ -16,12 +18,14 @@ const links = [
 <header id="nav">
   <div class="nav-inner container">
     <a href="/" class="nav-logo" aria-label="Kixlogic home">
-      <img src="/Kixlogo-dark.png" alt="Kixlogic" height="32" />
+      <!-- Intrinsic size must track the artwork's 637x300 aspect, or the
+           reserved box is wrong and the header shifts as the logo loads. -->
+      <img src="/Kixlogo-dark.png" alt="Kixlogic" height="40" width="85" />
     </a>
 
     <nav class="nav-links" id="navLinks" aria-label="Main">
       {links.map(l => (
-        <a href={l.href} class={`nav-link ${isActive(l.href.replace(/\/$/, '') || '/') ? 'active' : ''}`}>{l.label}</a>
+        <a href={l.href} class={`nav-link ${isActive(l.href) ? 'active' : ''}`}>{l.label}</a>
       ))}
     </nav>
 
@@ -32,20 +36,19 @@ const links = [
           <svg class="nav-signin-caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
         <div class="nav-signin-menu" id="signinMenu" hidden>
-          <div class="nav-signin-label">Choose an app</div>
+          <div class="nav-signin-label">Choose a product</div>
           <a href="https://app.kixlogic.com/dashboard" class="nav-signin-item">
-            <span class="nav-signin-emoji">💼</span>
-            <span class="nav-signin-text"><strong>Kixlogic ATS</strong><small>Hiring &amp; recruiting</small></span>
+            <span class="nav-signin-text"><strong>Kixlogic Hired</strong><small>Applicant tracking</small></span>
           </a>
-          <a href="https://cmp.kixlogic.com/" class="nav-signin-item">
-            <span class="nav-signin-emoji">📊</span>
-            <span class="nav-signin-text"><strong>Kixlogic CMP</strong><small>Compensation intelligence</small></span>
+          <a href="https://app.kixlogic.com/dashboard" class="nav-signin-item">
+            <span class="nav-signin-text"><strong>Kixlogic Comp</strong><small>Compensation intelligence</small></span>
+          </a>
+          <a href="https://app.kixlogic.com/dashboard" class="nav-signin-item">
+            <span class="nav-signin-text"><strong>Kixlogic Sourcer</strong><small>AI candidate sourcing</small></span>
           </a>
         </div>
       </div>
-      <a href="/contact/" class="nav-util" aria-label="Contact">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21" stroke-linecap="round"/></svg>
-      </a>
+      <a href="/contact/" class="nav-cta btn btn-primary">Talk to us</a>
       <button class="nav-hamburger" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round"/></svg>
       </button>
@@ -58,6 +61,7 @@ const links = [
     {links.map(l => (
       <a href={l.href} class="nav-mobile-link">{l.label}</a>
     ))}
+    <a href="https://app.kixlogic.com/dashboard" class="nav-mobile-link">Sign in</a>
   </div>
 </div>
 
@@ -72,63 +76,63 @@ const links = [
 .nav-inner {
   display: flex;
   align-items: center;
-  height: 64px;
-  gap: 1.5rem;
+  height: 60px;
+  gap: 1.25rem;
 }
 .nav-logo { flex-shrink: 0; display: flex; align-items: center; }
-.nav-logo img { height: 32px; width: auto; display: block; }
+/* 40px in a 60px bar. This CSS height is what actually sizes the mark -- the
+   img's height attribute is only the pre-load placeholder -- so raising it is
+   the sole way to make the logo bigger. */
+.nav-logo img { height: 40px; width: auto; display: block; }
 
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 0;
+  gap: 0.15rem;
   flex: 1;
 }
 .nav-link {
-  padding: 0.5rem 0.75rem;
-  font-size: 0.8125rem;
-  color: var(--text);
+  padding: 0.45rem 0.65rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-muted);
   border-bottom: 2px solid transparent;
-  transition: border-color var(--transition), color var(--transition);
+  transition: color var(--transition), border-color var(--transition);
 }
-.nav-link:hover { border-bottom-color: var(--border); }
-.nav-link.active { border-bottom-color: var(--ms-blue); }
+.nav-link:hover { color: var(--text); }
+.nav-link.active { color: var(--ink); border-bottom-color: var(--teal); }
 
 .nav-utils {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.65rem;
   margin-left: auto;
 }
-.nav-util {
-  display: flex;
-  align-items: center;
-  color: var(--text);
-  padding: 0.35rem;
+.nav-cta {
+  padding: 0.45rem 0.95rem;
   font-size: 0.8125rem;
-  transition: color var(--transition);
 }
-.nav-util:hover { color: var(--ms-blue); }
-
-/* Sign in dropdown */
 .nav-signin { position: relative; }
 .nav-signin-btn {
   display: inline-flex;
   align-items: center;
   gap: 0.3rem;
-  padding: 0.4rem 0.9rem;
-  border: 1px solid var(--ms-blue);
-  border-radius: var(--radius-pill);
+  padding: 0.4rem 0.75rem;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
   background: transparent;
-  color: var(--ms-blue);
+  color: var(--ink);
   font-family: inherit;
   font-size: 0.8125rem;
   font-weight: 600;
   cursor: pointer;
   white-space: nowrap;
-  transition: background var(--transition), color var(--transition);
+  transition: background var(--transition), border-color var(--transition), color var(--transition);
 }
-.nav-signin-btn:hover { background: var(--ms-blue); color: #fff; }
+.nav-signin-btn:hover {
+  border-color: var(--teal);
+  color: var(--teal-deep);
+}
 .nav-signin-caret { transition: transform var(--transition); }
 .nav-signin-btn[aria-expanded="true"] .nav-signin-caret { transform: rotate(180deg); }
 .nav-signin-menu {
@@ -139,7 +143,6 @@ const links = [
   background: #fff;
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-hover);
   padding: 0.5rem;
   z-index: 200;
 }
@@ -156,13 +159,12 @@ const links = [
   display: flex;
   align-items: center;
   gap: 0.7rem;
-  padding: 0.6rem;
+  padding: 0.65rem 0.7rem;
   border-radius: var(--radius);
   color: var(--text);
   transition: background var(--transition);
 }
-.nav-signin-item:hover { background: var(--navy-2); }
-.nav-signin-emoji { font-size: 1.3rem; line-height: 1; }
+.nav-signin-item:hover { background: var(--fog); }
 .nav-signin-text { display: flex; flex-direction: column; }
 .nav-signin-text strong { font-size: 0.875rem; font-weight: 600; }
 .nav-signin-text small { font-size: 0.75rem; color: var(--text-muted); }
@@ -188,10 +190,11 @@ const links = [
   padding: 0.65rem 0;
   font-size: 0.9375rem;
   color: var(--text);
-  border-bottom: 1px solid var(--navy-2);
+  border-bottom: 1px solid var(--fog-2);
 }
-@media (max-width: 860px) {
+@media (max-width: 980px) {
   .nav-links { display: none; }
+  .nav-cta { display: none; }
   .nav-hamburger { display: flex; }
 }
 </style>
@@ -218,7 +221,6 @@ menu?.querySelectorAll('a').forEach(link => {
   });
 });
 
-// Sign in app picker
 const signinToggle = document.getElementById('signinToggle');
 const signinMenu   = document.getElementById('signinMenu');
 const signinWrap   = document.getElementById('navSignin');
