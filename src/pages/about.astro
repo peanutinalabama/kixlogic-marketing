@@ -1,39 +1,33 @@
 ---
 import Base from '../layouts/Base.astro';
 
-const cards = [
+const points = [
   {
-    icon: '🎯',
-    title: 'Built for the real world',
-    text: 'Our products are developed in the field — built for and tested by real businesses. Not designed in a vacuum by people who\'ve never run a team, managed a hiring process, or tried to grow a client base.',
+    title: 'Built in the field',
+    text: 'Our products are developed for real businesses — hiring teams, operators, and founders who need tools that work the day they sign up.',
   },
   {
-    icon: '🤖',
     title: 'AI that earns its keep',
-    text: 'We use AI where it actually saves time — scoring resumes against job requirements, writing job descriptions in seconds, and surfacing hiring insights automatically. Not as a marketing checkbox.',
+    text: 'We use AI where it saves time: scoring resumes, writing descriptions, sourcing candidates, and informing pay decisions — not as a marketing checkbox.',
   },
   {
-    icon: '⚡',
-    title: 'Live today, not next quarter',
-    text: 'Every product we ship is designed to be running the same day you sign up. No implementation projects, no onboarding calls, no migration timelines. You\'re live in minutes.',
-  },
-  {
-    icon: '🔗',
-    title: 'A growing product suite',
-    text: 'Kixlogic ATS is our flagship product — and the starting point for a suite of practical tools for small businesses. Every product we add will solve a specific, real problem that existing platforms either ignore or overcharge for.',
+    title: 'Enterprise capability, SMB price',
+    text: 'Kixlogic builds AI Intelligence Software so growing companies get enterprise-level products without enterprise pricing or six-month implementations.',
   },
 ];
 ---
 <Base
   title="About"
-  description="Kixlogic, LLC builds practical, affordable software for small and mid-sized businesses — starting with Kixlogic ATS."
+  description="Kixlogic builds AI Intelligence Software — enterprise-level products for SMBs at non-enterprise prices."
 >
   <section class="about-hero">
     <div class="container">
-      <span class="section-tag">✦ Our story</span>
-      <h1 class="section-title">Built by people who felt the pain</h1>
+      <p class="about-kicker">About</p>
+      <h1>Kixlogic</h1>
       <p class="about-lead">
-        Kixlogic, LLC was built on a simple belief — small and mid-sized businesses deserve great software. Not watered-down enterprise tools, not overpriced platforms built for companies with IT departments. Software that works the day you sign up, at a price that makes sense.
+        We build AI Intelligence Software for SMBs. Distinct products — Hired, Renumify, Sourcer,
+        PigskinGPT, ScientificGigs, and Venue — designed so growing companies get enterprise-level
+        capability at non-enterprise prices.
       </p>
     </div>
   </section>
@@ -41,96 +35,101 @@ const cards = [
   <section class="mission-block">
     <div class="container">
       <blockquote class="mission-quote">
-        "Every small business deserves software built for them — not a stripped-down version of what enterprise pays <span class="highlight">$50,000 a year</span> for."
+        Enterprise-level products. Non-enterprise prices. That is the Kixlogic standard.
       </blockquote>
-      <p class="mission-attribution">— The Kixlogic Mission</p>
     </div>
   </section>
 
-  <section class="about-cards section">
+  <section class="section">
     <div class="container about-grid">
-      {cards.map(c => (
-        <div class="about-card">
-          <div class="about-card-icon">{c.icon}</div>
-          <div class="about-card-title">{c.title}</div>
-          <div class="about-card-text">{c.text}</div>
+      {points.map(p => (
+        <div class="about-point">
+          <h2>{p.title}</h2>
+          <p>{p.text}</p>
         </div>
       ))}
+    </div>
+  </section>
+
+  <section class="section section-grey">
+    <div class="container about-cta">
+      <h2>Explore the products</h2>
+      <p>See the full portfolio on the company homepage, or go straight to a product.</p>
+      <div class="about-cta-row">
+        <a href="/#products" class="btn btn-primary">View products</a>
+        <a href="/contact/" class="btn btn-outline">Talk to us</a>
+      </div>
     </div>
   </section>
 </Base>
 
 <style>
 .about-hero {
-  text-align: center;
-  padding: 5rem 0 3rem;
-  max-width: 800px;
-  margin: 0 auto;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  color: var(--ink);
+  padding: clamp(3.5rem, 8vw, 5.5rem) 0 clamp(3rem, 6vw, 4rem);
 }
-.section-tag {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.3rem 0.85rem;
-  border-radius: 99px;
-  background: var(--gold-dim);
-  border: 1px solid var(--border-gold);
+.about-kicker {
   font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--gold);
+  font-weight: 600;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  letter-spacing: 1.5px;
-  margin-bottom: 1.25rem;
+  color: var(--text-dim);
+  margin-bottom: 0.75rem;
 }
-.section-title {
-  font-family: 'Syne', sans-serif;
-  font-weight: 800;
-  font-size: clamp(2rem, 4vw, 3rem);
-  line-height: 1.15;
-  letter-spacing: -1px;
+.about-hero h1 {
+  font-size: clamp(2.5rem, 7vw, 4rem);
   margin-bottom: 1rem;
 }
 .about-lead {
-  font-size: 1.05rem;
+  font-size: 1.1rem;
+  line-height: 1.65;
   color: var(--text-muted);
-  line-height: 1.75;
+  max-width: 40rem;
 }
 .mission-block {
-  text-align: center;
-  padding: 0 0 5rem;
+  padding: clamp(3rem, 6vw, 4.5rem) 0;
+  background: var(--fog);
 }
 .mission-quote {
-  font-family: 'Syne', sans-serif;
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 3vw, 1.85rem);
   font-weight: 700;
-  font-size: clamp(1.25rem, 3vw, 2rem);
-  line-height: 1.4;
-  max-width: 700px;
-  margin: 0 auto 1rem;
+  letter-spacing: -0.02em;
+  line-height: 1.35;
+  color: var(--ink);
+  max-width: 36rem;
   border: none;
 }
-.mission-quote .highlight { color: var(--gold); }
-.mission-attribution { font-size: 0.875rem; color: var(--text-dim); }
 .about-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-  padding-bottom: 5rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
 }
-.about-card {
-  padding: 2rem;
-  border-radius: var(--radius-lg);
-  background: var(--surface);
-  border: 1px solid var(--border);
+.about-point h2 {
+  font-size: 1.2rem;
+  margin-bottom: 0.65rem;
 }
-.about-card-icon { font-size: 2rem; margin-bottom: 1rem; }
-.about-card-title {
-  font-family: 'Syne', sans-serif;
-  font-weight: 700;
-  font-size: 1.1rem;
-  margin-bottom: 0.6rem;
+.about-point p {
+  color: var(--text-muted);
+  line-height: 1.6;
+  font-size: 0.98rem;
 }
-.about-card-text { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; }
-
-@media (max-width: 700px) {
+.about-cta h2 {
+  font-size: 1.75rem;
+  margin-bottom: 0.65rem;
+}
+.about-cta p {
+  color: var(--text-muted);
+  margin-bottom: 1.35rem;
+}
+.about-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+@media (max-width: 800px) {
   .about-grid { grid-template-columns: 1fr; }
 }
 </style>

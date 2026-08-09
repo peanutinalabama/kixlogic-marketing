@@ -24,13 +24,13 @@ const scenarios = [
 ---
 <Base
   title="Sales Partner Program"
-  description="Earn recurring monthly commissions selling Kixlogic ATS. Commission-only, no cap, no ceiling."
+  description="Earn recurring monthly commissions selling Kixlogic Hired. Commission-only, no cap, no ceiling."
 >
   <section class="partner-hero section">
     <div class="container partner-hero-inner">
       <span class="tag">Sales Partner Program</span>
       <h1>Earn every month.<br /><span class="accent">No cap. No ceiling.</span></h1>
-      <p>Sell Kixlogic ATS to small businesses and earn recurring monthly commissions for every account you hold.</p>
+      <p>Sell Kixlogic Hired to small businesses and earn recurring monthly commissions for every account you hold.</p>
       <a href="#apply" class="btn btn-primary">Apply to become a partner</a>
     </div>
   </section>
@@ -171,7 +171,7 @@ document.getElementById('partnerForm')?.addEventListener('submit', async (e) => 
 .partner-hero-inner { max-width: 640px; margin: 0 auto; }
 .partner-hero .tag { margin-bottom: 1.25rem; }
 .partner-hero h1 {
-  font-family: 'Syne', sans-serif;
+  font-family: var(--font-display);
   font-size: clamp(2.2rem, 5vw, 3.5rem);
   font-weight: 800;
   line-height: 1.1;
@@ -191,12 +191,12 @@ document.getElementById('partnerForm')?.addEventListener('submit', async (e) => 
   margin-bottom: 4rem;
 }
 .stat { background: var(--navy-2); padding: 2rem; text-align: center; }
-.stat-num { font-family: 'Syne', sans-serif; font-size: 2.2rem; font-weight: 800; color: var(--gold); }
+.stat-num { font-family: var(--font-display); font-size: 2.2rem; font-weight: 800; color: var(--gold); }
 .stat-label { font-size: 0.82rem; color: var(--text-dim); margin-top: 0.4rem; text-transform: uppercase; letter-spacing: 1px; }
 
 .section-header { text-align: center; margin-bottom: 2.5rem; }
 .section-header .tag { margin-bottom: 0.75rem; }
-.section-header h2 { font-family: 'Syne', sans-serif; font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 800; margin-bottom: 0.5rem; }
+.section-header h2 { font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 800; margin-bottom: 0.5rem; }
 .section-header p { color: var(--text-muted); font-size: 0.95rem; max-width: 520px; margin: 0 auto; }
 
 .commission-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin-bottom: 1rem; }
@@ -225,13 +225,13 @@ document.getElementById('partnerForm')?.addEventListener('submit', async (e) => 
 .bonus-card { text-align: center; }
 .bonus-card.highlight { border-color: var(--border-gold); background: linear-gradient(135deg, rgba(20,184,148,0.06), var(--surface)); }
 .bonus-accounts { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem; }
-.bonus-amount { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; color: var(--gold); margin-bottom: 0.5rem; }
+.bonus-amount { font-family: var(--font-display); font-size: 2rem; font-weight: 800; color: var(--gold); margin-bottom: 0.5rem; }
 .bonus-card p { font-size: 0.85rem; color: var(--text-dim); }
 
 .scenarios-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 4rem; }
 .scenario-card { text-align: center; }
 .scenario-label { font-size: 0.8rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; }
-.scenario-earn { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--gold); margin-bottom: 0.5rem; }
+.scenario-earn { font-family: var(--font-display); font-size: 1.5rem; font-weight: 800; color: var(--gold); margin-bottom: 0.5rem; }
 .scenario-card p { font-size: 0.8rem; color: var(--text-muted); }
 
 .apply-section { max-width: 640px; margin: 0 auto; padding-top: 2rem; }
@@ -248,7 +248,7 @@ document.getElementById('partnerForm')?.addEventListener('submit', async (e) => 
   border-radius: var(--radius);
   color: var(--text);
   padding: 0.75rem 1rem;
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-body);
   font-size: 0.9rem;
 }
 .form-group input:focus,
@@ -259,7 +259,7 @@ document.getElementById('partnerForm')?.addEventListener('submit', async (e) => 
 }
 .form-msg { font-size: 0.85rem; text-align: center; min-height: 1rem; margin-top: 0.75rem; }
 .form-success { text-align: center; padding: 2rem; }
-.form-success h3 { font-family: 'Syne', sans-serif; color: var(--gold); margin-bottom: 0.5rem; }
+.form-success h3 { font-family: var(--font-display); color: var(--gold); margin-bottom: 0.5rem; }
 .form-success p { color: var(--text-muted); }
 
 @media (max-width: 800px) {

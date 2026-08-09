@@ -4,10 +4,7 @@ export const prerender = false;
 import Base from '../layouts/Base.astro';
 import HomepageSections from '../components/HomepageSections.astro';
 import homepage from '../data/homepage.json';
-import type { HomepageData } from '../lib/cms-types';
-
-const home = homepage as HomepageData;
 ---
-<Base title={home.seo.title} description={home.seo.description}>
-  <HomepageSections data={home} />
+<Base title={homepage.seo.title} description={homepage.seo.description} hidePromo={true}>
+  <HomepageSections />
 </Base>

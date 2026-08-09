@@ -1,0 +1,30 @@
+---
+import Base from '../layouts/Base.astro';
+import ProductPage from '../components/ProductPage.astro';
+---
+<Base
+  title="Kixlogic Hired"
+  description="Kixlogic Hired is applicant tracking for SMBs — AI resume scoring, pipeline, careers pages, and hiring workflows without enterprise pricing."
+>
+  <ProductPage
+    name="Kixlogic Hired"
+    role="Applicant tracking"
+    description="Hire with a modern ATS: AI resume scoring, pipeline management, job syndication, and white-label careers pages. Available in your browser and in Microsoft Teams."
+    primaryCta={{ label: 'See Hired pricing', href: '/pricing/' }}
+    secondaryCta={{ label: 'Sign in', href: 'https://app.kixlogic.com/dashboard' }}
+    billboard={{
+      ariaLabel: 'Hiring intelligence',
+      line1: "There's an ATS.",
+      line2Em: 'hiring intelligence.',
+      chipFrom: 'ATS',
+      chipTo: 'Hiring intelligence',
+      sub: 'Pipeline, AI scoring, and enterprise recruiting — without the enterprise IT budget.',
+    }}
+    points={[
+      'AI match scores on every applicant against your job requirements',
+      'Kanban pipeline, referrals, documents, and reporting in one place',
+      'Careers pages and job syndication — including ScientificGigs for life sciences roles',
+      'Runs as a paid ATS hub; Renumify and Sourcer unlock as suite add-ons',
+    ]}
+  />
+</Base>

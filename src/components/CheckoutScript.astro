@@ -1,12 +1,15 @@
-
 <script is:inline>
 window.startCheckout = function(plan) {
-  const planLabel = {
+  const ATS_PLANS = {
     starter: 'Starter — $49/mo',
     growth: 'Growth — $129/mo',
     professional: 'Professional — $249/mo',
-    enterprise: 'Enterprise — Custom',
-  }[plan] || plan;
+  };
+  if (!ATS_PLANS[plan]) {
+    window.location.href = 'https://app.kixlogic.com/dashboard';
+    return;
+  }
+  const planLabel = ATS_PLANS[plan];
 
   const existing = document.getElementById('checkoutModal');
   if (existing) existing.remove();
@@ -16,7 +19,7 @@ window.startCheckout = function(plan) {
   modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:9999;padding:1rem';
   modal.innerHTML = `
     <div style="background:#0f172a;border:1px solid rgba(20,184,148,0.3);border-radius:16px;padding:2rem;width:100%;max-width:420px;box-shadow:0 25px 60px rgba(0,0,0,0.5)">
-      <div style="font-weight:800;font-size:1.1rem;color:#fff;margin-bottom:0.25rem">Get Started</div>
+      <div style="font-weight:800;font-size:1.1rem;color:#fff;margin-bottom:0.25rem">Get Started — Kixlogic Hired</div>
       <div style="font-size:0.82rem;color:#64748b;margin-bottom:1.5rem">${planLabel} · Cancel anytime</div>
       <input id="coEmail" type="email" placeholder="Work email address"
         style="width:100%;padding:0.75rem;background:#1e293b;border:1.5px solid #334155;border-radius:8px;font-size:0.9rem;color:#fff;outline:none;font-family:inherit;margin-bottom:0.75rem"/>

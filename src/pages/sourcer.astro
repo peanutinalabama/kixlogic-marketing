@@ -1,0 +1,31 @@
+---
+import Base from '../layouts/Base.astro';
+import ProductPage from '../components/ProductPage.astro';
+---
+<Base
+  title="Kixlogic Sourcer"
+  description="Kixlogic Sourcer is an AI candidate sourcing agent — natural-language search, ranking, and shortlists for any role."
+>
+  <ProductPage
+    name="Kixlogic Sourcer"
+    role="AI candidate sourcing"
+    description="Describe the role in plain language. Sourcer searches, enriches, filters, and ranks candidates — scientific roles when you need them, any role when you don’t."
+    primaryCta={{ label: 'See Sourcer pricing', href: '/pricing/#sourcer' }}
+    secondaryCta={{ label: 'Open in Hired', href: 'https://app.kixlogic.com/dashboard' }}
+    billboard={{
+      ariaLabel: 'AI sourcing agent',
+      line1: "There's a keyword search.",
+      line2Em: 'an AI sourcing agent.',
+      chipFrom: 'Keyword search',
+      chipTo: 'AI sourcing agent',
+      sub: 'Finds, ranks, and shortlists real candidates — not another page of Boolean hits.',
+    }}
+    points={[
+      'Natural-language search that becomes ranked shortlists',
+      'Evidence-based matching and quality gates — not keyword spam',
+      'Works across roles; life-sciences sources available when the job is scientific',
+      'Chrome extension for Lite: save LinkedIn profiles you view into Sourced (separate from applicants)',
+      'Paid suite add-on with usage-metered AI plans for heavy volume',
+    ]}
+  />
+</Base>

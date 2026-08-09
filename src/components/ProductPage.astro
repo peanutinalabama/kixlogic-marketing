@@ -1,0 +1,185 @@
+---
+/**
+ * Shared product detail shell — company site + named product pages.
+ */
+import MarketingBillboard from './MarketingBillboard.astro';
+
+interface BillboardCopy {
+  line1: string;
+  line2Em: string;
+  line2Before?: string;
+  chipFrom?: string;
+  chipTo?: string;
+  sub: string;
+  ariaLabel?: string;
+}
+
+interface Props {
+  name: string;
+  role: string;
+  description: string;
+  primaryCta?: { label: string; href: string };
+  secondaryCta?: { label: string; href: string };
+  soon?: boolean;
+  points?: string[];
+  billboard: BillboardCopy;
+}
+
+const {
+  name,
+  role,
+  description,
+  primaryCta,
+  secondaryCta,
+  soon = false,
+  points = [],
+  billboard,
+} = Astro.props;
+---
+
+<section class="prod-hero">
+  <div class="container prod-hero-inner">
+    <p class="prod-kicker">Kixlogic product</p>
+    <h1>
+      {name}
+      {soon && <span class="prod-soon">Coming soon</span>}
+    </h1>
+    <p class="prod-role">{role}</p>
+    <p class="prod-desc">{description}</p>
+    {(primaryCta || secondaryCta) && (
+      <div class="prod-ctas">
+        {primaryCta && <a href={primaryCta.href} class="btn btn-primary">{primaryCta.label}</a>}
+        {secondaryCta && <a href={secondaryCta.href} class="btn btn-outline">{secondaryCta.label}</a>}
+      </div>
+    )}
+  </div>
+</section>
+
+<MarketingBillboard
+  ariaLabel={billboard.ariaLabel || name}
+  line1={billboard.line1}
+  line2Before={billboard.line2Before}
+  line2Em={billboard.line2Em}
+  chipFrom={billboard.chipFrom}
+  chipTo={billboard.chipTo}
+  sub={billboard.sub}
+  soon={soon}
+/>
+
+{points.length > 0 && (
+  <section class="section">
+    <div class="container">
+      <h2 class="prod-points-title">What it does</h2>
+      <ul class="prod-points">
+        {points.map(p => <li>{p}</li>)}
+      </ul>
+    </div>
+  </section>
+)}
+
+<section class="prod-more section section-grey">
+  <div class="container">
+    <h2>More from Kixlogic</h2>
+    <div class="prod-more-links">
+      <a href="/hired/">Kixlogic Hired</a>
+      <a href="/renumify/">Renumify</a>
+      <a href="/sourcer/">Kixlogic Sourcer</a>
+      <a href="/pigskingpt/">PigskinGPT</a>
+      <a href="/scientificgigs/">ScientificGigs</a>
+      <a href="/venue/">Kixlogic Venue</a>
+    </div>
+  </div>
+</section>
+
+<style>
+.prod-hero {
+  background: #fff;
+  border-bottom: none;
+  padding: clamp(3.5rem, 8vw, 5rem) 0 clamp(2.5rem, 5vw, 3.5rem);
+  color: var(--ink);
+}
+.prod-kicker {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 0.75rem;
+}
+.prod-hero h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin-bottom: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem;
+  color: var(--teal);
+}
+.prod-soon {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  background: transparent;
+  padding: 0.2rem 0.45rem;
+}
+.prod-role {
+  font-size: 1.1rem;
+  color: #000;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+.prod-desc {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  max-width: 38rem;
+  margin-bottom: 1.75rem;
+}
+.prod-ctas { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+
+.prod-points-title {
+  font-size: clamp(1.35rem, 2.5vw, 1.65rem);
+  margin-bottom: 1.25rem;
+}
+.prod-points {
+  list-style: none;
+  max-width: 40rem;
+}
+.prod-points li {
+  position: relative;
+  padding: 0.85rem 0 0.85rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 1.02rem;
+  line-height: 1.55;
+}
+.prod-points li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 1.2rem;
+  width: 6px;
+  height: 6px;
+  background: var(--teal);
+}
+
+.prod-more h2 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+.prod-more-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+}
+.prod-more-links a {
+  color: var(--teal);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.prod-more-links a:hover { text-decoration: underline; }
+</style>

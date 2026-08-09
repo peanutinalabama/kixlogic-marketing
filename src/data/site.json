@@ -1,8 +1,8 @@
 {
   "promoBanner": {
-    "enabled": true,
-    "text": "Kixlogic Workforce Intelligence Platform — ATS, compensation intelligence, and more for teams under 500.",
-    "linkLabel": "Learn more →",
-    "linkHref": "/ats/"
+    "enabled": false,
+    "text": "Kixlogic — AI Intelligence Software for SMBs.",
+    "linkLabel": "Explore products →",
+    "linkHref": "/#products"
   }
 }

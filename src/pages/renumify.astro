@@ -1,0 +1,30 @@
+---
+import Base from '../layouts/Base.astro';
+import ProductPage from '../components/ProductPage.astro';
+---
+<Base
+  title="Renumify"
+  description="Renumify is compensation intelligence — market lookup, offer analysis, pay equity, and compression for SMBs."
+>
+  <ProductPage
+    name="Renumify"
+    role="Compensation intelligence"
+    description="Make pay decisions with confidence. Market ranges, offer competitiveness, workforce compa-ratios, pay equity, and compression — built for growing companies, not only enterprises."
+    primaryCta={{ label: 'See Renumify pricing', href: '/pricing/#renumify' }}
+    secondaryCta={{ label: 'Open in Hired', href: 'https://app.kixlogic.com/dashboard' }}
+    billboard={{
+      ariaLabel: 'Compensation intelligence',
+      line1: "There's a spreadsheet.",
+      line2Em: 'compensation intelligence.',
+      chipFrom: 'Spreadsheet',
+      chipTo: 'Renumify',
+      sub: 'Pay bands, equity, and offers that reason about market — not another grid of cells.',
+    }}
+    points={[
+      'Market Lookup with role, location, and skill premiums',
+      'Offer Analyzer with competitiveness scoring and negotiation guidance',
+      'Workforce, Pay Equity, and Compression views for internal fairness',
+      'Sold as a paid monthly add-on to Kixlogic Hired',
+    ]}
+  />
+</Base>

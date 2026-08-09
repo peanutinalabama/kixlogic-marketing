@@ -7,14 +7,13 @@ import Base from '../layouts/Base.astro';
 >
   <section class="section contact-page">
     <div class="container">
-      <span class="section-tag">✦ Get in touch</span>
+      <span class="section-tag">Get in touch</span>
       <h1 class="section-title">We'd love to hear from you</h1>
       <p class="section-sub">Have a question about Kixlogic? Want to see a demo? Reach out — we respond to every message.</p>
 
       <div class="contact-grid">
         <div class="contact-info">
           <div class="contact-info-item">
-            <div class="contact-info-icon">✉️</div>
             <div>
               <div class="contact-info-label">Email</div>
               <div class="contact-info-value">
@@ -23,25 +22,18 @@ import Base from '../layouts/Base.astro';
             </div>
           </div>
           <div class="contact-info-item">
-            <div class="contact-info-icon">🌐</div>
             <div>
               <div class="contact-info-label">Website</div>
               <div class="contact-info-value">kixlogic.com</div>
             </div>
           </div>
           <div class="contact-info-item">
-            <div class="contact-info-icon">⏱️</div>
             <div>
               <div class="contact-info-label">Response time</div>
               <div class="contact-info-value">Within 1 business day</div>
             </div>
           </div>
 
-          <div class="trial-box">
-            <div class="trial-box-title">Ready to try it?</div>
-            <p>Start your 14-day free trial today — everything runs in the cloud, no software to install.</p>
-            <button type="button" class="btn btn-primary" data-checkout="growth">Start Free Trial →</button>
-          </div>
         </div>
 
         <form class="contact-form" id="contactForm">
@@ -117,7 +109,7 @@ document.getElementById('contactForm')?.addEventListener('submit', async (e) => 
   margin-bottom: 1.25rem;
 }
 .section-title {
-  font-family: 'Syne', sans-serif;
+  font-family: var(--font-display);
   font-weight: 800;
   font-size: clamp(2rem, 4vw, 3rem);
   letter-spacing: -1px;
@@ -142,16 +134,6 @@ document.getElementById('contactForm')?.addEventListener('submit', async (e) => 
   margin-bottom: 1.5rem;
   align-items: flex-start;
 }
-.contact-info-icon {
-  width: 40px; height: 40px;
-  border-radius: 10px;
-  background: var(--gold-dim);
-  border: 1px solid var(--border-gold);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
 .contact-info-label {
   font-size: 0.75rem;
   text-transform: uppercase;
@@ -162,25 +144,6 @@ document.getElementById('contactForm')?.addEventListener('submit', async (e) => 
 .contact-info-value { font-size: 0.925rem; }
 .contact-info-value a { color: inherit; }
 .contact-info-value a:hover { color: var(--gold); }
-.trial-box {
-  margin-top: 2rem;
-  padding: 1.5rem;
-  border-radius: var(--radius-lg);
-  background: var(--gold-dim);
-  border: 1px solid var(--border-gold);
-}
-.trial-box-title {
-  font-family: 'Syne', sans-serif;
-  font-weight: 700;
-  margin-bottom: 0.4rem;
-  color: var(--gold);
-}
-.trial-box p {
-  font-size: 0.875rem;
-  color: var(--text-muted);
-  margin-bottom: 1rem;
-  line-height: 1.6;
-}
 .contact-form { display: flex; flex-direction: column; gap: 1rem; }
 .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
 .form-label {
@@ -196,7 +159,7 @@ document.getElementById('contactForm')?.addEventListener('submit', async (e) => 
   border: 1px solid var(--border);
   border-radius: var(--radius);
   color: var(--text);
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-body);
   font-size: 0.9rem;
   outline: none;
   transition: border-color var(--transition);

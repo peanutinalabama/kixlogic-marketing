@@ -10,8 +10,8 @@ export default {
         text:   { DEFAULT: '#F0F4FF', muted: '#7ABFCC', dim: '#3D6370' },
       },
       fontFamily: {
-        display: ['Syne', 'sans-serif'],
-        body:    ['DM Sans', 'sans-serif'],
+        display: ['Open Sans', 'sans-serif'],
+        body:    ['Open Sans', 'sans-serif'],
       },
       borderRadius: {
         xl2: '20px',

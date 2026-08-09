@@ -1,0 +1,29 @@
+---
+import Base from '../layouts/Base.astro';
+import ProductPage from '../components/ProductPage.astro';
+---
+<Base
+  title="Kixlogic Venue"
+  description="Kixlogic Venue — coming soon. Age and identity verification for venues and events."
+>
+  <ProductPage
+    name="Kixlogic Venue"
+    role="Age & identity verification"
+    description="Venue is next: practical age and identity verification for venues and events — built with the same AI intelligence software craft as the rest of the Kixlogic suite."
+    soon={true}
+    primaryCta={{ label: 'Get updates', href: '/contact/' }}
+    secondaryCta={{ label: 'Explore products', href: '/#products' }}
+    billboard={{
+      ariaLabel: 'Verified identity',
+      line1: "There's a guest list.",
+      line2Em: 'verified identity.',
+      chipFrom: 'Guest list',
+      chipTo: 'Verified identity',
+      sub: 'Age and identity verification for venues and events — trust at the door.',
+    }}
+    points={[
+      'Designed for venues and events that need reliable verification',
+      'Coming soon — tell us about your use case and we will follow up',
+    ]}
+  />
+</Base>

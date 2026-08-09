@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      width: 1440px;
+      height: 900px;
+      overflow: hidden;
+      font-family: "DM Sans", system-ui, sans-serif;
+      background: #E8EFF1;
+      color: #0C1B20;
+      -webkit-font-smoothing: antialiased;
+    }
+    .shell { display: flex; height: 900px; }
+    .sidebar {
+      width: 228px;
+      background: linear-gradient(180deg, #042833 0%, #063D4C 55%, #0A5F75 100%);
+      color: #fff;
+      padding: 22px 16px 18px;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 4px 6px 22px;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+      margin-bottom: 18px;
+    }
+    .brand svg { flex-shrink: 0; }
+    .brand-text { display: flex; flex-direction: column; gap: 1px; }
+    .brand-name {
+      font-family: Syne, sans-serif;
+      font-weight: 800;
+      font-size: 18px;
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+    .brand-product {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.62);
+    }
+    .nav { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 12px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.72);
+    }
+    .nav-item.active {
+      background: rgba(255,255,255,0.14);
+      color: #fff;
+      font-weight: 600;
+    }
+    .nav-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: currentColor; opacity: 0.55; flex-shrink: 0;
+    }
+    .nav-item.active .nav-dot { background: #7ED4E8; opacity: 1; }
+    .nav-foot {
+      border-top: 1px solid rgba(255,255,255,0.12);
+      padding-top: 14px;
+      margin-top: 12px;
+    }
+    .nav-foot .muted { font-size: 12px; color: rgba(255,255,255,0.5); margin-bottom: 4px; }
+    .nav-foot .who { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.88); }
+
+    .main { flex: 1; padding: 28px 32px 32px; overflow: hidden; }
+    .top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 26px;
+    }
+    .top h1 {
+      font-family: Syne, sans-serif;
+      font-weight: 750;
+      font-size: 28px;
+      letter-spacing: -0.03em;
+    }
+    .search {
+      width: 340px;
+      height: 40px;
+      border-radius: 10px;
+      border: 1px solid #D0DEE3;
+      background: #fff;
+      padding: 0 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #6B8289;
+      font-size: 13px;
+    }
+    .kpis {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+    .kpi {
+      background: #fff;
+      border: 1px solid #D0DEE3;
+      border-radius: 12px;
+      padding: 18px 18px 16px;
+    }
+    .kpi-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #6B8289;
+      margin-bottom: 10px;
+    }
+    .kpi-val {
+      font-family: Syne, sans-serif;
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: #0C1B20;
+      line-height: 1;
+    }
+    .kpi-sub { margin-top: 8px; font-size: 12.5px; color: #4A646C; }
+    .kpi-sub em { font-style: normal; color: #0A5F75; font-weight: 600; }
+
+    .panels {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .panel {
+      background: #fff;
+      border: 1px solid #D0DEE3;
+      border-radius: 12px;
+      padding: 18px 20px;
+    }
+    .panel h2 {
+      font-family: Syne, sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+    .stage {
+      display: grid;
+      grid-template-columns: 88px 1fr 28px;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      font-size: 12.5px;
+      color: #4A646C;
+    }
+    .bar {
+      height: 8px;
+      border-radius: 99px;
+      background: #E8EFF1;
+      overflow: hidden;
+    }
+    .bar > i {
+      display: block;
+      height: 100%;
+      border-radius: 99px;
+      font-style: normal;
+    }
+    .stage strong { text-align: right; color: #0C1B20; font-weight: 700; }
+
+    .job-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid #E8EFF1;
+      font-size: 13px;
+    }
+    .job-row:last-child { border-bottom: 0; }
+    .job-title { font-weight: 600; color: #0C1B20; }
+    .job-meta { color: #6B8289; font-size: 12px; margin-top: 2px; }
+    .job-count {
+      font-family: Syne, sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      color: #0A5F75;
+    }
+
+    .table-panel { padding: 0; overflow: hidden; }
+    .table-panel h2 { padding: 16px 20px 0; margin-bottom: 10px; }
+    table { width: 100%; border-collapse: collapse; }
+    th {
+      text-align: left;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #6B8289;
+      padding: 8px 20px;
+      border-bottom: 1px solid #E8EFF1;
+    }
+    td {
+      padding: 11px 20px;
+      font-size: 13px;
+      border-bottom: 1px solid #F3F7F8;
+      vertical-align: middle;
+    }
+    tr:last-child td { border-bottom: 0; }
+    .who-cell { display: flex; align-items: center; gap: 10px; }
+    .av {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: #E6F3F6; color: #0A5F75;
+      display: grid; place-items: center;
+      font-size: 11px; font-weight: 700;
+    }
+    .name { font-weight: 600; }
+    .email { font-size: 11.5px; color: #6B8289; }
+    .badge {
+      display: inline-block;
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 99px;
+    }
+    .b-offer { background: #E6F7ED; color: #1B6B3A; }
+    .b-interview { background: #FFF1E0; color: #9A5B12; }
+    .b-new { background: #E6F3F6; color: #0A5F75; }
+    .b-review { background: #EEE8F8; color: #5B3F8C; }
+    .muted { color: #6B8289; }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <svg width="28" height="28" viewBox="0 0 72 72" fill="none">
+          <g fill="#fff" stroke="#fff">
+            <line x1="10" y1="36" x2="42" y2="12" stroke-width="5" stroke-linecap="round"/>
+            <line x1="10" y1="36" x2="42" y2="60" stroke-width="5" stroke-linecap="round"/>
+            <line x1="42" y1="12" x2="42" y2="60" stroke-width="5" stroke-linecap="round"/>
+            <circle cx="10" cy="36" r="7"/>
+            <circle cx="42" cy="12" r="7"/>
+            <circle cx="42" cy="60" r="7"/>
+          </g>
+        </svg>
+        <div class="brand-text">
+          <span class="brand-name">Kixlogic</span>
+          <span class="brand-product">Hired</span>
+        </div>
+      </div>
+      <nav class="nav">
+        <div class="nav-item active"><span class="nav-dot"></span>Overview</div>
+        <div class="nav-item"><span class="nav-dot"></span>Job Postings</div>
+        <div class="nav-item"><span class="nav-dot"></span>Applications</div>
+        <div class="nav-item"><span class="nav-dot"></span>Pipeline</div>
+        <div class="nav-item"><span class="nav-dot"></span>Sourcing</div>
+        <div class="nav-item"><span class="nav-dot"></span>Renumify</div>
+        <div class="nav-item"><span class="nav-dot"></span>Reporting</div>
+        <div class="nav-item"><span class="nav-dot"></span>AI Assistant</div>
+      </nav>
+      <div class="nav-foot">
+        <div class="muted">Workspace</div>
+        <div class="who">Northwind Labs</div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <div class="top">
+        <h1>Overview</h1>
+        <div class="search">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+          Search applicants…
+        </div>
+      </div>
+
+      <div class="kpis">
+        <div class="kpi">
+          <div class="kpi-label">Applications</div>
+          <div class="kpi-val">128</div>
+          <div class="kpi-sub"><em>+18%</em> vs last cycle</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">In review</div>
+          <div class="kpi-val">34</div>
+          <div class="kpi-sub">Awaiting decision</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">Open roles</div>
+          <div class="kpi-val">9</div>
+          <div class="kpi-sub">3 closing this week</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">Hired</div>
+          <div class="kpi-val">6</div>
+          <div class="kpi-sub">This quarter</div>
+        </div>
+      </div>
+
+      <div class="panels">
+        <div class="panel">
+          <h2>Pipeline</h2>
+          <div class="stage"><span>New</span><div class="bar"><i style="width:78%;background:#0A5F75"></i></div><strong>22</strong></div>
+          <div class="stage"><span>Screen</span><div class="bar"><i style="width:54%;background:#0C7A94"></i></div><strong>14</strong></div>
+          <div class="stage"><span>Interview</span><div class="bar"><i style="width:42%;background:#3A9BB0"></i></div><strong>11</strong></div>
+          <div class="stage"><span>Offer</span><div class="bar"><i style="width:22%;background:#2E8A5A"></i></div><strong>4</strong></div>
+          <div class="stage"><span>Hired</span><div class="bar"><i style="width:18%;background:#063D4C"></i></div><strong>6</strong></div>
+        </div>
+        <div class="panel">
+          <h2>Active postings</h2>
+          <div class="job-row">
+            <div><div class="job-title">Staff Software Engineer</div><div class="job-meta">Engineering · Remote</div></div>
+            <div class="job-count">28</div>
+          </div>
+          <div class="job-row">
+            <div><div class="job-title">Clinical Research Associate</div><div class="job-meta">Clinical · Hybrid</div></div>
+            <div class="job-count">19</div>
+          </div>
+          <div class="job-row">
+            <div><div class="job-title">Revenue Operations Lead</div><div class="job-meta">Go-to-market · SF</div></div>
+            <div class="job-count">12</div>
+          </div>
+          <div class="job-row">
+            <div><div class="job-title">Product Designer</div><div class="job-meta">Design · Remote</div></div>
+            <div class="job-count">9</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel table-panel">
+        <h2>Recent applicants</h2>
+        <table>
+          <thead>
+            <tr><th>Applicant</th><th>Role</th><th>Stage</th><th>AI match</th><th>Submitted</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div class="who-cell"><div class="av">AM</div><div><div class="name">Ava Morales</div><div class="email">ava@example.com</div></div></div></td>
+              <td>Staff Software Engineer</td>
+              <td><span class="badge b-interview">Interview</span></td>
+              <td><strong style="color:#0A5F75">94</strong></td>
+              <td class="muted">Aug 4</td>
+            </tr>
+            <tr>
+              <td><div class="who-cell"><div class="av">JK</div><div><div class="name">Jonah Kim</div><div class="email">jonah@example.com</div></div></div></td>
+              <td>Product Designer</td>
+              <td><span class="badge b-offer">Offer</span></td>
+              <td><strong style="color:#0A5F75">91</strong></td>
+              <td class="muted">Aug 3</td>
+            </tr>
+            <tr>
+              <td><div class="who-cell"><div class="av">SR</div><div><div class="name">Sofia Reyes</div><div class="email">sofia@example.com</div></div></div></td>
+              <td>Clinical Research Associate</td>
+              <td><span class="badge b-review">Reviewed</span></td>
+              <td><strong style="color:#0A5F75">87</strong></td>
+              <td class="muted">Aug 2</td>
+            </tr>
+            <tr>
+              <td><div class="who-cell"><div class="av">DL</div><div><div class="name">Devon Lee</div><div class="email">devon@example.com</div></div></div></td>
+              <td>Revenue Operations Lead</td>
+              <td><span class="badge b-new">New</span></td>
+              <td><strong style="color:#0A5F75">82</strong></td>
+              <td class="muted">Aug 2</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

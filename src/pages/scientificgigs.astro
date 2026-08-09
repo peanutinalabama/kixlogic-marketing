@@ -1,0 +1,32 @@
+---
+import Base from '../layouts/Base.astro';
+import ProductPage from '../components/ProductPage.astro';
+---
+<Base
+  title="ScientificGigs"
+  description="The most cost-effective life-science job board — Standard posts $149 vs Nature ~$880 / Science ~$660 / BioSpace ~$490. Built for biotech. Priced for growth."
+>
+  <ProductPage
+    name="ScientificGigs"
+    role="Life sciences job board · built for biotech, priced for growth"
+    description="Legacy science job boards charge $490–$880 per post. ScientificGigs delivers the same specialized reach for ~70% less — Standard $149, Featured $299, Unlimited Annual $1,999. 100% life-science audience. Zero noise. Instant search, field filters, and performance clarity (fit scores, pipeline, Direct Match). Candidates always free."
+    primaryCta={{ label: 'See pricing — from $149', href: 'https://www.scientificgigs.com/pricing' }}
+    secondaryCta={{ label: 'Visit ScientificGigs', href: 'https://www.scientificgigs.com/' }}
+    billboard={{
+      ariaLabel: 'ScientificGigs value',
+      line1: 'Built for biotech.',
+      line2Em: 'Priced for growth.',
+      chipFrom: 'Legacy $490–$880',
+      chipTo: 'SG from $149',
+      sub: 'More qualified scientists per dollar than any other life-science job board. Nature ~$880 · Science ~$660 · BioSpace ~$490 · ScientificGigs $149.',
+    }}
+    points={[
+      'Price advantage: ~70% less than Nature Careers / Science Careers / BioSpace for specialized reach',
+      'Standard $149 · Featured $299 · Unlimited Annual $1,999 (less than two Nature posts)',
+      '100% life-science audience — biology, biotech, pharma, clinical, bioinformatics, lab ops',
+      'Modern UX: instant search, field filters, mobile-first, ATS-friendly posting',
+      'Grow add-ons: Direct Match Ads ($1.50 CPC) and AI Employer Spotlight — optional, not the core price story',
+      'Kixlogic Lite $99 = post + manage in a slim ATS that syndicates here; Chrome extension saves LinkedIn profiles you view into Lite Sourced (separate from applicants); Hired/WIP tenants syndicate free',
+    ]}
+  />
+</Base>

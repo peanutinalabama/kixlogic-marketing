@@ -1,0 +1,131 @@
+<!DOCTYPE html><html><head>
+<meta charset="utf-8"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  width: 1440px; height: 900px; overflow: hidden;
+  font-family: 'Open Sans', 'Segoe UI', sans-serif; background: #E8EFF1; color: #0C1B20;
+  -webkit-font-smoothing: antialiased;
+}
+.shell { display: flex; height: 900px; }
+.sidebar {
+  width: 228px; flex-shrink: 0; color: #fff;
+  background: linear-gradient(180deg, #042833 0%, #063D4C 55%, #0A5F75 100%);
+  padding: 22px 16px 18px; display: flex; flex-direction: column;
+}
+.brand {
+  display: flex; align-items: center; gap: 10px; padding: 4px 6px 22px;
+  border-bottom: 1px solid rgba(255,255,255,0.12); margin-bottom: 18px;
+}
+.brand-text { display: flex; flex-direction: column; gap: 1px; }
+.brand-name { font-weight: 700; font-size: 18px; letter-spacing: -0.02em; line-height: 1; }
+.brand-product {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: rgba(255,255,255,0.62);
+}
+.nav { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+.nav-item {
+  display: flex; align-items: center; gap: 10px; padding: 9px 12px;
+  border-radius: 8px; font-size: 13.5px; font-weight: 500; color: rgba(255,255,255,0.72);
+}
+.nav-item.active { background: rgba(255,255,255,0.14); color: #fff; font-weight: 600; }
+.nav-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: 0.55; }
+.nav-item.active .nav-dot { background: #7ED4E8; opacity: 1; }
+.nav-foot { border-top: 1px solid rgba(255,255,255,0.12); padding-top: 14px; margin-top: 12px; }
+.nav-foot .muted { font-size: 12px; color: rgba(255,255,255,0.5); margin-bottom: 4px; }
+.nav-foot .who { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.88); }
+.main { flex: 1; padding: 28px 32px 32px; overflow: hidden; }
+.top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+.top h1 { font-weight: 700; font-size: 28px; letter-spacing: -0.02em; }
+.search {
+  width: 320px; height: 40px; border-radius: 10px; border: 1px solid #D0DEE3;
+  background: #fff; padding: 0 14px; display: flex; align-items: center; gap: 8px;
+  color: #6B8289; font-size: 13px;
+}
+.panel {
+  background: #fff; border: 1px solid #D0DEE3; border-radius: 12px; padding: 18px 20px;
+}
+.panel h2 { font-size: 15px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 14px; }
+.badge {
+  display: inline-block; font-size: 11.5px; font-weight: 600;
+  padding: 3px 9px; border-radius: 99px;
+}
+.b-offer { background: #E6F7ED; color: #1B6B3A; }
+.b-interview { background: #FFF1E0; color: #9A5B12; }
+.b-new { background: #E6F3F6; color: #0A5F75; }
+.b-review { background: #EEE8F8; color: #5B3F8C; }
+.b-hired { background: #063D4C; color: #fff; }
+.muted { color: #6B8289; }
+
+.grid { display:grid; grid-template-columns:1.1fr 0.9fr; gap:14px; }
+.tools { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px; }
+.tool { background:#fff; border:1px solid #D0DEE3; border-radius:12px; padding:16px; }
+.tool h3 { font-size:14px; font-weight:700; margin-bottom:6px; }
+.tool p { font-size:12.5px; color:#4A646C; line-height:1.45; }
+.range { display:flex; align-items:flex-end; gap:8px; height:160px; margin-top:8px; }
+.range .b { flex:1; border-radius:8px 8px 4px 4px; background:#C5DEE5; position:relative; }
+.range .b.on { background:#0A5F75; }
+.range .b span { position:absolute; bottom:-22px; left:50%; transform:translateX(-50%); font-size:11px; color:#6B8289; white-space:nowrap; }
+.stat-row { display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid #E8EFF1; font-size:13px; }
+.stat-row:last-child { border-bottom:0; }
+.stat-row strong { color:#0A5F75; }
+</style>
+</head><body>
+<div class="shell">
+  
+  <aside class="sidebar">
+    <div class="brand">
+      
+<svg width="28" height="28" viewBox="0 0 72 72" fill="none">
+  <g fill="#fff" stroke="#fff">
+    <line x1="10" y1="36" x2="42" y2="12" stroke-width="5" stroke-linecap="round"/>
+    <line x1="10" y1="36" x2="42" y2="60" stroke-width="5" stroke-linecap="round"/>
+    <line x1="42" y1="12" x2="42" y2="60" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="10" cy="36" r="7"/><circle cx="42" cy="12" r="7"/><circle cx="42" cy="60" r="7"/>
+  </g>
+</svg>
+      <div class="brand-text">
+        <span class="brand-name">Kixlogic</span>
+        <span class="brand-product">Renumify</span>
+      </div>
+    </div>
+    <nav class="nav">
+      <div class="nav-item"><span class="nav-dot"></span>Overview</div><div class="nav-item"><span class="nav-dot"></span>Job Postings</div><div class="nav-item"><span class="nav-dot"></span>Applications</div><div class="nav-item"><span class="nav-dot"></span>Pipeline</div><div class="nav-item"><span class="nav-dot"></span>Sourcing</div><div class="nav-item active"><span class="nav-dot"></span>Renumify</div><div class="nav-item"><span class="nav-dot"></span>Reporting</div><div class="nav-item"><span class="nav-dot"></span>AI Assistant</div>
+    </nav>
+    <div class="nav-foot">
+      <div class="muted">Workspace</div>
+      <div class="who">Northwind Labs</div>
+    </div>
+  </aside>
+  <main class="main">
+    <div class="top"><h1>Renumify</h1><div class="search">Analyze a role…</div></div>
+    <div class="tools">
+      <div class="tool"><h3>Market Lookup</h3><p>Benchmarks by role, location, and company size.</p></div>
+      <div class="tool"><h3>Offer Analyzer</h3><p>Score competitiveness before you send an offer.</p></div>
+      <div class="tool"><h3>Pay Equity</h3><p>Spot gaps by gender, dept, and tenure.</p></div>
+      <div class="tool"><h3>Compression</h3><p>Find tenure-vs-pay risk inside a band.</p></div>
+    </div>
+    <div class="grid">
+      <div class="panel">
+        <h2>Staff Software Engineer · Remote US</h2>
+        <div class="range">
+          <div class="b" style="height:45%"><span>P10</span></div>
+          <div class="b" style="height:62%"><span>P25</span></div>
+          <div class="b on" style="height:78%"><span>P50</span></div>
+          <div class="b" style="height:90%"><span>P75</span></div>
+          <div class="b" style="height:100%"><span>P90</span></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h2>Recommended range</h2>
+        <div class="stat-row"><span>Base (P50)</span><strong>$168k</strong></div>
+        <div class="stat-row"><span>Total cash</span><strong>$192k</strong></div>
+        <div class="stat-row"><span>Offer score</span><strong>Competitive</strong></div>
+        <div class="stat-row"><span>Skill premium</span><strong>+8%</strong></div>
+      </div>
+    </div>
+  </main>
+</div></body></html>

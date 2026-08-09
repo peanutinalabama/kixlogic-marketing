@@ -58,7 +58,6 @@ const atsPlans = [
       { ok: true, text: 'Custom color schemes + advanced branding', highlight: true },
       { ok: false, text: 'Offer letters & e-signature' },
       { ok: false, text: 'Onboarding portal' },
-      { ok: false, text: 'AI Salary Intelligence' },
     ],
   },
   {
@@ -75,8 +74,6 @@ const atsPlans = [
       { ok: true, text: 'Unlimited job postings' },
       { ok: true, text: 'Unlimited seats' },
       { ok: true, text: 'Everything in Growth' },
-      { ok: true, text: 'Kixlogic CMP included (500 CIUs/month)', highlight: true },
-      { ok: true, text: 'Candidate Sourcing platform integration', highlight: true },
       { ok: true, text: 'AI resume scoring (750/mo)', highlight: true },
       { ok: true, text: 'Applicant SMS texting (2,000/mo)', highlight: true },
       { ok: true, text: 'Offer letter templates, send & e-signature', highlight: true },
@@ -89,8 +86,8 @@ const atsPlans = [
       { ok: true, text: 'AI Salary Intelligence (BLS + regional)', highlight: true },
       { ok: true, text: 'Per-applicant document library', highlight: true },
       { ok: true, text: 'XML job feeds for Indeed + aggregators', highlight: true },
-      { ok: true, text: 'Advanced analytics dashboard', highlight: true },
       { ok: true, text: 'Priority support (24-hr response)', highlight: true },
+      { ok: true, text: 'Renumify & Sourcer available as paid add-ons', highlight: true },
     ],
   },
   {
@@ -103,87 +100,42 @@ const atsPlans = [
     customPrice: true,
     cta: 'Contact Sales',
     ctaStyle: 'outline',
-    ctaHref: '/contact',
+    ctaHref: '/contact/',
     hideFeatures: true,
     features: [],
   },
 ];
 
-const cmpPlans = [
+const addonProducts = [
   {
-    id: 'cmp-essentials',
-    name: 'Essentials',
-    price: '49',
-    period: 'per month',
-    ciUs: '100',
-    desc: 'Occasional hiring — benchmarks, offers, and job descriptions.',
-    featured: false,
-    cta: 'Get Started',
-    ctaStyle: 'outline',
+    id: 'renumify',
+    tab: 'cmp',
+    name: 'Renumify',
+    role: 'Compensation intelligence',
+    desc: 'Market lookup, offer analysis, workforce compa-ratios, pay equity, and compression — sold as a monthly add-on to Kixlogic Hired.',
     features: [
-      { ok: true, text: 'Unlimited HR users' },
-      { ok: true, text: '100 CIUs/month' },
-      { ok: true, text: 'Merit cycles (employee import, pool budgeting, approval chains)' },
-      { ok: true, text: 'Deals & policies tracking' },
-      { ok: true, text: 'Earnings ledger' },
-      { ok: true, text: 'Commission tools (rules engine, forecasting, simulator)' },
-      { ok: true, text: 'Salary benchmark (General model)' },
-      { ok: true, text: 'Offer analyzer' },
-      { ok: true, text: 'Job description builder' },
-      { ok: false, text: 'Healthcare, Insurance, Sales, Real Estate, Restaurants models' },
-      { ok: false, text: 'Internal pay equity analysis' },
-      { ok: false, text: 'Compensation strategy report' },
+      { ok: true, text: 'Market Lookup with role, location & skill premiums' },
+      { ok: true, text: 'Offer Analyzer with competitiveness scoring' },
+      { ok: true, text: 'Workforce, Pay Equity & Compression views' },
+      { ok: true, text: 'Merit, bands & retention tooling' },
+      { ok: true, text: 'Requires an active Hired account' },
+      { ok: true, text: 'Checkout via Stripe inside Hired (Admin / Renumify hub)' },
     ],
   },
   {
-    id: 'cmp-growth',
-    name: 'Growth',
-    price: '149',
-    period: 'per month',
-    ciUs: '500',
-    desc: 'Active hiring — multiple roles and offer cycles each month.',
-    featured: true,
-    badge: 'Most popular',
-    cta: 'Get Started',
-    ctaStyle: 'primary',
+    id: 'src',
+    tab: 'src',
+    name: 'Kixlogic Sourcer',
+    role: 'AI candidate sourcing',
+    desc: 'Natural-language search → ranked shortlists for any role. Monthly suite add-on plus optional usage packs for heavy AI volume.',
     features: [
-      { ok: true, text: 'Unlimited HR users' },
-      { ok: true, text: '500 CIUs/month' },
-      { ok: true, text: 'Everything in Essentials' },
-      { ok: true, text: 'Industry model add-ons (Healthcare, Insurance, Sales, Real Estate, Restaurants)', highlight: true },
-      { ok: true, text: 'Internal pay equity analysis', highlight: true },
-      { ok: true, text: 'Pay compression analysis', highlight: true },
-      { ok: true, text: 'Compensation strategy report', highlight: true },
-      { ok: true, text: 'Merit cycle AI pay letters', highlight: true },
-      { ok: true, text: 'Advanced spend reports', highlight: true },
-      { ok: false, text: 'CIU top-up packs at volume rates' },
-      { ok: false, text: 'Custom CIU allotments' },
-      { ok: false, text: 'Dedicated support' },
-    ],
-  },
-  {
-    id: 'cmp-professional',
-    name: 'Professional',
-    price: '399',
-    period: 'per month',
-    ciUs: '2000',
-    desc: 'Heavy usage — merit cycles, recruiting strategy, vertical models.',
-    featured: false,
-    cta: 'Get Started',
-    ctaStyle: 'outline',
-    features: [
-      { ok: true, text: 'Unlimited HR users' },
-      { ok: true, text: '2,000 CIUs/month' },
-      { ok: true, text: 'Everything in Growth' },
-      { ok: true, text: 'Unlimited industry model depth', highlight: true },
-      { ok: true, text: 'All hiring + compensation tools', highlight: true },
-      { ok: true, text: 'Commission audit (Real Estate)' },
-      { ok: true, text: 'Producer comp optimizer (Insurance)' },
-      { ok: true, text: 'Sales comp optimization (Sales)' },
-      { ok: true, text: 'Tip pool simulator (Restaurants)' },
-      { ok: true, text: 'Priority support', highlight: true },
-      { ok: false, text: 'SSO' },
-      { ok: false, text: 'Custom contract & SLA' },
+      { ok: true, text: 'NL search with evidence-based ranking' },
+      { ok: true, text: 'Quality gates & hard filters — not keyword spam' },
+      { ok: true, text: 'Works across roles; scientific sources when needed' },
+      { ok: true, text: 'Lite Chrome extension — save LinkedIn profiles you view into Sourced (separate from applicants)' },
+      { ok: true, text: 'Usage-metered AI runs for high volume' },
+      { ok: true, text: 'Requires an active Hired account' },
+      { ok: true, text: 'Checkout via Stripe inside Hired (Sourcer hub)' },
     ],
   },
 ];
@@ -195,7 +147,11 @@ const atsFaqs = [
   },
   {
     q: 'Can I switch plans later?',
-    a: 'Yes, anytime. Upgrade from Starter to Growth or Professional and you\'ll get access to AI scoring, advanced analytics, and more — effective immediately.',
+    a: 'Yes, anytime. Upgrade from Starter to Growth or Professional via Admin → Billing (Stripe Customer Portal) — changes take effect immediately.',
+  },
+  {
+    q: 'How do Renumify and Sourcer work?',
+    a: 'Both are paid monthly add-ons to Kixlogic Hired. Start with a Hired plan below (Stripe Checkout), then unlock Renumify or Sourcer from the Hired dashboard — that also charges through Stripe.',
   },
   {
     q: 'Is my applicant data secure?',
@@ -203,48 +159,50 @@ const atsFaqs = [
   },
   {
     q: 'Do I need to install any software?',
-    a: 'No. Kixlogic is 100% cloud-based — sign up, configure your branding, and your careers page and ATS dashboard are live in under 10 minutes from any browser.',
+    a: 'No. Kixlogic is 100% cloud-based — sign up, configure your branding, and your careers page and Hired dashboard are live in under 10 minutes from any browser.',
   },
 ];
 
-const cmpFaqs = [
+const addonFaqs = [
   {
-    q: 'What is a CIU?',
-    a: 'A CIU (Compensation Intelligence Unit) is one analysis — a salary benchmark, offer analysis, job description builder run, or AI hiring tool. You pay for decisions, not compute. Your plan includes a monthly CIU allotment; overage packs available anytime.',
+    q: 'Can I buy Renumify or Sourcer without Hired?',
+    a: 'Not today. Renumify and Sourcer unlock inside the Hired suite after you have an active account. Start with Hired checkout on this page, or sign in if you already subscribe.',
   },
   {
-    q: 'Can I switch plans later?',
-    a: 'Yes, anytime. Upgrade or downgrade your plan and adjust your CIU allotment to match your hiring volume — changes take effect immediately.',
+    q: 'How do I pay for an add-on?',
+    a: 'Sign in to Hired → open Renumify or Sourcer. If the add-on is locked, choose Unlock add-on. That opens Stripe Checkout for the monthly add-on (and optional Sourcer usage packs).',
   },
   {
-    q: 'Are industry model add-ons required?',
-    a: 'No. Every account includes the General model for any role, any industry. Industry models (Healthcare, Insurance, Sales, Real Estate, Restaurants) are optional add-ons for specialized benchmarks and tools.',
-  },
-  {
-    q: 'Is my compensation data secure?',
-    a: 'Yes. All employee and compensation data is encrypted in transit and at rest. Our infrastructure is protected by Cloudflare with DDoS mitigation, Web Application Firewall, and SSL/TLS protection.',
+    q: 'Where do I manage billing later?',
+    a: 'Admin → Billing opens the Stripe Customer Portal — update payment method, view invoices, or cancel. Plan changes for Hired also go through that portal.',
   },
 ];
 ---
 <Base
   title="Pricing"
-  description="Kixlogic ATS pricing for small and mid-sized businesses. Four plans starting at $49/month. 14-day free trial on Growth and Professional."
+  description="Kixlogic Hired plans from $49/month, plus Renumify and Sourcer suite add-ons. Secure Stripe checkout. 14-day free trial on Growth and Professional."
 >
   <section class="pricing-page section">
     <div class="container">
       <div class="pricing-header">
-        <span class="tag">✦ Simple, transparent pricing</span>
+        <span class="tag">Simple, transparent pricing</span>
         <h1>Pay for what you need</h1>
-        <p>Choose Kixlogic ATS for hiring, Kixlogic CMP for compensation intelligence, or use both together.</p>
+        <p>
+          <strong>Kixlogic Hired</strong> is the ATS hub — subscribe here via Stripe.
+          <strong>Renumify</strong> and <strong>Sourcer</strong> are paid suite add-ons unlocked inside Hired (also Stripe).
+        </p>
       </div>
 
+      <div id="checkoutBanner" class="checkout-banner" hidden></div>
+
       <div class="pricing-tabs">
-        <button class="pricing-tab active" data-tab="ats">Kixlogic ATS</button>
-        <button class="pricing-tab" data-tab="cmp">Kixlogic CMP</button>
+        <button class="pricing-tab active" data-tab="ats" type="button">Kixlogic Hired</button>
+        <button class="pricing-tab" data-tab="cmp" type="button">Renumify</button>
+        <button class="pricing-tab" data-tab="src" type="button">Kixlogic Sourcer</button>
       </div>
 
       <div class="pricing-tab-content active" id="ats-tab">
-        <p class="pricing-tab-desc">Four plans for hiring teams of any size. Growth and Professional include a <strong>14-day free trial</strong>.</p>
+        <p class="pricing-tab-desc">Four plans for hiring teams of any size. Growth and Professional include a <strong>14-day free trial</strong>. Checkout is secured by Stripe.</p>
         <div class="pricing-grid">
           {atsPlans.map(plan => (
           <div class={`pricing-card card ${plan.featured ? 'featured' : ''}`}>
@@ -293,39 +251,52 @@ const cmpFaqs = [
         </p>
       </div>
 
-      <div class="pricing-tab-content" id="cmp-tab">
-        <p class="pricing-tab-desc">Platform subscription + CIUs for AI compensation analyses. All plans include merit cycles, earnings tracking, and commission tools.</p>
-        <div class="pricing-grid three-col">
-          {cmpPlans.map(plan => (
-            <div class={`pricing-card card ${plan.featured ? 'featured' : ''}`}>
-              {plan.badge && <div class="pricing-badge">{plan.badge}</div>}
-              <div class="pricing-plan">{plan.name}</div>
-              <div class="pricing-price"><sup>$</sup>{plan.price}<sup class="tax">†</sup></div>
-              <div class="pricing-period">{plan.period}</div>
-              <div class="ciu-amount">{plan.ciUs} CIUs/month</div>
-              <p class="pricing-desc">{plan.desc}</p>
+      {addonProducts.map(product => (
+        <div class="pricing-tab-content" id={`${product.tab}-tab`}>
+          <p class="pricing-tab-desc">{product.desc}</p>
+          <div class="addon-layout">
+            <div class="pricing-card card featured addon-card">
+              <div class="pricing-badge">Suite add-on</div>
+              <div class="pricing-plan">{product.name}</div>
+              <div class="pricing-price custom">Monthly add-on</div>
+              <div class="pricing-period">Billed through Stripe · requires Hired</div>
+              <p class="pricing-desc">{product.role}</p>
               <div class="pricing-divider"></div>
               <ul class="pricing-features">
-                {plan.features.map(f => (
-                  <li class={`pricing-feature ${f.ok ? 'active' : ''} ${f.highlight ? 'highlight' : ''}`}>
-                    <span class={f.ok ? 'check' : 'x'}>{f.ok ? '✓' : '✗'}</span>
+                {product.features.map(f => (
+                  <li class={`pricing-feature ${f.ok ? 'active' : ''}`}>
+                    <span class="check">✓</span>
                     {f.text}
                   </li>
                 ))}
               </ul>
-              <button type="button" data-checkout={plan.id} class={`pricing-cta ${plan.ctaStyle === 'primary' ? 'pricing-cta-primary' : 'pricing-cta-outline'}`}>
-                {plan.cta}
-              </button>
+              <div class="addon-ctas">
+                <button type="button" data-checkout="professional" class="pricing-cta pricing-cta-primary">
+                  Start with Hired (Stripe)
+                </button>
+                <a href="https://app.kixlogic.com/dashboard" class="pricing-cta pricing-cta-outline">
+                  Sign in to unlock add-on
+                </a>
+              </div>
             </div>
-          ))}
+            <div class="addon-side">
+              <h3>How purchase works</h3>
+              <ol>
+                <li>Subscribe to <strong>Kixlogic Hired</strong> on this page (Stripe Checkout).</li>
+                <li>Sign in at <strong>app.kixlogic.com</strong>.</li>
+                <li>Open <strong>{product.name}</strong> and choose <strong>Unlock add-on</strong> — Stripe Checkout again for the add-on.</li>
+              </ol>
+              <p class="addon-side-note">
+                If Unlock add-on isn’t available yet for your tenant, contact us — we can enable Renumify or Sourcer and finish Stripe setup.
+              </p>
+              <a href="/contact/" class="contact-link">Talk to sales →</a>
+            </div>
+          </div>
         </div>
+      ))}
 
-        <p class="pricing-note">
-          All plans include merit cycles, earnings ledger, and commission tools — no CIUs required. New accounts get <strong>5 free CIUs</strong> to try.
-        </p>
-      </div>
       <p class="pricing-tax-note">
-        <sup>†</sup> Prices shown are base subscription rates in U.S. dollars and do not include applicable taxes. Taxes calculated at checkout based on your billing address.
+        <sup>†</sup> Hired prices shown are base subscription rates in U.S. dollars and do not include applicable taxes. Taxes calculated at Stripe checkout based on your billing address.
       </p>
 
       <div class="faq-wrap" id="ats-faq">
@@ -340,7 +311,17 @@ const cmpFaqs = [
 
       <div class="faq-wrap" id="cmp-faq" style="display: none;">
         <h2>Frequently asked</h2>
-        {cmpFaqs.map(f => (
+        {addonFaqs.map(f => (
+          <details>
+            <summary>{f.q}</summary>
+            <div class="faq-body">{f.a}</div>
+          </details>
+        ))}
+      </div>
+
+      <div class="faq-wrap" id="src-faq" style="display: none;">
+        <h2>Frequently asked</h2>
+        {addonFaqs.map(f => (
           <details>
             <summary>{f.q}</summary>
             <div class="faq-body">{f.a}</div>
@@ -356,7 +337,7 @@ const cmpFaqs = [
 .pricing-header { text-align: center; margin-bottom: 3rem; }
 .pricing-header .tag { margin-bottom: 1rem; }
 .pricing-header h1 {
-  font-family: 'Syne', sans-serif;
+  font-family: var(--font-display);
   font-size: clamp(2rem, 5vw, 3.2rem);
   font-weight: 800;
   letter-spacing: -0.03em;
@@ -369,32 +350,33 @@ const cmpFaqs = [
   margin: 0 auto;
   line-height: 1.6;
 }
-.pricing-header strong { color: var(--gold); }
+.pricing-header strong { color: var(--ink); }
 
-.wip-banner {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem 1.25rem;
-  background: linear-gradient(135deg, rgba(20,184,148,0.08), rgba(99,102,241,0.08));
-  border: 1px solid var(--border-gold);
-  border-radius: var(--radius-lg);
-  padding: 1rem 1.5rem;
-  margin-bottom: 2rem;
+.checkout-banner {
   max-width: 720px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto 1.5rem;
+  padding: 0.85rem 1.25rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--fog);
+  color: var(--text);
+  font-size: 0.9rem;
+  text-align: center;
 }
-.wip-banner p { font-size: 0.9rem; color: var(--text-muted); margin: 0; flex: 1; min-width: 200px; text-align: left; }
-.wip-banner strong { color: var(--text); }
-.wip-link { font-size: 0.85rem; font-weight: 700; color: var(--gold); white-space: nowrap; }
+.checkout-banner.ok {
+  border-color: rgba(20,184,148,0.35);
+  background: rgba(20,184,148,0.08);
+}
+.checkout-banner.cancelled {
+  border-color: var(--border);
+}
 
 .pricing-tabs {
   display: flex;
   gap: 1rem;
   justify-content: center;
   margin: 2rem 0 2.5rem;
+  flex-wrap: wrap;
 }
 .pricing-tab {
   padding: 0.65rem 1.5rem;
@@ -431,9 +413,6 @@ const cmpFaqs = [
   gap: 1rem;
   margin-bottom: 2rem;
 }
-.pricing-grid.three-col {
-  grid-template-columns: repeat(3, 1fr);
-}
 .pricing-card { position: relative; display: flex; flex-direction: column; padding: 1.5rem; }
 .pricing-card.featured {
   border-color: var(--border-gold);
@@ -449,21 +428,22 @@ const cmpFaqs = [
   white-space: nowrap;
 }
 .pricing-plan {
-  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.875rem;
+  font-family: var(--font-display); font-weight: 700; font-size: 0.875rem;
   text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 0.75rem;
 }
 .pricing-card.featured .pricing-plan { color: var(--gold); }
 .pricing-price {
-  font-family: 'Syne', sans-serif; font-weight: 800; font-size: 3rem;
+  font-family: var(--font-display); font-weight: 800; font-size: 3rem;
   color: var(--text); line-height: 1; margin-bottom: 0.25rem; letter-spacing: -2px;
 }
-.pricing-price.custom { font-size: 2rem; padding-top: 0.5rem; }
+.pricing-price.custom { font-size: 1.75rem; padding-top: 0.5rem; letter-spacing: -0.5px; }
 .pricing-price sup { font-size: 1.5rem; vertical-align: super; }
+.pricing-price.custom sup { font-size: 1rem; }
+.pricing-price.sup.tax,
 .pricing-price sup.tax { font-size: 0.5em; }
 .pricing-period { font-size: 0.825rem; color: var(--text-muted); margin-bottom: 0.5rem; }
 .pricing-period a.contact-link { color: var(--ms-blue); font-weight: 600; text-decoration: none; }
 .pricing-period a.contact-link:hover { text-decoration: underline; }
-.ciu-amount { font-size: 0.9rem; font-weight: 600; color: var(--ms-blue); margin-bottom: 1rem; }
 .pricing-desc { font-size: 0.875rem; color: var(--text-muted); margin-bottom: 1.75rem; line-height: 1.5; }
 .pricing-divider { height: 1px; background: var(--border); margin-bottom: 1.5rem; }
 .pricing-features { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; margin-bottom: 2rem; flex: 1; }
@@ -477,11 +457,56 @@ const cmpFaqs = [
   font-weight: 700; font-size: 0.95rem; text-align: center;
   transition: var(--transition); display: block;
   border: none; cursor: pointer; font-family: inherit;
+  text-decoration: none; box-sizing: border-box;
 }
 .pricing-cta-primary { background: var(--gold); color: var(--navy); }
 .pricing-cta-primary:hover { background: var(--gold-light); box-shadow: 0 8px 25px rgba(20,184,148,0.3); }
 .pricing-cta-outline { background: transparent; color: var(--text); border: 1.5px solid var(--border); }
 .pricing-cta-outline:hover { border-color: var(--border-gold); background: var(--gold-dim); }
+
+.addon-layout {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 1.5rem;
+  align-items: start;
+  max-width: 960px;
+  margin: 0 auto 2rem;
+}
+.addon-card { max-width: none; }
+.addon-ctas { display: flex; flex-direction: column; gap: 0.65rem; }
+.addon-side {
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+}
+.addon-side h3 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 0 0 1rem;
+}
+.addon-side ol {
+  margin: 0 0 1.25rem;
+  padding-left: 1.2rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+.addon-side li { margin-bottom: 0.5rem; }
+.addon-side-note {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  line-height: 1.55;
+  margin-bottom: 1rem;
+}
+.addon-side .contact-link {
+  color: var(--ms-blue);
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+.addon-side .contact-link:hover { text-decoration: underline; }
 
 .pricing-note {
   text-align: center; margin-top: 2rem;
@@ -496,7 +521,7 @@ const cmpFaqs = [
 
 .faq-wrap { max-width: 760px; margin: 5rem auto 0; }
 .faq-wrap h2 {
-  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.5rem;
+  font-family: var(--font-display); font-weight: 700; font-size: 1.5rem;
   text-align: center; margin-bottom: 2rem;
 }
 details {
@@ -516,11 +541,10 @@ details[open] summary::after { content: '−'; }
 
 @media (max-width: 1024px) {
   .pricing-grid { grid-template-columns: repeat(2, 1fr); }
-  .pricing-grid.three-col { grid-template-columns: repeat(2, 1fr); }
+  .addon-layout { grid-template-columns: 1fr; }
 }
 @media (max-width: 640px) {
   .pricing-grid { grid-template-columns: 1fr; }
-  .pricing-grid.three-col { grid-template-columns: 1fr; }
   .pricing-tabs { flex-direction: column; gap: 0.5rem; }
   .pricing-tab { width: 100%; }
 }
@@ -537,7 +561,32 @@ document.querySelectorAll('.pricing-tab').forEach(tab => {
 
     tab.classList.add('active');
     document.getElementById(tabName + '-tab').classList.add('active');
-    document.getElementById(tabName + '-faq').style.display = 'block';
+    const faq = document.getElementById(tabName + '-faq');
+    if (faq) faq.style.display = 'block';
   });
 });
+
+(function showCheckoutBanner() {
+  const params = new URLSearchParams(window.location.search);
+  const status = params.get('checkout');
+  const el = document.getElementById('checkoutBanner');
+  if (!el || !status) return;
+  el.hidden = false;
+  if (status === 'success') {
+    el.classList.add('ok');
+    el.textContent = 'Payment received. Check your email for Hired setup instructions, then sign in at app.kixlogic.com.';
+  } else if (status === 'cancelled') {
+    el.classList.add('cancelled');
+    el.textContent = 'Checkout cancelled — no charge. Pick a plan whenever you’re ready.';
+  }
+})();
+
+(function openTabFromHash() {
+  const hash = (window.location.hash || '').replace('#', '');
+  if (hash === 'renumify' || hash === 'comp' || hash === 'cmp') {
+    document.querySelector('.pricing-tab[data-tab="cmp"]')?.click();
+  } else if (hash === 'sourcer' || hash === 'src') {
+    document.querySelector('.pricing-tab[data-tab="src"]')?.click();
+  }
+})();
 </script>
