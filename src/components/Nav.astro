@@ -4,10 +4,9 @@ const isActive = (path: string) =>
   path === '/' ? pathname === '/' : pathname === path || pathname.startsWith(path);
 
 const links = [
-  { href: '/#products', label: 'Products' },
-  { href: '/hired/', label: 'Hired' },
-  { href: '/renumify/', label: 'Renumify' },
-  { href: '/sourcer/', label: 'Sourcer' },
+  // One Products entry, not one link per product — the platforms section on
+  // the homepage is the index, and each card links onward from there.
+  { href: '/#platforms', label: 'Products' },
   { href: '/pricing/', label: 'Pricing' },
   { href: '/about/', label: 'About' },
   { href: '/blog/', label: 'Blog' },
