@@ -15,6 +15,10 @@ const STATIC_URLS = [
   { loc: 'https://kixlogic.com/security/', changefreq: 'yearly', priority: '0.5' },
   { loc: 'https://kixlogic.com/support/', changefreq: 'monthly', priority: '0.5' },
   { loc: 'https://kixlogic.com/sales-partner/', changefreq: 'monthly', priority: '0.5' },
+  { loc: 'https://kixlogic.com/lilyfi/', changefreq: 'monthly', priority: '0.9' },
+  { loc: 'https://kixlogic.com/auravo/', changefreq: 'monthly', priority: '0.8' },
+  { loc: 'https://kixlogic.com/pixalary/', changefreq: 'monthly', priority: '0.8' },
+  { loc: 'https://kixlogic.com/bingopalooza/', changefreq: 'monthly', priority: '0.8' },
 ];
 
 function escapeXml(s) {

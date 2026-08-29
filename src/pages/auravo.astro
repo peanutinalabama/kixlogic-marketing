@@ -1,0 +1,45 @@
+---
+import Base from '../layouts/Base.astro';
+import ProductPage from '../components/ProductPage.astro';
+
+const jsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Auravo',
+  operatingSystem: 'iOS',
+  applicationCategory: 'EducationalApplication',
+  description:
+    'A speaking-first AI language coach. Live conversation from minute one, gentle corrections, and lessons that adapt to how you actually learn.',
+  author: { '@type': 'Organization', name: 'Kixlogic', url: 'https://kixlogic.com' },
+});
+---
+<Base
+  title="Auravo"
+  description="Auravo — the speaking-first AI language coach. Real conversation from minute one, on-device speech, and a teacher that remembers you. Coming to the App Store."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={jsonLd} />
+  </Fragment>
+  <ProductPage
+    name="Auravo"
+    role="AI language coach · iOS"
+    description="Speak from minute one. Auravo is a speaking-first language coach: real conversations, gentle corrections, and a tutor with endless patience that adapts every lesson to how you actually learn."
+    soon={true}
+    primaryCta={{ label: 'Get launch updates', href: '/contact/' }}
+    secondaryCta={{ label: 'Explore products', href: '/#products' }}
+    billboard={{
+      ariaLabel: 'Speaking-first language learning',
+      line1: 'Stop tapping flashcards.',
+      line2Em: 'Start talking.',
+      chipFrom: 'Silent streaks',
+      chipTo: 'Real conversation',
+      sub: 'A spoken AI coach that listens, corrects kindly, and remembers how you learn.',
+    }}
+    points={[
+      'Conversation from the first minute — speaking is the curriculum, not the reward',
+      'On-device speech recognition: your voice stays on your phone',
+      'Lessons adapt to your mistakes instead of a fixed course',
+      'Free lessons to start; packs and plans only if you want more',
+    ]}
+  />
+</Base>

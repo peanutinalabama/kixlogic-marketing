@@ -1,0 +1,45 @@
+---
+import Base from '../layouts/Base.astro';
+import ProductPage from '../components/ProductPage.astro';
+
+const jsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'VideoGame',
+  name: 'Pixalary',
+  operatingSystem: 'iOS',
+  applicationCategory: 'GameApplication',
+  description:
+    'A picture hides under 50 tiles. Answer five-second questions to uncover it and name it first — solo against the AI or live against friends.',
+  author: { '@type': 'Organization', name: 'Kixlogic', url: 'https://kixlogic.com' },
+});
+---
+<Base
+  title="Pixalary"
+  description="Pixalary — guess the hidden picture. Answer fast, uncover tiles, name it first. Solo vs AI or live multiplayer with friends and private groups. Coming to the App Store."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={jsonLd} />
+  </Fragment>
+  <ProductPage
+    name="Pixalary"
+    role="Guess the hidden picture · iOS"
+    description="A picture hides under 50 tiles. Answer five-second trivia to uncover it, and hit the buzzer the moment you know — before your rival does. Play the AI offline, race strangers, or make a private group for friends and family."
+    soon={true}
+    primaryCta={{ label: 'Get launch updates', href: '/contact/' }}
+    secondaryCta={{ label: 'Explore products', href: '/#products' }}
+    billboard={{
+      ariaLabel: 'Hidden picture race',
+      line1: 'Fifty tiles down.',
+      line2Em: 'One guess wins.',
+      chipFrom: 'Covered board',
+      chipTo: 'Name it first',
+      sub: 'Five-second questions, tile by tile, until somebody sees it. Blockers and jumpers keep it mean.',
+    }}
+    points={[
+      'Every correct answer uncovers the picture — wrong ones cost nothing but time',
+      'Blockers freeze your rival; jumpers rip three tiles at once',
+      'Solo vs AI is fully offline; multiplayer adds strangers, friend rooms, and private groups',
+      'Every picture is open-source imagery — modern, colorful, and guessable',
+    ]}
+  />
+</Base>

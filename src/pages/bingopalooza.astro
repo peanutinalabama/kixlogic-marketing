@@ -1,0 +1,45 @@
+---
+import Base from '../layouts/Base.astro';
+import ProductPage from '../components/ProductPage.astro';
+
+const jsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'VideoGame',
+  name: 'Bingopalooza',
+  operatingSystem: 'iOS',
+  applicationCategory: 'GameApplication',
+  description:
+    'Bingo where you earn every square: answer fast, daub smart, beat the room. No ads, no purchases, works offline.',
+  author: { '@type': 'Organization', name: 'Kixlogic', url: 'https://kixlogic.com' },
+});
+---
+<Base
+  title="Bingopalooza"
+  description="Bingopalooza — skill bingo. Luck deals the cards, speed and smarts win them. Earn every square against a room full of rivals. Coming to the App Store."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={jsonLd} />
+  </Fragment>
+  <ProductPage
+    name="Bingopalooza"
+    role="Skill bingo · iOS"
+    description="Bingo where luck deals the cards and skill wins them. Answer fast to earn your daubs, pick your moment, and beat a room that never sits still. No ads, no purchases, and it works offline."
+    soon={true}
+    primaryCta={{ label: 'Get launch updates', href: '/contact/' }}
+    secondaryCta={{ label: 'Explore products', href: '/#products' }}
+    billboard={{
+      ariaLabel: 'Skill bingo',
+      line1: 'Luck deals the card.',
+      line2Em: 'Skill daubs it.',
+      chipFrom: 'Wait for your number',
+      chipTo: 'Earn every square',
+      sub: 'Fast questions, live rivals, and a card you have to fight for.',
+    }}
+    points={[
+      'Every square is earned with a fast answer — nobody wins by sitting still',
+      'Three game speeds tied to the level you pick, from relaxed to ruthless',
+      'A full room of rivals, always ready to play',
+      'No ads, no purchases, works offline',
+    ]}
+  />
+</Base>

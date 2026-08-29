@@ -1,0 +1,50 @@
+---
+import Base from '../layouts/Base.astro';
+import ProductPage from '../components/ProductPage.astro';
+
+const APP_ID = '6804311630';
+const STORE_URL = `https://apps.apple.com/us/app/id${APP_ID}`;
+
+const jsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'LilyFi',
+  operatingSystem: 'iOS',
+  applicationCategory: 'FinanceApplication',
+  description:
+    'Envelope budgeting you can talk to. Tell Lily what you spent and it is logged — right envelope, right amount, spoken back. No bank logins.',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  url: STORE_URL,
+  author: { '@type': 'Organization', name: 'Kixlogic', url: 'https://kixlogic.com' },
+});
+---
+<Base
+  title="LilyFi"
+  description="LilyFi — envelope budgeting you can talk to. Say what you spent; Lily logs it to the right envelope and speaks it back. On the App Store."
+>
+  <Fragment slot="head">
+    <meta name="apple-itunes-app" content={`app-id=${APP_ID}`} />
+    <script type="application/ld+json" set:html={jsonLd} />
+  </Fragment>
+  <ProductPage
+    name="LilyFi"
+    role="Voice envelope budgeting · iOS"
+    description="Budgeting you can talk to. Tell Lily what you spent — 'twelve dollars, groceries' — and it lands in the right envelope, spoken back so you know it stuck. Envelope budgeting with no bank logins and no judgment. Live on the App Store."
+    primaryCta={{ label: 'Download on the App Store', href: STORE_URL }}
+    secondaryCta={{ label: 'Explore products', href: '/#products' }}
+    billboard={{
+      ariaLabel: 'Voice budgeting',
+      line1: 'Say what you spent.',
+      line2Em: 'Lily does the rest.',
+      chipFrom: 'Receipts pile up',
+      chipTo: 'Envelopes stay honest',
+      sub: 'Voice-first envelope budgeting — logged, sorted, and spoken back in seconds.',
+    }}
+    points={[
+      'Log spending by voice — the right envelope, the right amount, confirmed aloud',
+      'Classic envelope budgeting: give every dollar a job, watch envelopes fill and drain',
+      'No bank logins and no account linking — your numbers stay yours',
+      'Free to start, with optional subscriptions for more envelopes and coaching',
+    ]}
+  />
+</Base>
