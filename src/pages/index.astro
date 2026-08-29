@@ -6,5 +6,8 @@ import HomepageSections from '../components/HomepageSections.astro';
 import homepage from '../data/homepage.json';
 ---
 <Base title={homepage.seo.title} description={homepage.seo.description} hidePromo={true}>
+  <Fragment slot="head">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+  </Fragment>
   <HomepageSections />
 </Base>

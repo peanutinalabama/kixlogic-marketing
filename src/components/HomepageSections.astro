@@ -105,23 +105,26 @@ const stack = [
 ];
 ---
 
-<!-- Hero -->
+<!-- Hero — the wordmark IS the hero -->
 <section class="ai-hero" aria-label="Kixlogic — AI intelligence company">
-  <div class="ai-hero-glow" aria-hidden="true"></div>
-  <div class="ai-hero-grid" aria-hidden="true"></div>
+  <div class="ai-hero-blur" aria-hidden="true"></div>
   <div class="container ai-hero-inner">
-    <p class="ai-eyebrow">Kixlogic · AI Intelligence Company</p>
-    <h1 class="ai-headline">
-      AI intelligence,<br />engineered into <span class="ai-grad">working software.</span>
-    </h1>
-    <p class="ai-support">
-      We design, build, and operate AI systems that reason, act, and ship — agents,
-      LLM-powered products, speech interfaces, and the data pipelines underneath them.
-      Enterprise-grade intelligence, delivered at speeds enterprises don't believe.
-    </p>
-    <div class="ai-ctas">
-      <a href="/contact/" class="ai-btn ai-btn-primary">Talk to us</a>
-      <a href="#platforms" class="ai-btn ai-btn-ghost">See it running</a>
+    <p class="ai-eyebrow">AI Intelligence Company</p>
+    <h1 class="ai-wordmark">KIXLOGIC</h1>
+    <div class="ai-hero-split">
+      <p class="ai-hero-line">
+        AI intelligence,<br />engineered into working software.
+      </p>
+      <div class="ai-hero-cta">
+        <p class="ai-support">
+          Agents, LLM products, speech interfaces, and the data pipelines
+          underneath them — designed, built, and operated in production.
+        </p>
+        <div class="ai-ctas">
+          <a href="/contact/" class="ai-btn ai-btn-primary">Talk to us</a>
+          <a href="#platforms" class="ai-btn ai-btn-ghost">See it running</a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -236,17 +239,20 @@ const stack = [
 <BlogTeaser />
 
 <style>
-/* ── Shared dark tokens ─────────────────────────────────────────── */
+/* ── Shared dark tokens ─────────────────────────────────────────────
+   Near-black graphite with a whisper of our teal — the accent stays the
+   product family's cyan, live-dots stay the product family's green. */
 .ai-hero, .ai-stats, .ai-caps, .ai-platforms, .ai-process, .ai-stack, .ai-cta {
-  --dk-bg: #04141b;
-  --dk-bg-2: #072028;
-  --dk-card: rgba(255, 255, 255, 0.035);
-  --dk-card-border: rgba(120, 200, 225, 0.14);
-  --dk-text: #e8f1f4;
-  --dk-muted: #9fb8c2;
-  --dk-dim: #6d8893;
+  --dk-bg: #07090b;
+  --dk-bg-2: #0b0f12;
+  --dk-card: rgba(255, 255, 255, 0.03);
+  --dk-card-border: rgba(140, 210, 230, 0.12);
+  --dk-text: #eef3f5;
+  --dk-muted: #9db3bc;
+  --dk-dim: #64787f;
   --dk-accent: #35c4e8;
   --dk-accent-deep: #0c7a94;
+  --font-big: "Space Grotesk", var(--font-display);
 }
 
 .ai-eyebrow {
@@ -265,16 +271,17 @@ const stack = [
   display: inline-block;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 1rem;
-  padding: 0.8rem 1.6rem;
-  border-radius: 8px;
-  transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+  font-size: 1.02rem;
+  padding: 0.85rem 1.9rem;
+  border-radius: 999px;
+  transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 }
 .ai-btn:hover { transform: translateY(-1px); }
 .ai-btn-primary {
-  background: linear-gradient(135deg, var(--dk-accent), var(--dk-accent-deep));
+  background: var(--dk-accent);
   color: #04141b;
 }
+.ai-btn-primary:hover { box-shadow: 0 0 24px rgba(53, 196, 232, 0.35); }
 .ai-btn-ghost {
   color: var(--dk-text);
   border: 1px solid var(--dk-card-border);
@@ -282,14 +289,15 @@ const stack = [
 }
 .ai-btn-ghost:hover { border-color: var(--dk-accent); }
 
-.ai-section-head { max-width: 42rem; margin-bottom: clamp(2rem, 4vw, 3rem); }
+.ai-section-head { max-width: 46rem; margin-bottom: clamp(2.25rem, 5vw, 3.5rem); }
 .ai-section-head h2 {
-  font-family: var(--font-display);
-  font-size: clamp(1.7rem, 3.4vw, 2.4rem);
+  font-family: var(--font-big);
+  font-size: clamp(2rem, 4.4vw, 3.1rem);
   font-weight: 700;
   letter-spacing: -0.02em;
+  line-height: 1.1;
   color: var(--dk-text);
-  margin: 0 0 0.75rem;
+  margin: 0 0 0.85rem;
 }
 .ai-section-sub { color: var(--dk-muted); font-size: 1.05rem; line-height: 1.6; }
 
@@ -297,51 +305,55 @@ const stack = [
 .ai-hero {
   position: relative;
   overflow: hidden;
+  background: var(--dk-bg);
+  padding: clamp(4.5rem, 12vh, 7.5rem) 0 clamp(4rem, 10vh, 6.5rem);
+}
+/* The blurred-object glow behind the wordmark - abstract, ours. */
+.ai-hero-blur {
+  position: absolute;
+  top: 8%; right: -12%;
+  width: 55rem; height: 30rem;
   background:
-    radial-gradient(90rem 40rem at 85% -20%, rgba(12, 122, 148, 0.35), transparent 60%),
-    linear-gradient(180deg, #04141b 0%, #072028 100%);
-  padding: clamp(5rem, 14vh, 8.5rem) 0 clamp(4rem, 9vh, 6rem);
-}
-.ai-hero-glow {
-  position: absolute;
-  inset: auto -20% -60% -20%;
-  height: 34rem;
-  background: radial-gradient(50% 60% at 50% 100%, rgba(53, 196, 232, 0.18), transparent 70%);
+    radial-gradient(45% 55% at 60% 45%, rgba(53, 196, 232, 0.22), transparent 70%),
+    radial-gradient(35% 45% at 30% 70%, rgba(12, 122, 148, 0.28), transparent 70%);
+  filter: blur(48px);
   pointer-events: none;
 }
-.ai-hero-grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(120, 200, 225, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(120, 200, 225, 0.05) 1px, transparent 1px);
-  background-size: 44px 44px;
-  mask-image: radial-gradient(70% 60% at 50% 35%, #000 30%, transparent 75%);
-  -webkit-mask-image: radial-gradient(70% 60% at 50% 35%, #000 30%, transparent 75%);
-  pointer-events: none;
-}
-.ai-hero-inner { position: relative; max-width: 52rem; }
-.ai-headline {
-  font-family: var(--font-display);
-  font-size: clamp(2.4rem, 6vw, 4rem);
+.ai-hero-inner { position: relative; }
+.ai-wordmark {
+  font-family: var(--font-big);
+  font-size: clamp(3.4rem, 13.5vw, 11rem);
   font-weight: 700;
-  letter-spacing: -0.03em;
-  line-height: 1.08;
+  letter-spacing: 0.01em;
+  line-height: 0.95;
   color: var(--dk-text);
-  margin: 0 0 1.25rem;
+  margin: 0 0 clamp(1.75rem, 5vh, 3.25rem);
+  white-space: nowrap;
 }
-.ai-grad {
-  background: linear-gradient(100deg, var(--dk-accent) 10%, #7ee2f9 50%, var(--dk-accent-deep) 95%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+.ai-hero-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 2rem 3.5rem;
+  align-items: end;
+}
+@media (max-width: 720px) {
+  .ai-hero-split { grid-template-columns: 1fr; }
+}
+.ai-hero-line {
+  font-family: var(--font-big);
+  font-size: clamp(1.5rem, 3.2vw, 2.3rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--dk-text);
+  margin: 0;
 }
 .ai-support {
-  font-size: clamp(1.05rem, 2vw, 1.2rem);
+  font-size: clamp(1rem, 1.6vw, 1.08rem);
   line-height: 1.65;
   color: var(--dk-muted);
-  max-width: 40rem;
-  margin: 0 0 2.25rem;
+  max-width: 34rem;
+  margin: 0 0 1.6rem;
 }
 
 /* ── Stats ──────────────────────────────────────────────────────── */
@@ -367,7 +379,7 @@ const stack = [
 .ai-stat span { color: var(--dk-muted); font-size: 0.95rem; }
 
 /* ── Capabilities ───────────────────────────────────────────────── */
-.ai-caps { background: var(--dk-bg); padding-top: clamp(3.5rem, 7vw, 5.5rem); padding-bottom: clamp(3.5rem, 7vw, 5.5rem); }
+.ai-caps { background: var(--dk-bg); padding-top: clamp(4.5rem, 9vw, 7rem); padding-bottom: clamp(4.5rem, 9vw, 7rem); }
 .ai-caps-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
@@ -399,7 +411,7 @@ const stack = [
 }
 
 /* ── Platforms ──────────────────────────────────────────────────── */
-.ai-platforms { background: var(--dk-bg-2); padding-top: clamp(3.5rem, 7vw, 5.5rem); padding-bottom: clamp(3.5rem, 7vw, 5.5rem); }
+.ai-platforms { background: var(--dk-bg-2); padding-top: clamp(4.5rem, 9vw, 7rem); padding-bottom: clamp(4.5rem, 9vw, 7rem); }
 .ai-plat-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
@@ -461,7 +473,7 @@ const stack = [
 .ai-plat:hover .ai-plat-arrow { transform: translateX(3px); }
 
 /* ── Process ────────────────────────────────────────────────────── */
-.ai-process { background: var(--dk-bg); padding-top: clamp(3.5rem, 7vw, 5.5rem); padding-bottom: clamp(3.5rem, 7vw, 5.5rem); }
+.ai-process { background: var(--dk-bg); padding-top: clamp(4.5rem, 9vw, 7rem); padding-bottom: clamp(4.5rem, 9vw, 7rem); }
 .ai-proc-grid {
   list-style: none;
   margin: 0; padding: 0;
@@ -531,8 +543,8 @@ const stack = [
 .ai-cta {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(180deg, #04141b 0%, #062633 100%);
-  padding: clamp(4rem, 9vw, 6.5rem) 0;
+  background: linear-gradient(180deg, var(--dk-bg) 0%, #0a1a21 100%);
+  padding: clamp(5rem, 11vw, 8rem) 0;
   text-align: center;
 }
 .ai-cta-glow {
@@ -544,8 +556,8 @@ const stack = [
 }
 .ai-cta-inner { position: relative; max-width: 40rem; margin: 0 auto; }
 .ai-cta h2 {
-  font-family: var(--font-display);
-  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-family: var(--font-big);
+  font-size: clamp(2.2rem, 5.5vw, 3.6rem);
   font-weight: 700;
   letter-spacing: -0.02em;
   color: var(--dk-text);
