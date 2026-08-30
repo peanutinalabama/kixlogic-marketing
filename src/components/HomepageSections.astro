@@ -51,6 +51,28 @@ const apps = [
     tint: '#e7f0fb',
     ring: '#2f7de1',
   },
+  {
+    name: 'ScientificGigs',
+    tag: 'Life-Science Job Board',
+    line: 'AI-enriched science jobs with Google Jobs syndication — the cost-effective way to hire researchers.',
+    href: '/scientificgigs/',
+    icon: '/apps/scientificgigs.png',
+    badge: 'Live on the web',
+    live: true,
+    tint: '#e4f6ef',
+    ring: '#12b886',
+  },
+  {
+    name: 'PigskinGPT',
+    tag: 'College Football AI',
+    line: 'Ask anything about college football — schedules, matchups, and takes powered by AI.',
+    href: '/pigskingpt/',
+    icon: '/apps/pigskingpt.png',
+    badge: 'Coming soon',
+    live: false,
+    tint: '#fdeee2',
+    ring: '#e8762d',
+  },
 ];
 
 const platforms = [
@@ -101,7 +123,8 @@ const ai = [
     <h1>Apps people love.<br /><span class="kx-blue">Software business runs on.</span></h1>
     <p class="kx-hero-sub">
       Kixlogic builds mobile games and apps for everyone — and AI-powered
-      platforms for hiring and pay. Designed, shipped, and operated by one team.
+      platforms that run the everyday work of business. Designed, shipped, and
+      operated by one team.
     </p>
     <div class="kx-ctas">
       <a href="#apps" class="kx-btn kx-btn-blue">See our apps</a>
@@ -117,7 +140,7 @@ const ai = [
   <div class="container">
     <header class="kx-head">
       <h2>Apps &amp; Games</h2>
-      <p>Built for iPhone. Free to play, easy to love.</p>
+      <p>Games and apps for everyone — on iPhone and the web.</p>
     </header>
     <div class="kx-app-grid">
       {apps.map((a) => (
@@ -140,7 +163,7 @@ const ai = [
   <div class="container">
     <header class="kx-head">
       <h2>Business Platforms</h2>
-      <p>The same product craft, pointed at hiring and compensation.</p>
+      <p>The same product craft, pointed at the problems businesses face every day.</p>
     </header>
     <div class="kx-biz-grid">
       {platforms.map((p) => (
@@ -156,11 +179,6 @@ const ai = [
         </a>
       ))}
     </div>
-    <p class="kx-also">
-      Also from Kixlogic: <a href="/scientificgigs/">ScientificGigs</a> — the
-      AI-enriched life-science job board.
-    </p>
-
     <div class="kx-pub" id="publishing">
       <span class="kx-pub-emoji" aria-hidden="true">📚</span>
       <div>

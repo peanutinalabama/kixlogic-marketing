@@ -1,7 +1,7 @@
 ---
-// Anthropic-style mega-footer (Charles 2026-08-30): dark navy anchor under
-// the light site - mark top-left, organized columns, socials + copyright
-// at the bottom left.
+// Light mega-footer (Charles 2026-08-30): same mist color as the Business
+// Platforms section, full Kixlogic lockup top-left, organized columns,
+// socials + copyright at the bottom.
 const year = new Date().getFullYear();
 
 const cols = [
@@ -22,7 +22,6 @@ const cols = [
       { href: '/sourcer/', label: 'Kixlogic Sourcer' },
       { href: '/scientificgigs/', label: 'ScientificGigs' },
       { href: '/pigskingpt/', label: 'PigskinGPT' },
-      { href: '/venue/', label: 'Kixlogic Venue' },
     ],
   },
   {
@@ -57,8 +56,8 @@ const cols = [
 <footer class="site-footer">
   <div class="container footer-main">
     <div class="footer-brand">
-      <a href="/" class="footer-mark" aria-label="Kixlogic home">
-        <img src="/kixlogic-mark.png" alt="Kixlogic" width="46" height="46" />
+      <a href="/" class="footer-logo" aria-label="Kixlogic home">
+        <img src="/kx-logo.png" alt="Kixlogic" width="159" height="40" />
       </a>
     </div>
 
@@ -92,27 +91,25 @@ const cols = [
 
 <style>
 .site-footer {
-  background: #0e1729;
-  color: #cbd6e8;
+  background: #f2f6fd;
+  color: #5a6b85;
   margin-top: 0;
+  border-top: 1px solid rgba(29, 95, 192, 0.1);
   padding: clamp(3.5rem, 7vw, 5.5rem) 0 2rem;
 }
 .footer-main {
   display: grid;
-  grid-template-columns: minmax(120px, 220px) 1fr;
+  grid-template-columns: minmax(160px, 240px) 1fr;
   gap: 3rem;
   padding-bottom: 3rem;
 }
-.footer-mark {
+.footer-logo {
   display: inline-flex;
-  background: #fff;
-  border-radius: 12px;
-  padding: 7px;
   line-height: 0;
   transition: transform 0.15s ease;
 }
-.footer-mark:hover { transform: translateY(-2px); }
-.footer-mark img { width: 46px; height: 46px; border-radius: 7px; }
+.footer-logo:hover { transform: translateY(-2px); }
+.footer-logo img { width: 159px; height: 40px; }
 
 .footer-cols {
   display: grid;
@@ -123,16 +120,16 @@ const cols = [
   font-family: var(--font-display);
   font-size: 0.95rem;
   font-weight: 700;
-  color: #ffffff;
+  color: #16233f;
   margin-bottom: 0.9rem;
 }
 .footer-col { display: flex; flex-direction: column; gap: 0.55rem; }
 .footer-link {
   font-size: 0.92rem;
-  color: #9fb0ca;
+  color: #5a6b85;
   transition: color 0.15s ease;
 }
-.footer-link:hover { color: #ffffff; }
+.footer-link:hover { color: #1d5fc0; }
 
 .footer-bottom-inner {
   display: flex;
@@ -140,14 +137,14 @@ const cols = [
   justify-content: space-between;
   gap: 1rem;
   flex-wrap: wrap;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(29, 95, 192, 0.14);
   padding-top: 1.5rem;
   font-size: 0.85rem;
-  color: #8194b2;
+  color: #5a6b85;
 }
 .footer-social { display: flex; gap: 1rem; }
-.footer-social a { color: #8194b2; transition: color 0.15s ease; }
-.footer-social a:hover { color: #ffffff; }
+.footer-social a { color: #5a6b85; transition: color 0.15s ease; }
+.footer-social a:hover { color: #1d5fc0; }
 
 @media (max-width: 800px) {
   .footer-main { grid-template-columns: 1fr; gap: 2rem; }
