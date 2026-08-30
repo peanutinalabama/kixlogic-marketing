@@ -59,16 +59,16 @@ const platforms = [
     tag: 'Hiring, End to End',
     line: 'Applicant tracking with AI résumé scoring, plus an autonomous sourcing agent that builds ranked shortlists from a sentence.',
     href: '/hired/',
-    mark: 'ATS',
-    color: '#2f7de1',
+    icon: '/apps/ats.png',
+    color: '#0a5f75',
   },
   {
     name: 'Renumify',
     tag: 'Compensation Intelligence',
     line: 'Market ranges, offer scoring, equity and compression analysis — pay decisions with evidence behind them.',
     href: '/renumify/',
-    mark: 'R',
-    color: '#0c9f6e',
+    icon: '/apps/renumify.png',
+    color: '#0d2340',
   },
 ];
 
@@ -145,7 +145,8 @@ const ai = [
     <div class="kx-biz-grid">
       {platforms.map((p) => (
         <a href={p.href} class="kx-biz-card">
-          <span class="kx-biz-mark" style={`background:${p.color}`}>{p.mark}</span>
+          <img class="kx-biz-icon" src={p.icon} alt={`${p.name} icon`}
+               width="64" height="64" loading="lazy" />
           <div>
             <span class="kx-app-tag" style={`color:${p.color}`}>{p.tag}</span>
             <h3>{p.name}</h3>
@@ -383,16 +384,10 @@ const ai = [
   border-color: var(--blue);
   box-shadow: 0 14px 30px rgba(22, 35, 63, 0.1);
 }
-.kx-biz-mark {
+.kx-biz-icon {
   flex: none;
   width: 64px; height: 64px;
   border-radius: 16px;
-  display: grid;
-  place-items: center;
-  color: #fff;
-  font-family: var(--font-big);
-  font-weight: 700;
-  font-size: 1.3rem;
   box-shadow: 0 8px 18px rgba(22, 35, 63, 0.18);
 }
 .kx-biz-card h3 {
