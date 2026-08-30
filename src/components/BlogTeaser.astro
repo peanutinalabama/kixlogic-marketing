@@ -1,20 +1,9 @@
 ---
+// DISABLED 2026-08-30: api.kixlogic.com (the mothballed ATS container) is
+// dead, and even a timed-out fetch taxed every homepage load ~2s. The blog
+// redesign replaces this component with static in-repo content - do not
+// re-enable the fetch; replace the component then.
 let posts: any[] = [];
-try {
-  // 2s hard timeout: api.kixlogic.com (the mothballed ATS container) can
-  // hang forever, and an un-timed fetch here blocked the WHOLE homepage
-  // stream - visitors saw the page stall with no footer (2026-08-30).
-  const res = await fetch('https://api.kixlogic.com/api/blog/posts-public', { signal: AbortSignal.timeout(2000) });
-  if (res.ok) {
-    const data = await res.json();
-    posts = (Array.isArray(data.posts) ? data.posts : [])
-      .filter((p: any) => p.published_at)
-      .sort((a: any, b: any) => new Date(b.published_at).valueOf() - new Date(a.published_at).valueOf())
-      .slice(0, 3);
-  }
-} catch {
-  posts = [];
-}
 ---
 {posts.length > 0 && (
   <section class="section section-grey" id="blog">
