@@ -1,25 +1,36 @@
 ---
+// Anthropic-style mega-footer (Charles 2026-08-30): dark navy anchor under
+// the light site - mark top-left, organized columns, socials + copyright
+// at the bottom left.
 const year = new Date().getFullYear();
 
 const cols = [
   {
-    title: 'Products',
+    title: 'Apps & Games',
     links: [
-      { href: '/hired/', label: 'Kixlogic Hired' },
+      { href: '/lilyfi/', label: 'LilyFi' },
+      { href: '/pixalary/', label: 'Pixalary' },
+      { href: '/bingopalooza/', label: 'Bingopalooza' },
+      { href: '/auravo/', label: 'Auravo' },
+    ],
+  },
+  {
+    title: 'Business',
+    links: [
+      { href: '/hired/', label: 'Kixlogic ATS' },
       { href: '/renumify/', label: 'Renumify' },
       { href: '/sourcer/', label: 'Kixlogic Sourcer' },
-      { href: '/pigskingpt/', label: 'PigskinGPT' },
       { href: '/scientificgigs/', label: 'ScientificGigs' },
+      { href: '/pigskingpt/', label: 'PigskinGPT' },
       { href: '/venue/', label: 'Kixlogic Venue' },
     ],
   },
   {
-    title: 'Apps',
+    title: 'AI Lab',
     links: [
-      { href: '/lilyfi/', label: 'LilyFi' },
-      { href: '/auravo/', label: 'Auravo' },
-      { href: '/pixalary/', label: 'Pixalary' },
-      { href: '/bingopalooza/', label: 'Bingopalooza' },
+      { href: '/#ai', label: 'What we build' },
+      { href: '/blog/', label: 'Engineering blog' },
+      { href: '/contact/', label: 'Build with us' },
     ],
   },
   {
@@ -29,22 +40,15 @@ const cols = [
       { href: '/contact/', label: 'Contact us' },
       { href: '/sales-partner/', label: 'Sales partners' },
       { href: '/pricing/', label: 'Plans & pricing' },
-    ],
-  },
-  {
-    title: 'Resources',
-    links: [
-      { href: '/blog/', label: 'Blog' },
       { href: '/support/', label: 'Support' },
-      { href: '/security/', label: 'Security' },
     ],
   },
   {
-    title: 'Legal',
+    title: 'Terms and policies',
     links: [
-      { href: '/privacy/', label: 'Privacy' },
+      { href: '/privacy/', label: 'Privacy policy' },
       { href: '/terms/', label: 'Terms of use' },
-      { href: '/security/', label: 'Trust center' },
+      { href: '/security/', label: 'Security & trust' },
     ],
   },
 ];
@@ -53,19 +57,9 @@ const cols = [
 <footer class="site-footer">
   <div class="container footer-main">
     <div class="footer-brand">
-      <img src="/kx-logo.png" alt="Kixlogic" height="36" class="footer-logo" />
-      <p class="footer-tag">AI Intelligence Software for SMBs.</p>
-      <div class="footer-social">
-        <a href="https://www.linkedin.com/company/112615588/" target="_blank" rel="noopener" aria-label="LinkedIn">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-        </a>
-        <a href="https://x.com/KixlogicATS" target="_blank" rel="noopener" aria-label="X">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.736-8.856L1.254 2.25H8.08l4.253 5.622 5.91-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-        </a>
-        <a href="https://www.facebook.com/people/Kixlogic-ATS/61590952245940/" target="_blank" rel="noopener" aria-label="Facebook">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-        </a>
-      </div>
+      <a href="/" class="footer-mark" aria-label="Kixlogic home">
+        <img src="/kixlogic-mark.png" alt="Kixlogic" width="46" height="46" />
+      </a>
     </div>
 
     <div class="footer-cols">
@@ -80,94 +74,82 @@ const cols = [
     </div>
   </div>
 
-  <div class="footer-bottom">
-    <div class="container footer-bottom-inner">
-      <span>© {year} Kixlogic, LLC</span>
-      <div class="footer-bottom-links">
-        <a href="/contact/">Contact</a>
-        <a href="/privacy/">Privacy</a>
-        <a href="/terms/">Terms of use</a>
-        <a href="/security/">Security</a>
-      </div>
+  <div class="container footer-bottom-inner">
+    <span>© {year} Kixlogic, LLC</span>
+    <div class="footer-social">
+      <a href="https://www.linkedin.com/company/112615588/" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+      <a href="https://x.com/KixlogicATS" target="_blank" rel="noopener" aria-label="X">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.736-8.856L1.254 2.25H8.08l4.253 5.622 5.91-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </a>
+      <a href="https://www.facebook.com/people/Kixlogic-ATS/61590952245940/" target="_blank" rel="noopener" aria-label="Facebook">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+      </a>
     </div>
   </div>
 </footer>
 
 <style>
 .site-footer {
-  background: var(--fog);
-  border-top: 1px solid var(--border);
+  background: #0e1729;
+  color: #cbd6e8;
   margin-top: 0;
+  padding: clamp(3.5rem, 7vw, 5.5rem) 0 2rem;
 }
 .footer-main {
-  padding: 3.5rem 0 2.5rem;
   display: grid;
-  grid-template-columns: minmax(180px, 240px) 1fr;
+  grid-template-columns: minmax(120px, 220px) 1fr;
   gap: 3rem;
+  padding-bottom: 3rem;
 }
-.footer-logo { height: 32px; width: auto; margin-bottom: 0.85rem; }
-.footer-tag {
-  font-size: 0.9rem;
-  color: var(--text-muted);
-  line-height: 1.45;
-  margin-bottom: 1.1rem;
-  max-width: 16rem;
+.footer-mark {
+  display: inline-flex;
+  background: #fff;
+  border-radius: 12px;
+  padding: 7px;
+  line-height: 0;
+  transition: transform 0.15s ease;
 }
-.footer-social { display: flex; gap: 0.85rem; }
-.footer-social a {
-  color: var(--text-muted);
-  transition: color var(--transition);
-}
-.footer-social a:hover { color: var(--teal); }
+.footer-mark:hover { transform: translateY(-2px); }
+.footer-mark img { width: 46px; height: 46px; border-radius: 7px; }
 
 .footer-cols {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(10.5rem, 1fr));
+  gap: 2rem 1.5rem;
 }
 .footer-col-title {
   font-family: var(--font-display);
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   font-weight: 700;
-  letter-spacing: -0.01em;
-  color: var(--text);
-  margin-bottom: 0.75rem;
+  color: #ffffff;
+  margin-bottom: 0.9rem;
 }
-.footer-col { display: flex; flex-direction: column; gap: 0.4rem; }
+.footer-col { display: flex; flex-direction: column; gap: 0.55rem; }
 .footer-link {
-  font-size: 0.875rem;
-  color: var(--text-muted);
-  transition: color var(--transition);
+  font-size: 0.92rem;
+  color: #9fb0ca;
+  transition: color 0.15s ease;
 }
-.footer-link:hover { color: var(--teal-deep); }
+.footer-link:hover { color: #ffffff; }
 
-.footer-bottom {
-  background: var(--fog-2);
-  border-top: 1px solid var(--border);
-  padding: 0.95rem 0;
-}
 .footer-bottom-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
   flex-wrap: wrap;
-  font-size: 0.8rem;
-  color: var(--text-muted);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 1.5rem;
+  font-size: 0.85rem;
+  color: #8194b2;
 }
-.footer-bottom-links {
-  display: flex;
-  align-items: center;
-  gap: 1.25rem;
-  flex-wrap: wrap;
-}
-.footer-bottom-links a:hover { color: var(--text); text-decoration: underline; }
+.footer-social { display: flex; gap: 1rem; }
+.footer-social a { color: #8194b2; transition: color 0.15s ease; }
+.footer-social a:hover { color: #ffffff; }
 
-@media (max-width: 1000px) {
-  .footer-main { grid-template-columns: 1fr; }
-  .footer-cols { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 560px) {
-  .footer-bottom-inner { flex-direction: column; align-items: flex-start; }
+@media (max-width: 800px) {
+  .footer-main { grid-template-columns: 1fr; gap: 2rem; }
 }
 </style>

@@ -4,11 +4,13 @@
 
 /* ── Kixlogic brand — clean enterprise software ──────────────────── */
 :root {
-  --teal:           #0A5F75;
-  --teal-deep:      #063D4C;
-  --teal-mid:       #0C7A94;
-  --teal-soft:      #E6F3F6;
-  --teal-mist:      #C5DEE5;
+  /* Rebranded 2026-08-30 to the logo blue - token names kept so every
+     .btn-primary and accent across the site follows the new mark. */
+  --teal:           #2F7DE1;
+  --teal-deep:      #1D5FC0;
+  --teal-mid:       #4B93EA;
+  --teal-soft:      #E7F0FB;
+  --teal-mist:      #CBDFF7;
   --ink:            #161616;
   --ink-soft:       #2E2E2E;
   --fog:            #F6F6F6;
