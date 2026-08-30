@@ -159,6 +159,19 @@ const ai = [
       Also from Kixlogic: <a href="/scientificgigs/">ScientificGigs</a> — the
       AI-enriched life-science job board.
     </p>
+
+    <div class="kx-pub" id="publishing">
+      <span class="kx-pub-emoji" aria-hidden="true">📚</span>
+      <div>
+        <span class="kx-app-tag" style="color:#b0620f">Coming Soon</span>
+        <h3>Kixlogic Publishing</h3>
+        <p>
+          The newest arm of Kixlogic: a publishing house that harnesses the
+          power of AI-assisted authoring — bringing new books and stories to
+          readers with the same product craft behind everything we ship.
+        </p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -400,6 +413,26 @@ const ai = [
 .kx-biz-card:hover .kx-arrow { transform: translateX(4px); }
 .kx-also { text-align: center; color: var(--mut); font-size: 0.92rem; margin: 1.6rem 0 0; }
 .kx-also a { color: var(--blue); font-weight: 700; }
+.kx-pub {
+  display: flex;
+  gap: 1.2rem;
+  align-items: flex-start;
+  max-width: 62rem;
+  margin: 2rem auto 0;
+  background: linear-gradient(160deg, #fff8ee 0%, #fdf1de 100%);
+  border: 2px dashed #e8bd7d;
+  border-radius: 20px;
+  padding: 1.5rem 1.6rem;
+}
+.kx-pub-emoji { font-size: 2.2rem; line-height: 1; }
+.kx-pub h3 {
+  font-family: var(--font-big);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0.1rem 0 0.4rem;
+}
+.kx-pub p { color: var(--mut); font-size: 0.95rem; line-height: 1.6; margin: 0; }
 
 /* ── AI Lab ────────────────────────────────────────────────────── */
 .kx-ai { background: var(--paper); padding-top: clamp(3.5rem, 7vw, 5.5rem); padding-bottom: clamp(3rem, 6vw, 4.5rem); }
