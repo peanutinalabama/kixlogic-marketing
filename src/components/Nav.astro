@@ -4,10 +4,11 @@ const isActive = (path: string) =>
   path === '/' ? pathname === '/' : pathname === path || pathname.startsWith(path);
 
 const links = [
-  // One Products entry, not one link per product — the platforms section on
-  // the homepage is the index, and each card links onward from there.
-  { href: '/#platforms', label: 'Products' },
-  { href: '/pricing/', label: 'Pricing' },
+  // One entry per homepage section, not one per product. No Pricing in the
+  // main menu (2026-08-30): pricing lives on each product's own page.
+  { href: '/#apps', label: 'Apps & Games' },
+  { href: '/#platforms', label: 'Business' },
+  { href: '/#ai', label: 'AI Lab' },
   { href: '/about/', label: 'About' },
   { href: '/blog/', label: 'Blog' },
   { href: '/contact/', label: 'Contact' },
@@ -19,7 +20,7 @@ const links = [
     <a href="/" class="nav-logo" aria-label="Kixlogic home">
       <!-- Intrinsic size must track the artwork's 637x300 aspect, or the
            reserved box is wrong and the header shifts as the logo loads. -->
-      <img src="/Kixlogo-dark.png" alt="Kixlogic" height="40" width="85" />
+      <img src="/kx-logo.png" alt="Kixlogic" height="40" width="159" />
     </a>
 
     <nav class="nav-links" id="navLinks" aria-label="Main">

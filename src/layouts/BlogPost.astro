@@ -34,7 +34,7 @@ const jsonLd = {
   publisher: {
     '@type': 'Organization',
     name: 'Kixlogic',
-    logo: { '@type': 'ImageObject', url: 'https://kixlogic.com/Kixlogo-dark.png' },
+    logo: { '@type': 'ImageObject', url: 'https://kixlogic.com/kx-logo.png' },
   },
   mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
   ...(shareImage ? { image: new URL(shareImage, Astro.site).href } : {}),

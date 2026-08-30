@@ -1,572 +1,454 @@
 ---
 import BlogTeaser from './BlogTeaser.astro';
 
-// Every capability cites a system that is actually in production. The fastest
-// way for a small company to look like a fake big one is invented numbers and
-// stock-photo teams; the proof here is running software people can click into.
-const capabilities = [
+// 2026-08-30 redesign (Charles): bold colors, Zynga-style product-forward,
+// NO dark pages. Apple apps front and center, then Kixlogic ATS and
+// Renumify, with an AI-innovation section keeping the lab identity.
+// House rule unchanged: no invented numbers - every claim is a real system.
+
+const apps = [
   {
-    title: 'AI Agents & Automation',
-    body: 'Autonomous agents that search, enrich, rank, and act — multi-step workflows with evidence attached to every decision, not keyword matching with a chat window on top.',
-    proof: 'In production: Sourcer, an AI sourcing agent that turns a plain-language brief into a ranked, evidenced candidate shortlist.',
+    name: 'LilyFi',
+    tag: 'Voice Budgeting',
+    line: 'Envelope budgeting you can talk to — say what you spent, Lily logs it and speaks it back.',
+    href: '/lilyfi/',
+    icon: '/apps/lilyfi.png',
+    badge: 'On the App Store',
+    live: true,
+    tint: '#e8f7e0',
+    ring: '#8bc34a',
   },
   {
-    title: 'LLM Product Engineering',
-    body: 'Frontier models engineered into real product loops — structured outputs, guardrails, fallbacks, cost ceilings, and observability. The model is a component, never the architecture.',
-    proof: 'In production: Auralis, an AI language teacher whose every spoken turn is a governed model call with an offline fallback.',
+    name: 'Pixalary',
+    tag: 'Picture-Reveal Race',
+    line: 'A picture hides under 50 tiles. Answer questions, uncover it, name it first — solo or live vs friends.',
+    href: '/pixalary/',
+    icon: '/apps/pixalary.png',
+    badge: 'Coming soon',
+    live: false,
+    tint: '#eceafb',
+    ring: '#7c6ce8',
   },
   {
-    title: 'Applied Speech & Language',
-    body: 'On-device speech recognition and synthesis fused with cloud reasoning — real-time spoken interfaces that stay private, fast, and affordable at scale.',
-    proof: 'In production: live spoken lessons across five languages, evaluated on eleven skill dimensions per turn.',
+    name: 'Bingopalooza',
+    tag: 'Skill Bingo',
+    line: 'Luck deals the cards, skill wins them. Earn every square against a room that never sits still.',
+    href: '/bingopalooza/',
+    icon: '/apps/bingopalooza.png',
+    badge: 'Coming soon',
+    live: false,
+    tint: '#eaf0fd',
+    ring: '#5b7cfa',
   },
   {
-    title: 'Intelligent Document & Identity Processing',
-    body: 'Extraction, scoring, and authenticity analysis over the documents businesses actually run on — résumés, IDs, job posts — with decisions a human can audit.',
-    proof: 'In production: AI résumé scoring in Kixlogic Hired; barcode-and-AI ID authenticity analysis in Venue.',
-  },
-  {
-    title: 'Data Pipelines & Enrichment',
-    body: 'Crawling, normalization, structured-data generation, and syndication pipelines that keep AI systems grounded in fresh, well-governed data.',
-    proof: 'In production: ScientificGigs enriches and syndicates 2,400+ life-science roles with validated structured data.',
-  },
-  {
-    title: 'Full-Stack Delivery on Edge Infrastructure',
-    body: 'From strategy to shipped: serverless edge compute, managed Postgres, payments, and CI that proves every change before it lands. Small surface area, enterprise discipline.',
-    proof: 'In production: every Kixlogic platform runs on this stack — global edge deploys measured in seconds, not sprints.',
+    name: 'Auravo',
+    tag: 'AI Language Coach',
+    line: 'Speak from minute one. Real conversation, gentle corrections, a tutor with endless patience.',
+    href: '/auravo/',
+    icon: '/apps/auravo.png',
+    badge: 'Coming soon',
+    live: false,
+    tint: '#e7f0fb',
+    ring: '#2f7de1',
   },
 ];
 
 const platforms = [
   {
-    name: 'Kixlogic Hired + Sourcer',
-    tag: 'Talent Intelligence',
+    name: 'Kixlogic ATS',
+    tag: 'Hiring, End to End',
     line: 'Applicant tracking with AI résumé scoring, plus an autonomous sourcing agent that builds ranked shortlists from a sentence.',
     href: '/hired/',
-    live: true,
+    mark: 'ATS',
+    color: '#2f7de1',
   },
   {
     name: 'Renumify',
     tag: 'Compensation Intelligence',
-    line: 'Market ranges, offer scoring, equity, and compression analysis — pay decisions with evidence behind them.',
+    line: 'Market ranges, offer scoring, equity and compression analysis — pay decisions with evidence behind them.',
     href: '/renumify/',
-    live: true,
-  },
-  {
-    name: 'ScientificGigs',
-    tag: 'Life-Science Hiring',
-    line: 'The most cost-effective life-science job board — AI-enriched listings, Google Jobs syndication, sourcing credits.',
-    href: '/scientificgigs/',
-    live: true,
-  },
-  {
-    name: 'LilyFi',
-    tag: 'Voice Budgeting',
-    line: 'Envelope budgeting you can talk to — say what you spent, Lily logs it and speaks it back. No bank logins.',
-    href: '/lilyfi/',
-    live: true,
-  },
-  {
-    name: 'Auravo',
-    tag: 'AI Language Coach',
-    line: 'A spoken AI coach that adapts every turn to how you actually learn. Speaking-first from minute one.',
-    href: '/auravo/',
-    live: false,
-    status: 'Coming to the App Store',
+    mark: 'R',
+    color: '#0c9f6e',
   },
 ];
 
-const process_ = [
+const ai = [
   {
-    n: '01',
-    title: 'Discover',
-    body: 'Identify where intelligence changes the economics — the workflow, the data, the decision worth automating. No AI for AI’s sake.',
+    title: 'AI Agents & Automation',
+    body: 'Autonomous agents that search, enrich, rank, and act — with evidence attached to every decision.',
+    proof: 'Running now in Sourcer, our AI candidate-sourcing agent.',
   },
   {
-    n: '02',
-    title: 'Prototype',
-    body: 'A working system against real data in days. Prompts, pipelines, and product loops proven before anything is scaled.',
+    title: 'LLM Product Engineering',
+    body: 'Frontier models built into real products — structured outputs, guardrails, fallbacks, and cost ceilings.',
+    proof: 'Running now in Auravo, where every spoken turn is a governed model call.',
   },
   {
-    n: '03',
-    title: 'Production',
-    body: 'Guardrails, fallbacks, cost ceilings, CI verification, and observability. AI that fails safe and bills predictably.',
+    title: 'Speech & Data Pipelines',
+    body: 'On-device speech fused with cloud reasoning, and enrichment pipelines that keep AI grounded in fresh data.',
+    proof: 'Running now across LilyFi voice logging and ScientificGigs listings.',
   },
-  {
-    n: '04',
-    title: 'Operate',
-    body: 'Live systems watched, measured, and improved — model routing, token economics, and quality tracked per feature.',
-  },
-];
-
-const stack = [
-  'Anthropic Claude', 'Cloudflare Workers', 'Supabase Postgres',
-  'Stripe', 'SwiftUI', 'Astro', 'Durable edge CI',
 ];
 ---
 
-<!-- Hero — the wordmark IS the hero -->
-<section class="ai-hero" aria-label="Kixlogic — AI intelligence company">
-  <div class="ai-hero-blur" aria-hidden="true"></div>
-  <div class="container ai-hero-inner">
-    <p class="ai-eyebrow">AI Intelligence Company</p>
-    <h1 class="ai-wordmark">KIXLOGIC</h1>
-    <div class="ai-hero-split">
-      <p class="ai-hero-line">
-        AI intelligence,<br />engineered into working software.
-      </p>
-      <div class="ai-hero-cta">
-        <p class="ai-support">
-          Agents, LLM products, speech interfaces, and the data pipelines
-          underneath them — designed, built, and operated in production.
-        </p>
-        <div class="ai-ctas">
-          <a href="/contact/" class="ai-btn ai-btn-primary">Talk to us</a>
-          <a href="#platforms" class="ai-btn ai-btn-ghost">See it running</a>
-        </div>
-      </div>
+<!-- Hero -->
+<section class="kx-hero">
+  <div class="kx-hero-tiles" aria-hidden="true">
+    <span class="t t1"></span><span class="t t2"></span><span class="t t3"></span>
+    <span class="t t4"></span><span class="t t5"></span><span class="t t6"></span>
+  </div>
+  <div class="container kx-hero-inner">
+    <h1>Apps people love.<br /><span class="kx-blue">Software business runs on.</span></h1>
+    <p class="kx-hero-sub">
+      Kixlogic builds mobile games and apps for everyone — and AI-powered
+      platforms for hiring and pay. Designed, shipped, and operated by one team.
+    </p>
+    <div class="kx-ctas">
+      <a href="#apps" class="kx-btn kx-btn-blue">See our apps</a>
+      <a href="/contact/" class="kx-btn kx-btn-line">Talk to us</a>
     </div>
   </div>
 </section>
 
-<!-- Stats -->
-<section class="ai-stats" aria-label="Kixlogic in numbers">
-  <div class="container ai-stats-inner">
-    <div class="ai-stat"><strong>5</strong><span>AI platforms in production</span></div>
-    <div class="ai-stat"><strong>2,400+</strong><span>roles AI-enriched &amp; syndicated</span></div>
-    <div class="ai-stat"><strong>6</strong><span>industries served</span></div>
-    <div class="ai-stat"><strong>Same&#8209;week</strong><span>idea-to-production cadence</span></div>
-  </div>
-</section>
+<span id="products" class="kx-anchor" aria-hidden="true"></span>
 
-<!-- Capabilities -->
-<section class="ai-caps section" id="capabilities">
+<!-- Apps & Games -->
+<section class="kx-apps section" id="apps">
   <div class="container">
-    <header class="ai-section-head">
-      <p class="ai-eyebrow">Capabilities</p>
-      <h2>What we build</h2>
-      <p class="ai-section-sub">
-        Every capability below is proven the only way that counts — by software
-        running in production today.
-      </p>
+    <header class="kx-head">
+      <h2>Apps &amp; Games</h2>
+      <p>Built for iPhone. Free to play, easy to love.</p>
     </header>
-    <div class="ai-caps-grid">
-      {capabilities.map((c) => (
-        <article class="ai-cap">
-          <h3>{c.title}</h3>
-          <p>{c.body}</p>
-          <p class="ai-cap-proof">{c.proof}</p>
-        </article>
-      ))}
-    </div>
-  </div>
-</section>
-
-<!-- Platforms -->
-<section class="ai-platforms section" id="platforms">
-  <div class="container">
-    <header class="ai-section-head">
-      <p class="ai-eyebrow">Platforms</p>
-      <h2>Our intelligence, in the wild</h2>
-      <p class="ai-section-sub">
-        We don't just build AI for clients — we run our own AI products in five
-        industries. They are our credentials.
-      </p>
-    </header>
-    <div class="ai-plat-grid">
-      {platforms.map((p) => (
-        <a href={p.href} class="ai-plat">
-          <div class="ai-plat-top">
-            <span class="ai-plat-tag">{p.tag}</span>
-            {p.live
-              ? <span class="ai-plat-live"><span class="ai-dot" aria-hidden="true"></span>Live</span>
-              : <span class="ai-plat-soon">{p.status}</span>}
+    <div class="kx-app-grid">
+      {apps.map((a) => (
+        <a href={a.href} class="kx-app" style={`--tint:${a.tint};--ring:${a.ring}`}>
+          <img src={a.icon} alt={`${a.name} app icon`} width="128" height="128" loading="lazy" />
+          <div class="kx-app-body">
+            <span class="kx-app-tag">{a.tag}</span>
+            <h3>{a.name}</h3>
+            <p>{a.line}</p>
+            <span class={`kx-badge ${a.live ? 'is-live' : ''}`}>{a.badge}</span>
           </div>
-          <h3>{p.name}</h3>
-          <p>{p.line}</p>
-          <span class="ai-plat-arrow" aria-hidden="true">→</span>
         </a>
       ))}
     </div>
   </div>
 </section>
 
-<!-- Process -->
-<section class="ai-process section" id="process">
+<!-- Business platforms -->
+<section class="kx-biz section" id="platforms">
   <div class="container">
-    <header class="ai-section-head">
-      <p class="ai-eyebrow">Method</p>
-      <h2>How intelligence ships</h2>
+    <header class="kx-head">
+      <h2>Business Platforms</h2>
+      <p>The same product craft, pointed at hiring and compensation.</p>
     </header>
-    <ol class="ai-proc-grid">
-      {process_.map((s) => (
-        <li class="ai-proc">
-          <span class="ai-proc-n">{s.n}</span>
-          <h3>{s.title}</h3>
-          <p>{s.body}</p>
-        </li>
+    <div class="kx-biz-grid">
+      {platforms.map((p) => (
+        <a href={p.href} class="kx-biz-card">
+          <span class="kx-biz-mark" style={`background:${p.color}`}>{p.mark}</span>
+          <div>
+            <span class="kx-app-tag" style={`color:${p.color}`}>{p.tag}</span>
+            <h3>{p.name}</h3>
+            <p>{p.line}</p>
+          </div>
+          <span class="kx-arrow" aria-hidden="true">→</span>
+        </a>
       ))}
-    </ol>
-  </div>
-</section>
-
-<!-- Stack -->
-<section class="ai-stack" aria-label="Technology stack">
-  <div class="container ai-stack-inner">
-    <p class="ai-stack-label">Built on</p>
-    <ul class="ai-stack-list">
-      {stack.map((s) => <li>{s}</li>)}
-    </ul>
-  </div>
-</section>
-
-<!-- CTA -->
-<section class="ai-cta" id="contact">
-  <div class="ai-cta-glow" aria-hidden="true"></div>
-  <div class="container ai-cta-inner">
-    <h2>Put intelligence to work.</h2>
-    <p>
-      Whether it's one of our platforms or an AI system built for your business —
-      tell us what should be smarter. We respond within one business day.
-    </p>
-    <div class="ai-ctas">
-      <a href="/contact/" class="ai-btn ai-btn-primary">Start the conversation</a>
-      <a href="/pricing/" class="ai-btn ai-btn-ghost">See pricing</a>
     </div>
+    <p class="kx-also">
+      Also from Kixlogic: <a href="/scientificgigs/">ScientificGigs</a> — the
+      AI-enriched life-science job board.
+    </p>
+  </div>
+</section>
+
+<!-- AI innovation -->
+<section class="kx-ai section" id="ai">
+  <div class="container">
+    <header class="kx-head">
+      <h2>The AI Lab</h2>
+      <p>
+        Every Kixlogic product comes out of the same lab: AI product
+        innovation, engineered into working software and run in production.
+      </p>
+    </header>
+    <div class="kx-ai-grid">
+      {ai.map((c) => (
+        <article class="kx-ai-card">
+          <h3>{c.title}</h3>
+          <p>{c.body}</p>
+          <p class="kx-proof">{c.proof}</p>
+        </article>
+      ))}
+    </div>
+    <div class="kx-ctas kx-center">
+      <a href="/contact/" class="kx-btn kx-btn-blue">Build with us</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA band -->
+<section class="kx-band">
+  <div class="container kx-band-inner">
+    <h2>Something smarter to build?</h2>
+    <p>Tell us what it is. We respond within one business day.</p>
+    <a href="/contact/" class="kx-btn kx-btn-white">Start the conversation</a>
   </div>
 </section>
 
 <BlogTeaser />
 
 <style>
-/* ── Shared dark tokens ─────────────────────────────────────────────
-   Near-black graphite with a whisper of our teal — the accent stays the
-   product family's cyan, live-dots stay the product family's green. */
-.ai-hero, .ai-stats, .ai-caps, .ai-platforms, .ai-process, .ai-stack, .ai-cta {
-  --dk-bg: #07090b;
-  --dk-bg-2: #0b0f12;
-  --dk-card: rgba(255, 255, 255, 0.03);
-  --dk-card-border: rgba(140, 210, 230, 0.12);
-  --dk-text: #eef3f5;
-  --dk-muted: #9db3bc;
-  --dk-dim: #64787f;
-  --dk-accent: #35c4e8;
-  --dk-accent-deep: #0c7a94;
+/* ── Bold light tokens (from the new logo) ─────────────────────── */
+.kx-hero, .kx-apps, .kx-biz, .kx-ai, .kx-band {
+  --blue: #2f7de1;
+  --blue-deep: #1d5fc0;
+  --navy: #16233f;
+  --paper: #ffffff;
+  --mist: #f2f6fd;
+  --line2: #e3eaf6;
+  --mut: #5a6b85;
   --font-big: "Space Grotesk", var(--font-display);
 }
 
-.ai-eyebrow {
-  font-family: var(--font-display);
-  font-size: 0.8rem;
+.kx-anchor { display: block; height: 0; }
+
+.kx-head { max-width: 46rem; margin: 0 auto clamp(2rem, 4vw, 3rem); text-align: center; }
+.kx-head h2 {
+  font-family: var(--font-big);
+  font-size: clamp(2rem, 4.5vw, 3rem);
   font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--dk-accent);
-  margin: 0 0 0.9rem;
+  letter-spacing: -0.02em;
+  color: var(--navy);
+  margin: 0 0 0.6rem;
 }
+.kx-head p { color: var(--mut); font-size: 1.08rem; line-height: 1.6; margin: 0; }
 
-.ai-ctas { display: flex; flex-wrap: wrap; gap: 0.85rem; }
-
-.ai-btn {
+.kx-ctas { display: flex; flex-wrap: wrap; gap: 0.85rem; }
+.kx-center { justify-content: center; margin-top: 2rem; }
+.kx-btn {
   display: inline-block;
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 1.02rem;
   padding: 0.85rem 1.9rem;
   border-radius: 999px;
-  transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
 }
-.ai-btn:hover { transform: translateY(-1px); }
-.ai-btn-primary {
-  background: var(--dk-accent);
-  color: #04141b;
-}
-.ai-btn-primary:hover { box-shadow: 0 0 24px rgba(53, 196, 232, 0.35); }
-.ai-btn-ghost {
-  color: var(--dk-text);
-  border: 1px solid var(--dk-card-border);
-  background: rgba(255, 255, 255, 0.02);
-}
-.ai-btn-ghost:hover { border-color: var(--dk-accent); }
+.kx-btn:hover { transform: translateY(-2px); }
+.kx-btn-blue { background: var(--blue); color: #fff; box-shadow: 0 6px 18px rgba(47, 125, 225, 0.35); }
+.kx-btn-blue:hover { background: var(--blue-deep); }
+.kx-btn-line { color: var(--navy); border: 2px solid var(--line2); background: #fff; }
+.kx-btn-line:hover { border-color: var(--blue); color: var(--blue); }
+.kx-btn-white { background: #fff; color: var(--blue-deep); box-shadow: 0 6px 18px rgba(10, 30, 60, 0.25); }
 
-.ai-section-head { max-width: 46rem; margin-bottom: clamp(2.25rem, 5vw, 3.5rem); }
-.ai-section-head h2 {
-  font-family: var(--font-big);
-  font-size: clamp(2rem, 4.4vw, 3.1rem);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
-  color: var(--dk-text);
-  margin: 0 0 0.85rem;
-}
-.ai-section-sub { color: var(--dk-muted); font-size: 1.05rem; line-height: 1.6; }
-
-/* ── Hero ───────────────────────────────────────────────────────── */
-.ai-hero {
+/* ── Hero ──────────────────────────────────────────────────────── */
+.kx-hero {
   position: relative;
   overflow: hidden;
-  background: var(--dk-bg);
-  padding: clamp(4.5rem, 12vh, 7.5rem) 0 clamp(4rem, 10vh, 6.5rem);
+  background: linear-gradient(180deg, #eaf2fd 0%, #ffffff 90%);
+  padding: clamp(4rem, 11vh, 7rem) 0 clamp(3.5rem, 8vh, 5.5rem);
+  text-align: center;
 }
-/* The blurred-object glow behind the wordmark - abstract, ours. */
-.ai-hero-blur {
+.kx-hero-tiles { position: absolute; inset: 0; pointer-events: none; }
+.kx-hero-tiles .t {
   position: absolute;
-  top: 8%; right: -12%;
-  width: 55rem; height: 30rem;
-  background:
-    radial-gradient(45% 55% at 60% 45%, rgba(53, 196, 232, 0.22), transparent 70%),
-    radial-gradient(35% 45% at 30% 70%, rgba(12, 122, 148, 0.28), transparent 70%);
-  filter: blur(48px);
-  pointer-events: none;
+  border-radius: 18%;
+  opacity: 0.9;
+  animation: kx-float 7s ease-in-out infinite;
 }
-.ai-hero-inner { position: relative; }
-.ai-wordmark {
+.t1 { width: 64px; height: 64px; background: #5b7cfa; top: 16%; left: 7%; transform: rotate(-9deg); }
+.t2 { width: 44px; height: 44px; background: #ffb545; top: 62%; left: 13%; animation-delay: 1.2s; transform: rotate(12deg); }
+.t3 { width: 54px; height: 54px; background: #8bc34a; top: 24%; right: 9%; animation-delay: 0.6s; transform: rotate(8deg); }
+.t4 { width: 38px; height: 38px; background: #f2649e; top: 66%; right: 15%; animation-delay: 1.8s; transform: rotate(-14deg); }
+.t5 { width: 30px; height: 30px; background: #2f7de1; top: 10%; right: 30%; animation-delay: 2.3s; }
+.t6 { width: 26px; height: 26px; background: #7c6ce8; top: 78%; left: 42%; animation-delay: 0.9s; }
+@keyframes kx-float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -14px; }
+}
+.kx-hero-inner { position: relative; max-width: 52rem; margin: 0 auto; }
+.kx-hero h1 {
   font-family: var(--font-big);
-  font-size: clamp(3.4rem, 13.5vw, 11rem);
+  font-size: clamp(2.4rem, 6.5vw, 4.2rem);
   font-weight: 700;
-  letter-spacing: 0.01em;
-  line-height: 0.95;
-  color: var(--dk-text);
-  margin: 0 0 clamp(1.75rem, 5vh, 3.25rem);
-  white-space: nowrap;
+  letter-spacing: -0.03em;
+  line-height: 1.06;
+  color: var(--navy);
+  margin: 0 0 1.1rem;
 }
-.ai-hero-split {
-  display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-  gap: 2rem 3.5rem;
-  align-items: end;
+.kx-blue { color: var(--blue); }
+.kx-hero-sub {
+  color: var(--mut);
+  font-size: clamp(1.05rem, 2vw, 1.2rem);
+  line-height: 1.6;
+  max-width: 38rem;
+  margin: 0 auto 2rem;
 }
-@media (max-width: 720px) {
-  .ai-hero-split { grid-template-columns: 1fr; }
-}
-.ai-hero-line {
-  font-family: var(--font-big);
-  font-size: clamp(1.5rem, 3.2vw, 2.3rem);
-  font-weight: 500;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
-  color: var(--dk-text);
-  margin: 0;
-}
-.ai-support {
-  font-size: clamp(1rem, 1.6vw, 1.08rem);
-  line-height: 1.65;
-  color: var(--dk-muted);
-  max-width: 34rem;
-  margin: 0 0 1.6rem;
-}
+.kx-hero .kx-ctas { justify-content: center; }
 
-/* ── Stats ──────────────────────────────────────────────────────── */
-.ai-stats {
-  background: var(--dk-bg-2);
-  border-top: 1px solid rgba(120, 200, 225, 0.10);
-  border-bottom: 1px solid rgba(120, 200, 225, 0.10);
-}
-.ai-stats-inner {
+/* ── Apps & Games ──────────────────────────────────────────────── */
+.kx-apps { background: var(--paper); padding-top: clamp(3.5rem, 7vw, 5.5rem); padding-bottom: clamp(3rem, 6vw, 4.5rem); }
+.kx-app-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
-  gap: 1.5rem 2rem;
-  padding: clamp(1.75rem, 4vw, 2.5rem) var(--container-pad, 1.25rem);
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  gap: 1.4rem;
 }
-.ai-stat strong {
+.kx-app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.9rem;
+  background: var(--tint);
+  border: 2px solid transparent;
+  border-radius: 22px;
+  padding: 1.8rem 1.4rem 1.5rem;
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+.kx-app:hover {
+  transform: translateY(-5px);
+  border-color: var(--ring);
+  box-shadow: 0 14px 30px rgba(22, 35, 63, 0.12);
+}
+.kx-app img {
+  width: 108px; height: 108px;
+  border-radius: 24px;
+  box-shadow: 0 10px 22px rgba(22, 35, 63, 0.22);
+}
+.kx-app-tag {
   display: block;
-  font-family: var(--font-display);
-  font-size: clamp(1.8rem, 3.5vw, 2.4rem);
-  font-weight: 700;
-  color: var(--dk-accent);
-  letter-spacing: -0.02em;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ring, var(--blue));
+  margin-bottom: 0.25rem;
 }
-.ai-stat span { color: var(--dk-muted); font-size: 0.95rem; }
+.kx-app h3 {
+  font-family: var(--font-big);
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0 0 0.4rem;
+}
+.kx-app p { color: var(--mut); font-size: 0.95rem; line-height: 1.55; margin: 0 0 0.9rem; }
+.kx-badge {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 0.35rem 0.95rem;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--mut);
+  border: 1.5px solid var(--line2);
+}
+.kx-badge.is-live { background: var(--navy); color: #fff; border-color: var(--navy); }
 
-/* ── Capabilities ───────────────────────────────────────────────── */
-.ai-caps { background: var(--dk-bg); padding-top: clamp(4.5rem, 9vw, 7rem); padding-bottom: clamp(4.5rem, 9vw, 7rem); }
-.ai-caps-grid {
+/* ── Business ──────────────────────────────────────────────────── */
+.kx-biz { background: var(--mist); padding-top: clamp(3.5rem, 7vw, 5.5rem); padding-bottom: clamp(3rem, 6vw, 4.5rem); }
+.kx-biz-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
-  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  gap: 1.4rem;
+  max-width: 62rem;
+  margin: 0 auto;
 }
-.ai-cap {
-  background: var(--dk-card);
-  border: 1px solid var(--dk-card-border);
-  border-radius: 14px;
-  padding: 1.6rem 1.5rem;
-  transition: border-color 0.2s ease, transform 0.2s ease;
+.kx-biz-card {
+  position: relative;
+  display: flex;
+  gap: 1.2rem;
+  align-items: flex-start;
+  background: #fff;
+  border: 2px solid var(--line2);
+  border-radius: 20px;
+  padding: 1.6rem 1.6rem 1.5rem;
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
 }
-.ai-cap:hover { border-color: rgba(53, 196, 232, 0.45); transform: translateY(-2px); }
-.ai-cap h3 {
-  font-family: var(--font-display);
-  font-size: 1.15rem;
+.kx-biz-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--blue);
+  box-shadow: 0 14px 30px rgba(22, 35, 63, 0.1);
+}
+.kx-biz-mark {
+  flex: none;
+  width: 64px; height: 64px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-family: var(--font-big);
   font-weight: 700;
-  color: var(--dk-text);
-  margin: 0 0 0.6rem;
+  font-size: 1.3rem;
+  box-shadow: 0 8px 18px rgba(22, 35, 63, 0.18);
 }
-.ai-cap p { color: var(--dk-muted); font-size: 0.97rem; line-height: 1.6; margin: 0 0 0.9rem; }
-.ai-cap-proof {
-  color: var(--dk-dim);
-  font-size: 0.88rem !important;
-  line-height: 1.55 !important;
-  border-top: 1px solid rgba(120, 200, 225, 0.10);
-  padding-top: 0.85rem;
+.kx-biz-card h3 {
+  font-family: var(--font-big);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0.1rem 0 0.4rem;
+}
+.kx-biz-card p { color: var(--mut); font-size: 0.95rem; line-height: 1.55; margin: 0; padding-right: 1rem; }
+.kx-arrow {
+  position: absolute;
+  right: 1.3rem; bottom: 1.1rem;
+  color: var(--blue);
+  font-size: 1.2rem;
+  transition: transform 0.18s ease;
+}
+.kx-biz-card:hover .kx-arrow { transform: translateX(4px); }
+.kx-also { text-align: center; color: var(--mut); font-size: 0.92rem; margin: 1.6rem 0 0; }
+.kx-also a { color: var(--blue); font-weight: 700; }
+
+/* ── AI Lab ────────────────────────────────────────────────────── */
+.kx-ai { background: var(--paper); padding-top: clamp(3.5rem, 7vw, 5.5rem); padding-bottom: clamp(3rem, 6vw, 4.5rem); }
+.kx-ai-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  gap: 1.3rem;
+}
+.kx-ai-card {
+  background: linear-gradient(160deg, #f6f9ff 0%, #eef4fd 100%);
+  border: 2px solid var(--line2);
+  border-radius: 18px;
+  padding: 1.5rem 1.4rem;
+}
+.kx-ai-card h3 {
+  font-family: var(--font-big);
+  font-size: 1.12rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0 0 0.5rem;
+}
+.kx-ai-card p { color: var(--mut); font-size: 0.94rem; line-height: 1.6; margin: 0 0 0.8rem; }
+.kx-proof {
+  color: var(--blue-deep) !important;
+  font-size: 0.85rem !important;
+  font-weight: 600;
+  border-top: 1px solid var(--line2);
+  padding-top: 0.75rem;
   margin-bottom: 0 !important;
 }
 
-/* ── Platforms ──────────────────────────────────────────────────── */
-.ai-platforms { background: var(--dk-bg-2); padding-top: clamp(4.5rem, 9vw, 7rem); padding-bottom: clamp(4.5rem, 9vw, 7rem); }
-.ai-plat-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
-  gap: 1.25rem;
-}
-.ai-plat {
-  position: relative;
-  display: block;
-  background: var(--dk-card);
-  border: 1px solid var(--dk-card-border);
-  border-radius: 14px;
-  padding: 1.5rem 1.5rem 1.4rem;
-  transition: border-color 0.2s ease, transform 0.2s ease;
-}
-.ai-plat:hover { border-color: rgba(53, 196, 232, 0.5); transform: translateY(-2px); }
-.ai-plat-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 0.9rem;
-}
-.ai-plat-tag {
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--dk-accent);
-}
-.ai-plat-live {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: #63e0a2;
-}
-.ai-dot {
-  width: 7px; height: 7px; border-radius: 50%;
-  background: #63e0a2;
-  box-shadow: 0 0 8px rgba(99, 224, 162, 0.8);
-}
-.ai-plat-soon { font-size: 0.78rem; font-weight: 600; color: var(--dk-dim); }
-.ai-plat h3 {
-  font-family: var(--font-display);
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--dk-text);
-  margin: 0 0 0.5rem;
-}
-.ai-plat p { color: var(--dk-muted); font-size: 0.95rem; line-height: 1.55; margin: 0; padding-right: 1.5rem; }
-.ai-plat-arrow {
-  position: absolute;
-  right: 1.3rem; bottom: 1.1rem;
-  color: var(--dk-accent);
-  font-size: 1.1rem;
-  transition: transform 0.2s ease;
-}
-.ai-plat:hover .ai-plat-arrow { transform: translateX(3px); }
-
-/* ── Process ────────────────────────────────────────────────────── */
-.ai-process { background: var(--dk-bg); padding-top: clamp(4.5rem, 9vw, 7rem); padding-bottom: clamp(4.5rem, 9vw, 7rem); }
-.ai-proc-grid {
-  list-style: none;
-  margin: 0; padding: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
-  gap: 1.25rem;
-}
-.ai-proc {
-  border-left: 2px solid rgba(53, 196, 232, 0.35);
-  padding: 0.25rem 0 0.25rem 1.15rem;
-}
-.ai-proc-n {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 0.85rem;
-  letter-spacing: 0.12em;
-  color: var(--dk-accent);
-}
-.ai-proc h3 {
-  font-family: var(--font-display);
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--dk-text);
-  margin: 0.35rem 0 0.45rem;
-}
-.ai-proc p { color: var(--dk-muted); font-size: 0.94rem; line-height: 1.6; margin: 0; }
-
-/* ── Stack ──────────────────────────────────────────────────────── */
-.ai-stack {
-  background: var(--dk-bg-2);
-  border-top: 1px solid rgba(120, 200, 225, 0.10);
-  border-bottom: 1px solid rgba(120, 200, 225, 0.10);
-}
-.ai-stack-inner {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 1rem 1.75rem;
-  padding-top: 1.4rem;
-  padding-bottom: 1.4rem;
-}
-.ai-stack-label {
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--dk-dim);
-  margin: 0;
-}
-.ai-stack-list {
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem 0.6rem;
-  margin: 0; padding: 0;
-}
-.ai-stack-list li {
-  font-size: 0.88rem;
-  font-weight: 600;
-  color: var(--dk-muted);
-  border: 1px solid var(--dk-card-border);
-  border-radius: 999px;
-  padding: 0.35rem 0.9rem;
-}
-
-/* ── CTA ────────────────────────────────────────────────────────── */
-.ai-cta {
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(180deg, var(--dk-bg) 0%, #0a1a21 100%);
-  padding: clamp(5rem, 11vw, 8rem) 0;
+/* ── CTA band ──────────────────────────────────────────────────── */
+.kx-band {
+  background: linear-gradient(120deg, var(--blue) 0%, #5b7cfa 100%);
+  padding: clamp(3.5rem, 8vw, 5.5rem) 0;
   text-align: center;
 }
-.ai-cta-glow {
-  position: absolute;
-  inset: auto -10% -50% -10%;
-  height: 26rem;
-  background: radial-gradient(50% 60% at 50% 100%, rgba(53, 196, 232, 0.16), transparent 70%);
-  pointer-events: none;
-}
-.ai-cta-inner { position: relative; max-width: 40rem; margin: 0 auto; }
-.ai-cta h2 {
+.kx-band h2 {
   font-family: var(--font-big);
-  font-size: clamp(2.2rem, 5.5vw, 3.6rem);
+  font-size: clamp(1.9rem, 4.5vw, 2.9rem);
   font-weight: 700;
   letter-spacing: -0.02em;
-  color: var(--dk-text);
-  margin: 0 0 1rem;
+  color: #fff;
+  margin: 0 0 0.7rem;
 }
-.ai-cta p { color: var(--dk-muted); font-size: 1.05rem; line-height: 1.6; margin: 0 0 2rem; }
-.ai-cta .ai-ctas { justify-content: center; }
+.kx-band p { color: rgba(255, 255, 255, 0.85); font-size: 1.08rem; margin: 0 0 1.8rem; }
 
 @media (prefers-reduced-motion: reduce) {
-  .ai-btn, .ai-cap, .ai-plat, .ai-plat-arrow { transition: none; }
+  .kx-hero-tiles .t { animation: none; }
+  .kx-btn, .kx-app, .kx-biz-card, .kx-arrow { transition: none; }
 }
 </style>
