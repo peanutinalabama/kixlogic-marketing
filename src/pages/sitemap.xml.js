@@ -32,7 +32,7 @@ function escapeXml(s) {
 export async function GET() {
   let posts = [];
   try {
-    const res = await fetch('https://api.kixlogic.com/api/blog/posts-public');
+    const res = await fetch('https://api.kixlogic.com/api/blog/posts-public', { signal: AbortSignal.timeout(2000) });
     if (res.ok) {
       const data = await res.json();
       posts = Array.isArray(data.posts) ? data.posts : [];

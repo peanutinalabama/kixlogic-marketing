@@ -1,7 +1,10 @@
 ---
 let posts: any[] = [];
 try {
-  const res = await fetch('https://api.kixlogic.com/api/blog/posts-public');
+  // 2s hard timeout: api.kixlogic.com (the mothballed ATS container) can
+  // hang forever, and an un-timed fetch here blocked the WHOLE homepage
+  // stream - visitors saw the page stall with no footer (2026-08-30).
+  const res = await fetch('https://api.kixlogic.com/api/blog/posts-public', { signal: AbortSignal.timeout(2000) });
   if (res.ok) {
     const data = await res.json();
     posts = (Array.isArray(data.posts) ? data.posts : [])
