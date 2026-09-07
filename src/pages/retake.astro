@@ -1,0 +1,286 @@
+---
+import Base from '../layouts/Base.astro';
+
+// Retake — the landing page whose job is one question: will producers ask for
+// this? Everything on it is true today. The engine parses real Live sets and
+// the terminal below is real output, not a mockup. What does not exist yet is
+// the desktop app, and the page says so rather than implying otherwise.
+
+const WAITLIST = 'https://retake-waitlist.charles-9a9.workers.dev/api/waitlist';
+
+const jsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Retake',
+  applicationCategory: 'MultimediaApplication',
+  operatingSystem: 'macOS, Windows',
+  description:
+    'Retake saves your whole music session — the Ableton set and every sample it depends on — as one restorable moment, on storage you own.',
+  offers: { '@type': 'Offer', price: '12', priceCurrency: 'USD' },
+  author: { '@type': 'Organization', name: 'Kixlogic', url: 'https://kixlogic.com' },
+});
+
+const steps = [
+  {
+    n: '1',
+    title: 'It reads your set, not just your folder',
+    body: 'An Ableton set does not contain your audio — it points at it. Retake opens the set, follows every pointer, and finds each file it needs, including the samples living somewhere else on your drive.',
+  },
+  {
+    n: '2',
+    title: 'It keeps the whole session, cheaply',
+    body: 'Every save becomes one restorable moment: the set plus every file, together. Audio you have not changed costs nothing to keep again, so a month of history takes a fraction of what copies would.',
+  },
+  {
+    n: '3',
+    title: 'One click puts a night back',
+    body: 'Scroll to Tuesday at 9:14pm and restore it as a copy — the set and the exact takes it used. Or pull one stem out of an old version and leave everything else alone.',
+  },
+];
+---
+<Base
+  title="Retake — never lose a version of your session again"
+  description="Retake saves your whole music session — the Ableton set and every sample it depends on — as one restorable moment, on storage you own. Never touches your working files."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={jsonLd} />
+  </Fragment>
+
+  <section class="rt-hero">
+    <div class="rt-wrap">
+      <p class="rt-kicker">Kixlogic · in private beta</p>
+      <h1>Your session is not one file.<br /><em>So stop backing it up like one.</em></h1>
+      <p class="rt-lede">
+        Ableton keeps the last few versions of your set — and none of your audio. Dropbox keeps
+        your audio — and has no idea which take belongs to which set. Retake keeps the
+        <strong>whole session as one moment</strong>: the set and every sample it needs, restorable
+        together, on storage you already own.
+      </p>
+      <div class="rt-cta-row">
+        <a class="rt-btn" href="#waitlist">Get early access</a>
+        <span class="rt-note">$12/mo when it ships · early testers get the first year at half</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="rt-pain">
+    <div class="rt-wrap rt-two">
+      <div>
+        <h2>You already know this folder</h2>
+        <ul class="rt-files">
+          <li>mix_v2.als</li>
+          <li>mix_v2_FINAL.als</li>
+          <li>mix_v2_FINAL_actually_final.als</li>
+          <li>mix_v2_FINAL_use_this_one.als</li>
+        </ul>
+        <p>
+          And you know the other thing: you open a set from three months ago and half the clips are
+          gone, because the audio moved, got re-recorded, or was never in the project folder at all.
+        </p>
+      </div>
+      <div>
+        <h2>Why the usual answers fail</h2>
+        <dl class="rt-vs">
+          <dt>Ableton's own backup</dt>
+          <dd>Keeps the set file only. Restores a session pointing at audio that has since changed.</dd>
+          <dt>Dropbox &amp; Drive</dt>
+          <dd>Versions each file separately with no idea they belong together — and sync conflicts corrupt live sessions, which is why every forum says to turn it off while you work.</dd>
+          <dt>Git</dt>
+          <dd>Technically right, and no producer alive is going to learn it.</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="rt-steps">
+    <div class="rt-wrap">
+      <h2>What Retake does</h2>
+      <div class="rt-grid">
+        {steps.map((s) => (
+          <article class="rt-step">
+            <span class="rt-num">{s.n}</span>
+            <h3>{s.title}</h3>
+            <p>{s.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="rt-proof">
+    <div class="rt-wrap">
+      <h2>This is the engine running, today</h2>
+      <p class="rt-sub">
+        Real output on a real Ableton 12 session: four audio files, one of them living outside the
+        project folder. A take gets deleted, and the earlier night comes back byte for byte.
+      </p>
+      <pre class="rt-term"><code>{`$ retake inspect "Midnight Drive.als"
+  made with   Ableton Live 12.0.5
+  tempo       92
+  tracks      4 audio, 2 midi
+  references  4 audio files it needs
+   ok  lead vocal take 4.wav   (Samples/Recorded/lead vocal take 4.wav)
+   ok  drum bus.wav            (Samples/Recorded/drum bus.wav)
+   ok  bass DI.wav             (Samples/Recorded/bass DI.wav)
+   ok  vinyl crackle.wav       (../Sample Library/vinyl crackle.wav)
+  every file present
+
+$ retake snap "Midnight Drive.als" --label "rough mix"
+  4 audio files · 54.9 MB in the session · 54.9 MB new in the vault
+  1 file lives outside the project folder (kept anyway)
+
+# … the vocal is re-recorded, and saved again
+$ retake snap "Midnight Drive.als" --label "new vocal take"
+  4 audio files · 55.6 MB in the session · 18.2 MB new in the vault
+
+# … and then the take is deleted
+$ retake inspect "Midnight Drive.als"
+  1 missing — this set would open broken
+
+$ retake restore 2026-09-07T02-02-33 "Restored - rough mix"
+  restored 5 files (54.9 MB)
+  the deleted take is back, byte for byte`}</code></pre>
+      <p class="rt-sub rt-small">
+        Two snapshots of that session: 110.5&nbsp;MB as copies, 73.1&nbsp;MB in the vault — because
+        audio you did not change is never stored twice.
+      </p>
+    </div>
+  </section>
+
+  <section class="rt-promise">
+    <div class="rt-wrap">
+      <h2>The promise that matters</h2>
+      <p>
+        <strong>Retake never writes into your working folder.</strong> It reads, and it copies out.
+        Restores land somewhere new — it will refuse to write over a folder that is not empty.
+        Your files are your income, and nothing we make is going to sit between you and a session.
+      </p>
+      <p>
+        Your vault is plain files and plain JSON on storage <em>you</em> own — an external drive,
+        your NAS, your own cloud bucket. Readable without us, forever. We sell software, not
+        hostage space.
+      </p>
+    </div>
+  </section>
+
+  <section class="rt-waitlist" id="waitlist">
+    <div class="rt-wrap">
+      <h2>Get early access</h2>
+      <p class="rt-sub">
+        The engine works. The desktop app is being built now, and the first builds go to this list.
+        Tell me what you work in and I will send it when it runs on your setup.
+      </p>
+      <form id="rt-form" class="rt-form">
+        <label>
+          <span>Email</span>
+          <input type="email" name="email" required placeholder="you@example.com" autocomplete="email" />
+        </label>
+        <label>
+          <span>What do you work in?</span>
+          <select name="daw">
+            <option value="Ableton Live">Ableton Live</option>
+            <option value="Logic Pro">Logic Pro</option>
+            <option value="FL Studio">FL Studio</option>
+            <option value="Pro Tools">Pro Tools</option>
+            <option value="Studio One">Studio One</option>
+            <option value="Reaper">Reaper</option>
+            <option value="Bitwig">Bitwig</option>
+            <option value="Premiere / Resolve">Premiere / Resolve</option>
+            <option value="Other">Something else</option>
+          </select>
+        </label>
+        <label>
+          <span>Have you ever lost work or takes?</span>
+          <select name="lost">
+            <option value="yes">Yes — more than once</option>
+            <option value="once">Once, and I remember it</option>
+            <option value="no">No, and I would like to keep it that way</option>
+          </select>
+        </label>
+        <label class="rt-full">
+          <span>Anything you want it to do? (optional)</span>
+          <input type="text" name="note" maxlength="500" placeholder="e.g. I need it to catch samples outside the project folder" />
+        </label>
+        <button type="submit">Join the list</button>
+        <p class="rt-status" id="rt-status" role="status"></p>
+      </form>
+    </div>
+  </section>
+
+  <script is:inline define:vars={{ WAITLIST }}>
+    const form = document.getElementById('rt-form');
+    const status = document.getElementById('rt-status');
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(form).entries());
+      const button = form.querySelector('button');
+      button.disabled = true;
+      status.textContent = 'Sending…';
+      try {
+        const res = await fetch(WAITLIST, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+        const out = await res.json();
+        if (!res.ok) throw new Error(out.error || 'that did not go through');
+        status.textContent = "You're on the list. I'll email you when there's a build that runs on your setup.";
+        form.querySelectorAll('input, select').forEach((el) => (el.disabled = true));
+      } catch (err) {
+        status.textContent = err.message + ' — try again, or email hello@kixlogic.com.';
+        button.disabled = false;
+      }
+    });
+  </script>
+
+  <style>
+    .rt-wrap { max-width: 1000px; margin: 0 auto; padding: 0 1.25rem; }
+    .rt-hero { background: linear-gradient(165deg, #0d1b2a, #1b3a5c); color: #fff; padding: clamp(3.5rem, 9vw, 6.5rem) 0 clamp(3rem, 7vw, 5rem); }
+    .rt-kicker { text-transform: uppercase; letter-spacing: .14em; font-size: .72rem; font-weight: 700; color: #7fd1c1; margin: 0 0 .8rem; }
+    .rt-hero h1 { font-size: clamp(2.1rem, 5.6vw, 3.8rem); line-height: 1.06; margin: 0 0 1rem; text-wrap: balance; }
+    .rt-hero h1 em { font-style: normal; color: #7fd1c1; }
+    .rt-lede { font-size: clamp(1.02rem, 1.6vw, 1.2rem); line-height: 1.6; max-width: 62ch; opacity: .93; margin: 0 0 1.8rem; }
+    .rt-cta-row { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+    .rt-btn { display: inline-block; background: #7fd1c1; color: #0d1b2a; font-weight: 700; padding: .8rem 1.6rem; border-radius: 999px; text-decoration: none; }
+    .rt-btn:hover { background: #fff; }
+    .rt-note { font-size: .85rem; opacity: .8; }
+
+    .rt-pain, .rt-steps, .rt-proof, .rt-promise, .rt-waitlist { padding: clamp(2.8rem, 6vw, 4.5rem) 0; }
+    .rt-pain { background: #f6f8fb; }
+    .rt-two { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+    @media (max-width: 760px) { .rt-two { grid-template-columns: 1fr; } }
+    .rt-pain h2, .rt-steps h2, .rt-proof h2, .rt-promise h2, .rt-waitlist h2 { font-size: clamp(1.4rem, 2.6vw, 1.9rem); margin: 0 0 1rem; }
+    .rt-files { list-style: none; padding: 0; margin: 0 0 1rem; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .92rem; }
+    .rt-files li { padding: .3rem .7rem; background: #fff; border: 1px solid #dde5ee; border-radius: 6px; margin-bottom: .35rem; }
+    .rt-files li:last-child { border-color: #e6a23c; }
+    .rt-vs dt { font-weight: 700; margin-top: .9rem; }
+    .rt-vs dd { margin: .2rem 0 0; color: #46566b; }
+
+    .rt-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; }
+    @media (max-width: 860px) { .rt-grid { grid-template-columns: 1fr; } }
+    .rt-step { background: #fff; border: 1px solid #e2e9f1; border-radius: 14px; padding: 1.3rem; }
+    .rt-num { display: inline-flex; width: 2rem; height: 2rem; align-items: center; justify-content: center; border-radius: 999px; background: #0d1b2a; color: #7fd1c1; font-weight: 700; margin-bottom: .6rem; }
+    .rt-step h3 { margin: 0 0 .4rem; font-size: 1.08rem; }
+    .rt-step p { margin: 0; color: #46566b; line-height: 1.55; }
+
+    .rt-proof { background: #0d1b2a; color: #fff; }
+    .rt-proof h2 { color: #fff; }
+    .rt-sub { color: #b9c8d8; max-width: 68ch; line-height: 1.6; }
+    .rt-small { font-size: .88rem; margin-top: 1rem; }
+    .rt-term { background: #071018; border: 1px solid #1e3450; border-radius: 12px; padding: 1.2rem; overflow-x: auto; margin: 1.4rem 0 0; }
+    .rt-term code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .82rem; line-height: 1.65; color: #cfe6dd; white-space: pre; }
+
+    .rt-promise { background: #f6f8fb; }
+    .rt-promise p { max-width: 70ch; line-height: 1.65; color: #2b3a4d; }
+
+    .rt-form { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; max-width: 720px; margin-top: 1.4rem; }
+    @media (max-width: 700px) { .rt-form { grid-template-columns: 1fr; } }
+    .rt-form label { display: flex; flex-direction: column; gap: .3rem; font-size: .88rem; font-weight: 600; }
+    .rt-form .rt-full { grid-column: 1 / -1; }
+    .rt-form input, .rt-form select { font: inherit; font-weight: 400; padding: .65rem .75rem; border: 1px solid #cfd9e4; border-radius: 8px; background: #fff; }
+    .rt-form button { grid-column: 1 / -1; justify-self: start; background: #0d1b2a; color: #7fd1c1; font-weight: 700; border: 0; border-radius: 999px; padding: .8rem 1.8rem; cursor: pointer; font-size: 1rem; }
+    .rt-form button:hover { background: #1b3a5c; }
+    .rt-form button:disabled { opacity: .6; cursor: default; }
+    .rt-status { grid-column: 1 / -1; margin: 0; font-size: .9rem; color: #0d6b52; min-height: 1.2em; }
+  </style>
+</Base>
