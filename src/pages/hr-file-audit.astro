@@ -1,0 +1,218 @@
+---
+import Base from '../layouts/Base.astro';
+
+// The HR file exposure audit. Sold on one question a small company cannot
+// answer about itself, not on the words "data governance". House rule holds
+// here harder than anywhere: no client names, no logos, no testimonials, no
+// numbers we cannot stand behind. Everything below is method and terms.
+
+const findings = [
+  {
+    title: 'Files a former employee can still reach',
+    body: 'Accounts that were disabled but still own folders, shared links that never expired, and personal copies made before they left. This is the finding that surprises people most.',
+  },
+  {
+    title: 'Employee records readable by the whole company',
+    body: 'Folders inheriting permissions from a parent that grants Everyone or Domain Users. I-9s, disciplinary notes, medical accommodations and payroll exports sitting where anyone can open them.',
+  },
+  {
+    title: 'Sensitive data where it should not be',
+    body: 'Social Security numbers in spreadsheets, résumés and applicant files outside the ATS, payroll exports on desktops, scanned documents in general-purpose folders.',
+  },
+  {
+    title: 'Links shared with the outside world',
+    body: 'Anyone-with-the-link sharing in SharePoint, OneDrive or Google Drive, including files shared years ago by someone who has since moved on.',
+  },
+  {
+    title: 'Records kept past their retention period',
+    body: 'Applicant files, I-9s and terminated-employee folders held long after the period your policy or your state requires — which is its own exposure.',
+  },
+  {
+    title: 'Duplicates, orphans and abandoned folders',
+    body: 'The same payroll export in four places, project folders nobody has opened in years, and files with no living owner. Less urgent, and the reason people cannot find anything.',
+  },
+];
+
+const steps = [
+  {
+    n: '1',
+    title: 'A scoping call',
+    body: 'Thirty minutes. Which systems are in scope — a file server, Microsoft 365, Google Workspace — roughly how much data, and who your IT provider is. You get a fixed price before anything starts.',
+  },
+  {
+    n: '2',
+    title: 'Read-only access, on your equipment',
+    body: 'You provide a machine and a read-only account. Nothing is installed, nothing is changed, and no copy of your data leaves the building. Your IT provider is welcome to sit in the whole time.',
+  },
+  {
+    n: '3',
+    title: 'The scan and the analysis',
+    body: 'Permissions, file ages, ownership, sharing links and sensitive-content patterns. The scan is mechanical; the judgement about which findings actually matter to an HR record is the part you are paying for.',
+  },
+  {
+    n: '4',
+    title: 'The report and a walkthrough',
+    body: 'Findings ranked by severity, each with the exact path, who can reach it and when it was last opened — plus a remediation checklist written so your IT provider can work straight through it. Then a call to go through it together.',
+  },
+];
+---
+<Base
+  title="HR File Exposure Audit"
+  description="When someone leaves your company, what can they still get to? A read-only audit of where employee records live, who can open them, and what to do about it. Fixed price, nothing leaves your building."
+>
+  <section class="fa-hero">
+    <div class="fa-wrap">
+      <p class="fa-kicker">Kixlogic · Services</p>
+      <h1>When someone leaves,<br /><em>what can they still get to?</em></h1>
+      <p class="fa-lede">
+        Most companies under a thousand people cannot answer that question, or the other one:
+        who in the building can open the folder with the I-9s in it. We find out, in writing,
+        without touching a thing.
+      </p>
+      <a class="fa-btn" href="#book">Book a scoping call</a>
+    </div>
+  </section>
+
+  <section class="fa-band">
+    <div class="fa-wrap">
+      <h2>Why this goes wrong quietly</h2>
+      <p class="fa-body">
+        Employee records do not stay where HR puts them. An investigation note gets copied to a
+        manager's folder. A payroll export is emailed and saved to a desktop. An I-9 scan lands in
+        a general share because that is where the scanner sends things. A folder inherits
+        permissions from a parent nobody has reviewed in six years. Then someone leaves, and their
+        access is closed in three systems but not in the fourth.
+      </p>
+      <p class="fa-body">
+        None of that is negligence. It is what happens when a company grows faster than the person
+        who set up the shared drive. It stays invisible until an audit, a lawsuit, or an ex-employee
+        who still has a link.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="fa-wrap">
+      <h2>What the audit looks for</h2>
+      <div class="fa-grid">
+        {findings.map((f) => (
+          <article class="fa-card">
+            <h3>{f.title}</h3>
+            <p>{f.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="fa-band">
+    <div class="fa-wrap">
+      <h2>How it works</h2>
+      <div class="fa-steps">
+        {steps.map((s) => (
+          <div class="fa-step">
+            <span class="fa-num">{s.n}</span>
+            <div><h3>{s.title}</h3><p>{s.body}</p></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="fa-terms">
+    <div class="fa-wrap">
+      <h2>The terms that matter</h2>
+      <ul class="fa-list">
+        <li><b>Read-only.</b> Nothing is deleted, moved, or re-permissioned. We report; you and your IT provider decide and act.</li>
+        <li><b>On your equipment.</b> We work from a machine you provide, with an account you create and can switch off at any moment.</li>
+        <li><b>Nothing leaves the building but the report.</b> No copies of your files, no uploads, no cloud processing of your data.</li>
+        <li><b>Evidence for every finding.</b> The path, the permissions, the dates. Nothing in the report is an opinion you cannot check yourself.</li>
+        <li><b>We describe, we do not adjudicate.</b> The report says what exists and who can reach it. It is not a legal or compliance determination, and it does not pretend to be one.</li>
+        <li><b>Mutual NDA and a written scope</b> before any access is granted.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="fa-band">
+    <div class="fa-wrap">
+      <h2>Price</h2>
+      <div class="fa-prices">
+        <div class="fa-price">
+          <h3>First look</h3>
+          <p class="fa-amount">$1,500</p>
+          <p>One file server or one Microsoft 365 tenant. Permissions, sensitive-file exposure, stale and orphaned records. Report inside a week.</p>
+        </div>
+        <div class="fa-price fa-featured">
+          <h3>Full audit</h3>
+          <p class="fa-amount">$3,500 – $5,000</p>
+          <p>File server and cloud together, external sharing links, plus a separation sweep covering everyone who left in the last twelve months.</p>
+        </div>
+        <div class="fa-price">
+          <h3>Remediation help</h3>
+          <p class="fa-amount">Quoted</p>
+          <p>If you would rather not hand the checklist to your IT provider, we can work through it with them. Scoped and quoted after the report.</p>
+        </div>
+      </div>
+      <p class="fa-body fa-small">
+        Prices are fixed before work begins. Most security vendors will not publish a number;
+        we would rather you know whether this is worth a conversation.
+      </p>
+    </div>
+  </section>
+
+  <section id="book">
+    <div class="fa-wrap fa-book">
+      <h2>Book a scoping call</h2>
+      <p class="fa-body">
+        Thirty minutes, no charge, and you will get a fixed price and a plain answer about whether
+        this is worth doing for a company your size. Email
+        <a href="mailto:hello@kixlogic.com?subject=HR%20file%20exposure%20audit">hello@kixlogic.com</a>
+        with roughly how many employees you have and which systems your files live on.
+      </p>
+      <p class="fa-body fa-small">
+        Kixlogic builds HR and workforce software — an applicant tracking system, a workforce
+        command centre, compensation tooling. This service exists because the same question kept
+        coming up while building them: nobody could say who could open the employee files.
+      </p>
+    </div>
+  </section>
+
+  <style>
+    .fa-wrap { max-width: 940px; margin: 0 auto; padding: 0 1.25rem; }
+    section { padding: clamp(2.6rem, 6vw, 4.2rem) 0; }
+    .fa-hero { background: linear-gradient(160deg, #0d2340, #17456e); color: #fff; padding: clamp(3.4rem, 8vw, 5.6rem) 0 clamp(2.8rem, 6vw, 4rem); }
+    .fa-kicker { text-transform: uppercase; letter-spacing: .14em; font-size: .72rem; font-weight: 700; color: #7fd1c1; margin: 0 0 .8rem; }
+    .fa-hero h1 { font-size: clamp(2rem, 5.2vw, 3.4rem); line-height: 1.07; margin: 0 0 1rem; text-wrap: balance; }
+    .fa-hero h1 em { font-style: normal; color: #7fd1c1; }
+    .fa-lede { font-size: clamp(1rem, 1.5vw, 1.15rem); line-height: 1.6; max-width: 60ch; opacity: .94; margin: 0 0 1.7rem; }
+    .fa-btn { display: inline-block; background: #7fd1c1; color: #0d2340; font-weight: 700; padding: .8rem 1.6rem; border-radius: 999px; text-decoration: none; }
+    .fa-btn:hover { background: #fff; }
+    .fa-band { background: #f5f8fb; }
+    h2 { font-size: clamp(1.35rem, 2.6vw, 1.9rem); margin: 0 0 1rem; color: #0d2340; }
+    h3 { font-size: 1.05rem; margin: 0 0 .35rem; color: #0d2340; }
+    .fa-body { max-width: 68ch; line-height: 1.7; color: #33475f; }
+    .fa-small { font-size: .9rem; color: #5a6b80; }
+    .fa-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
+    @media (max-width: 760px) { .fa-grid { grid-template-columns: 1fr; } }
+    .fa-card { background: #fff; border: 1px solid #dde5ee; border-radius: 14px; padding: 1.2rem; }
+    .fa-card p { margin: 0; color: #46566b; line-height: 1.6; }
+    .fa-steps { display: flex; flex-direction: column; gap: 1.1rem; }
+    .fa-step { display: flex; gap: 1rem; align-items: flex-start; }
+    .fa-num { flex: 0 0 auto; width: 2.1rem; height: 2.1rem; display: inline-flex; align-items: center; justify-content: center; border-radius: 999px; background: #0d2340; color: #7fd1c1; font-weight: 700; }
+    .fa-step p { margin: 0; color: #46566b; line-height: 1.6; max-width: 62ch; }
+    .fa-terms { background: #0d2340; color: #fff; }
+    .fa-terms h2 { color: #fff; }
+    .fa-list { list-style: none; padding: 0; margin: 0; max-width: 70ch; }
+    .fa-list li { padding: .6rem 0 .6rem 1.4rem; border-top: 1px solid #23486f; position: relative; color: #cfe0ef; line-height: 1.6; }
+    .fa-list li:first-child { border-top: 0; }
+    .fa-list li::before { content: "—"; position: absolute; left: 0; color: #7fd1c1; }
+    .fa-list b { color: #fff; }
+    .fa-prices { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; margin-bottom: 1.2rem; }
+    @media (max-width: 820px) { .fa-prices { grid-template-columns: 1fr; } }
+    .fa-price { background: #fff; border: 1px solid #dde5ee; border-radius: 14px; padding: 1.3rem; }
+    .fa-featured { border-color: #0d2340; box-shadow: 0 6px 24px rgba(13,35,64,.08); }
+    .fa-amount { font-size: 1.5rem; font-weight: 700; color: #0d2340; margin: .2rem 0 .6rem; }
+    .fa-price p:last-child { margin: 0; color: #46566b; line-height: 1.6; font-size: .95rem; }
+    .fa-book a { color: #0e6f8e; }
+  </style>
+</Base>
