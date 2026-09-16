@@ -62,7 +62,7 @@ const faq = [
   { q: 'How are seats counted?', a: 'A key names its licensee and a number of seats, and the licensee’s name goes on every memo the tool writes. There is no server to count installations; we ask you to buy the seats you use.' },
   { q: 'Which Excel?', a: 'Excel for Microsoft 365 on Windows and Mac, and Excel on the web. Excel 2019 and 2021 load the pane from Insert ▸ My Add-ins without the ribbon tab.' },
   { q: 'Can our IT department deploy it?', a: 'Yes — from the Microsoft 365 admin center, from a shared folder, or by hosting the static bundle on your own intranet. The install page has the steps.' },
-  { q: 'Refunds?', a: 'Thirty days, no questions, if it is not what you needed. Email support@kixlogic.com with your receipt.' },
+  { q: 'Refunds?', a: 'The 90-day free trial is the refund window: try everything, buy only when it has earned it. Purchases are final, with one exception — a mistaken purchase (bought twice, or the wrong seat pack) is refunded on request within 7 days. Email support@kixlogic.com with your receipt.' },
 ];
 ---
 <Base
@@ -124,7 +124,7 @@ const faq = [
   <section class="band alt" id="pricing">
     <div class="wrap">
       <h2>One price. Yours for life.</h2>
-      <p class="sub">Try everything free for 90 days. Buy once when it has earned it.</p>
+      <p class="sub">Try everything free for 90 days. Buy once when it has earned it — the trial is the refund window.</p>
       <div class="plans">
         {plans.map((p) => (
           <div class={`plan ${p.featured ? 'featured' : ''}`}>
