@@ -30,11 +30,11 @@ const promises = [
 const powers = [
   {
     name: 'Close the books',
-    body: 'Trial balance footing, SUM ranges that miss a row, hardcodes inside formula columns, formulas that break their column’s pattern, error values with their cause, external links, numbers and dates stored as text, tie-outs that do not tie, journal entries out of balance or unapproved, suspense and plug balances, checklists marked complete over open notes, reversed thresholds, sign errors in statement links, stale reconciling items, duplicate vendors and shared bank details, records missing from their master, dates that contradict, unit-of-measure differences, stale extracts.',
+    body: 'For the month-end, quarter-end and year-end close: trial balance footing, SUM ranges that miss a row, hardcodes inside formula columns, formulas that break their column’s pattern, error values with their cause, external links, numbers and dates stored as text, tie-outs that do not tie, journal entries out of balance or unapproved, suspense and plug balances, checklists marked complete over open notes, reversed thresholds, sign errors in statement links, stale reconciling items, duplicate vendors and shared bank details, records missing from their master, dates that contradict, unit-of-measure differences, stale extracts.',
   },
   {
     name: 'Payroll register',
-    body: 'Register cross-foot — hours, gross, every subtotal, net — classified from the workbook’s own GL code mapping; hours against the stated pay period; a full period of leave paid on top of a full period worked; pay after termination; rate and bank details against the employee master; FICA and Medicare at the statutory rates on the right wages; garnishments under the federal cap; check numbers; labor distribution; overtime to exempt staff; negative deductions; unmapped codes; mid-period proration; active employees left off the register; the GL cash offset; an ADP batch file if the workbook holds one.',
+    body: 'For the register you sign off before payroll funds: cross-foot — hours, gross, every subtotal, net — classified from the workbook’s own GL code mapping; hours against the stated pay period; a full period of leave paid on top of a full period worked; pay after termination; rate and bank details against the employee master; FICA and Medicare at the statutory rates on the right wages; garnishments under the federal cap; check numbers; labor distribution; overtime to exempt staff; negative deductions; unmapped codes; mid-period proration; active employees left off the register; the GL cash offset; an ADP batch file if the workbook holds one.',
   },
 ];
 
@@ -67,15 +67,22 @@ const faq = [
 ---
 <Base
   title="Kixlogic Hero — the Excel add-in for accounting and payroll"
-  description="Checks a close workbook or a payroll register and explains every finding. 39 deterministic rules, 45 utilities, nothing leaves the machine. One-time purchase, 90-day free trial."
+  description="Checks the spreadsheets behind a month-end close or a payroll run, and explains every problem in plain English. 39 deterministic rules, 45 utilities, nothing leaves the machine. One-time purchase, 90-day free trial."
 >
   <section class="hero-top">
     <div class="wrap">
-      <p class="kicker">Kixlogic · Excel add-in</p>
-      <h1>Kixlogic Hero<br /><em>Your Excel superpower.</em></h1>
+      <div class="head">
+        <img class="mark" src="/apps/hero.png" alt="" width="320" height="320" />
+        <div>
+          <p class="kicker">Kixlogic · Excel add-in</p>
+          <h1>Kixlogic Hero<br /><em>Your Excel superpower.</em></h1>
+        </div>
+      </div>
       <p class="lede">
-        A close workbook or a payroll register goes in. Every arithmetic and logic problem comes out,
-        each one explained in a sentence an auditor would accept — and the fix is one click away.
+        It is the night before the numbers are due. Open the workbook you are closing the month with —
+        or the payroll register you are about to approve — and Kixlogic Hero reads every sheet and tells you
+        what is wrong: the total that does not foot, the formula someone typed over, the employee paid after
+        they left. Each one explained in a sentence an auditor would accept, and the fix is one click away.
         It runs on your computer. Nothing is sent anywhere.
       </p>
       <div class="ctas">
@@ -156,6 +163,10 @@ const faq = [
   .wrap { max-width: 980px; margin: 0 auto; padding: 0 1.25rem; }
   .hero-top { background: #0b1220; color: #fff; padding: clamp(3.5rem, 9vw, 6rem) 0 clamp(2.5rem, 6vw, 4rem); }
   .kicker { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: #9fb3d8; margin-bottom: 0.75rem; }
+  .head { display: flex; align-items: center; gap: clamp(1rem, 3vw, 1.75rem); margin-bottom: 1rem; }
+  .head .kicker { margin-bottom: 0.5rem; }
+  .head h1 { margin: 0; }
+  .mark { width: clamp(64px, 10vw, 104px); height: auto; flex: none; border-radius: 23%; box-shadow: 0 12px 34px rgba(0, 0, 0, 0.5); }
   .hero-top h1 { font-size: clamp(2.2rem, 6vw, 3.6rem); line-height: 1.05; margin: 0 0 1rem; }
   .hero-top h1 em { font-style: normal; color: #7cc4ff; }
   .lede { font-size: 1.15rem; line-height: 1.6; max-width: 46rem; color: #dbe4f3; }
