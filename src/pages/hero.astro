@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 
 // Kixlogic Hero — the Excel add-in. House rules hold: no customer names,
 // no invented numbers. Every count below is what the shipped build contains
-// (39 rules, 45 utilities), and every promise is one the code keeps.
+// (39 rules, 68 utilities), and every promise is one the code keeps.
 
 const INSTALL = 'https://hero.kixlogic.com/addin/install.html';
 const BUY = {
@@ -39,15 +39,15 @@ const powers = [
 ];
 
 const menus = [
-  { name: 'Fix', items: 'Convert numbers stored as text · convert dates stored as text · break links to other workbooks · highlight typed values inside formula ranges · select error cells · highlight duplicate rows' },
-  { name: 'Reconcile', items: 'Match two lists · compare two sheets · summarize by a column · list unique values with counts' },
-  { name: 'Audit', items: 'List every formula · find fragile formulas · draw a random sample (seed recorded) · Benford first-digit test · add aging buckets' },
-  { name: 'HR', items: 'Split by manager · workforce profile' },
-  { name: 'Text', items: 'Trim and clean · UPPER · lower · Proper · fill blanks from above' },
-  { name: 'Sheets', items: 'Unhide everything · sheet index · sort sheets · freeze at selection · unfreeze all' },
-  { name: 'Formulas', items: 'Formulas to values · select formulas · typed values · blanks' },
-  { name: 'Columns', items: 'Split by delimiter · combine · delete blank columns · autofit · swap two columns · number a column · transpose' },
-  { name: 'Rows', items: 'Delete blank rows · delete rows blank in a column · delete hidden rows · delete duplicates · insert a row every N · shade alternate rows · reverse order' },
+  { name: 'Fix', items: 'fix numbers and dates stored as text · clean up this sheet · convert numbers stored as text · convert dates stored as text · explain the #N/A cells · break links to other workbooks · highlight typed values inside formula ranges · select all error cells · highlight duplicate rows' },
+  { name: 'Reconcile', items: 'match two lists · compare two sheets · summarize by a column · list unique values with counts' },
+  { name: 'Audit', items: 'list every formula · find fragile formulas · draw a random sample · benford first-digit test · add aging buckets · explain this formula · trace what feeds this cell · find outliers · find missing data · describe this sheet · explain every formula on this sheet · audit this workbook' },
+  { name: 'HR', items: 'split by manager · workforce profile' },
+  { name: 'Text', items: 'trim spaces and clean text · uPPER CASE · lower case · proper Case · fill blank cells from above · extract email addresses · extract phone numbers · extract the number from text · split names into first and last' },
+  { name: 'Sheets', items: 'unhide everything · add a sheet index · sort sheets A → Z · freeze panes at the selection · freeze the header row · unfreeze panes on every sheet · turn the data into a table · set this sheet up to print · snapshot this sheet as values · lock the formulas, leave inputs open · refresh every pivot table · check this workbook before sending' },
+  { name: 'Formulas', items: 'convert formulas to values · select all formulas · select all typed values · select all blank cells · copy the formula down the column · highlight inconsistent $ references' },
+  { name: 'Columns', items: 'split a column by delimiter · combine columns · delete completely blank columns · autofit all columns · swap the two selected columns · number the selected cells · transpose to a new sheet' },
+  { name: 'Rows', items: 'delete completely blank rows · delete rows with a blank in the selected column · delete hidden rows · delete duplicate rows (keep first) · insert a blank row every N rows · shade alternate rows · reverse row order' },
 ];
 
 // Screenshots live in src/assets/shots. A missing file is skipped at build
@@ -69,7 +69,7 @@ const SHOTS = [
   {
     file: 'powers.png',
     alt: 'The Kixlogic Hero pane showing the two checkers and the list of utilities',
-    title: 'Two checkers, then 45 utilities',
+    title: 'Two checkers, then 68 utilities',
     body: 'Close the books runs every rule in the library. Payroll register runs the ones that test a register and its masters. Underneath, the utilities you would open an add-in for anyway.',
   },
   {
@@ -104,7 +104,7 @@ const faq = [
 ---
 <Base
   title="Kixlogic Hero — the Excel add-in for accounting and payroll"
-  description="Checks the spreadsheets behind a month-end close or a payroll run, and explains every problem in plain English. 39 deterministic rules, 45 utilities, nothing leaves the machine. One-time purchase, 90-day free trial."
+  description="Checks the spreadsheets behind a month-end close or a payroll run, and explains every problem in plain English. 39 deterministic rules, 68 utilities, nothing leaves the machine. One-time purchase, 90-day free trial."
 >
   <section class="hero-top">
     <div class="wrap">
@@ -177,7 +177,7 @@ const faq = [
 
   <section class="band">
     <div class="wrap">
-      <h2>45 utilities on one ribbon tab</h2>
+      <h2>68 utilities on one ribbon tab</h2>
       <p class="sub">The first six fix what the checker finds. The rest are the ones accountants open a utilities add-in for every day.</p>
       <div class="menus">
         {menus.map((m) => (
