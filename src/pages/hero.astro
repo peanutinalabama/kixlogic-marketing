@@ -56,21 +56,21 @@ const menus = [
 const SHOTS = [
   {
     file: 'ribbon.png',
-    alt: 'The Kixlogic Hero tab on the Excel ribbon, with its menus open',
-    title: 'Its own tab, the way a utilities add-in should be',
-    body: 'Two checkers on the left, then nine menus. Everything is one click from the ribbon, and nothing is buried in a dialog.',
+    alt: 'The Kixlogic Hero tab on the Excel ribbon with the Audit menu open, beside the task pane',
+    title: 'Its own tab on the ribbon',
+    body: 'Two checkers on the left, then nine menus of utilities. Everything is one click from the ribbon, and the pane stays open beside your sheet.',
   },
   {
     file: 'findings.png',
-    alt: 'The Kixlogic Hero pane listing findings beside a reconciliation sheet in Excel',
+    alt: 'A depreciation reconciliation in Excel with the offending cell selected and the matching finding in the pane',
     title: 'Every finding names the cell and the reason',
-    body: 'Click one and Excel selects the offending cell. Each card quotes the formula and states what should have been true, in a sentence you can put in a workpaper.',
+    body: 'Machinery is out by ten dollars. Click the finding and Excel selects D7; the card quotes the formula behind it. That sentence is what goes in the workpaper.',
   },
   {
-    file: 'disposition.png',
-    alt: 'A finding being marked with a disposition and a note',
-    title: 'Your review is written into the workbook',
-    body: 'No action, corrected or accepted, with your name and the date, on a sheet that travels with the file. Re-check it next month and the tool tells you if a reviewed finding has changed.',
+    file: 'powers.png',
+    alt: 'The Kixlogic Hero pane showing the two checkers and the list of utilities',
+    title: 'Two checkers, then 45 utilities',
+    body: 'Close the books runs every rule in the library. Payroll register runs the ones that test a register and its masters. Underneath, the utilities you would open an add-in for anyway.',
   },
   {
     file: 'split-by-manager.png',
@@ -157,7 +157,7 @@ const faq = [
     <section class="band">
       <div class="wrap">
         <h2>What it looks like</h2>
-        <p class="sub">Real screens from a month-end close workbook, not a mock-up.</p>
+        <p class="sub">Real screens from a month-end close workbook, not a mock-up. Click any one to see it full size.</p>
         <div class="shots">
           {shots.map((s) => (
             <figure class="shot">
@@ -245,7 +245,8 @@ const faq = [
   .powers { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; }
   .power { background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 1.1rem 1.2rem; }
   .note { margin-top: 1.25rem; font-style: italic; }
-  .shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.6rem; }
+  .shots { display: grid; gap: 2.25rem; }
+  .shot figure, .shot { max-width: 100%; }
   .shot { margin: 0; }
   .shot img {
     width: 100%;

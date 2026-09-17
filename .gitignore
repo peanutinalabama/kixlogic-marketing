@@ -32,3 +32,7 @@ SMS.png
 !public/**
 *.ico
 !public/**
+screenshots-raw/
+
+# Screenshots for /hero are source assets, hashed and emitted by Astro.
+!src/assets/shots/*.png
