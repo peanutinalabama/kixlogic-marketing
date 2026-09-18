@@ -1,5 +1,5 @@
 ---
-const { active } = Astro.props; // 'hired' | 'renumify' | 'comp' | 'sourcer'
+const { active } = Astro.props; // 'hired' | 'renumify' | 'comp'
 ---
 <div class="product-toggle-wrap">
   <div class="product-toggle" role="tablist" aria-label="Kixlogic workforce products">
@@ -13,11 +13,6 @@ const { active } = Astro.props; // 'hired' | 'renumify' | 'comp' | 'sourcer'
       class={`product-toggle-btn ${active === 'renumify' || active === 'comp' || active === 'cmp' ? 'active' : ''}`}
       aria-current={active === 'renumify' || active === 'comp' || active === 'cmp' ? 'page' : undefined}
     >Renumify</a>
-    <a
-      href="/sourcer/"
-      class={`product-toggle-btn ${active === 'sourcer' ? 'active' : ''}`}
-      aria-current={active === 'sourcer' ? 'page' : undefined}
-    >Sourcer</a>
   </div>
 </div>
 

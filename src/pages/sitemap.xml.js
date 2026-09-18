@@ -5,7 +5,6 @@ const STATIC_URLS = [
   { loc: 'https://kixlogic.com/', changefreq: 'weekly', priority: '1.0' },
   { loc: 'https://kixlogic.com/hired/', changefreq: 'monthly', priority: '0.9' },
   { loc: 'https://kixlogic.com/renumify/', changefreq: 'monthly', priority: '0.9' },
-  { loc: 'https://kixlogic.com/sourcer/', changefreq: 'monthly', priority: '0.9' },
   { loc: 'https://kixlogic.com/pricing/', changefreq: 'monthly', priority: '0.9' },
   { loc: 'https://kixlogic.com/about/', changefreq: 'monthly', priority: '0.7' },
   { loc: 'https://kixlogic.com/contact/', changefreq: 'monthly', priority: '0.7' },
