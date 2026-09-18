@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 
 // Kixlogic Hero — the Excel add-in. House rules hold: no customer names,
 // no invented numbers. Every count below is what the shipped build contains
-// (39 rules, 68 utilities), and every promise is one the code keeps.
+// (39 rules, 77 utilities), and every promise is one the code keeps.
 
 const INSTALL = 'https://hero.kixlogic.com/addin/install.html';
 const BUY = {
@@ -41,6 +41,7 @@ const powers = [
 const menus = [
   { name: 'Fix', items: 'fix numbers and dates stored as text · clean up this sheet · convert numbers stored as text · convert dates stored as text · explain the #N/A cells · break links to other workbooks · highlight typed values inside formula ranges · select all error cells · highlight duplicate rows' },
   { name: 'Reconcile', items: 'match two lists · compare two sheets · summarize by a column · list unique values with counts' },
+  { name: 'Track', items: 'find overdue and upcoming · find duplicate records by ID · compare planned with actual · compare two snapshots by ID · rank by contribution (Pareto) · check values against limits · build a cohort table · start a tracker sheet · calculate OEE' },
   { name: 'Audit', items: 'list every formula · find fragile formulas · draw a random sample · benford first-digit test · add aging buckets · explain this formula · trace what feeds this cell · find outliers · find missing data · describe this sheet · explain every formula on this sheet · audit this workbook' },
   { name: 'HR', items: 'split by manager · workforce profile' },
   { name: 'Text', items: 'trim spaces and clean text · uPPER CASE · lower case · proper Case · fill blank cells from above · extract email addresses · extract phone numbers · extract the number from text · split names into first and last' },
@@ -58,7 +59,7 @@ const SHOTS = [
     file: 'ribbon.png',
     alt: 'The Kixlogic Hero tab on the Excel ribbon with the Audit menu open, beside the task pane',
     title: 'Its own tab on the ribbon',
-    body: 'Two checkers on the left, then nine menus holding 68 utilities. Everything is one click from the ribbon, and the pane stays open beside your sheet.',
+    body: 'Two checkers on the left, then nine menus holding 77 utilities. Everything is one click from the ribbon, and the pane stays open beside your sheet.',
   },
   {
     file: 'findings.png',
@@ -69,7 +70,7 @@ const SHOTS = [
   {
     file: 'powers.png',
     alt: 'The Kixlogic Hero pane showing the two checkers and the list of utilities',
-    title: 'Two checkers, then 68 utilities',
+    title: 'Two checkers, then 77 utilities',
     body: 'Close the books runs every rule in the library. Payroll register runs the ones that test a register and its masters. Underneath, the utilities you would open an add-in for anyway.',
   },
   {
@@ -104,7 +105,7 @@ const faq = [
 ---
 <Base
   title="Kixlogic Hero — the Excel add-in for accounting and payroll"
-  description="Checks the spreadsheets behind a month-end close or a payroll run, and explains every problem in plain English. 39 deterministic rules, 68 utilities, nothing leaves the machine. One-time purchase, 90-day free trial."
+  description="Checks the spreadsheets behind a month-end close or a payroll run, and explains every problem in plain English. 39 deterministic rules, 77 utilities, nothing leaves the machine. One-time purchase, 90-day free trial."
 >
   <section class="hero-top">
     <div class="wrap">
@@ -177,7 +178,7 @@ const faq = [
 
   <section class="band">
     <div class="wrap">
-      <h2>68 utilities on one ribbon tab</h2>
+      <h2>77 utilities on one ribbon tab</h2>
       <p class="sub">The first six fix what the checker finds. The rest are the ones accountants open a utilities add-in for every day.</p>
       <div class="menus">
         {menus.map((m) => (
