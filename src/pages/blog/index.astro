@@ -17,14 +17,14 @@ const allTags = [...new Set(allPosts.flatMap((p: any) => p.tags || []))].sort();
 ---
 <Base
   title="Blog"
-  description="Insights on scientific hiring, compensation benchmarks, and workforce intelligence from the Kixlogic team."
+  description="News and notes from the Kixlogic team: what we are building, and what we learned building it."
 >
   <section class="blog-page section">
     <div class="container">
       <div class="blog-header">
         <span class="tag">Blog</span>
-        <h1>From the Kixlogic team</h1>
-        <p>What we are building, what we learned building it, and the occasional thing that broke first.</p>
+        <h1>News &amp; Notes</h1>
+        <p class="blog-byline">From the Kixlogic Team</p>
       </div>
 
       <div class="blog-tags-filter">
@@ -107,9 +107,16 @@ buttons.forEach(btn => {
   font-size: clamp(2rem, 4vw, 2.75rem);
   font-weight: 600;
   letter-spacing: -0.02em;
-  margin-bottom: 1rem;
+  /* Tight to the byline underneath it: the two read as one block. */
+  margin-bottom: 0.35rem;
 }
 .blog-header p { font-size: 1.05rem; color: var(--text-muted); max-width: 520px; margin: 0 auto; }
+.blog-header .blog-byline {
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--text-muted);
+}
 
 .blog-tags-filter {
   display: flex;
