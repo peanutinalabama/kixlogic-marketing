@@ -6,7 +6,7 @@ image. Astro hashes and serves them; nothing else to wire up.
 
 | file | what to capture |
 |---|---|
-| ribbon.png | The Kixlogic Hero ribbon tab, ideally with one menu open. |
+| ribbon.png | The Kixlogic Hero ribbon tab with the **Audit** menu open — it has 12 items, so it shows the depth. |
 | findings.png | Excel with the pane open, findings listed beside the sheet they came from. |
 | disposition.png | A finding card with the Disposition dropdown in use. |
 | split-by-manager.png | The manager tabs along the bottom, with one open. |
