@@ -112,14 +112,14 @@ const addonProducts = [
     tab: 'cmp',
     name: 'Renumify',
     role: 'Compensation intelligence',
-    desc: 'Market lookup, offer analysis, workforce compa-ratios, pay equity, and compression — sold as a monthly add-on to Kixlogic Hired.',
+    desc: 'Market lookup, offer analysis, workforce compa-ratios, pay equity, and compression — sold as a monthly add-on to Kixlogic ATS.',
     features: [
       { ok: true, text: 'Market Lookup with role, location & skill premiums' },
       { ok: true, text: 'Offer Analyzer with competitiveness scoring' },
       { ok: true, text: 'Workforce, Pay Equity & Compression views' },
       { ok: true, text: 'Merit, bands & retention tooling' },
-      { ok: true, text: 'Requires an active Hired account' },
-      { ok: true, text: 'Checkout via Stripe inside Hired (Admin / Renumify hub)' },
+      { ok: true, text: 'Requires an active Kixlogic ATS account' },
+      { ok: true, text: 'Checkout via Stripe inside Kixlogic ATS (Admin / Renumify hub)' },
     ],
   },
 ];
@@ -135,7 +135,7 @@ const atsFaqs = [
   },
   {
     q: 'How does Renumify work?',
-    a: 'It is a paid monthly add-on to Kixlogic Hired. Start with a Hired plan below (Stripe Checkout), then unlock Renumify from the Hired dashboard — that also charges through Stripe.',
+    a: 'It is a paid monthly add-on to Kixlogic ATS. Start with a Kixlogic ATS plan below (Stripe Checkout), then unlock Renumify from the Kixlogic ATS dashboard — that also charges through Stripe.',
   },
   {
     q: 'Is my applicant data secure?',
@@ -143,28 +143,28 @@ const atsFaqs = [
   },
   {
     q: 'Do I need to install any software?',
-    a: 'No. Kixlogic is 100% cloud-based — sign up, configure your branding, and your careers page and Hired dashboard are live in under 10 minutes from any browser.',
+    a: 'No. Kixlogic is 100% cloud-based — sign up, configure your branding, and your careers page and Kixlogic ATS dashboard are live in under 10 minutes from any browser.',
   },
 ];
 
 const addonFaqs = [
   {
-    q: 'Can I buy Renumify without Hired?',
-    a: 'Not today. Renumify unlocks inside the Hired suite after you have an active account. Start with Hired checkout on this page, or sign in if you already subscribe.',
+    q: 'Can I buy Renumify without Kixlogic ATS?',
+    a: 'Not today. Renumify unlocks inside the Kixlogic ATS suite after you have an active account. Start with Kixlogic ATS checkout on this page, or sign in if you already subscribe.',
   },
   {
     q: 'How do I pay for an add-on?',
-    a: 'Sign in to Hired → open Renumify. If the add-on is locked, choose Unlock add-on. That opens Stripe Checkout for the monthly add-on.',
+    a: 'Sign in to Kixlogic ATS → open Renumify. If the add-on is locked, choose Unlock add-on. That opens Stripe Checkout for the monthly add-on.',
   },
   {
     q: 'Where do I manage billing later?',
-    a: 'Admin → Billing opens the Stripe Customer Portal — update payment method, view invoices, or cancel. Plan changes for Hired also go through that portal.',
+    a: 'Admin → Billing opens the Stripe Customer Portal — update payment method, view invoices, or cancel. Plan changes for Kixlogic ATS also go through that portal.',
   },
 ];
 ---
 <Base
   title="Pricing"
-  description="Kixlogic Hired plans from $49/month, plus the Renumify suite add-on. Secure Stripe checkout. 14-day free trial on Growth and Professional."
+  description="Kixlogic ATS plans from $49/month, plus the Renumify suite add-on. Secure Stripe checkout. 14-day free trial on Growth and Professional."
 >
   <section class="pricing-page section">
     <div class="container">
@@ -172,15 +172,15 @@ const addonFaqs = [
         <span class="tag">Simple, transparent pricing</span>
         <h1>Pay for what you need</h1>
         <p>
-          <strong>Kixlogic Hired</strong> is the ATS hub — subscribe here via Stripe.
-          <strong>Renumify</strong> is a paid suite add-on unlocked inside Hired (also Stripe).
+          <strong>Kixlogic ATS</strong> is the hub — subscribe here via Stripe.
+          <strong>Renumify</strong> is a paid suite add-on unlocked inside Kixlogic ATS (also Stripe).
         </p>
       </div>
 
       <div id="checkoutBanner" class="checkout-banner" hidden></div>
 
       <div class="pricing-tabs">
-        <button class="pricing-tab active" data-tab="ats" type="button">Kixlogic Hired</button>
+        <button class="pricing-tab active" data-tab="ats" type="button">Kixlogic ATS</button>
         <button class="pricing-tab" data-tab="cmp" type="button">Renumify</button>
       </div>
 
@@ -242,7 +242,7 @@ const addonFaqs = [
               <div class="pricing-badge">Suite add-on</div>
               <div class="pricing-plan">{product.name}</div>
               <div class="pricing-price custom">Monthly add-on</div>
-              <div class="pricing-period">Billed through Stripe · requires Hired</div>
+              <div class="pricing-period">Billed through Stripe · requires Kixlogic ATS</div>
               <p class="pricing-desc">{product.role}</p>
               <div class="pricing-divider"></div>
               <ul class="pricing-features">
@@ -255,7 +255,7 @@ const addonFaqs = [
               </ul>
               <div class="addon-ctas">
                 <button type="button" data-checkout="professional" class="pricing-cta pricing-cta-primary">
-                  Start with Hired (Stripe)
+                  Start with Kixlogic ATS (Stripe)
                 </button>
                 <a href="https://app.kixlogic.com/dashboard" class="pricing-cta pricing-cta-outline">
                   Sign in to unlock add-on
@@ -265,7 +265,7 @@ const addonFaqs = [
             <div class="addon-side">
               <h3>How purchase works</h3>
               <ol>
-                <li>Subscribe to <strong>Kixlogic Hired</strong> on this page (Stripe Checkout).</li>
+                <li>Subscribe to <strong>Kixlogic ATS</strong> on this page (Stripe Checkout).</li>
                 <li>Sign in at <strong>app.kixlogic.com</strong>.</li>
                 <li>Open <strong>{product.name}</strong> and choose <strong>Unlock add-on</strong> — Stripe Checkout again for the add-on.</li>
               </ol>
@@ -279,7 +279,7 @@ const addonFaqs = [
       ))}
 
       <p class="pricing-tax-note">
-        <sup>†</sup> Hired prices shown are base subscription rates in U.S. dollars and do not include applicable taxes. Taxes calculated at Stripe checkout based on your billing address.
+        <sup>†</sup> Kixlogic ATS prices shown are base subscription rates in U.S. dollars and do not include applicable taxes. Taxes calculated at Stripe checkout based on your billing address.
       </p>
 
       <div class="faq-wrap" id="ats-faq">
@@ -548,7 +548,7 @@ document.querySelectorAll('.pricing-tab').forEach(tab => {
   el.hidden = false;
   if (status === 'success') {
     el.classList.add('ok');
-    el.textContent = 'Payment received. Check your email for Hired setup instructions, then sign in at app.kixlogic.com.';
+    el.textContent = 'Payment received. Check your email for Kixlogic ATS setup instructions, then sign in at app.kixlogic.com.';
   } else if (status === 'cancelled') {
     el.classList.add('cancelled');
     el.textContent = 'Checkout cancelled — no charge. Pick a plan whenever you’re ready.';
