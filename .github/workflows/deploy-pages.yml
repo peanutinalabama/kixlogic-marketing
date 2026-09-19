@@ -26,11 +26,11 @@ jobs:
       - name: Build
         run: npm run build
 
+      # cloudflare/pages-action was retired and now fails to resolve, which
+      # silently stopped every deploy. wrangler-action is its replacement.
       - name: Publish to Cloudflare Pages
-        uses: cloudflare/pages-action@v1
+        uses: cloudflare/wrangler-action@v3
         with:
-          apiToken:   ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId:  ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: kixlogic-marketing
-          directory:  dist
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          apiToken:  ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=kixlogic-marketing --branch=main
