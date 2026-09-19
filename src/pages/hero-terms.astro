@@ -1,11 +1,12 @@
 ---
 import Legal from '../layouts/Legal.astro';
-// License, privacy and refund terms for Kixlogic Hero. Plain language, and
-// only promises the software keeps. Not legal advice; Charles reviews.
+// License and refund terms for Kixlogic Hero; privacy lives at /hero-privacy/,
+// which AppSource requires to be a page of its own. Plain language, and only
+// promises the software keeps. Not legal advice; Charles reviews.
 ---
 <Legal
-  title="Kixlogic Hero — license, privacy and refunds"
-  description="The license terms, privacy statement and refund policy for the Kixlogic Hero Excel add-in."
+  title="Kixlogic Hero — license terms and refunds"
+  description="The license terms and refund policy for the Kixlogic Hero Excel add-in. The privacy policy is a separate page."
   effectiveDate="September 16, 2026"
 >
   <h2>1. What you are buying</h2>
@@ -18,7 +19,8 @@ import Legal from '../layouts/Legal.astro';
   <p>A purchase gives you a certificate naming the licensee and the number of seats. Each computer running the add-in shows an Install ID. On our activation page you exchange the certificate and an Install ID for a seat key bound to that computer; the add-in verifies the key on that computer against a public key built into the software and accepts no key bound elsewhere. One seat key is issued per Install ID, up to the seats you bought; you may release an Install ID to move its seat to another computer. The add-in itself makes no connection to Kixlogic or anyone else to verify, activate or run. The licensee’s name appears on every audit memo. You may not share seat keys or the certificate beyond the licensed seats or publish them.</p>
 
   <h2>4. What the add-in does with your data</h2>
-  <p>Nothing leaves your computer. The add-in reads the workbook open in Excel and writes only into that workbook. It makes no network requests of any kind while it runs: no upload, no telemetry, no crash reporting, no analytics, no AI model. The only files it ever loads are its own static files from the address it is installed from, and a firm may host those files on its own intranet instead. This is a property of the code, and the build includes a test that fails if any network call is introduced.</p>
+  <p>Your workbook never leaves your computer. The add-in reads the workbook open in Excel and writes only into that workbook. Its own code makes no network request of any kind: no upload, no telemetry, no crash reporting, no analytics, no AI model. This is a property of the code, and the build includes a test that fails if a network call is introduced.</p>
+  <p>Two things load over the network, neither of them your data: the add-in's own static files, from the address it is installed from, and Microsoft's Office.js runtime from Microsoft's content delivery network, which Microsoft requires of every add-in distributed through its marketplace. A firm may host both on its own intranet instead — ask us for the self-hosted bundle. The full detail is in the <a href="/hero-privacy/">privacy policy</a>.</p>
 
   <h2>5. What Kixlogic keeps</h2>
   <p>When you buy, our payment processor (Stripe) handles your card and gives us your name, email address and the licensee name you entered. We keep those, the key we issued and the purchase record, so that we can show you your key again and support you. We do not sell or share them. We never receive any workbook or any data from the add-in.</p>

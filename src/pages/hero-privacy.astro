@@ -1,0 +1,55 @@
+---
+import Legal from '../layouts/Legal.astro';
+// The privacy policy for Kixlogic Hero, on its own page.
+//
+// Microsoft requires a privacy policy that is SEPARATE from the terms of use,
+// that names the app being submitted, and that describes the service rather
+// than only the website (AppSource submission checklist, step 6). The license
+// terms live at /hero-terms/ and link here; this page is the privacy link in
+// the Partner Center submission. Every statement below is one the shipped
+// code keeps — see test/no-network.test.ts in the add-in.
+---
+<Legal
+  title="Kixlogic Hero — privacy policy"
+  description="How Kixlogic Hero, the Excel add-in, handles your data: the add-in transmits nothing, and the only personal information Kixlogic holds is what a purchase requires."
+  effectiveDate="September 19, 2026"
+>
+  <p>This policy covers <b>Kixlogic Hero</b>, the Excel add-in published by Kixlogic, LLC, together with its pages at kixlogic.com/hero and its purchase and activation pages at keys.kixlogic.com. It is separate from the <a href="/hero-terms/">license terms</a>.</p>
+
+  <h2>1. The add-in sends your workbook nowhere</h2>
+  <p>Kixlogic Hero runs inside Excel on your computer. It reads the workbook you have open and writes its findings, dispositions and audit memo into that same workbook. It does not upload the workbook, any part of it, or any description of it. There is no account, no sign-in, no telemetry, no crash reporting, no analytics and no language model. The add-in's own code makes no network request of any kind, and the build fails if one is added.</p>
+  <p>One request does leave, and it is not ours: the pane loads Microsoft's Office.js runtime from Microsoft's content delivery network at <code>appsforoffice.microsoft.com</code>, which Microsoft requires of every add-in in its marketplace. That request carries no workbook content and no information about you beyond what any web request carries; it is handled under Microsoft's own privacy statement. A firm that wants the add-in to contact nothing outside its own network can host the add-in's files, including that runtime, on its own intranet — ask us for the self-hosted bundle.</p>
+
+  <h2>2. What stays on your computer</h2>
+  <p>The add-in stores three things in Office's own per-add-in storage on your machine: the date your 90-day trial started, an Install ID that identifies that installation, and your license key once you have one. They stay on that computer, we cannot read them, and clearing Excel's add-in cache erases them.</p>
+
+  <h2>3. What we collect when you buy</h2>
+  <p>Purchases are handled by Stripe. Your card details go to Stripe and never to us. Stripe passes us your email address, the name on the purchase and the licensee name you type at checkout; we store those with the certificate we issued, so that we can send you your certificate again and help you when you write in. We ask for nothing else.</p>
+
+  <h2>4. What we collect when you activate a seat</h2>
+  <p>Exchanging a certificate for a seat key records the certificate's identifier and the Install ID of the computer claiming the seat, so that a 5-seat license is used on five computers and no more. That record contains no workbook, no file name and nothing about what you check. Releasing an Install ID removes its claim.</p>
+
+  <h2>5. Support</h2>
+  <p>If you email support@kixlogic.com we keep the message and our reply so we can follow it up. Please do not send us client workbooks; we do not need them to help, and we would rather not hold them.</p>
+
+  <h2>6. This website</h2>
+  <p>kixlogic.com runs no analytics, no advertising and no third-party trackers, and sets no cookies of its own. Our host, Cloudflare, keeps ordinary server logs for security and reliability.</p>
+
+  <h2>7. What we never do</h2>
+  <p>We do not sell or rent personal information. We do not share it except with the processors named here — Stripe for payment and Cloudflare for hosting and the certificate email — and only to do the job described. We do not build profiles, and nothing we hold is used to train any model.</p>
+
+  <h2>8. How long we keep it</h2>
+  <p>Purchase and license records are kept for as long as the license is valid, which is indefinitely, because the license does not expire and you may ask for your certificate at any time. Support email is kept for two years. You can ask us to delete your purchase record; doing so means we can no longer re-send your certificate or move your seat to another computer, and the keys already issued keep working.</p>
+
+  <h2>9. Your choices</h2>
+  <p>Write to <a href="mailto:support@kixlogic.com">support@kixlogic.com</a> to see, correct, export or delete what we hold about you, and we will answer within 30 days. If you are in a place whose law gives you further rights — the UK, the EU, California and others — those rights apply and this address is how to use them.</p>
+
+  <h2>10. Children</h2>
+  <p>Kixlogic Hero is a professional tool sold to businesses. It is not directed at children and we do not knowingly collect information from them.</p>
+
+  <h2>11. Changes</h2>
+  <p>If this policy changes we will change the effective date above, and material changes will be noted on <a href="/hero/">the product page</a>.</p>
+
+  <h2>12. Contact</h2>
+  <p>Kixlogic, LLC · <a href="mailto:support@kixlogic.com">support@kixlogic.com</a> · <a href="/hero/">kixlogic.com/hero</a></p>
+</Legal>

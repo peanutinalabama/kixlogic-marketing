@@ -15,7 +15,7 @@ const BUY = {
 const promises = [
   {
     title: 'Nothing leaves the building',
-    body: 'The add-in reads the open workbook inside Excel and writes only to it. The pane is a static bundle served from one origin; there is no fetch, no upload, no telemetry, no model. A firm’s IT can host the bundle on its own intranet.',
+    body: 'The add-in reads the open workbook inside Excel and writes only to it. Its own code makes no network call at all — no fetch, no upload, no telemetry, no model — and the only thing the pane loads from outside is Microsoft’s Office.js runtime, which Microsoft requires of every add-in. A firm’s IT can host the whole bundle, that runtime included, on its own intranet.',
   },
   {
     title: 'Every finding is explainable',
@@ -202,7 +202,7 @@ const faq = [
           </div>
         ))}
       </div>
-      <p class="fine">More seats, or a site license for a firm? <a href="/contact/">Ask us</a>. Your purchase certificate appears on the page after checkout (and again from the receipt link); seat keys are made per computer on the activation page. <a href="/hero-terms/">License terms, privacy and refunds</a>.</p>
+      <p class="fine">More seats, or a site license for a firm? <a href="/contact/">Ask us</a>. Your purchase certificate appears on the page after checkout (and again from the receipt link); seat keys are made per computer on the activation page. <a href="/hero-terms/">License terms and refunds</a> · <a href="/hero-privacy/">Privacy policy</a>.</p>
     </div>
   </section>
 
