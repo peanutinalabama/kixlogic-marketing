@@ -17,5 +17,7 @@
 /scientificgigs / 301
 /scientificgigs/ / 301
 /scientificgigs/* / 301
-/flipbook /kixflip/ 301
-/flipbook/ /kixflip/ 301
+/flipbook /flipbookiq/ 301
+/flipbook/ /flipbookiq/ 301
+/kixflip /flipbookiq/ 301
+/kixflip/ /flipbookiq/ 301

@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 
-// KixFlip (Kixlogic Flipbook) — web first, plus the Word and PowerPoint add-in. House rules hold: no
+// FlipbookIQ (the add-in is listed as Kixlogic Flipbook) — web first, plus the Word and PowerPoint add-in. House rules hold: no
 // customer names, no invented numbers. Every claim below is one the shipped
 // build keeps (see flipbook/appsource/listing.md, the approved description).
 
@@ -9,7 +9,7 @@ const INSTALL = 'https://flipbook.kixlogic.com/addin/install.html';
 const STUDIO = 'https://flipbook.kixlogic.com/studio';
 
 const ways = [
-  { name: 'In your browser', body: 'Open the Studio, sign in with your email and drop in a PDF. No download, no Word or PowerPoint. Your browser renders the pages and you have a flipbook in a minute.', cta: 'Open KixFlip', href: STUDIO },
+  { name: 'In your browser', body: 'Open the Studio, sign in with your email and drop in a PDF. No download, no Word or PowerPoint. Your browser renders the pages and you have a flipbook in a minute.', cta: 'Open FlipbookIQ', href: STUDIO },
   { name: 'In Word', body: 'Open a document, choose Make a flipbook, publish from the pane. The add-in is free. Word on Windows renders the pages; Word on Mac and the web sign you in and open the Studio.', cta: 'Install the add-in', href: INSTALL },
   { name: 'In PowerPoint', body: 'The same button on your slides, on Windows, Mac and the web. Every slide becomes a page, and republishing keeps the same link.', cta: 'Install the add-in', href: INSTALL },
 ];
@@ -84,25 +84,25 @@ const faq = [
   { q: 'Refunds?', a: 'Email support@kixlogic.com with your receipt. The terms page has the details.' },
 ];
 
-const shots = SHOTS.map((s) => ({ ...s, src: `/kixflip/${s.file}` }));
+const shots = SHOTS.map((s) => ({ ...s, src: `/flipbookiq/${s.file}` }));
 ---
 <Base
-  title="KixFlip — make page-turning flipbooks in your browser, or from Word and PowerPoint"
-  description="KixFlip, the Kixlogic flipbook maker. Drop in a PDF and share a page-turning flipbook with one link — in your browser, no download. Also an add-in for Word and PowerPoint. Free to start; from $19 a month."
+  title="FlipbookIQ — make page-turning flipbooks in your browser, or from Word and PowerPoint"
+  description="FlipbookIQ, the flipbook maker from Kixlogic. Drop in a PDF and share a page-turning flipbook with one link — in your browser, no download. Also an add-in for Word and PowerPoint. Free to start; from $19 a month."
 >
   <section class="hero-top">
     <div class="wrap">
       <div class="head">
         <img class="mark" src="/apps/flipbook.png" alt="" width="320" height="320" />
         <div>
-          <p class="kicker">Kixlogic Flipbook maker</p>
-          <h1>KixFlip<br /><em>Flipbooks, made in your browser.</em></h1>
+          <p class="kicker">By Kixlogic · Flipbook maker</p>
+          <h1>FlipbookIQ<br /><em>Flipbooks, made in your browser.</em></h1>
         </div>
       </div>
       <p class="lede">
         Drop in a PDF and get a flipbook people actually page through — a real page turn, a link, a QR
         code and embed code for your website. No download and no Office needed. Already work in Word or
-        PowerPoint? KixFlip is also a free add-in for both, and it is the same product either way: the
+        PowerPoint? FlipbookIQ is also a free add-in for both, and it is the same product either way: the
         same account, the same flipbooks, the same link.
       </p>
       <div class="ctas">
