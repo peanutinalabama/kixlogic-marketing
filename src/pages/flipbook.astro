@@ -1,0 +1,225 @@
+---
+import Base from '../layouts/Base.astro';
+
+// Kixlogic Flipbook — the Word and PowerPoint add-in. House rules hold: no
+// customer names, no invented numbers. Every claim below is one the shipped
+// build keeps (see flipbook/appsource/listing.md, the approved description).
+
+const INSTALL = 'https://flipbook.kixlogic.com/addin/install.html';
+const STUDIO = 'https://flipbook.kixlogic.com/studio';
+
+const promises = [
+  {
+    title: 'Your document stays on your computer',
+    body: 'Office renders the pages on your machine. When you publish, only the finished page images are uploaded — never the .docx or .pptx.',
+  },
+  {
+    title: 'Readers are not tracked',
+    body: 'We count views per flipbook per hour and store nothing about who read it. Readers need only a browser, on a phone or a laptop.',
+  },
+  {
+    title: 'Update without breaking the link',
+    body: 'Edit the document, publish again, and the same link shows the new pages. The QR code you printed keeps working.',
+  },
+];
+
+const features = [
+  { name: 'A real page turn', body: 'Open a Word document or a PowerPoint deck, choose Make a flipbook, and every page appears in the pane.' },
+  { name: 'Share it three ways', body: 'A link, a QR code and embed code for your own website. Or save a copy as a single HTML file that works offline, or as a PDF.' },
+  { name: 'Better than the paper version', body: 'Links in your document stay clickable. A YouTube or Vimeo link plays in place. Readers can search the text and open a table of contents built from your headings.' },
+  { name: 'The Studio', body: 'Add clickable links, notes and free photos to any page. Move and resize them, undo and redo; every change saves itself.' },
+  { name: 'Control who reads it', body: 'Set a password or an end date, add your own logo and colors, ask readers for an email before they read, and see how often each flipbook is opened.' },
+];
+
+const SHOTS = [
+  { file: 'screenshot-powerpoint.png', alt: 'The Kixlogic Flipbook pane open inside PowerPoint', title: 'In PowerPoint, beside your slides', body: 'Choose Make a flipbook and the pages appear in the pane with a real page turn.' },
+  { file: 'screenshot-photos.png', alt: 'Searching free photos in the Studio and placing one on a page', title: 'Add to any page in the Studio', body: 'Search free photos, then move and resize them. Links and notes work the same way.' },
+  { file: 'screenshot-design.png', alt: 'The Studio design settings: title, themes, accent color and the Kixlogic mark toggle', title: 'Make it look like yours', body: 'Title, themes and accent color. On Pro, switch the Kixlogic mark off.' },
+  { file: 'screenshot-share.png', alt: 'The share window with a link, social buttons, a QR code and embed code', title: 'One link, a QR code, an embed', body: 'Share by email or social, print the QR code, or paste the embed into your site.' },
+];
+
+const plans = [
+  {
+    name: 'Free',
+    price: '$0',
+    per: 'no card',
+    items: ['Make and save unlimited flipbooks on your computer', 'One flipbook online at a time', 'Kept for 14 days', 'Marked “Made with Kixlogic Flipbook”', 'Up to 40 MB per publish'],
+    cta: 'Install free',
+    href: INSTALL,
+  },
+  {
+    name: 'Pro',
+    price: '$19',
+    per: 'a month',
+    featured: true,
+    items: ['Unlimited flipbooks, kept until you remove them', 'Your own link name', 'Password and expiry date', 'Editing after publishing', 'Remove the Kixlogic mark', 'See how often each is opened', 'Up to 300 MB per publish'],
+    cta: 'Start with Pro',
+    href: STUDIO,
+  },
+  {
+    name: 'Business',
+    price: '$24.99',
+    per: 'per seat, a month',
+    items: ['Everything in Pro', 'For a team — 10 seats minimum', 'Up to 1 GB per publish'],
+    cta: 'Talk to us',
+    href: '/contact/',
+  },
+];
+
+const faq = [
+  { q: 'Is the add-in free?', a: 'Yes. Making flipbooks and saving copies on your computer is free and unlimited. What the plans change is publishing online: how many flipbooks stay up, for how long, and whether they carry our mark.' },
+  { q: 'How do I buy Pro?', a: 'Install the add-in, or open the Studio, and sign in with your email — we send a six-digit code, there is no password. Then choose Upgrade. Checkout is on Stripe. Pro is $19 a month and Business is $24.99 per seat a month; both are billed monthly and can be cancelled at any time.' },
+  { q: 'What happens if I cancel?', a: 'Nothing is deleted the day a card lapses. Flipbooks you have already published stay up until the account is back on the free plan and over its limit.' },
+  { q: 'Which Office do I need?', a: 'PowerPoint on Windows, Mac and the web. Word on Windows. In Word on Mac and on the web, Microsoft does not let add-ins render a document, so the pane signs you in, lists your flipbooks and opens the Studio instead.' },
+  { q: 'How do I install it?', a: 'From the install page: download a small manifest file, then load it into Word or PowerPoint. The page has steps for the web, for desktop Windows, and a short note to hand IT if your company blocks user-installed add-ins.' },
+  { q: 'Can our IT department deploy it?', a: 'Yes. In the Microsoft 365 admin center, choose Integrated apps ▸ Upload custom apps and give it the manifest link. It then appears in Word and PowerPoint for the people they choose.' },
+  { q: 'Refunds?', a: 'Email support@kixlogic.com with your receipt. The terms page has the details.' },
+];
+
+const shots = SHOTS.map((s) => ({ ...s, src: `/flipbook/${s.file}` }));
+---
+<Base
+  title="Kixlogic Flipbook — turn Word and PowerPoint into a page-turning flipbook"
+  description="Turn a Word document or PowerPoint deck into a flipbook people actually page through, and share it with one link. Free to make; publish online free or from $19 a month."
+>
+  <section class="hero-top">
+    <div class="wrap">
+      <div class="head">
+        <img class="mark" src="/apps/flipbook.png" alt="" width="320" height="320" />
+        <div>
+          <p class="kicker">Kixlogic · Word &amp; PowerPoint add-in</p>
+          <h1>Kixlogic Flipbook<br /><em>Your document, page by page.</em></h1>
+        </div>
+      </div>
+      <p class="lede">
+        Turn the document you already have into a flipbook people actually page through. Open a Word
+        document or a PowerPoint presentation, choose <b>Make a flipbook</b>, and every page appears in
+        the pane with a real page turn. Publish it and you get a link, a QR code and embed code for your
+        website. Your document never leaves your computer.
+      </p>
+      <div class="ctas">
+        <a class="btn-p" href={INSTALL}>Install free</a>
+        <a class="btn-o" href="#pricing">See pricing</a>
+      </div>
+      <p class="fine">Free to install and free to make flipbooks. No card to start.</p>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <h2>Built around your document staying yours</h2>
+      <div class="cards3">
+        {promises.map((p) => (
+          <div class="card"><h3>{p.title}</h3><p>{p.body}</p></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band alt">
+    <div class="wrap">
+      <h2>What you get</h2>
+      <div class="powers">
+        {features.map((f) => (
+          <div class="power"><h3>{f.name}</h3><p>{f.body}</p></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <h2>What it looks like</h2>
+      <p class="sub">Real screens from the product. Click any one to see it full size.</p>
+      <div class="shots">
+        {shots.map((s) => (
+          <figure class="shot">
+            <a href={s.src} target="_blank" rel="noopener">
+              <img src={s.src} alt={s.alt} loading="lazy" decoding="async" />
+            </a>
+            <figcaption>
+              <b>{s.title}</b>
+              <span>{s.body}</span>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band alt" id="pricing">
+    <div class="wrap">
+      <h2>Free to make. Pay only to keep them online.</h2>
+      <p class="sub">Converting happens on your computer and costs us nothing, so it is unlimited on every plan. The plans are about what happens after you publish.</p>
+      <div class="plans">
+        {plans.map((p) => (
+          <div class={`plan ${p.featured ? 'featured' : ''}`}>
+            <div class="plan-name">{p.name}</div>
+            <div class="plan-price">{p.price}</div>
+            <div class="plan-per">{p.per}</div>
+            <ul>{p.items.map((i) => <li>{i}</li>)}</ul>
+            <a class="btn-p" href={p.href}>{p.cta}</a>
+          </div>
+        ))}
+      </div>
+      <p class="fine">Subscriptions are billed monthly by Stripe and can be cancelled at any time. <a href="https://flipbook.kixlogic.com/terms">Terms</a> · <a href="https://flipbook.kixlogic.com/privacy">Privacy</a></p>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <h2>Questions</h2>
+      <div class="faq">
+        {faq.map((f) => (
+          <details><summary>{f.q}</summary><p>{f.a}</p></details>
+        ))}
+      </div>
+      <p class="fine"><a href={INSTALL}>Install Kixlogic Flipbook</a> · <a href="https://flipbook.kixlogic.com/support">Support</a> · <a href="mailto:support@kixlogic.com">support@kixlogic.com</a></p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .wrap { max-width: 980px; margin: 0 auto; padding: 0 1.25rem; }
+  .hero-top { background: #0b1220; color: #fff; padding: clamp(3.5rem, 9vw, 6rem) 0 clamp(2.5rem, 6vw, 4rem); }
+  .kicker { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: #9fb3d8; margin-bottom: 0.75rem; }
+  .head { display: flex; align-items: center; gap: clamp(1rem, 3vw, 1.75rem); margin-bottom: 1rem; }
+  .head .kicker { margin-bottom: 0.5rem; }
+  .head h1 { margin: 0; }
+  .mark { width: clamp(64px, 10vw, 104px); height: auto; flex: none; border-radius: 23%; box-shadow: 0 12px 34px rgba(0, 0, 0, 0.5); }
+  .hero-top h1 { font-size: clamp(2.2rem, 6vw, 3.6rem); line-height: 1.05; margin: 0 0 1rem; }
+  .hero-top h1 em { font-style: normal; color: #7cc4ff; }
+  .lede { font-size: 1.15rem; line-height: 1.6; max-width: 46rem; color: #dbe4f3; }
+  .ctas { display: flex; gap: 0.75rem; flex-wrap: wrap; margin: 1.5rem 0 0.75rem; }
+  .btn-p { display: inline-block; background: #1d4ed8; color: #fff; text-decoration: none; padding: 0.8rem 1.25rem; border-radius: 999px; font-weight: 700; }
+  .btn-o { display: inline-block; border: 1px solid #7cc4ff; color: #fff; text-decoration: none; padding: 0.8rem 1.25rem; border-radius: 999px; font-weight: 600; }
+  .fine { font-size: 0.85rem; color: #9fb3d8; }
+  .band { padding: clamp(2.5rem, 6vw, 4rem) 0; background: #fff; color: #111; }
+  .band.alt { background: #f3f6fb; }
+  .band h2 { font-size: clamp(1.5rem, 3.5vw, 2.1rem); margin: 0 0 0.75rem; }
+  .band .fine { color: #4b5563; margin-top: 1.25rem; }
+  .sub { color: #4b5563; max-width: 44rem; margin-bottom: 1.5rem; }
+  .cards3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+  .card { border: 1px solid #e5e7eb; border-top: 3px solid #1d4ed8; border-radius: 10px; padding: 1.1rem 1.2rem; background: #fff; }
+  .card h3, .power h3 { font-size: 1.05rem; margin: 0 0 0.5rem; }
+  .card p, .power p { color: #374151; line-height: 1.6; font-size: 0.97rem; }
+  .powers { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; }
+  .power { background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 1.1rem 1.2rem; }
+  .shots { display: grid; gap: 2.25rem; }
+  .shot { margin: 0; max-width: 100%; }
+  .shot img { width: 100%; height: auto; display: block; border: 1px solid #e5e7eb; border-radius: 10px; box-shadow: 0 8px 28px rgba(15, 23, 42, 0.1); background: #fff; }
+  .shot figcaption { margin-top: 0.7rem; font-size: 0.95rem; line-height: 1.55; }
+  .shot figcaption b { display: block; color: #111; margin-bottom: 0.15rem; }
+  .shot figcaption span { color: #4b5563; }
+  .plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1rem; align-items: stretch; }
+  .plan { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 1.4rem 1.2rem; text-align: center; display: flex; flex-direction: column; }
+  .plan.featured { border-color: #1d4ed8; box-shadow: 0 6px 24px rgba(29, 78, 216, 0.12); }
+  .plan-name { font-weight: 700; color: #1d4ed8; letter-spacing: 0.04em; text-transform: uppercase; font-size: 0.8rem; }
+  .plan-price { font-size: 2.4rem; font-weight: 800; margin: 0.35rem 0 0.1rem; }
+  .plan-per { color: #6b7280; margin-bottom: 1rem; }
+  .plan ul { list-style: none; padding: 0; margin: 0 0 1.25rem; text-align: left; flex: 1; }
+  .plan li { padding: 0.35rem 0; border-top: 1px solid #f0f2f6; font-size: 0.93rem; color: #374151; }
+  .faq details { border-bottom: 1px solid #e5e7eb; padding: 0.7rem 0; }
+  .faq summary { cursor: pointer; font-weight: 600; }
+  .faq p { color: #374151; line-height: 1.6; margin: 0.5rem 0 0; }
+</style>
