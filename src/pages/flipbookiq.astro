@@ -34,7 +34,9 @@ const features = [
   { name: 'Or start from a PDF', body: 'No Word or PowerPoint? Drop a PDF straight into the Studio in your browser. It is rendered on your own computer and only the finished pages are uploaded, so the PDF itself never leaves it.' },
   { name: 'Share it three ways', body: 'A link, a QR code and embed code for your own website. Or save a copy as a single HTML file that works offline, or as a PDF.' },
   { name: 'Better than the paper version', body: 'Links in your document stay clickable. A YouTube or Vimeo link plays in place. Readers can search the text and open a table of contents built from your headings.' },
-  { name: 'The Studio', body: 'Add clickable links, notes and free photos to any page. Move and resize them, undo and redo; every change saves itself.' },
+  { name: 'Start from a template', body: 'Six ready-made starting points: restaurant and café menus, a product catalog, a company brochure, an event program and a newsletter. Pick one, change the words, add your own photos.' },
+  { name: 'The Studio', body: 'Add clickable links, text, notes and free photos to any page. Put text over printed words to change a price or a date. Move and resize, undo and redo; every change saves itself.' },
+  { name: 'Video, music and animation', body: 'Play a YouTube or Vimeo video, or a file you upload, right on the page. Give the flipbook a soundtrack that readers can switch off. Make anything on a page fade, slide, zoom or pop in.' },
   { name: 'Control who reads it', body: 'Set a password or an end date, add your own logo and colors, ask readers for an email before they read, and see how often each flipbook is opened.' },
 ];
 
@@ -50,7 +52,7 @@ const plans = [
     name: 'Free',
     price: '$0',
     per: 'no card',
-    items: ['Make and save unlimited flipbooks on your computer', 'One flipbook online at a time', 'Up to 20 pages', 'Kept for 14 days', 'Marked “Made with Kixlogic Flipbook”', 'Up to 40 MB per publish'],
+    items: ['Six starter templates', 'Make and save unlimited flipbooks on your computer', 'One flipbook online at a time', 'Up to 20 pages', 'Kept for 14 days', 'Marked “Made with FlipbookIQ”', 'Up to 40 MB per publish'],
     cta: 'Start free',
     href: STUDIO,
   },
@@ -59,7 +61,7 @@ const plans = [
     price: '$19',
     per: 'a month',
     featured: true,
-    items: ['Unlimited flipbooks, kept until you remove them', 'Up to 200 pages each', 'Your own link name', 'Password and expiry date', 'Editing after publishing', 'Remove the Kixlogic mark', 'See how often each is opened', 'Up to 300 MB per publish'],
+    items: ['Unlimited flipbooks, kept until you remove them', 'Up to 200 pages each', 'Your own link name', 'Password and expiry date', 'Editing after publishing', 'Remove the FlipbookIQ mark', 'Links, text, notes and photos on any page', 'Video, music and animation', 'Upload video and audio (2 GB)', 'See how often each is opened', 'Up to 300 MB per publish'],
     cta: 'Start with Pro',
     href: STUDIO,
   },
@@ -67,7 +69,7 @@ const plans = [
     name: 'Business',
     price: '$24.99',
     per: 'per seat, a month',
-    items: ['Everything in Pro', 'For a team — 10 seats minimum', 'Up to 500 pages each', 'Up to 1 GB per publish'],
+    items: ['Everything in Pro', 'For a team — 10 seats minimum', 'Up to 500 pages each', 'Upload video and audio (20 GB)', 'Up to 1 GB per publish'],
     cta: 'Talk to us',
     href: '/contact/',
   },
@@ -78,6 +80,9 @@ const faq = [
   { q: 'How do I buy Pro?', a: 'Install the add-in, or open the Studio, and sign in with your email — we send a six-digit code, there is no password. Then choose Upgrade. Checkout is on Stripe. Pro is $19 a month and Business is $24.99 per seat a month; both are billed monthly and can be cancelled at any time.' },
   { q: 'What happens if I cancel?', a: 'Nothing is deleted the day a card lapses. Flipbooks you have already published stay up until the account is back on the free plan and over its limit.' },
   { q: 'Can I upload a PDF instead?', a: 'Yes. Open the Studio, choose New flipbook and drop in a PDF — no add-in needed. Your browser renders the pages and only the finished pages are uploaded. It is then the same flipbook as one made from Word or PowerPoint: link, QR code, embed, and everything in the plans below.' },
+  { q: 'Can I add video and music?', a: 'Yes, on Pro and Business. Paste a YouTube or Vimeo link, or a link to an mp4, webm, mp3 or m4a file, or upload a file of up to 90 MB, and drag a box on the page; readers press play right there. A soundtrack starts when a reader first clicks and they can turn it off. For a longer video, use a YouTube or Vimeo link.' },
+  { q: 'What can move on a page?', a: 'Anything you add: text, notes, photos, links and video boxes can fade, rise, drop, slide in from either side, zoom, pop or pulse, with a wait of up to five seconds. Readers who have asked their device for less motion see none of it.' },
+  { q: 'Are there templates?', a: 'Six, to start: a restaurant menu, a café menu, a product catalog, a company brochure, an event program and a newsletter. Choose New flipbook in the Studio and pick one. It becomes your own flipbook in a second; use the Text tool to change the words and the Photos tool to add pictures. All six fit the free plan.' },
   { q: 'Which Office do I need?', a: 'PowerPoint on Windows, Mac and the web. Word on Windows. In Word on Mac and on the web, Microsoft does not let add-ins render a document, so the pane signs you in, lists your flipbooks and opens the Studio instead.' },
   { q: 'How do I install it?', a: 'From the install page: download a small manifest file, then load it into Word or PowerPoint. The page has steps for the web, for desktop Windows, and a short note to hand IT if your company blocks user-installed add-ins.' },
   { q: 'Can our IT department deploy it?', a: 'Yes. In the Microsoft 365 admin center, choose Integrated apps ▸ Upload custom apps and give it the manifest link. It then appears in Word and PowerPoint for the people they choose.' },
@@ -88,7 +93,7 @@ const shots = SHOTS.map((s) => ({ ...s, src: `/flipbookiq/${s.file}` }));
 ---
 <Base
   title="FlipbookIQ — make page-turning flipbooks in your browser, or from Word and PowerPoint"
-  description="FlipbookIQ, the flipbook maker from Kixlogic. Drop in a PDF and share a page-turning flipbook with one link — in your browser, no download. Also an add-in for Word and PowerPoint. Free to start; from $19 a month."
+  description="FlipbookIQ, the flipbook maker from Kixlogic. Drop in a PDF and share a page-turning flipbook with one link — in your browser, no download. Also an add-in for Word and PowerPoint. Add video, music and animation. Free to start; from $19 a month."
 >
   <section class="hero-top">
     <div class="wrap">
