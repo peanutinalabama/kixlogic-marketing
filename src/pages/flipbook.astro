@@ -25,6 +25,7 @@ const promises = [
 
 const features = [
   { name: 'A real page turn', body: 'Open a Word document or a PowerPoint deck, choose Make a flipbook, and every page appears in the pane.' },
+  { name: 'Or start from a PDF', body: 'No Word or PowerPoint? Drop a PDF straight into the Studio in your browser. It is rendered on your own computer and only the finished pages are uploaded, so the PDF itself never leaves it.' },
   { name: 'Share it three ways', body: 'A link, a QR code and embed code for your own website. Or save a copy as a single HTML file that works offline, or as a PDF.' },
   { name: 'Better than the paper version', body: 'Links in your document stay clickable. A YouTube or Vimeo link plays in place. Readers can search the text and open a table of contents built from your headings.' },
   { name: 'The Studio', body: 'Add clickable links, notes and free photos to any page. Move and resize them, undo and redo; every change saves itself.' },
@@ -70,6 +71,7 @@ const faq = [
   { q: 'Is the add-in free?', a: 'Yes. Making flipbooks and saving copies on your computer is free and unlimited. What the plans change is publishing online: how many flipbooks stay up, for how long, and whether they carry our mark.' },
   { q: 'How do I buy Pro?', a: 'Install the add-in, or open the Studio, and sign in with your email — we send a six-digit code, there is no password. Then choose Upgrade. Checkout is on Stripe. Pro is $19 a month and Business is $24.99 per seat a month; both are billed monthly and can be cancelled at any time.' },
   { q: 'What happens if I cancel?', a: 'Nothing is deleted the day a card lapses. Flipbooks you have already published stay up until the account is back on the free plan and over its limit.' },
+  { q: 'Can I upload a PDF instead?', a: 'Yes. Open the Studio, choose New flipbook and drop in a PDF — no add-in needed. Your browser renders the pages and only the finished pages are uploaded. It is then the same flipbook as one made from Word or PowerPoint: link, QR code, embed, and everything in the plans below.' },
   { q: 'Which Office do I need?', a: 'PowerPoint on Windows, Mac and the web. Word on Windows. In Word on Mac and on the web, Microsoft does not let add-ins render a document, so the pane signs you in, lists your flipbooks and opens the Studio instead.' },
   { q: 'How do I install it?', a: 'From the install page: download a small manifest file, then load it into Word or PowerPoint. The page has steps for the web, for desktop Windows, and a short note to hand IT if your company blocks user-installed add-ins.' },
   { q: 'Can our IT department deploy it?', a: 'Yes. In the Microsoft 365 admin center, choose Integrated apps ▸ Upload custom apps and give it the manifest link. It then appears in Word and PowerPoint for the people they choose.' },
@@ -79,15 +81,15 @@ const faq = [
 const shots = SHOTS.map((s) => ({ ...s, src: `/flipbook/${s.file}` }));
 ---
 <Base
-  title="Kixlogic Flipbook — turn Word and PowerPoint into a page-turning flipbook"
-  description="Turn a Word document or PowerPoint deck into a flipbook people actually page through, and share it with one link. Free to make; publish online free or from $19 a month."
+  title="Kixlogic Flipbook — turn Word, PowerPoint or a PDF into a page-turning flipbook"
+  description="Turn a Word document, PowerPoint deck or PDF into a flipbook people actually page through, and share it with one link. Free to make; publish online free or from $19 a month."
 >
   <section class="hero-top">
     <div class="wrap">
       <div class="head">
         <img class="mark" src="/apps/flipbook.png" alt="" width="320" height="320" />
         <div>
-          <p class="kicker">Kixlogic · Word &amp; PowerPoint add-in</p>
+          <p class="kicker">Kixlogic · Word, PowerPoint &amp; PDF</p>
           <h1>Kixlogic Flipbook<br /><em>Your document, page by page.</em></h1>
         </div>
       </div>
@@ -95,7 +97,8 @@ const shots = SHOTS.map((s) => ({ ...s, src: `/flipbook/${s.file}` }));
         Turn the document you already have into a flipbook people actually page through. Open a Word
         document or a PowerPoint presentation, choose <b>Make a flipbook</b>, and every page appears in
         the pane with a real page turn. Publish it and you get a link, a QR code and embed code for your
-        website. Your document never leaves your computer.
+        website. Or skip Office altogether and upload your own PDF directly in the Studio. Your document
+        never leaves your computer.
       </p>
       <div class="ctas">
         <a class="btn-p" href={INSTALL}>Install free</a>
