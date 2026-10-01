@@ -6,7 +6,7 @@ import Base from '../layouts/Base.astro';
 // build keeps (see flipbook/appsource/listing.md, the approved description).
 
 const INSTALL = 'https://flipbook.kixlogic.com/addin/install.html';
-const STUDIO = 'https://flipbook.kixlogic.com/studio';
+const STUDIO = 'https://app.flipbookiq.com/studio';
 
 const ways = [
   { name: 'In your browser', body: 'Open the Studio, sign in with your email and drop in a PDF. No download, no Word or PowerPoint. Your browser renders the pages and you have a flipbook in a minute.', cta: 'Open FlipbookIQ', href: STUDIO },
@@ -37,6 +37,7 @@ const features = [
   { name: 'Start from a template', body: 'Six ready-made starting points: restaurant and café menus, a product catalog, a company brochure, an event program and a newsletter. Pick one, change the words, add your own photos.' },
   { name: 'The Studio', body: 'Add clickable links, text, notes and free photos to any page. Put text over printed words to change a price or a date. Move and resize, undo and redo; every change saves itself.' },
   { name: 'Video, music and animation', body: 'Play a YouTube or Vimeo video, or a file you upload, right on the page. Give the flipbook a soundtrack that readers can switch off. Make anything on a page fade, slide, zoom or pop in.' },
+  { name: 'Your own address', body: 'Serve your flipbooks from a domain of your own, like books.yourbrand.com. The bare address becomes a bookshelf of the flipbooks you choose to list, with your name and colour on it, and your links and QR codes carry your address.' },
   { name: 'Control who reads it', body: 'Set a password or an end date, add your own logo and colors, ask readers for an email before they read, and see how often each flipbook is opened.' },
 ];
 
@@ -61,7 +62,7 @@ const plans = [
     price: '$19',
     per: 'a month',
     featured: true,
-    items: ['Unlimited flipbooks, kept until you remove them', 'Up to 200 pages each', 'Your own link name', 'Password and expiry date', 'Editing after publishing', 'Remove the FlipbookIQ mark', 'Links, text, notes and photos on any page', 'Video, music and animation', 'Upload video and audio (2 GB)', 'See how often each is opened', 'Up to 300 MB per publish'],
+    items: ['Unlimited flipbooks, kept until you remove them', 'Up to 200 pages each', 'Your own link name', 'Password and expiry date', 'Editing after publishing', 'Remove the FlipbookIQ mark', 'Links, text, notes and photos on any page', 'Video, music and animation', 'Upload video and audio (2 GB)', 'Add your own domain for $9 a month', 'See how often each is opened', 'Up to 300 MB per publish'],
     cta: 'Start with Pro',
     href: STUDIO,
   },
@@ -69,7 +70,7 @@ const plans = [
     name: 'Business',
     price: '$24.99',
     per: 'per seat, a month',
-    items: ['Everything in Pro', 'For a team — 10 seats minimum', 'Up to 500 pages each', 'Upload video and audio (20 GB)', 'Up to 1 GB per publish'],
+    items: ['Everything in Pro', 'For a team — 10 seats minimum', 'Up to 500 pages each', 'Your own domain (up to 3)', 'Upload video and audio (20 GB)', 'Up to 1 GB per publish'],
     cta: 'Talk to us',
     href: '/contact/',
   },
@@ -83,6 +84,7 @@ const faq = [
   { q: 'Can I add video and music?', a: 'Yes, on Pro and Business. Paste a YouTube or Vimeo link, or a link to an mp4, webm, mp3 or m4a file, or upload a file of up to 90 MB, and drag a box on the page; readers press play right there. A soundtrack starts when a reader first clicks and they can turn it off. For a longer video, use a YouTube or Vimeo link.' },
   { q: 'What can move on a page?', a: 'Anything you add: text, notes, photos, links and video boxes can fade, rise, drop, slide in from either side, zoom, pop or pulse, with a wait of up to five seconds. Readers who have asked their device for less motion see none of it.' },
   { q: 'Are there templates?', a: 'Six, to start: a restaurant menu, a café menu, a product catalog, a company brochure, an event program and a newsletter. Choose New flipbook in the Studio and pick one. It becomes your own flipbook in a second; use the Text tool to change the words and the Photos tool to add pictures. All six fit the free plan.' },
+  { q: 'Can I use my own domain?', a: 'Yes. Business includes up to three domains; on Pro, add one for $9 a month. In the Studio, open Account, type a name like books.yourbrand.com, and add the one DNS record it shows you at the company that manages your domain. When it is active, links, embed codes and QR codes use your address, each flipbook lives at an address like books.yourbrand.com/summer-menu, and the bare address shows a bookshelf of the flipbooks you tick to list.' },
   { q: 'Which Office do I need?', a: 'PowerPoint on Windows, Mac and the web. Word on Windows. In Word on Mac and on the web, Microsoft does not let add-ins render a document, so the pane signs you in, lists your flipbooks and opens the Studio instead.' },
   { q: 'How do I install it?', a: 'From the install page: download a small manifest file, then load it into Word or PowerPoint. The page has steps for the web, for desktop Windows, and a short note to hand IT if your company blocks user-installed add-ins.' },
   { q: 'Can our IT department deploy it?', a: 'Yes. In the Microsoft 365 admin center, choose Integrated apps ▸ Upload custom apps and give it the manifest link. It then appears in Word and PowerPoint for the people they choose.' },
