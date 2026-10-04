@@ -1,0 +1,228 @@
+---
+// One flipbook in the library: the flipbook itself, plus everything a search engine needs to understand it —
+// its own title and description, the text of every page, structured data, and a clear copyright statement.
+export const prerender = false;
+
+import Base from '../../../layouts/Base.astro';
+import LibraryCard from '../../../components/LibraryCard.astro';
+import LibraryGate from '../../../components/LibraryGate.astro';
+import { CACHE, LIBRARY_PATH, ORG_NAME, SITE, STUDIO, entryPath, fetchEntry, fetchLibrary, iso, ldJson, related, tagPath } from '../../../lib/library';
+
+const slug = String(Astro.params.slug ?? '');
+const entry = await fetchEntry(slug);
+
+if (entry === null || entry === 'error') {
+  Astro.response.status = entry === null ? 404 : 503;
+  Astro.response.headers.set('Cache-Control', 'public, max-age=30');
+}
+const item = entry && entry !== 'error' ? entry : null;
+
+let more: ReturnType<typeof related> = [];
+if (item) {
+  Astro.response.headers.set('Cache-Control', CACHE);
+  const { items } = await fetchLibrary();
+  more = related(item, items);
+}
+
+const canonical = item ? `${SITE}${entryPath(item.slug)}` : `${SITE}${LIBRARY_PATH}`;
+const year = item ? new Date(item.addedAt * 1000).getUTCFullYear() : new Date().getUTCFullYear();
+const notice = `© ${year} ${ORG_NAME}. All rights reserved.`;
+const org = { '@type': 'Organization', name: ORG_NAME, url: `${SITE}/`, logo: { '@type': 'ImageObject', url: `${SITE}/kixlogic-mark.png` } };
+
+const ld = item && {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'FlipbookIQ', item: `${SITE}/flipbookiq/` },
+        { '@type': 'ListItem', position: 2, name: 'Library', item: `${SITE}${LIBRARY_PATH}` },
+        { '@type': 'ListItem', position: 3, name: item.title, item: canonical },
+      ],
+    },
+    {
+      '@type': 'CreativeWork',
+      '@id': `${canonical}#work`,
+      name: item.title,
+      headline: item.title,
+      description: item.description,
+      url: canonical,
+      mainEntityOfPage: canonical,
+      image: item.cover,
+      thumbnailUrl: item.cover,
+      datePublished: iso(item.addedAt),
+      dateModified: iso(item.updatedAt),
+      inLanguage: 'en',
+      isAccessibleForFree: true,
+      keywords: item.tags.join(', '),
+      encodingFormat: 'text/html',
+      additionalProperty: { '@type': 'PropertyValue', name: 'Pages', value: item.pages },
+      author: org,
+      publisher: org,
+      copyrightHolder: org,
+      copyrightYear: year,
+      copyrightNotice: notice,
+      isPartOf: { '@type': 'CollectionPage', name: 'FlipbookIQ Library', url: `${SITE}${LIBRARY_PATH}` },
+    },
+  ],
+};
+
+// The flipbook is two pages side by side on a wide screen, so the frame is twice a page's width.
+const spread = item ? Math.min(2.2, Math.max(1.15, item.ratio * 2)) : 1.5;
+const share = item && {
+  u: encodeURIComponent(canonical),
+  t: encodeURIComponent(item.title),
+};
+const textPages = item?.text ?? [];
+---
+<Base
+  title={item ? `${item.title} · FlipbookIQ Library` : entry === 'error' ? 'Library temporarily unavailable' : 'Flipbook not found'}
+  description={item ? item.description : 'This flipbook is not in the FlipbookIQ Library.'}
+  canonical={canonical}
+  image={item ? item.cover : undefined}
+  ogType={item ? 'article' : 'website'}
+  noindex={!item}
+>
+  <Fragment slot="head">
+    {item && (
+      <>
+        <meta property="og:image:alt" content={`Cover of ${item.title}`} />
+        <meta property="article:published_time" content={iso(item.addedAt)} />
+        <meta property="article:modified_time" content={iso(item.updatedAt)} />
+        {item.tags.map((t) => <meta property="article:tag" content={t} />)}
+        <meta name="twitter:image:alt" content={`Cover of ${item.title}`} />
+        <meta name="copyright" content={notice} />
+        <script type="application/ld+json" set:html={ldJson(ld)} />
+      </>
+    )}
+  </Fragment>
+
+  {!item && (
+    <section class="band">
+      <div class="wrap narrow">
+        <h1>{entry === 'error' ? 'The library is unavailable for a moment' : 'That flipbook is not in the library'}</h1>
+        <p>{entry === 'error' ? 'Please try again in a minute.' : 'It may have been moved or taken down.'} <a href={LIBRARY_PATH}>Browse the FlipbookIQ Library →</a></p>
+      </div>
+    </section>
+  )}
+
+  {item && (
+    <>
+      <section class="hero-top">
+        <div class="wrap">
+          <nav class="crumbs" aria-label="Breadcrumb"><a href="/flipbookiq/">FlipbookIQ</a> <span aria-hidden="true">/</span> <a href={LIBRARY_PATH}>Library</a> <span aria-hidden="true">/</span> <span>{item.title}</span></nav>
+          <h1>{item.title}</h1>
+          <p class="lede">{item.description}</p>
+          <p class="meta">
+            <span>{item.pages} {item.pages === 1 ? 'page' : 'pages'}</span>
+            <span>Added <time datetime={iso(item.addedAt)}>{new Date(item.addedAt * 1000).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })}</time></span>
+            {item.tags.map((t) => (<a class="chip" href={tagPath(t)}>{t}</a>))}
+          </p>
+        </div>
+      </section>
+
+      <section class="reader">
+        <div class="wrap">
+          <div class="frame" style={`aspect-ratio:${spread.toFixed(3)}`}>
+            <iframe src={item.embed} title={`${item.title}: a page-turning flipbook`} allowfullscreen loading="eager"></iframe>
+          </div>
+          <p class="actions">
+            <a class="btn-p" href={item.view} target="_blank" rel="noopener">Open full screen</a>
+            <span class="share">
+              Share:
+              <a href={`https://twitter.com/intent/tweet?url=${share!.u}&text=${share!.t}`} target="_blank" rel="noopener noreferrer">X</a>
+              <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${share!.u}`} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+              <a href={`https://www.facebook.com/sharer/sharer.php?u=${share!.u}`} target="_blank" rel="noopener noreferrer">Facebook</a>
+              <a href={`mailto:?subject=${share!.t}&body=${share!.u}`}>Email</a>
+              <button type="button" id="copy-link" data-url={canonical}>Copy link</button>
+            </span>
+          </p>
+        </div>
+      </section>
+
+      {textPages.length > 0 && (
+        <section class="band">
+          <div class="wrap narrow">
+            <h2>What this flipbook says</h2>
+            <details open>
+              <summary>The text of all {item.pages} {item.pages === 1 ? 'page' : 'pages'}</summary>
+              <div class="text">
+                {textPages.map((p) => (<p><strong>Page {p.n}.</strong> {p.text}</p>))}
+              </div>
+            </details>
+          </div>
+        </section>
+      )}
+
+      {more.length > 0 && (
+        <section class="band alt">
+          <div class="wrap">
+            <h2>More from the library</h2>
+            <div class="grid">{more.map((i) => <LibraryCard item={i} />)}</div>
+            <p class="more"><a href={LIBRARY_PATH}>Browse every flipbook →</a></p>
+          </div>
+        </section>
+      )}
+
+      <section class="band cta">
+        <div class="wrap narrow">
+          <h2>Make a flipbook like this one</h2>
+          <p>This was made with <a href="/flipbookiq/">FlipbookIQ</a>. Drop in a PDF, or start from Word or PowerPoint, and share a page-turning flipbook with one link, a QR code or an embed. Free to start. No card, no download.</p>
+          <p><a class="btn-p" href={`${STUDIO}?ref=library-entry`}>Start free in your browser</a></p>
+        </div>
+      </section>
+
+      <section class="band alt">
+        <div class="wrap narrow">
+          <p class="rights"><strong>{notice}</strong> You are welcome to read this flipbook, link to it and share this page. Copying, reposting or selling its contents is not allowed. To ask for permission, or to report a problem, <a href="/contact/">contact us</a>.</p>
+        </div>
+      </section>
+
+      <LibraryGate />
+    </>
+  )}
+</Base>
+
+<script is:inline>
+  (function () {
+    var b = document.getElementById('copy-link');
+    if (!b) return;
+    b.addEventListener('click', function () {
+      var url = b.getAttribute('data-url');
+      var done = function () { var t = b.textContent; b.textContent = 'Copied'; setTimeout(function () { b.textContent = t; }, 1600); };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(done, function () { window.prompt('Copy this link', url); });
+      else window.prompt('Copy this link', url);
+    });
+  })();
+</script>
+
+<style>
+  .wrap { max-width: 1060px; margin: 0 auto; padding: 0 1.25rem; }
+  .narrow { max-width: 760px; }
+  .hero-top { background: #0b1220; color: #fff; padding: clamp(2.4rem, 6vw, 4rem) 0 clamp(1.6rem, 4vw, 2.4rem); }
+  .crumbs { font-size: .85rem; color: #9fb3d8; margin-bottom: .9rem; }
+  .crumbs a { color: #9fb3d8; }
+  .hero-top h1 { font-size: clamp(1.9rem, 4.8vw, 2.9rem); line-height: 1.1; margin: 0 0 .8rem; }
+  .lede { font-size: 1.1rem; line-height: 1.6; max-width: 46rem; color: #dbe4f3; }
+  .meta { display: flex; flex-wrap: wrap; gap: .4rem .9rem; align-items: center; font-size: .88rem; color: #9fb3d8; margin: 1rem 0 0; }
+  .chip { background: rgba(124, 196, 255, .16); color: #bfe0ff; border-radius: 999px; padding: .15rem .7rem; text-decoration: none; font-weight: 600; }
+  .chip:hover { background: rgba(124, 196, 255, .3); }
+  .reader { background: #0b1220; padding: 0 0 clamp(1.6rem, 4vw, 2.4rem); }
+  .frame { width: 100%; max-height: 82vh; min-height: 320px; background: #111827; border-radius: 12px; overflow: hidden; box-shadow: 0 18px 50px rgba(0, 0, 0, .5); }
+  .frame iframe { width: 100%; height: 100%; border: 0; display: block; }
+  .actions { display: flex; flex-wrap: wrap; gap: .8rem 1.4rem; align-items: center; margin: 1.1rem 0 0; color: #9fb3d8; font-size: .92rem; }
+  .share { display: inline-flex; flex-wrap: wrap; gap: .3rem .9rem; align-items: center; }
+  .share a, .share button { color: #bfe0ff; background: none; border: 0; padding: 0; font: inherit; cursor: pointer; text-decoration: underline; }
+  .btn-p { display: inline-block; background: #1d4ed8; color: #fff !important; text-decoration: none !important; padding: .7rem 1.2rem; border-radius: 999px; font-weight: 700; }
+  .band { padding: clamp(2rem, 5vw, 3.2rem) 0; background: #fff; color: #111; }
+  .band.alt { background: #f3f6fb; }
+  .band h2 { font-size: clamp(1.3rem, 3vw, 1.7rem); margin: 0 0 .8rem; }
+  .band p { color: #374151; line-height: 1.65; }
+  .text { max-height: 28rem; overflow: auto; border: 1px solid #e5e7eb; border-radius: 10px; padding: .4rem 1.1rem; margin-top: .8rem; background: #fff; }
+  .text p { margin: .7rem 0; font-size: .95rem; }
+  details summary { cursor: pointer; font-weight: 600; color: #1d4ed8; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.3rem; }
+  .more { margin-top: 1.4rem; }
+  .cta { text-align: center; }
+  .rights { font-size: .92rem; color: #4b5563 !important; }
+</style>

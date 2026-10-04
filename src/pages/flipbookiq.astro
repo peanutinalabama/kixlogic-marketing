@@ -116,7 +116,7 @@ const shots = SHOTS.map((s) => ({ ...s, src: `/flipbookiq/${s.file}` }));
         <a class="btn-p" href={STUDIO}>Start free in your browser</a>
         <a class="btn-o" href={INSTALL}>Add-in for Word &amp; PowerPoint</a>
       </div>
-      <p class="fine">Free to start. No card, no download, no password — just your email.</p>
+      <p class="fine">Free to start. No card, no download, no password — just your email. <a class="lib-link" href="/flipbookiq/library/">Browse the FlipbookIQ Library →</a></p>
     </div>
   </section>
 
@@ -174,6 +174,18 @@ const shots = SHOTS.map((s) => ({ ...s, src: `/flipbookiq/${s.file}` }));
     </div>
   </section>
 
+  <section class="band libband" id="library">
+    <div class="wrap">
+      <h2>FlipbookIQ Library</h2>
+      <p class="sub">See it before you make one: flipbooks made with FlipbookIQ, read right on the page with a real page turn.</p>
+      <a class="libcard" href="/flipbookiq/library/">
+        <img src="/apps/flipbook.png" alt="" width="72" height="72" loading="lazy" />
+        <span class="libtext"><b>Browse the FlipbookIQ Library</b><span>Read flipbooks made with FlipbookIQ, share them, and get ideas for your own.</span></span>
+        <span class="libarrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </section>
+
   <section class="band alt" id="pricing">
     <div class="wrap">
       <h2>Free to make. Pay only to keep them online.</h2>
@@ -223,6 +235,15 @@ const shots = SHOTS.map((s) => ({ ...s, src: `/flipbookiq/${s.file}` }));
   .fine { font-size: 0.85rem; color: #9fb3d8; }
   .band { padding: clamp(2.5rem, 6vw, 4rem) 0; background: #fff; color: #111; }
   .band.alt { background: #f3f6fb; }
+  .libband { border-top: 1px solid #e5e7eb; }
+  .lib-link { color: #7cc4ff; font-weight: 600; margin-left: .35rem; }
+  .libcard { display: flex; align-items: center; gap: 1.1rem; max-width: 46rem; background: #fff; border: 2px solid #dbe4f3; border-radius: 16px; padding: 1.1rem 1.3rem; text-decoration: none; color: #111; transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease; }
+  .libcard:hover { transform: translateY(-3px); border-color: #1d4ed8; box-shadow: 0 14px 30px rgba(22, 35, 63, .12); }
+  .libcard img { flex: none; width: 72px; height: 72px; border-radius: 18px; box-shadow: 0 8px 18px rgba(22, 35, 63, .2); }
+  .libtext { display: flex; flex-direction: column; gap: .2rem; flex: 1; }
+  .libtext b { font-size: 1.15rem; }
+  .libtext span { color: #4b5563; line-height: 1.5; }
+  .libarrow { color: #1d4ed8; font-size: 1.4rem; }
   .band h2 { font-size: clamp(1.5rem, 3.5vw, 2.1rem); margin: 0 0 0.75rem; }
   .band .fine { color: #4b5563; margin-top: 1.25rem; }
   .sub { color: #4b5563; max-width: 44rem; margin-bottom: 1.5rem; }

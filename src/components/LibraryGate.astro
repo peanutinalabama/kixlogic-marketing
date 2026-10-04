@@ -1,0 +1,158 @@
+---
+// The FlipbookIQ Library's contact capture.
+//
+// The page loads fully readable, so anyone can look around. A moment later (or as soon as they try to open a
+// flipbook or scroll into the list) a pop-up asks for a name, an optional company and an email, and does not
+// go away until they are given. Submitting sends the details to the owner and remembers them on this browser
+// for a year, so it is asked once.
+//
+// For search engines: everything on the page is in the HTML and the pop-up starts hidden, so a crawler sees
+// the whole page with nothing in front of it. The script also does not show it to well-known crawlers,
+// link-preview bots or automated browsers.
+const API = 'https://flipbook.kixlogic.com/api/library/contact';
+---
+<div id="lib-gate" class="gate" hidden data-api={API} data-source={Astro.url.pathname}>
+  <div class="gate-card" role="dialog" aria-modal="true" aria-labelledby="gate-title" aria-describedby="gate-sub">
+    <p class="gate-badge">Free to browse</p>
+    <h2 id="gate-title">Get instant access to the FlipbookIQ Library</h2>
+    <p id="gate-sub" class="gate-sub">Read page-turning flipbooks made with FlipbookIQ, share them, and get ideas for your own. Tell us who you are and you are in.</p>
+    <form id="gate-form" novalidate>
+      <label for="gate-name">Your name</label>
+      <input id="gate-name" name="name" type="text" autocomplete="name" maxlength="100" required />
+      <label for="gate-company">Company <span class="opt">(optional)</span></label>
+      <input id="gate-company" name="company" type="text" autocomplete="organization" maxlength="120" />
+      <label for="gate-email">Email address</label>
+      <input id="gate-email" name="email" type="email" autocomplete="email" maxlength="200" required />
+      <!-- A trap for simple bots: people never see or fill this. -->
+      <div class="gate-hp" aria-hidden="true"><label for="gate-website">Website</label><input id="gate-website" name="website" type="text" tabindex="-1" autocomplete="off" /></div>
+      <p id="gate-err" class="gate-err" role="alert"></p>
+      <button id="gate-go" type="submit">Get instant access →</button>
+      <p class="gate-fine">Free. No credit card. We will use your details to follow up with you about FlipbookIQ and Kixlogic. <a href="/privacy/" target="_blank" rel="noopener">Privacy policy</a></p>
+    </form>
+  </div>
+</div>
+
+<script is:inline>
+(function () {
+  var KEY = 'kx_library_access';
+  var root = document.getElementById('lib-gate');
+  if (!root) return;
+
+  function known() {
+    try { if (localStorage.getItem(KEY)) return true; } catch (e) {}
+    return document.cookie.indexOf(KEY + '=1') >= 0;
+  }
+  if (known()) return;
+  // Crawlers, link-preview fetchers and automated browsers see the page as it is, with nothing in front of it.
+  var ua = navigator.userAgent || '';
+  if (navigator.webdriver || /bot|crawl|spider|slurp|bingpreview|facebookexternalhit|embedly|preview|lighthouse|pagespeed|headless|whatsapp|telegram|discord|pinterest|redditbot|quora/i.test(ua)) return;
+
+  var shown = false;
+  var pending = '';
+  var timer = 0;
+  var form = document.getElementById('gate-form');
+  var err = document.getElementById('gate-err');
+  var go = document.getElementById('gate-go');
+  var behind = [];
+
+  function focusable() { return Array.prototype.slice.call(root.querySelectorAll('input:not([tabindex="-1"]), button')); }
+
+  function show() {
+    if (shown) return;
+    shown = true;
+    clearTimeout(timer);
+    root.hidden = false;
+    document.documentElement.classList.add('gate-open');
+    // Nothing behind the pop-up can be reached or read out until it is done.
+    behind = Array.prototype.slice.call(document.body.children).filter(function (el) { return el !== root && el.tagName !== 'SCRIPT'; });
+    behind.forEach(function (el) { el.setAttribute('inert', ''); });
+    setTimeout(function () { document.getElementById('gate-name').focus(); }, 30);
+  }
+
+  function hide() {
+    root.hidden = true;
+    document.documentElement.classList.remove('gate-open');
+    behind.forEach(function (el) { el.removeAttribute('inert'); });
+  }
+
+  function remember() {
+    try { localStorage.setItem(KEY, String(Date.now())); } catch (e) {}
+    document.cookie = KEY + '=1; max-age=31536000; path=/; SameSite=Lax';
+  }
+
+  // After a few seconds, or as soon as they try to open something or scroll into the list.
+  timer = setTimeout(show, 5000);
+  window.addEventListener('scroll', function () { if (!shown && window.scrollY > 500) show(); }, { passive: true });
+  document.addEventListener('click', function (e) {
+    if (shown) return;
+    var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+    if (!a || root.contains(a)) return;
+    var href = a.getAttribute('href') || '';
+    // Opening a flipbook or a topic: ask first, then take them there.
+    if (href.indexOf('/flipbookiq/library/') === 0 && href.indexOf('rss.xml') < 0) {
+      e.preventDefault();
+      pending = a.href;
+      show();
+    }
+  }, true);
+
+  // The pop-up cannot be dismissed: Escape does nothing, and Tab stays inside it.
+  root.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') { e.preventDefault(); return; }
+    if (e.key !== 'Tab') return;
+    var items = focusable();
+    var first = items[0], last = items[items.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    err.textContent = '';
+    var name = document.getElementById('gate-name').value.trim();
+    var company = document.getElementById('gate-company').value.trim();
+    var email = document.getElementById('gate-email').value.trim();
+    if (name.length < 2) { err.textContent = 'Please enter your name.'; document.getElementById('gate-name').focus(); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { err.textContent = 'Please enter a valid email address.'; document.getElementById('gate-email').focus(); return; }
+    go.disabled = true;
+    go.textContent = 'One moment…';
+    fetch(root.getAttribute('data-api'), {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ name: name, company: company, email: email, source: root.getAttribute('data-source'), website: document.getElementById('gate-website').value }),
+    }).then(function (res) {
+      return res.json().catch(function () { return {}; }).then(function (body) {
+        if (!res.ok) throw new Error(body.error || 'That did not go through.');
+        remember();
+        hide();
+        if (pending) window.location.href = pending;
+      });
+    }).catch(function (ex) {
+      go.disabled = false;
+      go.textContent = 'Get instant access →';
+      err.textContent = (ex && ex.message && ex.message !== 'Failed to fetch') ? ex.message : 'We could not reach the server. Please try again, or email hello@kixlogic.com.';
+    });
+  });
+})();
+</script>
+
+<style is:global>
+  html.gate-open { overflow: hidden; }
+  .gate { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 1rem; background: rgba(8, 13, 24, .86); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); overflow-y: auto; }
+  .gate[hidden] { display: none; }
+  .gate-card { width: 100%; max-width: 440px; background: #fff; color: #111827; border-radius: 18px; padding: 1.7rem 1.6rem 1.4rem; box-shadow: 0 30px 80px rgba(0, 0, 0, .5); }
+  .gate-badge { display: inline-block; margin: 0 0 .7rem; font-size: .72rem; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; color: #1d4ed8; background: #eef3ff; border-radius: 999px; padding: .25rem .75rem; }
+  .gate-card h2 { margin: 0 0 .5rem; font-size: 1.45rem; line-height: 1.2; color: #0b1220; }
+  .gate-sub { margin: 0 0 1.1rem; color: #4b5563; line-height: 1.55; font-size: .97rem; }
+  .gate-card label { display: block; font-size: .85rem; font-weight: 600; color: #374151; margin: .8rem 0 .25rem; }
+  .gate-card .opt { font-weight: 400; color: #6b7280; }
+  .gate-card input[type=text], .gate-card input[type=email] { width: 100%; box-sizing: border-box; padding: .7rem .8rem; font: inherit; font-size: 1rem; border: 1.5px solid #cbd5e1; border-radius: 10px; background: #fff; color: #111827; }
+  .gate-card input:focus { outline: 3px solid #bfd3ff; border-color: #1d4ed8; }
+  .gate-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .gate-err { min-height: 1.3em; margin: .7rem 0 0; color: #b42318; font-size: .9rem; font-weight: 600; }
+  #gate-go { width: 100%; margin-top: .4rem; padding: .85rem 1rem; font: inherit; font-size: 1.05rem; font-weight: 700; color: #fff; background: #1d4ed8; border: 0; border-radius: 999px; cursor: pointer; }
+  #gate-go:hover:not(:disabled) { background: #1a43b8; }
+  #gate-go:disabled { opacity: .7; cursor: default; }
+  .gate-fine { margin: .9rem 0 0; font-size: .78rem; line-height: 1.5; color: #6b7280; text-align: center; }
+  .gate-fine a { color: #1d4ed8; }
+</style>

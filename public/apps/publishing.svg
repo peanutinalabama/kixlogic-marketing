@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" role="img" aria-label="Kixlogic Publishing">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff6e6"/>
+      <stop offset="1" stop-color="#fbe0b0"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="28" fill="url(#bg)"/>
+  <!-- three books, standing, slightly different heights -->
+  <rect x="26" y="36" width="22" height="64" rx="3" fill="#2f9e5b"/>
+  <rect x="30" y="44" width="14" height="3" rx="1.5" fill="#ffffff" opacity=".7"/>
+  <rect x="52" y="28" width="24" height="72" rx="3" fill="#d8453d"/>
+  <rect x="57" y="38" width="14" height="3" rx="1.5" fill="#ffffff" opacity=".7"/>
+  <rect x="80" y="42" width="22" height="58" rx="3" fill="#2563eb" transform="rotate(7 91 100)"/>
+  <rect x="84" y="50" width="14" height="3" rx="1.5" fill="#ffffff" opacity=".7" transform="rotate(7 91 100)"/>
+  <rect x="20" y="100" width="88" height="5" rx="2.5" fill="#0d2340" opacity=".85"/>
+</svg>

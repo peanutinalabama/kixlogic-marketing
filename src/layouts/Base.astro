@@ -11,6 +11,10 @@ interface Props {
   image?:      string;
   canonical?:  string;
   hidePromo?:  boolean;
+  /** og:type, 'website' unless a page says otherwise. */
+  ogType?:     string;
+  /** Set to keep a page out of search results. */
+  noindex?:    boolean;
 }
 
 const {
@@ -19,6 +23,8 @@ const {
   image     = '/og-default.png',
   canonical = Astro.url.href,
   hidePromo = false,
+  ogType    = 'website',
+  noindex   = false,
 } = Astro.props;
 
 const fullTitle = title === 'Kixlogic' ? title : `${title} — Kixlogic`;
@@ -31,6 +37,7 @@ const fullTitle = title === 'Kixlogic' ? title : `${title} — Kixlogic`;
   <title>{fullTitle}</title>
   <meta name="description" content={description} />
   <link rel="canonical" href={canonical} />
+  {noindex && <meta name="robots" content="noindex, follow" />}
   <link rel="alternate" type="application/rss+xml" title="Kixlogic Blog" href="/rss.xml" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -42,7 +49,8 @@ const fullTitle = title === 'Kixlogic' ? title : `${title} — Kixlogic`;
   <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-  <meta property="og:type"        content="website" />
+  <meta property="og:type"        content={ogType} />
+  <meta property="og:site_name"   content="Kixlogic" />
   <meta property="og:url"         content={canonical} />
   <meta property="og:title"       content={fullTitle} />
   <meta property="og:description" content={description} />

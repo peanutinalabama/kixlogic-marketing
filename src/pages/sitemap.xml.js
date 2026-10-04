@@ -1,8 +1,12 @@
-// Dynamic sitemap: static marketing URLs + live CMS blog posts.
+// Dynamic sitemap: static marketing URLs + live CMS blog posts + the FlipbookIQ Library.
 export const prerender = false;
+
+import { fetchLibrary, entryPath, tagPath } from '../lib/library';
 
 const STATIC_URLS = [
   { loc: 'https://kixlogic.com/', changefreq: 'weekly', priority: '1.0' },
+  { loc: 'https://kixlogic.com/flipbookiq/', changefreq: 'monthly', priority: '0.9' },
+  { loc: 'https://kixlogic.com/flipbookiq/library/', changefreq: 'daily', priority: '0.8' },
   { loc: 'https://kixlogic.com/hired/', changefreq: 'monthly', priority: '0.9' },
   { loc: 'https://kixlogic.com/renumify/', changefreq: 'monthly', priority: '0.9' },
   { loc: 'https://kixlogic.com/pricing/', changefreq: 'monthly', priority: '0.9' },
@@ -49,13 +53,36 @@ export async function GET() {
       priority: '0.6',
     }));
 
-  const urls = [...STATIC_URLS, ...blogUrls];
+  // The library: one URL per flipbook (with its cover as an image entry) and one per topic.
+  const { items: library } = await fetchLibrary();
+  const libraryUrls = library.map((i) => ({
+    loc: `https://kixlogic.com${entryPath(i.slug)}`,
+    lastmod: new Date(i.updatedAt * 1000).toISOString().slice(0, 10),
+    changefreq: 'monthly',
+    priority: '0.7',
+    image: i.cover,
+    imageTitle: i.title,
+  }));
+  const seen = new Set();
+  const tagUrls = [];
+  for (const i of library) {
+    for (const t of i.tags) {
+      const loc = `https://kixlogic.com${tagPath(t)}`;
+      if (seen.has(loc)) continue;
+      seen.add(loc);
+      tagUrls.push({ loc, changefreq: 'weekly', priority: '0.5' });
+    }
+  }
+
+  const urls = [...STATIC_URLS, ...blogUrls, ...libraryUrls, ...tagUrls];
   const body = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 ${urls.map((u) => {
   let entry = `  <url><loc>${escapeXml(u.loc)}</loc>`;
   if (u.lastmod) entry += `<lastmod>${u.lastmod}</lastmod>`;
-  entry += `<changefreq>${u.changefreq}</changefreq><priority>${u.priority}</priority></url>`;
+  entry += `<changefreq>${u.changefreq}</changefreq><priority>${u.priority}</priority>`;
+  if (u.image) entry += `<image:image><image:loc>${escapeXml(u.image)}</image:loc><image:title>${escapeXml(u.imageTitle)}</image:title></image:image>`;
+  entry += '</url>';
   return entry;
 }).join('\n')}
 </urlset>

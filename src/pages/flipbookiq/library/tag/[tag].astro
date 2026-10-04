@@ -1,0 +1,75 @@
+---
+// A topic page: every library flipbook with one tag. These are real pages with their own title and description,
+// not filtered views, so they can rank for the topic on their own.
+export const prerender = false;
+
+import Base from '../../../../layouts/Base.astro';
+import LibraryCard from '../../../../components/LibraryCard.astro';
+import LibraryGate from '../../../../components/LibraryGate.astro';
+import { CACHE, LIBRARY_PATH, ORG_NAME, SITE, STUDIO, entryPath, fetchLibrary, ldJson, tagPath, tagSlug } from '../../../../lib/library';
+
+const wanted = String(Astro.params.tag ?? '');
+const { items: all, ok } = await fetchLibrary();
+const items = all.filter((i) => i.tags.some((t) => tagSlug(t) === wanted));
+const label = items.flatMap((i) => i.tags).find((t) => tagSlug(t) === wanted) ?? wanted.replace(/-/g, ' ');
+const found = items.length > 0;
+if (ok && !found) Astro.response.status = 404;
+Astro.response.headers.set('Cache-Control', found ? CACHE : 'public, max-age=60');
+
+const canonical = `${SITE}${tagPath(label)}`;
+const ld = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    { '@type': 'CollectionPage', name: `${label} flipbooks`, url: canonical, isPartOf: { '@type': 'CollectionPage', name: 'FlipbookIQ Library', url: `${SITE}${LIBRARY_PATH}` }, publisher: { '@type': 'Organization', name: ORG_NAME, url: `${SITE}/` } },
+    { '@type': 'BreadcrumbList', itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'FlipbookIQ', item: `${SITE}/flipbookiq/` },
+      { '@type': 'ListItem', position: 2, name: 'Library', item: `${SITE}${LIBRARY_PATH}` },
+      { '@type': 'ListItem', position: 3, name: label, item: canonical },
+    ] },
+    ...(found ? [{ '@type': 'ItemList', itemListElement: items.map((i, n) => ({ '@type': 'ListItem', position: n + 1, url: `${SITE}${entryPath(i.slug)}`, name: i.title })) }] : []),
+  ],
+};
+---
+<Base
+  title={`${label[0]?.toUpperCase() ?? ''}${label.slice(1)} flipbooks — FlipbookIQ Library`}
+  description={found ? `Page-turning ${label} flipbooks from the FlipbookIQ Library: ${items.slice(0, 3).map((i) => i.title).join(', ')}. Read them online, free.` : 'FlipbookIQ Library'}
+  canonical={canonical}
+  noindex={!found}
+>
+  <Fragment slot="head">
+    {found && <script type="application/ld+json" set:html={ldJson(ld)} />}
+  </Fragment>
+
+  <section class="hero-top">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/flipbookiq/">FlipbookIQ</a> <span aria-hidden="true">/</span> <a href={LIBRARY_PATH}>Library</a> <span aria-hidden="true">/</span> <span>{label}</span></nav>
+      <h1>{label[0]?.toUpperCase()}{label.slice(1)} flipbooks</h1>
+      <p class="lede">{found ? `${items.length} ${items.length === 1 ? 'flipbook' : 'flipbooks'} about ${label}, each a real page turn you can read online.` : 'Nothing in the library is tagged this way yet.'}</p>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      {found ? (
+        <div class="grid">{items.map((i) => <LibraryCard item={i} />)}</div>
+      ) : (
+        <p>{ok ? 'There are no flipbooks with this tag.' : 'The library could not be loaded just now. Please try again in a minute.'} <a href={LIBRARY_PATH}>Browse the whole library →</a></p>
+      )}
+      <p class="more"><a href={LIBRARY_PATH}>← All flipbooks</a> · <a href={`${STUDIO}?ref=library-tag`}>Make your own with FlipbookIQ</a></p>
+    </div>
+  </section>
+
+  {found && <LibraryGate />}
+</Base>
+
+<style>
+  .wrap { max-width: 1060px; margin: 0 auto; padding: 0 1.25rem; }
+  .hero-top { background: #0b1220; color: #fff; padding: clamp(2.6rem, 7vw, 4.2rem) 0 clamp(1.8rem, 4vw, 2.6rem); }
+  .crumbs { font-size: .85rem; color: #9fb3d8; margin-bottom: .9rem; }
+  .crumbs a { color: #9fb3d8; }
+  .hero-top h1 { font-size: clamp(2rem, 5vw, 2.9rem); line-height: 1.1; margin: 0 0 .8rem; }
+  .lede { font-size: 1.1rem; line-height: 1.6; max-width: 44rem; color: #dbe4f3; }
+  .band { padding: clamp(2rem, 5vw, 3.5rem) 0; background: #fff; color: #111; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.3rem; }
+  .more { margin-top: 1.8rem; color: #4b5563; }
+</style>
