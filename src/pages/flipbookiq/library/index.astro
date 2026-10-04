@@ -107,7 +107,7 @@ const newest = items[0]?.addedAt;
     </div>
   </section>
 
-  <LibraryGate />
+  {items.length > 0 && <LibraryGate />}
 </Base>
 
 <style>
