@@ -2,9 +2,9 @@
 // The FlipbookIQ Library's contact capture.
 //
 // The page loads fully readable, so anyone can look around. A moment later (or as soon as they try to open a
-// flipbook or scroll into the list) a pop-up asks for a name, an optional company and an email, and does not
-// go away until they are given. Submitting sends the details to the owner and remembers them on this browser
-// for a year, so it is asked once.
+// flipbook or scroll into the list) a pop-up asks for a name, an optional company and an email. Submitting
+// sends the details to the owner and remembers that on this browser for a year. "No thanks, take me to the
+// flipbooks" (or Escape) skips it, and they are not asked again for 30 days.
 //
 // For search engines: everything on the page is in the HTML and the pop-up starts hidden, so a crawler sees
 // the whole page with nothing in front of it. The script also does not show it to well-known crawlers,
@@ -29,6 +29,7 @@ const API = 'https://flipbook.kixlogic.com/api/library/contact';
       <button id="gate-go" type="submit">Get instant access →</button>
       <p class="gate-fine">Free. No credit card. We will use your details to follow up with you about FlipbookIQ and Kixlogic. <a href="/privacy/" target="_blank" rel="noopener">Privacy policy</a></p>
     </form>
+    <button id="gate-skip" class="gate-skip" type="button">No thanks, take me to the flipbooks</button>
   </div>
 </div>
 
@@ -38,9 +39,19 @@ const API = 'https://flipbook.kixlogic.com/api/library/contact';
   var root = document.getElementById('lib-gate');
   if (!root) return;
 
+  var SKIP_MS = 30 * 24 * 3600 * 1000;
+
+  // Answered (kept a year) or skipped (kept 30 days, then they are asked again).
   function known() {
-    try { if (localStorage.getItem(KEY)) return true; } catch (e) {}
-    return document.cookie.indexOf(KEY + '=1') >= 0;
+    try {
+      var v = localStorage.getItem(KEY);
+      if (v) {
+        if (v.indexOf('skip:') !== 0) return true;
+        if (Date.now() - Number(v.slice(5)) < SKIP_MS) return true;
+        localStorage.removeItem(KEY);
+      }
+    } catch (e) {}
+    return /(?:^|;\s*)kx_library_access=(1|skip)(;|$)/.test(document.cookie);
   }
   if (known()) return;
   // Crawlers, link-preview fetchers and automated browsers see the page as it is, with nothing in front of it.
@@ -80,6 +91,15 @@ const API = 'https://flipbook.kixlogic.com/api/library/contact';
     document.cookie = KEY + '=1; max-age=31536000; path=/; SameSite=Lax';
   }
 
+  // "No thanks": go straight to the flipbooks, and do not ask again for 30 days.
+  function skip() {
+    try { localStorage.setItem(KEY, 'skip:' + Date.now()); } catch (e) {}
+    document.cookie = KEY + '=skip; max-age=2592000; path=/; SameSite=Lax';
+    hide();
+    if (pending) window.location.href = pending;
+  }
+  document.getElementById('gate-skip').addEventListener('click', skip);
+
   // After a few seconds, or as soon as they try to open something or scroll into the list.
   timer = setTimeout(show, 5000);
   window.addEventListener('scroll', function () { if (!shown && window.scrollY > 500) show(); }, { passive: true });
@@ -96,9 +116,9 @@ const API = 'https://flipbook.kixlogic.com/api/library/contact';
     }
   }, true);
 
-  // The pop-up cannot be dismissed: Escape does nothing, and Tab stays inside it.
+  // Escape is the same as "No thanks", as people expect of a dialog. Tab stays inside it.
   root.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') { e.preventDefault(); return; }
+    if (e.key === 'Escape') { e.preventDefault(); skip(); return; }
     if (e.key !== 'Tab') return;
     var items = focusable();
     var first = items[0], last = items[items.length - 1];
@@ -155,4 +175,7 @@ const API = 'https://flipbook.kixlogic.com/api/library/contact';
   #gate-go:disabled { opacity: .7; cursor: default; }
   .gate-fine { margin: .9rem 0 0; font-size: .78rem; line-height: 1.5; color: #6b7280; text-align: center; }
   .gate-fine a { color: #1d4ed8; }
+  .gate-skip { display: block; width: 100%; margin: .6rem 0 0; padding: .6rem; font: inherit; font-size: .92rem; color: #4b5563; background: none; border: 0; text-decoration: underline; cursor: pointer; }
+  .gate-skip:hover { color: #111827; }
+  .gate-skip:focus-visible { outline: 3px solid #bfd3ff; border-radius: 8px; }
 </style>
