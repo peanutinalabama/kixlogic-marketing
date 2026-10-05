@@ -1,8 +1,8 @@
 ---
 // The FlipbookIQ Library's contact capture.
 //
-// The page loads fully readable, so anyone can look around. A moment later (or as soon as they try to open a
-// flipbook or scroll into the list) a pop-up asks for a name, an optional company and an email. Submitting
+// The page loads fully readable, so anyone can look around. After 15 seconds (or as soon as they try to open a
+// flipbook) a pop-up asks for a name, an optional company and an email. Submitting
 // sends the details to the owner and remembers that on this browser for a year. "No thanks, take me to the
 // flipbooks" (or Escape) skips it, and they are not asked again for 30 days.
 //
@@ -108,9 +108,9 @@ const API = 'https://flipbook.kixlogic.com/api/library/contact';
   }
   document.getElementById('gate-skip').addEventListener('click', skip);
 
-  // After a few seconds, or as soon as they try to open something or scroll into the list.
-  timer = setTimeout(show, 5000);
-  window.addEventListener('scroll', function () { if (!shown && window.scrollY > 500) show(); }, { passive: true });
+  // After 15 seconds of looking around, or as soon as they try to open a flipbook. Scrolling does not
+  // trigger it: someone reading the list is exactly who should be left alone for those 15 seconds.
+  timer = setTimeout(show, 15000);
   document.addEventListener('click', function (e) {
     if (shown) return;
     var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
