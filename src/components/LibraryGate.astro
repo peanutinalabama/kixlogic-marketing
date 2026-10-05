@@ -75,7 +75,15 @@ const API = 'https://flipbook.kixlogic.com/api/library/contact';
     root.hidden = false;
     document.documentElement.classList.add('gate-open');
     // Nothing behind the pop-up can be reached or read out until it is done.
-    behind = Array.prototype.slice.call(document.body.children).filter(function (el) { return el !== root && el.tagName !== 'SCRIPT'; });
+    // The pop-up sits inside <main>, not directly in <body>, so marking the body's children inert would
+    // freeze <main> and the pop-up with it: no typing, no clicking, nothing. Instead, walk up from the
+    // pop-up and mark each level's other children, so the pop-up and its ancestors stay live.
+    behind = [];
+    for (var node = root; node && node !== document.body && node.parentNode; node = node.parentNode) {
+      Array.prototype.forEach.call(node.parentNode.children, function (el) {
+        if (el !== node && el.tagName !== 'SCRIPT' && el.tagName !== 'STYLE' && !el.hasAttribute('inert')) behind.push(el);
+      });
+    }
     behind.forEach(function (el) { el.setAttribute('inert', ''); });
     setTimeout(function () { document.getElementById('gate-name').focus(); }, 30);
   }
