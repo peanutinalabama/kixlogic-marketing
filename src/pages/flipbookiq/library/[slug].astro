@@ -46,6 +46,7 @@ const ld = item && {
       name: item.title,
       headline: item.title,
       description: item.description,
+      ...(item.summary ? { abstract: item.summary.split('\n\n')[0] } : {}),
       url: canonical,
       mainEntityOfPage: canonical,
       image: item.cover,
@@ -74,6 +75,7 @@ const share = item && {
   t: encodeURIComponent(item.title),
 };
 const textPages = item?.text ?? [];
+const summaryParagraphs = (item?.summary ?? '').split('\n\n').filter(Boolean);
 ---
 <Base
   title={item ? `${item.title} · FlipbookIQ Library` : entry === 'error' ? 'Library temporarily unavailable' : 'Flipbook not found'}
@@ -139,6 +141,15 @@ const textPages = item?.text ?? [];
           </p>
         </div>
       </section>
+
+      {summaryParagraphs.length > 0 && (
+        <section class="band">
+          <div class="wrap narrow">
+            <h2>About this flipbook</h2>
+            {summaryParagraphs.map((p) => (<p class="summary">{p}</p>))}
+          </div>
+        </section>
+      )}
 
       {textPages.length > 0 && (
         <section class="band">
@@ -220,6 +231,7 @@ const textPages = item?.text ?? [];
   .band p { color: #374151; line-height: 1.65; }
   .text { max-height: 28rem; overflow: auto; border: 1px solid #e5e7eb; border-radius: 10px; padding: .4rem 1.1rem; margin-top: .8rem; background: #fff; }
   .text p { margin: .7rem 0; font-size: .95rem; }
+  .summary { margin: .8rem 0; font-size: 1.02rem; line-height: 1.65; }
   details summary { cursor: pointer; font-weight: 600; color: #1d4ed8; }
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.3rem; }
   .more { margin-top: 1.4rem; }

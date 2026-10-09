@@ -10,6 +10,8 @@ export interface LibraryItem {
   slug: string;
   title: string;
   description: string;
+  /** A longer written summary, plain paragraphs separated by blank lines. May be empty. */
+  summary?: string;
   tags: string[];
   pages: number;
   /** One page's width divided by its height. */
