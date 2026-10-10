@@ -1,0 +1,28 @@
+---
+export const prerender = false;
+import BlogPost from '../../../layouts/BlogPost.astro';
+import { fiqPosts, FIQ_ORIGIN } from '../../../lib/fiq-posts';
+
+const { slug } = Astro.params;
+const post = (await fiqPosts()).find((p) => p.slug === slug);
+if (!post) return Astro.redirect('/blog', 302);
+---
+<BlogPost
+  title={post.title}
+  description={post.description}
+  pubDate={new Date(`${post.date}T12:00:00Z`)}
+  author="FlipbookIQ"
+  tags={['FlipbookIQ', ...post.tags.filter((t) => t !== 'FlipbookIQ')]}
+  slug={`flipbookiq/${post.slug}`}
+  canonical={post.url}
+>
+  <p class="fiq-origin">
+    First published on <a href={post.url} rel="canonical">FlipbookIQ</a>, the flipbook maker from Kixlogic.
+    <a href={FIQ_ORIGIN}>Try it free</a>.
+  </p>
+  <div set:html={post.html} />
+</BlogPost>
+
+<style>
+  .fiq-origin { font-size: 0.9rem; color: var(--text-muted, #64748b); border-left: 3px solid #2f6fe4; padding: 0.25rem 0 0.25rem 0.9rem; margin-bottom: 1.75rem; }
+</style>

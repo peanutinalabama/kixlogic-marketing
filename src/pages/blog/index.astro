@@ -1,6 +1,7 @@
 ---
 export const prerender = false;
 import Base from '../../layouts/Base.astro';
+import { fiqPosts, asKixlogicCard } from '../../lib/fiq-posts';
 
 let allPosts: any[] = [];
 try {
@@ -12,6 +13,11 @@ try {
 } catch {
   // fall through with empty list
 }
+
+// FlipbookIQ's posts are listed here too, read live from its own blog and sorted in with ours, newest first.
+allPosts = [...allPosts, ...(await fiqPosts()).map(asKixlogicCard)].sort(
+  (a: any, b: any) => new Date(b.published_at || 0).getTime() - new Date(a.published_at || 0).getTime(),
+);
 
 const allTags = [...new Set(allPosts.flatMap((p: any) => p.tags || []))].sort();
 ---
@@ -42,7 +48,7 @@ const allTags = [...new Set(allPosts.flatMap((p: any) => p.tags || []))].sort();
             : '';
           return (
             <a
-              href={`/blog/${post.slug}/`}
+              href={post.href ?? `/blog/${post.slug}/`}
               class="post-card card"
               data-tags={(post.tags || []).join(',')}
             >

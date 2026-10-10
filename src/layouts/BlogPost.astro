@@ -11,9 +11,11 @@ interface Props {
   image?:      string;
   ogImage?:    string;
   slug?:       string;
+  /** The original page, when this post was first published somewhere else. */
+  canonical?:  string;
 }
 
-const { title, seoTitle, description, pubDate, author, tags, image, ogImage, slug } = Astro.props;
+const { title, seoTitle, description, pubDate, author, tags, image, ogImage, slug, canonical: canonicalOverride } = Astro.props;
 
 const dateStr = pubDate.toLocaleDateString('en-US', {
   year: 'numeric', month: 'long', day: 'numeric',
@@ -22,7 +24,7 @@ const dateStr = pubDate.toLocaleDateString('en-US', {
 const pageUrl = Astro.url.href;
 const metaTitle = seoTitle || title;
 const shareImage = ogImage || image;
-const canonical = slug ? `https://kixlogic.com/blog/${slug}/` : pageUrl;
+const canonical = canonicalOverride ?? (slug ? `https://kixlogic.com/blog/${slug}/` : pageUrl);
 
 const jsonLd = {
   '@context': 'https://schema.org',
