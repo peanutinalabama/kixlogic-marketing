@@ -3,9 +3,10 @@ import Base from '../layouts/Base.astro';
 
 // Kixlogic Hero — the Excel add-in. House rules hold: no customer names,
 // no invented numbers. Every count below is what the shipped build contains
-// (39 rules, 79 utilities), and every promise is one the code keeps.
+// (39 rules, 92 utilities, 125 trade commands), and every promise is one the code keeps.
 
 const INSTALL = 'https://hero.kixlogic.com/addin/install.html';
+const MARKETPLACE = 'https://marketplace.microsoft.com/en-us/product/WA200012504';
 const BUY = {
   one: 'https://buy.stripe.com/28EbIUgab75MgKF9lebMQ0B',
   five: 'https://buy.stripe.com/eVq8wI6zBahY661eFybMQ0C',
@@ -42,7 +43,7 @@ const menus = [
   { name: 'Fix', items: 'fix numbers and dates stored as text · clean up this sheet · convert numbers stored as text · convert dates stored as text · explain the #N/A cells · break links to other workbooks · highlight typed values inside formula ranges · select all error cells · highlight duplicate rows' },
   { name: 'Reconcile', items: 'match two lists · compare two sheets · summarize by a column · list unique values with counts' },
   { name: 'Track', items: 'find overdue and upcoming · find duplicate records by ID · compare planned with actual · compare two snapshots by ID · rank by contribution (Pareto) · check values against limits · build a cohort table · start a tracker sheet · calculate OEE' },
-  { name: 'Audit', items: 'list every formula · find fragile formulas · draw a random sample · benford first-digit test · add aging buckets · explain this formula · trace what feeds this cell · find outliers · find missing data · describe this sheet · explain every formula on this sheet · audit this workbook' },
+  { name: 'Audit', items: 'list every formula · find fragile formulas · draw a random sample · benford first-digit test · ten tickmarks (examined, footed, crossfooted, agreed, traced, recalculated, confirmed, bank, prior, query) · remove tickmarks · rebuild the legend · your initials · add aging buckets · explain this formula · trace what feeds this cell · find outliers · find missing data · describe this sheet · explain every formula on this sheet · audit this workbook' },
   { name: 'HR', items: 'split by manager · workforce profile' },
   { name: 'Text', items: 'trim spaces and clean text · uPPER CASE · lower case · proper Case · fill blank cells from above · extract email addresses · extract phone numbers · extract the number from text · split names into first and last' },
   { name: 'Sheets', items: 'unhide everything · add a sheet index · sort sheets A → Z · freeze panes at the selection · freeze the header row · unfreeze panes on every sheet · turn the data into a table · set this sheet up to print · snapshot this sheet as values · lock the formulas, leave inputs open · refresh every pivot table · check this workbook before sending' },
@@ -52,6 +53,10 @@ const menus = [
   { name: 'Charts', items: 'summarize with a pivot table · chart this data' },
 ];
 
+// The trade menus: twenty-five professions, five commands each, every one opening a
+// utility with the right columns already chosen. Counts are the shipped build's.
+const trades = ['Logistics', 'Procurement', 'Production', 'Fleet', 'Facilities', 'Project controls', 'Construction', 'Engineering', 'Operations', 'Energy', 'HR', 'Safety', 'Education', 'Healthcare', 'Emergency management', 'Sales operations', 'Marketing', 'Insurance', 'Legal', 'Executive', 'Compliance', 'Quality', 'Clinical research', 'Laboratory', 'Government'];
+
 // Screenshots live in src/assets/shots. A missing file is skipped at build
 // time rather than shipping a broken image, so this list can name shots that
 // do not exist yet.
@@ -60,7 +65,7 @@ const SHOTS = [
     file: 'ribbon.png',
     alt: 'The Kixlogic Hero tab on the Excel ribbon with the Audit menu open, beside the task pane',
     title: 'Its own tab on the ribbon',
-    body: 'Two checkers on the left, then eleven menus holding 79 utilities. Everything is one click from the ribbon, and the pane stays open beside your sheet.',
+    body: 'Two checkers on the left, then eleven menus holding 92 utilities, then twenty-five trade menus holding 125 more commands. Everything is one click from the ribbon, and the pane stays open beside your sheet.',
   },
   {
     file: 'findings.png',
@@ -71,7 +76,7 @@ const SHOTS = [
   {
     file: 'powers.png',
     alt: 'The Kixlogic Hero pane showing the two checkers and the list of utilities',
-    title: 'Two checkers, then 79 utilities',
+    title: 'Two checkers, then 92 utilities',
     body: 'Close the books runs every rule in the library. Payroll register runs the ones that test a register and its masters. Underneath, the utilities you would open an add-in for anyway.',
   },
   {
@@ -106,7 +111,7 @@ const faq = [
 ---
 <Base
   title="Kixlogic Hero — the Excel add-in for accounting and payroll"
-  description="Checks the spreadsheets behind a month-end close or a payroll run, and explains every problem in plain English. 39 deterministic rules, 79 utilities, nothing leaves the machine. One-time purchase, 90-day free trial."
+  description="Checks the spreadsheets behind a month-end close or a payroll run, and explains every problem in plain English. 39 deterministic rules, 92 utilities, 125 trade commands, nothing leaves the machine. One-time purchase, 90-day free trial."
 >
   <section class="hero-top">
     <div class="wrap">
@@ -125,10 +130,11 @@ const faq = [
         It runs on your computer. Nothing is sent anywhere.
       </p>
       <div class="ctas">
-        <a class="btn-p" href={INSTALL}>Start the 90-day free trial</a>
+        <a class="btn-p" href={MARKETPLACE}>Get it on Microsoft Marketplace</a>
+        <a class="btn-o" href={INSTALL}>Install steps and 90-day trial</a>
         <a class="btn-o" href="#pricing">See pricing</a>
       </div>
-      <p class="fine">No account, no card, no upload. Install and check a workbook in two minutes.</p>
+      <p class="fine">Available on Microsoft Marketplace. No account, no card, no upload: install and check a workbook in two minutes.</p>
     </div>
   </section>
 
@@ -179,13 +185,16 @@ const faq = [
 
   <section class="band">
     <div class="wrap">
-      <h2>79 utilities on one ribbon tab</h2>
-      <p class="sub">The first six fix what the checker finds. The rest are the ones accountants open a utilities add-in for every day.</p>
+      <h2>92 utilities and 125 trade commands on one ribbon tab</h2>
+      <p class="sub">The Fix menu resolves what the checker finds. The rest are the ones accountants open a utilities add-in for every day, and the audit menu carries the tickmarks you sign a workpaper with.</p>
       <div class="menus">
         {menus.map((m) => (
           <div class="menu"><b>{m.name} ▾</b><span>{m.items}</span></div>
         ))}
       </div>
+      <h3 class="trades-h">Plus twenty-five trade menus</h3>
+      <p class="sub">Five commands each, named for the job rather than the tool: Check Freight Invoices, Compare Supplier Bids, Build Change Order Log, Calculate Turnover. Each opens the utility that does the work with the right columns already chosen.</p>
+      <p class="trades">{trades.join(' · ')}</p>
     </div>
   </section>
 
@@ -262,6 +271,8 @@ const faq = [
   .shot figcaption { margin-top: 0.7rem; font-size: 0.95rem; line-height: 1.55; }
   .shot figcaption b { display: block; color: #111; margin-bottom: 0.15rem; }
   .shot figcaption span { color: #4b5563; }
+  .trades-h { font-size: 1.15rem; margin: 2rem 0 0.4rem; }
+  .trades { color: #374151; line-height: 1.7; font-size: 0.95rem; max-width: 52rem; }
   .menus { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0.6rem 1.25rem; }
   .menu { padding: 0.6rem 0; border-bottom: 1px solid #e5e7eb; font-size: 0.95rem; line-height: 1.5; }
   .menu b { display: block; color: #1d4ed8; margin-bottom: 0.15rem; }
