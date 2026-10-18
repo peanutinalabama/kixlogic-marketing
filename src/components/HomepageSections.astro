@@ -98,12 +98,21 @@ const platforms = [
     color: '#2c5079',
   },
   {
+    name: 'MarketKix',
+    tag: 'Discontinued-Parts Finder',
+    line: 'They stopped making it; MarketKix helps you find it. Discontinued mower, small-engine and appliance parts, with the old numbers each one replaced and the evidence behind every fit claim.',
+    href: 'https://marketkix.com',
+    icon: '/apps/marketkix.svg',
+    color: '#2f6f4f',
+  },
+  {
     name: 'JourneyAI',
-    tag: 'AI Travel Concierge',
-    line: 'Plans your trips, tracks your journeys, and learns what you love — an AI travel advisor that remembers you from one trip to the next.',
+    tag: 'For Frequent Flyers',
+    line: 'Delay and gate alerts, a live flight link for whoever is picking you up, and a copilot that helps you rebook when a trip goes sideways.',
     href: 'https://journeyai.kixlogic.com',
     icon: '/apps/journeyai.png',
     color: '#1d4ed8',
+    soon: true,
   },
 ];
 
@@ -180,7 +189,7 @@ const ai = [
     </header>
     <div class="kx-biz-grid">
       {platforms.map((p) => p.soon ? (
-        <div class="kx-biz-card is-soon" id="publishing">
+        <div class="kx-biz-card is-soon" id={p.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}>
           <img class="kx-biz-icon" src={p.icon} alt={`${p.name} icon`} width="64" height="64" loading="lazy" />
           <div>
             <span class="kx-app-tag" style={`color:${p.color}`}>{p.tag}</span>
