@@ -1,5 +1,6 @@
 ---
 import BlogTeaser from './BlogTeaser.astro';
+import StoreBadges from './StoreBadges.astro';
 
 // 2026-08-30 redesign (Charles): bold colors, Zynga-style product-forward,
 // NO dark pages. Apple apps front and center, then Kixlogic ATS and
@@ -9,6 +10,7 @@ import BlogTeaser from './BlogTeaser.astro';
 const apps = [
   {
     name: 'LilyFi',
+    stores: { apple: 'https://apps.apple.com/us/app/id6804311630' },
     tag: 'Voice Budgeting',
     line: 'Envelope budgeting you can talk to — say what you spent, Lily logs it and speaks it back.',
     href: '/lilyfi/',
@@ -20,6 +22,7 @@ const apps = [
   },
   {
     name: 'Pixalary',
+    stores: { apple: 'https://apps.apple.com/us/app/id6806102114' },
     tag: 'Picture-Reveal Race',
     line: 'A picture hides under 50 tiles. Answer questions, uncover it, name it first — solo or live vs friends.',
     href: '/pixalary/',
@@ -31,6 +34,7 @@ const apps = [
   },
   {
     name: 'Bingopalooza',
+    stores: { apple: 'https://apps.apple.com/us/app/id6805467426' },
     tag: 'Skill Bingo',
     line: 'Luck deals the cards, skill wins them. Earn every square against a room that never sits still.',
     href: '/bingopalooza/',
@@ -42,6 +46,7 @@ const apps = [
   },
   {
     name: 'Auravo',
+    stores: { apple: 'https://apps.apple.com/us/app/id6804338762' },
     tag: 'AI Language Coach',
     line: 'Speak from minute one. Real conversation, gentle corrections, a tutor with endless patience.',
     href: '/auravo/',
@@ -53,6 +58,7 @@ const apps = [
   },
   {
     name: 'Lanternwise',
+    stores: { google: 'https://play.google.com/store/apps/details?id=com.kixlogic.lanternwise' },
     tag: 'On Android',
     line: 'Published on Google Play — installable straight to an Android phone.',
     href: 'https://play.google.com/store/apps/details?id=com.kixlogic.lanternwise',
@@ -166,15 +172,17 @@ const ai = [
     </header>
     <div class="kx-app-grid">
       {apps.map((a) => (
-        <a href={a.href} class="kx-app" style={`--tint:${a.tint};--ring:${a.ring}`}>
-          <img src={a.icon} alt={`${a.name} app icon`} width="128" height="128" loading="lazy" />
-          <div class="kx-app-body">
-            <span class="kx-app-tag">{a.tag}</span>
-            <h3>{a.name}</h3>
-            <p>{a.line}</p>
-            <span class={`kx-badge ${a.live ? 'is-live' : ''}`}>{a.badge}</span>
-          </div>
-        </a>
+        <div class="kx-app" style={`--tint:${a.tint};--ring:${a.ring}`}>
+          <a href={a.href} class="kx-app-link">
+            <img class="kx-app-icon" src={a.icon} alt={`${a.name} app icon`} width="128" height="128" loading="lazy" />
+            <div class="kx-app-body">
+              <span class="kx-app-tag">{a.tag}</span>
+              <h3>{a.name}</h3>
+              <p>{a.line}</p>
+            </div>
+          </a>
+          {a.stores ? <StoreBadges apple={a.stores.apple} google={a.stores.google} name={a.name} size={40} /> : <span class={`kx-badge ${a.live ? 'is-live' : ''}`}>{a.badge}</span>}
+        </div>
       ))}
     </div>
   </div>
@@ -363,7 +371,9 @@ const ai = [
   border-color: var(--ring);
   box-shadow: 0 14px 30px rgba(22, 35, 63, 0.12);
 }
-.kx-app img {
+.kx-app-link { display: flex; flex-direction: column; align-items: center; gap: 0.9rem; color: inherit; text-decoration: none; }
+.kx-app .store-badges { justify-content: center; margin-top: auto; }
+.kx-app-icon {
   width: 108px; height: 108px;
   border-radius: 24px;
   box-shadow: 0 10px 22px rgba(22, 35, 63, 0.22);

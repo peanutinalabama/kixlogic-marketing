@@ -15,17 +15,17 @@ const jsonLd = JSON.stringify({
 ---
 <Base
   title="Pixalary"
-  description="Pixalary — guess the hidden picture. Answer fast, uncover tiles, name it first. Solo vs AI or live multiplayer with friends and private groups. Coming to the App Store."
+  description="Pixalary — guess the hidden picture. Answer fast, uncover tiles, name it first. Solo vs AI or live multiplayer with friends and private groups. On the App Store."
 >
   <Fragment slot="head">
+    <meta name="apple-itunes-app" content="app-id=6806102114" />
     <script type="application/ld+json" set:html={jsonLd} />
   </Fragment>
   <ProductPage
     name="Pixalary"
     role="Guess the hidden picture · iOS"
     description="A picture hides under 50 tiles. Answer five-second trivia to uncover it, and hit the buzzer the moment you know — before your rival does. Play the AI offline, race strangers, or make a private group for friends and family."
-    soon={true}
-    primaryCta={{ label: 'Get launch updates', href: '/contact/' }}
+    stores={{ apple: 'https://apps.apple.com/us/app/id6806102114' }}
     secondaryCta={{ label: 'Explore products', href: '/#products' }}
     billboard={{
       ariaLabel: 'Hidden picture race',

@@ -3,6 +3,7 @@
  * Shared product detail shell — company site + named product pages.
  */
 import MarketingBillboard from './MarketingBillboard.astro';
+import StoreBadges from './StoreBadges.astro';
 
 interface BillboardCopy {
   line1: string;
@@ -23,6 +24,8 @@ interface Props {
   soon?: boolean;
   points?: string[];
   billboard: BillboardCopy;
+  /** Store listing URLs; shown as the official App Store / Google Play badges. */
+  stores?: { apple?: string; google?: string };
 }
 
 const {
@@ -34,6 +37,7 @@ const {
   soon = false,
   points = [],
   billboard,
+  stores,
 } = Astro.props;
 ---
 
@@ -46,6 +50,7 @@ const {
     </h1>
     <p class="prod-role">{role}</p>
     <p class="prod-desc">{description}</p>
+    {stores && <div class="prod-stores"><StoreBadges apple={stores.apple} google={stores.google} name={name} size={52} /></div>}
     {(primaryCta || secondaryCta) && (
       <div class="prod-ctas">
         {primaryCta && <a href={primaryCta.href} class="btn btn-primary">{primaryCta.label}</a>}
@@ -141,6 +146,7 @@ const {
   margin-bottom: 1.75rem;
 }
 .prod-ctas { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.prod-stores { margin: 0 0 1.25rem; }
 
 .prod-points-title {
   font-size: clamp(1.35rem, 2.5vw, 1.65rem);

@@ -1,0 +1,42 @@
+---
+/**
+ * Official App Store and Google Play badges, linking to an app's store listing.
+ *
+ * The artwork is served by Apple (Marketing Tools) and Google (Play badges) themselves, unaltered,
+ * as both companies require: never recolor, crop or redraw them. Google's PNG carries its own
+ * transparent margin, so it is drawn taller than Apple's to make the two read the same height,
+ * per Google's badge guidelines. Pass only the stores an app is actually in.
+ */
+interface Props {
+  apple?: string;
+  google?: string;
+  /** Height of the Apple badge in px; the Google badge scales to match. */
+  size?: number;
+  name?: string;
+}
+const { apple, google, size = 48, name = 'this app' } = Astro.props;
+const APPLE_BADGE = 'https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-app-store/black/en-us';
+const GOOGLE_BADGE = 'https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png';
+---
+{(apple || google) && (
+  <div class="store-badges" style={`--badge-h:${size}px`}>
+    {apple && (
+      <a href={apple} class="store-badge apple" target="_blank" rel="noopener">
+        <img src={APPLE_BADGE} alt={`Download ${name} on the App Store`} height={size} loading="lazy" />
+      </a>
+    )}
+    {google && (
+      <a href={google} class="store-badge google" target="_blank" rel="noopener">
+        <img src={GOOGLE_BADGE} alt={`Get ${name} on Google Play`} height={Math.round(size * 1.45)} loading="lazy" />
+      </a>
+    )}
+  </div>
+)}
+
+<style>
+  .store-badges { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; }
+  .store-badge { display: inline-flex; line-height: 0; }
+  .store-badge.apple img { height: var(--badge-h); width: auto; }
+  /* Google's badge has built-in padding; the extra height makes the visible badge match Apple's. */
+  .store-badge.google img { height: calc(var(--badge-h) * 1.45); width: auto; margin: calc(var(--badge-h) * -0.225) 0; }
+</style>

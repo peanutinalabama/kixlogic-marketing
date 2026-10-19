@@ -15,17 +15,17 @@ const jsonLd = JSON.stringify({
 ---
 <Base
   title="Auravo"
-  description="Auravo — the speaking-first AI language coach. Real conversation from minute one, on-device speech, and a teacher that remembers you. Coming to the App Store."
+  description="Auravo — the speaking-first AI language coach. Real conversation from minute one, on-device speech, and a teacher that remembers you. On the App Store."
 >
   <Fragment slot="head">
+    <meta name="apple-itunes-app" content="app-id=6804338762" />
     <script type="application/ld+json" set:html={jsonLd} />
   </Fragment>
   <ProductPage
     name="Auravo"
     role="AI language coach · iOS"
     description="Speak from minute one. Auravo is a speaking-first language coach: real conversations, gentle corrections, and a tutor with endless patience that adapts every lesson to how you actually learn."
-    soon={true}
-    primaryCta={{ label: 'Get launch updates', href: '/contact/' }}
+    stores={{ apple: 'https://apps.apple.com/us/app/id6804338762' }}
     secondaryCta={{ label: 'Explore products', href: '/#products' }}
     billboard={{
       ariaLabel: 'Speaking-first language learning',
