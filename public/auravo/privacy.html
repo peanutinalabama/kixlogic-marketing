@@ -11,27 +11,33 @@
 </head>
 <body>
   <h1>Auravo Privacy Policy</h1>
-  <p>Effective date: August 13, 2026</p>
-  <p>Auravo is published by Kixlogic. Contact: <a href="mailto:privacy@kixlogic.com">privacy@kixlogic.com</a>.</p>
+  <p>Effective date: October 19, 2026</p>
+  <p>Auravo is published by Kixlogic, LLC. Contact: <a href="mailto:support@kixlogic.com">support@kixlogic.com</a>.</p>
   <h2>What the app does</h2>
-  <p>Auravo is a speaking-first language coach. It listens to your spoken practice, analyzes it, updates a private student model, and replies with spoken teaching.</p>
-  <h2>Data we collect</h2>
+  <p>Auravo is a speaking-first language coach. It listens to your spoken practice, turns it into text, scores it, updates a private student model, and replies with spoken teaching.</p>
+  <h2>Data stored on your device</h2>
   <ul>
-    <li>Account profile you enter: name, optional email, languages, level, voice preference.</li>
-    <li>Learning records on this device: skill graph, session summaries, XP, badges, classroom profiles.</li>
-    <li>Purchase status from Apple (not your full card details).</li>
+    <li>The profile you enter: first name, the languages you speak and are learning, your level, interests, and voice preference.</li>
+    <li>Your learning records: skill graph, session summaries, XP, streaks, badges, and any extra learner profiles you add in Classroom.</li>
   </ul>
+  <p>This stays on your device. Auravo has no account server and keeps no copy. (On iPhone, if you are signed in to iCloud, the system may sync it privately to your own iCloud account.)</p>
   <h2>Microphone and speech</h2>
-  <p>The microphone is used only during a live lesson after you tap the record control. Speech recognition uses Apple’s Speech framework. Audio is processed in memory for that turn. Auravo does not store raw audio recordings by default. You may revoke access in iOS Settings.</p>
-  <h2>What we do not collect</h2>
+  <p>The microphone is used only during a lesson, after you tap the microphone. Your phone's speech recognition service (Apple Speech on iPhone; the Android speech recognizer on Android, on-device where the phone supports it) turns your speech into text. Auravo never records, stores, or uploads audio.</p>
+  <h2>The cloud teacher</h2>
+  <p>To write the teacher's next reply, Auravo sends the text of the lesson to Kixlogic's teacher service, which runs on Cloudflare and uses Anthropic's Claude model. Each request contains: your first name, languages, level, interests and skill scores, the lesson scenario, the text of the conversation so far, and the score of your last turn. It does not contain audio, your device identifiers, or any purchase information. The service uses the request to write one reply and does not store it; its logs record only the size of each request for cost monitoring. Anthropic and Cloudflare process this data on Kixlogic's behalf as service providers. If the service can't be reached, the app's on-device teacher answers instead.</p>
+  <h2>Purchases</h2>
+  <p>Purchases are handled by Apple or Google Play. Auravo receives only the purchase status (what you own and when), never your card details.</p>
+  <h2>What we do not do</h2>
   <ul>
-    <li>We do not sell personal data.</li>
-    <li>We do not use third-party advertising SDKs or track you across other companies’ apps.</li>
-    <li>We do not collect precise location or HealthKit data.</li>
+    <li>We do not sell or share personal data.</li>
+    <li>We do not use advertising SDKs or track you across other companies' apps.</li>
+    <li>We do not collect location, contacts, photos, or health data.</li>
   </ul>
   <h2>Children</h2>
-  <p>Auravo is intended for ages 13 and up. It is not directed at children under 13 and is not a COPPA or K–12 classroom product in version 1.</p>
+  <p>Auravo is intended for ages 13 and up. It is not directed at children under 13.</p>
   <h2>Deletion</h2>
-  <p>Settings → Delete my account removes the local SwiftData store. You may also delete the app. Email <a href="mailto:privacy@kixlogic.com">privacy@kixlogic.com</a> for access or deletion requests.</p>
+  <p>Settings → "Delete account and local data" removes every learner and all progress from the device. Uninstalling the app does the same. Because the teacher service stores nothing, there is nothing on our side to delete; you can still email <a href="mailto:support@kixlogic.com">support@kixlogic.com</a> with any request.</p>
+  <h2>Changes</h2>
+  <p>We will update this page and its effective date if this policy changes.</p>
 </body>
 </html>
