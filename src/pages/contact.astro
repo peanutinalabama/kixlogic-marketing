@@ -1,183 +1,83 @@
 ---
-import Base from '../layouts/Base.astro';
+import Firm from '../layouts/Firm.astro';
 ---
-<Base
-  title="Contact"
-  description="Get in touch with Kixlogic. Questions, demos, or support — we respond to every message within one business day."
->
-  <section class="section contact-page">
-    <div class="container">
-      <span class="section-tag">Get in touch</span>
-      <h1 class="section-title">We'd love to hear from you</h1>
-      <p class="section-sub">Have a question about Kixlogic? Want to see a demo? Reach out — we respond to every message.</p>
-
-      <div class="contact-grid">
-        <div class="contact-info">
-          <div class="contact-info-item">
-            <div>
-              <div class="contact-info-label">Email</div>
-              <div class="contact-info-value">
-                <a href="mailto:support@kixlogic.com">support@kixlogic.com</a>
-              </div>
-            </div>
-          </div>
-          <div class="contact-info-item">
-            <div>
-              <div class="contact-info-label">Website</div>
-              <div class="contact-info-value">kixlogic.com</div>
-            </div>
-          </div>
-          <div class="contact-info-item">
-            <div>
-              <div class="contact-info-label">Response time</div>
-              <div class="contact-info-value">Within 1 business day</div>
-            </div>
-          </div>
-
-        </div>
-
-        <form class="contact-form" id="contactForm">
-          <div class="form-group">
-            <label class="form-label" for="contactName">Your name</label>
-            <input id="contactName" name="name" type="text" class="form-input" placeholder="Jane Smith" required />
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="contactEmail">Email address</label>
-            <input id="contactEmail" name="email" type="email" class="form-input" placeholder="jane@company.com" required />
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="contactCompany">Company</label>
-            <input id="contactCompany" name="company" type="text" class="form-input" placeholder="Acme Corp" />
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="contactMessage">Message</label>
-            <textarea id="contactMessage" name="message" class="form-textarea" placeholder="Tell us what you're looking for..." required></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">Send Message →</button>
-          <div id="contactMsg" class="form-msg"></div>
-        </form>
-      </div>
+<Firm title="Contact" description="Talk to Kixlogic about a direct-hire search, HR consulting or an AI-enabled application. We reply to every message within one business day.">
+  <section class="hero">
+    <div class="fw">
+      <p class="eyebrow">Contact us</p>
+      <h1 class="display xl">Let's <mark>talk.</mark></h1>
+      <p class="lede">Tell us about the role you need to fill, the HR problem in front of you, or the tool you want built. We reply within one business day.</p>
     </div>
   </section>
-</Base>
 
-<script>
-document.getElementById('contactForm')?.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const form = e.target as HTMLFormElement;
-  const msg  = document.getElementById('contactMsg') as HTMLElement;
-  const btn  = form.querySelector('button[type=submit]') as HTMLButtonElement;
-  const name    = (document.getElementById('contactName') as HTMLInputElement)?.value?.trim();
-  const email   = (document.getElementById('contactEmail') as HTMLInputElement)?.value?.trim();
-  const company = (document.getElementById('contactCompany') as HTMLInputElement)?.value?.trim();
-  const message = (document.getElementById('contactMessage') as HTMLTextAreaElement)?.value?.trim();
-  if (!name || !email || !message) return;
+  <section class="band">
+    <div class="fw split">
+      <div class="prose">
+        <p class="eyebrow">Email</p>
+        <p><a class="link" style="font-size:16px" href="mailto:support@kixlogic.com">support@kixlogic.com</a></p>
+        <p class="eyebrow" style="margin-top:32px">What helps us reply faster</p>
+        <ul class="ticks">
+          <li>For a search: the job title, location and pay range</li>
+          <li>For HR consulting: what is getting in the way today</li>
+          <li>For an application: the process you want to take off your team's plate</li>
+        </ul>
+      </div>
+      <form class="cform" id="contactForm">
+        <label>Your name<input id="contactName" name="name" type="text" required autocomplete="name" /></label>
+        <label>Work email<input id="contactEmail" name="email" type="email" required autocomplete="email" /></label>
+        <label>Company<input id="contactCompany" name="company" type="text" autocomplete="organization" /></label>
+        <label>I'm interested in
+          <select id="contactTopic" name="topic">
+            <option>Direct hire recruiting</option>
+            <option>HR consulting</option>
+            <option>An AI-enabled application</option>
+            <option>Something else</option>
+          </select>
+        </label>
+        <label>Message<textarea id="contactMessage" name="message" rows="6" required></textarea></label>
+        <button type="submit" class="pill pill-blue">Send message</button>
+        <p id="contactMsg" class="cmsg" role="status"></p>
+      </form>
+    </div>
+  </section>
 
-  btn.disabled = true;
-  btn.textContent = 'Sending…';
-  if (msg) msg.textContent = '';
+  <script>
+  document.getElementById('contactForm')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const msg = document.getElementById('contactMsg') as HTMLElement;
+    const btn = form.querySelector('button[type=submit]') as HTMLButtonElement;
+    const v = (id: string) => ((document.getElementById(id) as HTMLInputElement | null)?.value || '').trim();
+    const name = v('contactName'), email = v('contactEmail'), company = v('contactCompany'), topic = v('contactTopic');
+    const message = v('contactMessage');
+    if (!name || !email || !message) return;
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    msg.textContent = '';
+    try {
+      // The same endpoint the site has always used; the topic travels at the top of the message.
+      const res = await fetch('https://api.kixlogic.com/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, company, message: `[${topic}]\n\n${message}`, subject: 'contact' }),
+      });
+      if (!res.ok) throw new Error();
+      form.innerHTML = '<p class="cok">Thank you. Your message was sent and we will be in touch within one business day.</p>';
+    } catch {
+      btn.disabled = false;
+      btn.textContent = 'Send message';
+      msg.textContent = 'We could not send that just now. Please email support@kixlogic.com directly.';
+    }
+  });
+  </script>
 
-  try {
-    const res = await fetch('https://api.kixlogic.com/api/contact', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, email, company, message, subject: 'contact' }),
-    });
-    if (!res.ok) throw new Error();
-    form.innerHTML = '<div class="form-success">✓ Message sent! We\'ll be in touch shortly.</div>';
-  } catch {
-    btn.disabled = false;
-    btn.textContent = 'Send Message →';
-    if (msg) msg.textContent = 'Could not send right now. Please email support@kixlogic.com directly.';
-  }
-});
-</script>
-
-<style>
-.contact-page { padding-top: 4rem; }
-.section-tag {
-  display: inline-flex;
-  padding: 0.3rem 0.85rem;
-  border-radius: 99px;
-  background: var(--gold-dim);
-  border: 1px solid var(--border-gold);
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--gold);
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  margin-bottom: 1.25rem;
-}
-.section-title {
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: clamp(2rem, 4vw, 3rem);
-  letter-spacing: -1px;
-  margin-bottom: 1rem;
-}
-.section-sub {
-  font-size: 1.05rem;
-  color: var(--text-muted);
-  max-width: 560px;
-  line-height: 1.7;
-  margin-bottom: 2.5rem;
-}
-.contact-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
-  max-width: 900px;
-}
-.contact-info-item {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-  align-items: flex-start;
-}
-.contact-info-label {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--text-dim);
-  margin-bottom: 0.2rem;
-}
-.contact-info-value { font-size: 0.925rem; }
-.contact-info-value a { color: inherit; }
-.contact-info-value a:hover { color: var(--gold); }
-.contact-form { display: flex; flex-direction: column; gap: 1rem; }
-.form-group { display: flex; flex-direction: column; gap: 0.4rem; }
-.form-label {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-.form-input, .form-textarea {
-  padding: 0.75rem 1rem;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  color: var(--text);
-  font-family: var(--font-body);
-  font-size: 0.9rem;
-  outline: none;
-  transition: border-color var(--transition);
-  width: 100%;
-}
-.form-input:focus, .form-textarea:focus { border-color: var(--border-gold); }
-.form-textarea { resize: vertical; min-height: 120px; }
-.form-input::placeholder, .form-textarea::placeholder { color: var(--text-dim); }
-.form-msg { font-size: 0.825rem; text-align: center; min-height: 1.2rem; color: var(--gold); }
-.form-success {
-  text-align: center;
-  padding: 2rem;
-  color: var(--gold);
-  font-weight: 700;
-  font-size: 1.1rem;
-}
-
-@media (max-width: 800px) {
-  .contact-grid { grid-template-columns: 1fr; }
-}
-</style>
+  <style is:global>
+    .firm .cform{display:grid;gap:16px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:32px}
+    .firm .cform label{display:grid;gap:6px;font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--navy)}
+    .firm .cform input,.firm .cform select,.firm .cform textarea{font:400 16px "IBM Plex Sans",sans-serif;letter-spacing:normal;text-transform:none;color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:#fff}
+    .firm .cform input:focus,.firm .cform select:focus,.firm .cform textarea:focus{outline:2px solid var(--blue);border-color:var(--blue)}
+    .firm .cform button{justify-self:start;cursor:pointer}
+    .firm .cmsg{color:#B42318;margin:0;min-height:1em}
+    .firm .cok{font-size:18px;color:var(--navy);margin:0}
+  </style>
+</Firm>

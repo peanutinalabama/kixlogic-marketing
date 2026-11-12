@@ -1,0 +1,13 @@
+---
+// One server route for every industry page (one Cloudflare routing rule for all of them).
+export const prerender = false;
+import Firm from '../../layouts/Firm.astro';
+import OfferPage from '../../components/OfferPage.astro';
+import { findIndustry } from '../../data/firm';
+
+const offer = findIndustry(String(Astro.params.slug || ''));
+if (!offer) return new Response(null, { status: 404 });
+---
+<Firm title={`${offer.name} recruiting`} description={offer.intro}>
+  <OfferPage offer={offer} kind="Industries" />
+</Firm>

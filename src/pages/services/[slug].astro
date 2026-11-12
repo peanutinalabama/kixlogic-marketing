@@ -1,0 +1,14 @@
+---
+// One server route for every service page, so all of them cost a single Cloudflare routing rule
+// (the site sits at the 100-rule cap; see the kixlogic-marketing notes).
+export const prerender = false;
+import Firm from '../../layouts/Firm.astro';
+import OfferPage from '../../components/OfferPage.astro';
+import { findService } from '../../data/firm';
+
+const offer = findService(String(Astro.params.slug || ''));
+if (!offer) return new Response(null, { status: 404 });
+---
+<Firm title={offer.name} description={offer.intro}>
+  <OfferPage offer={offer} kind="Services" />
+</Firm>

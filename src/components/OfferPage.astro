@@ -1,0 +1,35 @@
+---
+// The body of a service or industry page: highlighted headline, intro, sections, and a closing call to action.
+import { headlineParts, type Offer } from '../data/firm';
+interface Props { offer: Offer; kind: 'Services' | 'Industries' }
+const { offer, kind } = Astro.props;
+const parts = headlineParts(offer.headline);
+---
+<section class="hero">
+  <div class="fw">
+    <p class="eyebrow">{kind} · {offer.name}</p>
+    <h1 class="display xl">{parts.map((p) => (p.mark ? <mark>{p.text}</mark> : p.text))}</h1>
+    <p class="lede">{offer.intro}</p>
+    <div class="actions"><a class="pill pill-blue" href="/contact/">{offer.cta}</a></div>
+  </div>
+</section>
+
+{offer.sections.map((s, i) => (
+  <section class={`band ${i % 2 ? 'soft' : ''}`}>
+    <div class="fw split">
+      <div><h2 class="display md">{s.title}</h2></div>
+      <div class="prose">
+        <p>{s.body}</p>
+        {s.points && <ul class="ticks">{s.points.map((p) => <li>{p}</li>)}</ul>}
+      </div>
+    </div>
+  </section>
+))}
+
+<section class="band navy">
+  <div class="fw">
+    <h2 class="display lg">Ready when <mark style="color:#0A1B4D">you are.</mark></h2>
+    <p class="lede">Tell us what you need and we will reply with next steps.</p>
+    <div style="margin-top:32px"><a class="pill" href="/contact/">Contact us</a></div>
+  </div>
+</section>

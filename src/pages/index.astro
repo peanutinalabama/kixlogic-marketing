@@ -1,13 +1,104 @@
 ---
-// SSR so homepage blog teaser reflects live CMS posts without a rebuild.
+// Kixlogic the firm: home page. SSR, as before, so the route count stays the same.
 export const prerender = false;
-import Base from '../layouts/Base.astro';
-import HomepageSections from '../components/HomepageSections.astro';
-import homepage from '../data/homepage.json';
+import Firm from '../layouts/Firm.astro';
+import { SERVICES, INDUSTRIES } from '../data/firm';
+
+const steps = [
+  ['Intake', 'We agree the role, the must-haves, the pay range and the timeline.'],
+  ['Search', 'We go beyond applicants to the people who are not actively looking.'],
+  ['Screening', 'We interview every candidate before you see them.'],
+  ['Shortlist', 'You get a short list of qualified people, with our reasons.'],
+  ['Offer', 'We support interviews, references and the offer through to day one.'],
+];
 ---
-<Base title={homepage.seo.title} description={homepage.seo.description} hidePromo={true}>
-  <Fragment slot="head">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
-  </Fragment>
-  <HomepageSections />
-</Base>
+<Firm
+  title="Kixlogic"
+  description="Kixlogic is an HR services and consulting firm. We recruit direct-hire talent for IT, engineering and life science roles, and we build AI-enabled applications."
+>
+  <section class="hero">
+    <div class="fw">
+      <h1 class="display xl">We find the people who <mark>build what's next.</mark></h1>
+      <p class="lede">Kixlogic is an HR services and consulting firm. We recruit permanent talent for IT, engineering and life science roles, help growing companies run HR well, and build AI-enabled applications that take the busywork out of it.</p>
+      <div class="actions">
+        <a class="pill pill-blue" href="/contact/">Talk to us</a>
+        <a class="link" href="/services/direct-hire-recruiting/">How we recruit →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="fw">
+      <div class="head">
+        <p class="eyebrow">Start with what you need</p>
+        <h2 class="display lg">Three ways <mark>we help.</mark></h2>
+      </div>
+      <div class="cards">
+        {SERVICES.map((s) => (
+          <a class="card" href={`/services/${s.slug}/`}>
+            <p class="eyebrow">Services</p>
+            <h3>{s.name}</h3>
+            <p>{s.line}</p>
+            <span class="link">Learn more →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band soft">
+    <div class="fw">
+      <div class="head">
+        <p class="eyebrow">Where we recruit</p>
+        <h2 class="display lg">Specialists in <mark>three fields.</mark></h2>
+        <p class="lede">We focus on the fields we know, so we can tell a strong candidate from a strong résumé.</p>
+      </div>
+      <div class="cards">
+        {INDUSTRIES.map((s) => (
+          <a class="card" href={`/industries/${s.slug}/`}>
+            <p class="eyebrow">Industries</p>
+            <h3>{s.name}</h3>
+            <p>{s.line}</p>
+            <span class="link">See the roles →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band navy">
+    <div class="fw">
+      <div class="head">
+        <p class="eyebrow" style="color:#9FC3FF">Direct hire, on contingency</p>
+        <h2 class="display lg">You pay only <mark style="color:#0A1B4D">when you hire.</mark></h2>
+        <p class="lede">Every search follows the same five steps, so you always know where it stands.</p>
+      </div>
+      <ol class="steps" style="--navy:#ffffff">
+        {steps.map(([t, d]) => <li><b>{t}</b><span style="color:#C9D3F0">{d}</span></li>)}
+      </ol>
+      <div style="margin-top:44px"><a class="pill" href="/contact/">Start a search</a></div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="fw split">
+      <div>
+        <p class="eyebrow">Who we are</p>
+        <h2 class="display lg">HR people who <mark>build software.</mark></h2>
+      </div>
+      <div class="prose">
+        <p>Kixlogic began by building HR and business software. We now put that experience to work for clients directly: recruiting the people they need, helping them run HR well, and building the tools that make it easier.</p>
+        <p>That mix is the point. We understand the hiring and HR problems first-hand, and we can build the software that fixes the ones worth automating.</p>
+        <a class="link" href="/about/">About Kixlogic →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="band soft">
+    <div class="fw">
+      <h2 class="display lg">Let's talk about <mark>your next hire.</mark></h2>
+      <p class="lede">Tell us about the role, the HR problem or the tool you need. We reply to every message.</p>
+      <div style="margin-top:32px"><a class="pill pill-blue" href="/contact/">Contact us</a></div>
+    </div>
+  </section>
+</Firm>

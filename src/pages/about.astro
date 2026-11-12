@@ -1,135 +1,43 @@
 ---
-import Base from '../layouts/Base.astro';
-
-const points = [
-  {
-    title: 'Built in the field',
-    text: 'Our products are developed for real businesses — hiring teams, operators, and founders who need tools that work the day they sign up.',
-  },
-  {
-    title: 'AI that earns its keep',
-    text: 'We use AI where it saves time: scoring resumes, writing descriptions, sourcing candidates, and informing pay decisions — not as a marketing checkbox.',
-  },
-  {
-    title: 'Enterprise capability, SMB price',
-    text: 'Kixlogic builds AI Intelligence Software so growing companies get enterprise-level products without enterprise pricing or six-month implementations.',
-  },
-];
+import Firm from '../layouts/Firm.astro';
 ---
-<Base
-  title="About"
-  description="Kixlogic builds AI Intelligence Software — enterprise-level products for SMBs at non-enterprise prices."
->
-  <section class="about-hero">
-    <div class="container">
-      <p class="about-kicker">About</p>
-      <h1>Kixlogic</h1>
-      <p class="about-lead">
-        We are a software development company. We build and ship our own products —
-        Kixlogic Hero and Renumify among them — so growing companies get
-        enterprise-level capability at non-enterprise prices.
-      </p>
+<Firm title="About" description="Kixlogic is an HR services and consulting firm that recruits direct-hire talent for IT, engineering and life sciences, and builds AI-enabled applications.">
+  <section class="hero">
+    <div class="fw">
+      <p class="eyebrow">About Kixlogic</p>
+      <h1 class="display xl">HR people who <mark>build software.</mark></h1>
+      <p class="lede">Kixlogic is an HR services and consulting firm. We recruit permanent talent for IT, engineering and life science roles, help growing companies run HR well, and build AI-enabled applications.</p>
     </div>
   </section>
 
-  <section class="mission-block">
-    <div class="container">
-      <blockquote class="mission-quote">
-        Enterprise-level products. Non-enterprise prices. That is the Kixlogic standard.
-      </blockquote>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container about-grid">
-      {points.map(p => (
-        <div class="about-point">
-          <h2>{p.title}</h2>
-          <p>{p.text}</p>
-        </div>
-      ))}
-    </div>
-  </section>
-
-  <section class="section section-grey">
-    <div class="container about-cta">
-      <h2>Explore the products</h2>
-      <p>See the full portfolio on the company homepage, or go straight to a product.</p>
-      <div class="about-cta-row">
-        <a href="/#products" class="btn btn-primary">View products</a>
-        <a href="/contact/" class="btn btn-outline">Talk to us</a>
+  <section class="band">
+    <div class="fw split">
+      <div><h2 class="display md">Our story</h2></div>
+      <div class="prose">
+        <p>Kixlogic began as a software company, building HR and business tools used on the web, inside Microsoft Office and on mobile. Building those products meant living inside the hiring and HR problems our users faced every day.</p>
+        <p>We now put that experience to work for clients directly. We run direct-hire searches, we help companies put sound HR practice in place, and when a problem is worth automating, we build the software to do it.</p>
       </div>
     </div>
   </section>
-</Base>
 
-<style>
-.about-hero {
-  background: #fff;
-  border-bottom: 1px solid var(--border);
-  color: var(--ink);
-  padding: clamp(3.5rem, 8vw, 5.5rem) 0 clamp(3rem, 6vw, 4rem);
-}
-.about-kicker {
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--text-dim);
-  margin-bottom: 0.75rem;
-}
-.about-hero h1 {
-  font-size: clamp(2.5rem, 7vw, 4rem);
-  margin-bottom: 1rem;
-}
-.about-lead {
-  font-size: 1.1rem;
-  line-height: 1.65;
-  color: var(--text-muted);
-  max-width: 40rem;
-}
-.mission-block {
-  padding: clamp(3rem, 6vw, 4.5rem) 0;
-  background: var(--fog);
-}
-.mission-quote {
-  font-family: var(--font-display);
-  font-size: clamp(1.35rem, 3vw, 1.85rem);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.35;
-  color: var(--ink);
-  max-width: 36rem;
-  border: none;
-}
-.about-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: clamp(1.5rem, 3vw, 2.5rem);
-}
-.about-point h2 {
-  font-size: 1.2rem;
-  margin-bottom: 0.65rem;
-}
-.about-point p {
-  color: var(--text-muted);
-  line-height: 1.6;
-  font-size: 0.98rem;
-}
-.about-cta h2 {
-  font-size: 1.75rem;
-  margin-bottom: 0.65rem;
-}
-.about-cta p {
-  color: var(--text-muted);
-  margin-bottom: 1.35rem;
-}
-.about-cta-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-}
-@media (max-width: 800px) {
-  .about-grid { grid-template-columns: 1fr; }
-}
-</style>
+  <section class="band soft">
+    <div class="fw split">
+      <div><h2 class="display md">How we work</h2></div>
+      <div class="prose">
+        <ul class="ticks">
+          <li>We say what we will do, and we do it on the timeline we agreed.</li>
+          <li>We only present candidates we have spoken to and believe in.</li>
+          <li>We keep people in charge of decisions, including in the software we build.</li>
+          <li>We tell you plainly when something is not a fit.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="band navy">
+    <div class="fw">
+      <h2 class="display lg">Let's work <mark style="color:#0A1B4D">together.</mark></h2>
+      <div style="margin-top:32px"><a class="pill" href="/contact/">Contact us</a></div>
+    </div>
+  </section>
+</Firm>
