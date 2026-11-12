@@ -1,0 +1,6 @@
+---
+// Kixlogic ATS is no longer sold to the public (2026-11-11). This address sends visitors to the home page.
+// Served by the Worker, not as a static file, so it adds no rule to _routes.json (Cloudflare caps that at 100).
+export const prerender = false;
+return Astro.redirect('/', 302);
+---
