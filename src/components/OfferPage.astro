@@ -1,16 +1,22 @@
 ---
-// The body of a service or industry page: highlighted headline, intro, sections, and a closing call to action.
-import { headlineParts, type Offer } from '../data/firm';
+// The body of a service or industry page: highlighted headline and photo, sections, and a closing call to action.
+import { headlineParts, photoUrl, type Offer } from '../data/firm';
+import Icon from './Icon.astro';
 interface Props { offer: Offer; kind: 'Services' | 'Industries' }
 const { offer, kind } = Astro.props;
 const parts = headlineParts(offer.headline);
 ---
-<section class="hero">
-  <div class="fw">
-    <p class="eyebrow">{kind} · {offer.name}</p>
-    <h1 class="display xl">{parts.map((p) => (p.mark ? <mark>{p.text}</mark> : p.text))}</h1>
-    <p class="lede">{offer.intro}</p>
-    <div class="actions"><a class="pill pill-blue" href="/contact/">{offer.cta}</a></div>
+<section class="hero hero-split">
+  <div class="fw hs-in">
+    <div>
+      <p class="eyebrow"><span class="ic-chip"><Icon name={offer.icon} size={20} /></span>{kind} · {offer.name}</p>
+      <h1 class="display xl">{parts.map((p) => (p.mark ? <mark>{p.text}</mark> : p.text))}</h1>
+      <p class="lede">{offer.intro}</p>
+      <div class="actions"><a class="pill pill-blue" href="/contact/">{offer.cta}</a></div>
+    </div>
+    <figure class="photo">
+      <img src={photoUrl(offer.photo, 900, 1000)} srcset={`${photoUrl(offer.photo, 600, 667)} 600w, ${photoUrl(offer.photo, 900, 1000)} 900w`} sizes="(max-width:980px) 100vw, 480px" alt={offer.photoAlt} width="900" height="1000" loading="eager" />
+    </figure>
   </div>
 </section>
 

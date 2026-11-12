@@ -1,12 +1,21 @@
 ---
 import Firm from '../layouts/Firm.astro';
+import { photoUrl } from '../data/firm';
+// Photos: free Unsplash licence, served from images.unsplash.com.
+const heroPhoto = '1758691737278-3af15b37af48';
+const workPhoto = '1542744173-8e7e53415bb0';
 ---
-<Firm title="About" description="Kixlogic is an HR services and consulting firm that recruits direct-hire talent for IT, engineering and life sciences, and builds AI-enabled applications.">
-  <section class="hero">
-    <div class="fw">
-      <p class="eyebrow">About Kixlogic</p>
-      <h1 class="display xl">HR people who <mark>build software.</mark></h1>
-      <p class="lede">Kixlogic is an HR services and consulting firm. We recruit permanent talent for IT, engineering and life science roles, help growing companies run HR well, and build AI-enabled applications.</p>
+<Firm title="About" description="Kixlogic is an HR services and consulting firm that recruits direct-hire talent for IT, engineering and life sciences, supports the HR side of work visas, and builds AI-enabled applications.">
+  <section class="hero hero-split">
+    <div class="fw hs-in">
+      <div>
+        <p class="eyebrow">About Kixlogic</p>
+        <h1 class="display xl">HR people who <mark>build software.</mark></h1>
+        <p class="lede">Kixlogic is an HR services and consulting firm. We recruit permanent talent for IT, engineering and life science roles, help growing companies run HR well, support the HR side of work visas, and build AI-enabled applications.</p>
+      </div>
+      <figure class="photo">
+        <img src={photoUrl(heroPhoto, 900, 1000)} alt="Two colleagues talking through a piece of work in a modern office" width="900" height="1000" loading="eager" />
+      </figure>
     </div>
   </section>
 
@@ -15,14 +24,19 @@ import Firm from '../layouts/Firm.astro';
       <div><h2 class="display md">Our story</h2></div>
       <div class="prose">
         <p>Kixlogic began as a software company, building HR and business tools used on the web, inside Microsoft Office and on mobile. Building those products meant living inside the hiring and HR problems our users faced every day.</p>
-        <p>We now put that experience to work for clients directly. We run direct-hire searches, we help companies put sound HR practice in place, and when a problem is worth automating, we build the software to do it.</p>
+        <p>We now put that experience to work for clients directly. We run direct-hire searches, we help companies put sound HR practice in place, we take the HR work of visa sponsorship off their hands, and when a problem is worth automating, we build the software to do it.</p>
       </div>
     </div>
   </section>
 
   <section class="band soft">
-    <div class="fw split">
-      <div><h2 class="display md">How we work</h2></div>
+    <div class="fw split" style="align-items:center">
+      <div>
+        <h2 class="display md" style="margin-bottom:36px">How we work</h2>
+        <figure class="photo wide" style="max-width:480px">
+          <img src={photoUrl(workPhoto, 800, 600)} alt="A consultant presenting to a team around a meeting table" width="800" height="600" loading="lazy" />
+        </figure>
+      </div>
       <div class="prose">
         <ul class="ticks">
           <li>We say what we will do, and we do it on the timeline we agreed.</li>

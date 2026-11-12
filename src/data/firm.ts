@@ -2,6 +2,12 @@
 // Everything here is a plain description of what we do. No client names, counts, results or
 // figures until Charles supplies real ones (see the no-invented-claims rule for this site).
 
+export type IconName = 'search' | 'people' | 'spark' | 'globe' | 'code' | 'gear' | 'flask';
+
+/** Sized Unsplash image URL. */
+export const photoUrl = (id: string, w: number, h?: number) =>
+  `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&q=70&w=${w}${h ? `&h=${h}` : ''}`;
+
 export interface Offer {
   slug: string;
   name: string;
@@ -12,11 +18,18 @@ export interface Offer {
   intro: string;
   sections: { title: string; body: string; points?: string[] }[];
   cta: string;
+  /** Unsplash photo id (free Unsplash licence, served from images.unsplash.com). */
+  photo: string;
+  photoAlt: string;
+  icon: IconName;
 }
 
 export const SERVICES: Offer[] = [
   {
     slug: 'direct-hire-recruiting',
+    photo: '1698047682091-782b1e5c6536',
+    photoAlt: 'A recruiter shaking hands with a candidate across a table',
+    icon: 'search',
     name: 'Direct Hire Recruiting',
     line: 'Permanent hires for IT, engineering and life science roles. You pay only when you hire.',
     headline: 'The right hire, [not just a résumé.]',
@@ -43,6 +56,9 @@ export const SERVICES: Offer[] = [
   },
   {
     slug: 'hr-consulting',
+    photo: '1758518731706-be5d5230e5a5',
+    photoAlt: 'An HR consultant in a meeting with a client team',
+    icon: 'people',
     name: 'HR Consulting',
     line: 'Practical HR help for growing companies, from policies to compliance to the people processes in between.',
     headline: 'HR that [keeps up with you.]',
@@ -58,6 +74,9 @@ export const SERVICES: Offer[] = [
   },
   {
     slug: 'ai-applications',
+    photo: '1607799279861-4dd421887fb3',
+    photoAlt: 'A laptop screen showing application code',
+    icon: 'spark',
     name: 'AI-Enabled Applications',
     line: 'We design and build AI-enabled software for HR and business teams.',
     headline: 'Software that [does the busywork.]',
@@ -76,11 +95,44 @@ export const SERVICES: Offer[] = [
     ],
     cta: 'Talk to us about a build',
   },
+  {
+    slug: 'immigration-support',
+    photo: '1767216427262-ce74ba565c3c',
+    photoAlt: 'Passports from several countries held by different people',
+    icon: 'globe',
+    name: 'Immigration Processing Support',
+    line: 'HR-side visa support for the people you hire, with filings handled by our immigration attorneys.',
+    headline: 'Global talent, [without the paperwork.]',
+    intro:
+      'We are experts in the HR side of immigration. When you hire someone who needs a work visa or green card, we run the process with you and work alongside our immigration attorneys, who prepare and file the petitions, so your team does not have to.',
+    sections: [
+      {
+        title: 'What we take off your plate',
+        body: 'Sponsoring an employee means a long trail of HR work around the legal filing. We handle it end to end.',
+        points: [
+          'Flagging sponsorship needs early, at the offer stage, and bringing in our attorneys.',
+          'Gathering the documents and details needed from you and from the employee.',
+          'Preparing the job, wage and position information the petition depends on.',
+          'Tracking deadlines, renewals and status expirations so nothing lapses.',
+          'Keeping I-9 and HR records for sponsored employees in order.',
+          'Keeping the employee informed, so they can focus on the new job.',
+        ],
+      },
+      {
+        title: 'Who does what',
+        body: 'Legal advice and filings come from licensed immigration attorneys we work with. We handle the HR work around them: the coordination, the paperwork and the follow-through. You get one point of contact for the whole process.',
+      },
+    ],
+    cta: 'Talk to us about a visa',
+  },
 ];
 
 export const INDUSTRIES: Offer[] = [
   {
     slug: 'information-technology',
+    photo: '1758873268745-dd2cf0d677b5',
+    photoAlt: 'A technology team working together around a computer',
+    icon: 'code',
     name: 'Information Technology',
     line: 'Software, infrastructure, data and security roles.',
     headline: 'Technology talent [for what you are building.]',
@@ -96,6 +148,9 @@ export const INDUSTRIES: Offer[] = [
   },
   {
     slug: 'engineering',
+    photo: '1581091226825-a6a2a5aee158',
+    photoAlt: 'An engineer working with equipment in a technical workshop',
+    icon: 'gear',
     name: 'Engineering',
     line: 'Mechanical, electrical, manufacturing and quality roles.',
     headline: 'Engineers who [make it work.]',
@@ -111,6 +166,9 @@ export const INDUSTRIES: Offer[] = [
   },
   {
     slug: 'life-sciences',
+    photo: '1630959305790-4c956ce6c0b6',
+    photoAlt: 'A scientist looking through a microscope in a laboratory',
+    icon: 'flask',
     name: 'Life Sciences',
     line: 'Research, clinical, regulatory and quality roles in biotech, pharma and medical devices.',
     headline: 'Scientists for [the work that matters.]',

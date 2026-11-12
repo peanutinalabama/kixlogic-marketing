@@ -11,6 +11,7 @@ const STATIC_URLS = [
   { loc: 'https://kixlogic.com/services/direct-hire-recruiting/', changefreq: 'monthly', priority: '0.9' },
   { loc: 'https://kixlogic.com/services/hr-consulting/', changefreq: 'monthly', priority: '0.9' },
   { loc: 'https://kixlogic.com/services/ai-applications/', changefreq: 'monthly', priority: '0.9' },
+  { loc: 'https://kixlogic.com/services/immigration-support/', changefreq: 'monthly', priority: '0.9' },
   { loc: 'https://kixlogic.com/industries/information-technology/', changefreq: 'monthly', priority: '0.9' },
   { loc: 'https://kixlogic.com/industries/engineering/', changefreq: 'monthly', priority: '0.9' },
   { loc: 'https://kixlogic.com/industries/life-sciences/', changefreq: 'monthly', priority: '0.9' },

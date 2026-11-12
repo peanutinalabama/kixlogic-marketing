@@ -2,7 +2,12 @@
 // Kixlogic the firm: home page. SSR, as before, so the route count stays the same.
 export const prerender = false;
 import Firm from '../layouts/Firm.astro';
-import { SERVICES, INDUSTRIES } from '../data/firm';
+import Icon from '../components/Icon.astro';
+import { SERVICES, INDUSTRIES, photoUrl } from '../data/firm';
+
+// Photos: free Unsplash licence, served from images.unsplash.com.
+const heroPhoto = '1758691737543-09a1b2b715fa';
+const whoPhoto = '1521791136064-7986c2920216';
 
 const steps = [
   ['Intake', 'We agree the role, the must-haves, the pay range and the timeline.'],
@@ -14,16 +19,21 @@ const steps = [
 ---
 <Firm
   title="Kixlogic"
-  description="Kixlogic is an HR services and consulting firm. We recruit direct-hire talent for IT, engineering and life science roles, and we build AI-enabled applications."
+  description="Kixlogic is an HR services and consulting firm. We recruit direct-hire talent for IT, engineering and life science roles, support the HR side of work visas, and build AI-enabled applications."
 >
-  <section class="hero">
-    <div class="fw">
-      <h1 class="display xl">We find the people who <mark>build what's next.</mark></h1>
-      <p class="lede">Kixlogic is an HR services and consulting firm. We recruit permanent talent for IT, engineering and life science roles, help growing companies run HR well, and build AI-enabled applications that take the busywork out of it.</p>
-      <div class="actions">
-        <a class="pill pill-blue" href="/contact/">Talk to us</a>
-        <a class="link" href="/services/direct-hire-recruiting/">How we recruit →</a>
+  <section class="hero hero-split">
+    <div class="fw hs-in">
+      <div>
+        <h1 class="display xl">We find the people who <mark>build what's next.</mark></h1>
+        <p class="lede">Kixlogic is an HR services and consulting firm. We recruit permanent talent for IT, engineering and life science roles, help growing companies run HR well, support the HR side of work visas, and build AI-enabled applications that take the busywork out of it.</p>
+        <div class="actions">
+          <a class="pill pill-blue" href="/contact/">Talk to us</a>
+          <a class="link" href="/services/direct-hire-recruiting/">How we recruit →</a>
+        </div>
       </div>
+      <figure class="photo">
+        <img src={photoUrl(heroPhoto, 900, 1000)} srcset={`${photoUrl(heroPhoto, 600, 667)} 600w, ${photoUrl(heroPhoto, 900, 1000)} 900w`} sizes="(max-width:980px) 100vw, 480px" alt="A team meeting around a table in a bright office" width="900" height="1000" loading="eager" />
+      </figure>
     </div>
   </section>
 
@@ -31,15 +41,18 @@ const steps = [
     <div class="fw">
       <div class="head">
         <p class="eyebrow">Start with what you need</p>
-        <h2 class="display lg">Three ways <mark>we help.</mark></h2>
+        <h2 class="display lg">Four ways <mark>we help.</mark></h2>
       </div>
-      <div class="cards">
+      <div class="cards two">
         {SERVICES.map((s) => (
-          <a class="card" href={`/services/${s.slug}/`}>
-            <p class="eyebrow">Services</p>
-            <h3>{s.name}</h3>
-            <p>{s.line}</p>
-            <span class="link">Learn more →</span>
+          <a class="card card-photo" href={`/services/${s.slug}/`}>
+            <div class="cp-img"><img src={photoUrl(s.photo, 720, 405)} alt={s.photoAlt} width="720" height="405" loading="lazy" /><span class="cp-ic"><Icon name={s.icon} /></span></div>
+            <div class="cp-body">
+              <p class="eyebrow">Services</p>
+              <h3>{s.name}</h3>
+              <p>{s.line}</p>
+              <span class="link">Learn more →</span>
+            </div>
           </a>
         ))}
       </div>
@@ -55,11 +68,14 @@ const steps = [
       </div>
       <div class="cards">
         {INDUSTRIES.map((s) => (
-          <a class="card" href={`/industries/${s.slug}/`}>
-            <p class="eyebrow">Industries</p>
-            <h3>{s.name}</h3>
-            <p>{s.line}</p>
-            <span class="link">See the roles →</span>
+          <a class="card card-photo" href={`/industries/${s.slug}/`}>
+            <div class="cp-img"><img src={photoUrl(s.photo, 600, 338)} alt={s.photoAlt} width="600" height="338" loading="lazy" /><span class="cp-ic"><Icon name={s.icon} /></span></div>
+            <div class="cp-body">
+              <p class="eyebrow">Industries</p>
+              <h3>{s.name}</h3>
+              <p>{s.line}</p>
+              <span class="link">See the roles →</span>
+            </div>
           </a>
         ))}
       </div>
@@ -81,12 +97,13 @@ const steps = [
   </section>
 
   <section class="band">
-    <div class="fw split">
-      <div>
-        <p class="eyebrow">Who we are</p>
-        <h2 class="display lg">HR people who <mark>build software.</mark></h2>
-      </div>
+    <div class="fw split" style="align-items:center">
+      <figure class="photo wide" style="max-width:520px">
+        <img src={photoUrl(whoPhoto, 800, 600)} alt="Two people shaking hands" width="800" height="600" loading="lazy" />
+      </figure>
       <div class="prose">
+        <p class="eyebrow">Who we are</p>
+        <h2 class="display lg" style="margin-bottom:28px">HR people who <mark>build software.</mark></h2>
         <p>Kixlogic began by building HR and business software. We now put that experience to work for clients directly: recruiting the people they need, helping them run HR well, and building the tools that make it easier.</p>
         <p>That mix is the point. We understand the hiring and HR problems first-hand, and we can build the software that fixes the ones worth automating.</p>
         <a class="link" href="/about/">About Kixlogic →</a>
