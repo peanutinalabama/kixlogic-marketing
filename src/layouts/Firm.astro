@@ -77,7 +77,7 @@ const on = (p: string) => (path === p || path.startsWith(p) ? 'on' : '');
   <footer class="ff">
     <div class="fw ff-grid">
       <div class="ff-brand">
-        <img src="/kx-logo.png" alt="Kixlogic" width="127" height="32" />
+        <span class="ff-logo" role="img" aria-label="Kixlogic"><img class="ff-logo-icon" src="/kx-logo.png" alt="" width="127" height="32" /><img class="ff-logo-word" src="/kx-logo.png" alt="" width="127" height="32" /></span>
         <p>HR services and consulting, direct-hire recruiting for IT, engineering and life sciences, and AI-enabled applications.</p>
         <a class="pill pill-sm" href="/contact/">Contact us</a>
       </div>
@@ -224,7 +224,12 @@ const on = (p: string) => (path === p || path.startsWith(p) ? 'on' : '');
     /* footer */
     .firm .ff{background:var(--navy);color:#C9D3F0;padding:72px 0 28px}
     .firm .ff-grid{display:grid;grid-template-columns:1.6fr repeat(4,1fr);gap:32px}
-    .firm .ff-brand img{filter:brightness(0) invert(1);height:32px;width:auto}
+    /* Footer logo: blue icon kept as is, wordmark turned white for the navy background (one image, two clipped layers). */
+    .firm .ff-logo{position:relative;display:block;width:127px;height:32px}
+    .firm .ff-logo img{position:absolute;inset:0;width:127px;height:32px}
+    .firm .ff-logo-icon{clip-path:inset(0 73% 0 0)}
+    .firm .ff-logo-word{clip-path:inset(0 0 0 27%);filter:brightness(0) invert(1)}
+    .firm .ff-brand .pill{display:inline-block;color:#fff}
     .firm .ff-brand p{font-size:15px;margin:16px 0 22px;max-width:340px}
     .firm .ff .pill{border-color:#fff;color:#fff;background:transparent}
     .firm .ff .pill:hover{background:#fff;color:var(--navy)}
