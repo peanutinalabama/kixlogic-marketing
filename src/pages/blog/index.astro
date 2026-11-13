@@ -1,10 +1,18 @@
 ---
-// Insights (News & Notes) in the firm's look. Posts were taken off the site on 2026-11-12 at Charles's request:
-// the old Kixlogic and FlipbookIQ posts are not listed or served here. Nothing was deleted; the posts still sit in
-// the blog API and on FlipbookIQ's own blog.
+// Insights (News & Notes) in the firm's look. Lists Kixlogic posts published since BLOG_SINCE (posted from the
+// Command Center, "Publish to Kixlogic.com"). Older Kixlogic and FlipbookIQ posts are no longer shown; nothing deleted.
 export const prerender = false;
 import Firm from '../../layouts/Firm.astro';
 import { photoUrl } from '../../data/firm';
+import { isCurrentPost } from '../../lib/blog-since';
+
+let posts: any[] = [];
+try {
+  const res = await fetch('https://api.kixlogic.com/api/blog/posts-public');
+  if (res.ok) posts = ((await res.json()).posts || []).filter(isCurrentPost);
+} catch {}
+posts.sort((a, b) => Date.parse(b.published_at) - Date.parse(a.published_at));
+const fmt = (d: string) => new Date(d).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 // Photo: free Unsplash licence, served from images.unsplash.com.
 const heroPhoto = '1517048676732-d65bc937f952';
 const topics = [
@@ -28,7 +36,28 @@ const topics = [
     </div>
   </section>
 
-  <section class="band">
+  {posts.length > 0 && (
+    <section class="band">
+      <div class="fw">
+        <div class="head"><p class="eyebrow">Latest</p><h2 class="display lg">From <mark>the team.</mark></h2></div>
+        <div class="cards">
+          {posts.map((p) => (
+            <a class="card card-photo" href={`/blog/${p.slug}/`}>
+              {p.cover_image_url && <div class="cp-img"><img src={p.cover_image_url} alt="" loading="lazy" /></div>}
+              <div class="cp-body" style={p.cover_image_url ? '' : 'padding-top:30px'}>
+                <p class="eyebrow">{(p.tags || [])[0] || 'Insights'}</p>
+                <h3>{p.title}</h3>
+                <p>{p.excerpt || p.meta_description || ''}</p>
+                <span class="link">{fmt(p.published_at)} · Read →</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {posts.length === 0 && <section class="band">
     <div class="fw">
       <div class="head">
         <p class="eyebrow">Coming soon</p>
@@ -41,7 +70,7 @@ const topics = [
         ))}
       </div>
     </div>
-  </section>
+  </section>}
 
   <section class="band soft">
     <div class="fw">

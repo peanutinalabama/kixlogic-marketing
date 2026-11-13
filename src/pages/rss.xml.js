@@ -1,4 +1,5 @@
 import rss from '@astrojs/rss';
+import { isCurrentPost } from '../lib/blog-since';
 
 // SSR (not prerendered) so the feed reflects live posts from the blog API — the same
 // source the /blog page and the publish→social webhook use. A new published post shows
@@ -17,8 +18,8 @@ export async function GET(context) {
     // fall through with empty list — always return a valid (possibly empty) feed
   }
 
-  // Blog posts are off the site since 2026-11-12: the feed stays valid but lists none.
-  posts = [];
+  // Only posts published since BLOG_SINCE are on the site (older ones taken off 2026-11-12).
+  posts = posts.filter(isCurrentPost);
   const items = posts
     .filter((p) => p.published_at)
     .map((p) => ({

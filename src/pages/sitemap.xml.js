@@ -1,3 +1,4 @@
+import { isCurrentPost } from '../lib/blog-since';
 // Dynamic sitemap: static marketing URLs + live CMS blog posts + the FlipbookIQ Library.
 export const prerender = false;
 
@@ -50,7 +51,7 @@ export async function GET() {
   }
 
   const blogUrls = posts
-    .filter((p) => p.slug && p.published_at)
+    .filter((p) => p.slug && isCurrentPost(p)) // older posts were taken off the site 2026-11-12
     .map((p) => ({
       loc: `https://kixlogic.com/blog/${p.slug}/`,
       lastmod: new Date(p.published_at).toISOString().slice(0, 10),
@@ -79,9 +80,7 @@ export async function GET() {
     }
   }
 
-  // Blog posts are off the site since 2026-11-12, so they are left out of the sitemap.
-  void blogUrls;
-  const urls = [...STATIC_URLS, ...libraryUrls, ...tagUrls];
+  const urls = [...STATIC_URLS, ...blogUrls, ...libraryUrls, ...tagUrls];
   const body = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 ${urls.map((u) => {
