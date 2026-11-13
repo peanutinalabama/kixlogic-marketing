@@ -103,7 +103,18 @@ const on = (p: string) => (path === p || path.startsWith(p) ? 'on' : '');
     </div>
   </footer>
 
+  <div class="ck" id="ckNotice" role="region" aria-label="Cookie notice" hidden>
+    <p><b>Cookies and privacy.</b> This site does not use advertising or tracking cookies. It loads its fonts from Google Fonts, which sees your IP address, and uses your browser's storage only to remember this choice. <a href="/privacy/">Privacy policy</a></p>
+    <div class="ck-btns"><button type="button" class="pill pill-sm" id="ckOk">Got it</button></div>
+  </div>
+
   <script is:inline>
+    (function () {
+      var ck = document.getElementById('ckNotice'), KEY = 'kx_cookie_notice_v1';
+      try { if (ck && !localStorage.getItem(KEY)) ck.hidden = false; } catch (e) { if (ck) ck.hidden = false; }
+      var ok = document.getElementById('ckOk');
+      if (ok) ok.addEventListener('click', function () { try { localStorage.setItem(KEY, new Date().toISOString().slice(0, 10)); } catch (e) {} ck.hidden = true; });
+    })();
     (function () {
       var items = document.querySelectorAll('.fh-item > button');
       function closeAll(except) { items.forEach(function (b) { if (b !== except) b.setAttribute('aria-expanded', 'false'); }); }
@@ -213,6 +224,16 @@ const on = (p: string) => (path === p || path.startsWith(p) ? 'on' : '');
     .firm .card-photo .cp-body{padding:38px 30px 30px;display:flex;flex-direction:column;flex:1}
     .firm .cards.two{grid-template-columns:repeat(2,minmax(0,1fr))}
     .firm .wave{display:block;width:100%;height:56px;color:var(--soft)}
+
+    /* cookie notice */
+    .firm .ck{position:fixed;left:16px;right:16px;bottom:16px;z-index:90;max-width:980px;margin:0 auto;background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 50px rgba(10,27,77,.22);padding:18px 22px;display:flex;align-items:center;gap:20px}
+    .firm .ck[hidden]{display:none}
+    .firm .ck p{margin:0;font-size:14.5px;line-height:1.5;color:var(--muted)}
+    .firm .ck b{color:var(--navy)}
+    .firm .ck a{color:var(--blue-deep)}
+    .firm .ck-btns{flex:none}
+    .firm .ck .pill{cursor:pointer;padding:10px 24px;font-size:14px}
+    @media (max-width:640px){.firm .ck{flex-direction:column;align-items:stretch;gap:12px;left:10px;right:10px;bottom:10px}.firm .ck-btns .pill{width:100%}}
 
     /* footer */
     .firm .ff{background:var(--navy);color:#C9D3F0;padding:72px 0 28px}
