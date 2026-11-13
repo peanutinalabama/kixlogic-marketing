@@ -17,6 +17,8 @@ export async function GET(context) {
     // fall through with empty list — always return a valid (possibly empty) feed
   }
 
+  // Blog posts are off the site since 2026-11-12: the feed stays valid but lists none.
+  posts = [];
   const items = posts
     .filter((p) => p.published_at)
     .map((p) => ({

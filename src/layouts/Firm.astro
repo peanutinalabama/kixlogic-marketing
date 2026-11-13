@@ -60,7 +60,7 @@ const on = (p: string) => (path === p || path.startsWith(p) ? 'on' : '');
           </div>
         </div>
         <a class={`fh-link ${on('/about/')}`} href="/about/">About</a>
-        <a class="fh-link" href="/blog/">Insights</a>
+        <a class={`fh-link ${on('/blog/')}`} href="/blog/">Insights</a>
         <a class="fh-link fh-phone" href="/contact/">Contact us</a>
       </nav>
       <div class="fh-right">

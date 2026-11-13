@@ -1,38 +1,6 @@
 ---
+// Posts were taken off kixlogic.com on 2026-11-12 (Charles). Old post links go to the Insights page.
+// Nothing was deleted: the posts remain in their source. Restore this file from git to bring them back.
 export const prerender = false;
-import BlogPost from '../../layouts/BlogPost.astro';
-
-const { slug } = Astro.params;
-const preview = Astro.url.searchParams.get('preview') === '1';
-
-let post: any;
-try {
-  const url = `https://api.kixlogic.com/api/blog/posts/${slug}/public${preview ? '?preview=1' : ''}`;
-  const res = await fetch(url);
-  if (!res.ok) return Astro.redirect('/blog', 302);
-  const data = await res.json();
-  post = data.post;
-} catch {
-  return Astro.redirect('/blog', 302);
-}
-
-if (!post) return Astro.redirect('/blog', 302);
-
-const seoTitle = post.meta_title || post.title;
-const description = post.meta_description || post.excerpt || '';
-const coverImage = post.cover_image_url || undefined;
-const ogImage = post.og_image_url || post.cover_image_url || undefined;
+return Astro.redirect('/blog/', 302);
 ---
-<BlogPost
-  title={post.title}
-  seoTitle={seoTitle}
-  description={description}
-  pubDate={new Date(post.published_at || post.created_at)}
-  author={post.author}
-  tags={post.tags || []}
-  image={coverImage}
-  ogImage={ogImage}
-  slug={post.slug}
->
-  <div set:html={post.content_html} />
-</BlogPost>

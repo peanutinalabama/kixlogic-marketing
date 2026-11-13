@@ -79,7 +79,9 @@ export async function GET() {
     }
   }
 
-  const urls = [...STATIC_URLS, ...blogUrls, ...libraryUrls, ...tagUrls];
+  // Blog posts are off the site since 2026-11-12, so they are left out of the sitemap.
+  void blogUrls;
+  const urls = [...STATIC_URLS, ...libraryUrls, ...tagUrls];
   const body = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 ${urls.map((u) => {

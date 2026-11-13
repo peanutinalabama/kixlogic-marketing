@@ -1,194 +1,58 @@
 ---
+// Insights (News & Notes) in the firm's look. Posts were taken off the site on 2026-11-12 at Charles's request:
+// the old Kixlogic and FlipbookIQ posts are not listed or served here. Nothing was deleted; the posts still sit in
+// the blog API and on FlipbookIQ's own blog.
 export const prerender = false;
-import Base from '../../layouts/Base.astro';
-import { fiqPosts, asKixlogicCard } from '../../lib/fiq-posts';
-
-let allPosts: any[] = [];
-try {
-  const res = await fetch('https://api.kixlogic.com/api/blog/posts-public');
-  if (res.ok) {
-    const data = await res.json();
-    allPosts = data.posts || [];
-  }
-} catch {
-  // fall through with empty list
-}
-
-// FlipbookIQ's posts are listed here too, read live from its own blog and sorted in with ours, newest first.
-allPosts = [...allPosts, ...(await fiqPosts()).map(asKixlogicCard)].sort(
-  (a: any, b: any) => new Date(b.published_at || 0).getTime() - new Date(a.published_at || 0).getTime(),
-);
-
-const allTags = [...new Set(allPosts.flatMap((p: any) => p.tags || []))].sort();
+import Firm from '../../layouts/Firm.astro';
+import { photoUrl } from '../../data/firm';
+// Photo: free Unsplash licence, served from images.unsplash.com.
+const heroPhoto = '1517048676732-d65bc937f952';
+const topics = [
+  ['Hiring', 'Finding and landing permanent talent in IT, engineering and the life sciences.'],
+  ['HR practice', 'Practical HR for growing companies, from policies to compliance.'],
+  ['Immigration', 'The HR side of work visas and green cards, explained plainly.'],
+  ['AI at work', 'Where AI-enabled tools save HR and business teams real time.'],
+];
 ---
-<Base
-  title="Blog"
-  description="News and notes from the Kixlogic team: what we are building, and what we learned building it."
->
-  <section class="blog-page section">
-    <div class="container">
-      <div class="blog-header">
-        <span class="tag">Blog</span>
-        <h1>News &amp; Notes</h1>
-        <p class="blog-byline">From the Kixlogic Team</p>
+<Firm title="Insights" description="News and notes from Kixlogic on hiring, HR practice, immigration and AI at work.">
+  <section class="hero hero-split">
+    <div class="fw hs-in">
+      <div>
+        <p class="eyebrow">Insights</p>
+        <h1 class="display xl">News &amp; <mark>notes.</mark></h1>
+        <p class="lede">From the Kixlogic team: what we are seeing in hiring, HR and immigration, and what we learn building AI-enabled tools.</p>
       </div>
+      <figure class="photo">
+        <img src={photoUrl(heroPhoto, 900, 1000)} alt="A team taking notes around a meeting table" width="900" height="1000" loading="eager" />
+      </figure>
+    </div>
+  </section>
 
-      <div class="blog-tags-filter">
-        <span class="filter-label">Filter:</span>
-        {allTags.map((t: string) => (
-          <button class="tag-filter-btn" data-tag={t}>{t}</button>
+  <section class="band">
+    <div class="fw">
+      <div class="head">
+        <p class="eyebrow">Coming soon</p>
+        <h2 class="display lg">New articles are <mark>on the way.</mark></h2>
+        <p class="lede">We are writing our first pieces now. Here is what we will cover.</p>
+      </div>
+      <div class="cards topics">
+        {topics.map(([t, d]) => (
+          <div class="card"><h3>{t}</h3><p>{d}</p></div>
         ))}
-        <button class="tag-filter-btn active" data-tag="all">All</button>
-      </div>
-
-      <div class="posts-grid" id="postsGrid">
-        {allPosts.map((post: any) => {
-          const dateStr = post.published_at
-            ? new Date(post.published_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
-            : '';
-          return (
-            <a
-              href={post.href ?? `/blog/${post.slug}/`}
-              class="post-card card"
-              data-tags={(post.tags || []).join(',')}
-            >
-              {post.cover_image_url && (
-                <img class="post-card-cover" src={post.cover_image_url} alt="" loading="lazy" />
-              )}
-              <div class="post-card-tags">
-                {(post.tags || []).slice(0, 2).map((t: string) => (
-                  <span class="tag" style="font-size:0.7rem;padding:0.15rem 0.6rem">{t}</span>
-                ))}
-              </div>
-              <h2>{post.title}</h2>
-              <p>{post.excerpt || post.meta_description || ''}</p>
-              <div class="post-card-footer">
-                <span class="post-author">{post.author}</span>
-                {dateStr && <time datetime={new Date(post.published_at).toISOString()}>{dateStr}</time>}
-              </div>
-            </a>
-          );
-        })}
-        {allPosts.length === 0 && (
-          <p style="color:var(--text-muted);grid-column:1/-1;text-align:center;padding:3rem 0">No posts yet.</p>
-        )}
       </div>
     </div>
   </section>
-</Base>
 
-<script>
-const buttons = document.querySelectorAll('.tag-filter-btn');
-const cards   = document.querySelectorAll('.post-card');
+  <section class="band soft">
+    <div class="fw">
+      <h2 class="display lg">Have a question <mark>for us?</mark></h2>
+      <p class="lede">Tell us what you would like us to write about, or what you need help with today.</p>
+      <div style="margin-top:32px"><a class="pill pill-blue" href="/contact/">Contact us</a></div>
+    </div>
+  </section>
 
-buttons.forEach(btn => {
-  btn.addEventListener('click', () => {
-    buttons.forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const tag = (btn as HTMLElement).dataset.tag ?? 'all';
-    cards.forEach(card => {
-      const tags = ((card as HTMLElement).dataset.tags ?? '').split(',');
-      (card as HTMLElement).style.display = (tag === 'all' || tags.includes(tag)) ? '' : 'none';
-    });
-  });
-});
-</script>
-
-<style>
-.blog-page { padding-top: 2rem; }
-.blog-header { text-align: center; margin-bottom: 3rem; }
-.blog-header .tag {
-  display: inline-block;
-  margin-bottom: 1rem;
-  padding: 0.25rem 0.75rem;
-  border-radius: var(--radius-pill);
-  background: #e8f4fd;
-  color: var(--ms-blue);
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-.blog-header h1 {
-  font-size: clamp(2rem, 4vw, 2.75rem);
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  /* Tight to the byline underneath it: the two read as one block. */
-  margin-bottom: 0.35rem;
-}
-.blog-header p { font-size: 1.05rem; color: var(--text-muted); max-width: 520px; margin: 0 auto; }
-.blog-header .blog-byline {
-  font-size: 0.95rem;
-  font-weight: 500;
-  letter-spacing: 0.01em;
-  color: var(--text-muted);
-}
-
-.blog-tags-filter {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 2.5rem;
-  justify-content: center;
-}
-.filter-label { font-size: 0.8rem; color: var(--text-dim); margin-right: 0.25rem; }
-.tag-filter-btn {
-  padding: 0.35rem 0.875rem;
-  border-radius: 999px;
-  font-size: 0.8rem;
-  font-weight: 500;
-  background: #fff;
-  border: 1px solid var(--border);
-  color: var(--text-muted);
-  cursor: pointer;
-  font-family: inherit;
-  transition: 0.2s;
-}
-.tag-filter-btn:hover { border-color: var(--ms-blue); color: var(--text); }
-.tag-filter-btn.active {
-  background: #e8f4fd;
-  border-color: var(--ms-blue);
-  color: var(--ms-blue);
-  font-weight: 600;
-}
-
-.posts-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-}
-.post-card { display: flex; flex-direction: column; gap: 0.875rem; text-decoration: none; background: #fff; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem; overflow: hidden; }
-.post-card:hover { border-color: var(--ms-blue); box-shadow: var(--shadow-hover); }
-.post-card:hover h2 { color: var(--ms-blue); }
-.post-card-cover {
-  width: calc(100% + 2.5rem);
-  margin: -1.25rem -1.25rem 0;
-  height: 140px;
-  object-fit: cover;
-  display: block;
-  background: var(--navy-2, #f1f5f9);
-}
-.post-card-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; }
-.post-card h2 {
-  font-size: 1.1rem;
-  font-weight: 600;
-  line-height: 1.4;
-  color: var(--text);
-  transition: color 0.2s;
-}
-.post-card p { font-size: 0.875rem; color: var(--text-muted); line-height: 1.6; flex: 1; }
-.post-card-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.78rem;
-  color: var(--text-dim);
-  padding-top: 0.75rem;
-  border-top: 1px solid var(--border);
-}
-.post-author { font-weight: 600; color: var(--text-muted); }
-
-@media (max-width: 900px) { .posts-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 600px) { .posts-grid { grid-template-columns: 1fr; } }
-</style>
+  <style is:global>
+    .firm .cards.topics{grid-template-columns:repeat(4,minmax(0,1fr))}
+    @media (max-width:980px){.firm .cards.topics{grid-template-columns:1fr}}
+  </style>
+</Firm>
