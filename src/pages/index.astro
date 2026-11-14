@@ -4,6 +4,16 @@ export const prerender = false;
 import Firm from '../layouts/Firm.astro';
 import Icon from '../components/Icon.astro';
 import { SERVICES, INDUSTRIES, photoUrl } from '../data/firm';
+import { fetchPostings, postingPath, placeLine } from '../lib/careers.js';
+
+// Open roles from Kixlogic Command. If the feed is unreachable, the section says so and the rest of the page still loads.
+let openings = [];
+let openingsOk = true;
+try {
+  openings = await fetchPostings();
+} catch {
+  openingsOk = false;
+}
 
 // Photos: free Unsplash licence, served from images.unsplash.com.
 const heroPhoto = '1758691737543-09a1b2b715fa';
@@ -34,6 +44,34 @@ const steps = [
       <figure class="photo">
         <img src={photoUrl(heroPhoto, 900, 1000)} srcset={`${photoUrl(heroPhoto, 600, 667)} 600w, ${photoUrl(heroPhoto, 900, 1000)} 900w`} sizes="(max-width:980px) 100vw, 480px" alt="A team meeting around a table in a bright office" width="900" height="1000" loading="eager" />
       </figure>
+    </div>
+  </section>
+
+  <section class="band soft" id="current-openings">
+    <div class="fw">
+      <div class="head">
+        <p class="eyebrow">Current openings</p>
+        <h2 class="display lg">Open roles <mark>right now.</mark></h2>
+      </div>
+      {!openingsOk ? (
+        <p>Our open roles are unavailable at the moment. Please check back soon.</p>
+      ) : openings.length === 0 ? (
+        <p>There are no open roles posted right now. New roles appear here as they open.</p>
+      ) : (
+        <ul class="openings-list">
+          {openings.map((p) => (
+            <li>
+              <a class="card" href={postingPath(p)}>
+                <p class="eyebrow">{p.department || 'Role'}</p>
+                <h3>{p.title}</h3>
+                <p>{placeLine(p)}{p.jobType ? ` · ${p.jobType}` : ''}</p>
+                <span class="link">View role →</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+      <p style="margin-top:1.5rem"><a class="link" href="/careers/">See all current openings →</a></p>
     </div>
   </section>
 
@@ -118,4 +156,11 @@ const steps = [
       <div style="margin-top:32px"><a class="pill pill-blue" href="/contact/">Contact us</a></div>
     </div>
   </section>
+
+  <style>
+    .openings-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+    .openings-list a.card { display: block; height: 100%; text-decoration: none; color: inherit; }
+    .openings-list h3 { margin: 0.25rem 0 0.5rem; }
+    @media (max-width: 980px) { .openings-list { grid-template-columns: 1fr; } }
+  </style>
 </Firm>
