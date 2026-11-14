@@ -47,7 +47,7 @@ const steps = [
     </div>
   </section>
 
-  <section class="band soft" id="current-openings">
+  <section class="band careers-band" id="current-openings">
     <div class="fw">
       <div class="head">
         <p class="eyebrow">Current openings</p>
@@ -161,6 +161,11 @@ const steps = [
     .openings-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
     .openings-list a.card { display: block; height: 100%; text-decoration: none; color: inherit; }
     .openings-list h3 { margin: 0.25rem 0 0.5rem; }
+    .careers-band { background: var(--hi); }
+    .careers-band .eyebrow, .careers-band .link { color: var(--navy); }
+    .careers-band .display, .careers-band p { color: var(--navy); }
+    .careers-band mark { background: #fff; }
+    .careers-band .card { background: #fff; }
     @media (max-width: 980px) { .openings-list { grid-template-columns: 1fr; } }
   </style>
 </Firm>
