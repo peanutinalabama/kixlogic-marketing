@@ -1,5 +1,5 @@
 ---
-import Base from '../../layouts/Base.astro';
+import Firm from '../../layouts/Firm.astro';
 import { fetchPostings, postingPath, placeLine, jobPostingJsonLd, jobDescriptionHtml } from '../../lib/careers.js';
 
 // One page per published role, read from Kixlogic Command on each request.
@@ -17,8 +17,8 @@ const ld = jobPostingJsonLd(p);
 const summary = (p.positionSummary || p.description || '').replace(/\s+/g, ' ').trim().slice(0, 155);
 const pathUrl = `https://kixlogic.com${postingPath(p)}`;
 ---
-<Base
-  title={`${p.title} · Careers`}
+<Firm
+  title={`${p.title} · Current Openings`}
   description={summary || `${p.title}, ${placeLine(p)}. Read the role and apply.`}
   canonical={pathUrl}
 >
@@ -26,40 +26,30 @@ const pathUrl = `https://kixlogic.com${postingPath(p)}`;
     <script type="application/ld+json" set:html={JSON.stringify(ld)} />
   </Fragment>
 
-  <section class="job-page section">
-    <div class="container">
-      <p class="job-back"><a href="/careers/">← All open roles</a></p>
-      <header class="job-header">
-        <span class="tag">{p.id}</span>
-        <h1>{p.title}</h1>
-        <p class="job-meta">
-          {placeLine(p)}
-          {p.jobType ? ` · ${p.jobType}` : ''}
-          {p.department ? ` · ${p.department}` : ''}
-        </p>
-        {p.closeDate && <p class="job-meta">Apply by {p.closeDate}</p>}
-        <a class="btn btn-primary" href={p.applyUrl}>Apply for this role</a>
-      </header>
+  <section class="band">
+    <div class="fw job-wrap">
+      <p class="job-back"><a class="link" href="/careers/">← All current openings</a></p>
+      <p class="eyebrow">{p.department || 'Role'}</p>
+      <h1 class="display lg">{p.title}</h1>
+      <p class="job-meta">
+        {placeLine(p)}
+        {p.jobType ? ` · ${p.jobType}` : ''}
+      </p>
+      {p.closeDate && <p class="job-meta">Apply by {p.closeDate}</p>}
+      <div style="margin:28px 0 40px"><a class="pill pill-blue" href={p.applyUrl}>Apply for this role</a></div>
 
       <div class="job-body" set:html={jobDescriptionHtml(p)} />
 
-      <p class="job-foot">
-        Applications are reviewed by the Kixlogic recruiting team.
-      </p>
+      <p class="job-foot">Applications are reviewed by the Kixlogic recruiting team.</p>
     </div>
   </section>
-</Base>
 
-<style>
-.job-page { padding-top: 4rem; }
-.job-back { margin-bottom: 1.5rem; }
-.job-back a { color: var(--ms-blue); text-decoration: none; font-weight: 600; }
-.job-header { margin-bottom: 2rem; }
-.job-header .tag { margin-bottom: 0.75rem; }
-.job-header h1 { font-family: var(--font-display); font-size: clamp(1.8rem, 3.6vw, 2.6rem); font-weight: 800; margin-bottom: 0.5rem; }
-.job-meta { color: var(--text-muted); margin: 0.2rem 0; }
-.job-header .btn { margin-top: 1.25rem; }
-.job-body { max-width: 760px; line-height: 1.6; }
-.job-body :global(h2) { font-size: 1.15rem; margin: 1.75rem 0 0.5rem; color: var(--ink); }
-.job-foot { margin-top: 2.5rem; color: var(--text-muted); font-size: 0.9rem; max-width: 760px; }
-</style>
+  <style>
+    .job-wrap { max-width: 820px; }
+    .job-back { margin-bottom: 1.5rem; }
+    .job-meta { color: var(--muted); margin: 0.2rem 0; }
+    .job-body { line-height: 1.6; color: var(--ink); }
+    .job-body :global(h2) { font-family: "IBM Plex Mono", monospace; font-size: 15px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--blue-deep); margin: 2rem 0 .6rem; }
+    .job-foot { margin-top: 2.5rem; color: var(--muted); font-size: .95rem; }
+  </style>
+</Firm>
