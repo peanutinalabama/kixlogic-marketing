@@ -3,6 +3,7 @@ import { isCurrentPost } from '../lib/blog-since';
 export const prerender = false;
 
 import { fetchLibrary, entryPath, tagPath } from '../lib/library';
+import { fetchPostings, postingPath } from '../lib/careers.js';
 
 const STATIC_URLS = [
   { loc: 'https://kixlogic.com/', changefreq: 'weekly', priority: '1.0' },
@@ -80,7 +81,21 @@ export async function GET() {
     }
   }
 
-  const urls = [...STATIC_URLS, ...blogUrls, ...libraryUrls, ...tagUrls];
+  // Careers: the index and one page per open role. If the feed is unreachable, only the index is listed.
+  let careerUrls = [{ loc: 'https://kixlogic.com/careers/', changefreq: 'weekly', priority: '0.7' }];
+  try {
+    const postings = await fetchPostings();
+    careerUrls = careerUrls.concat(postings.map((p) => ({
+      loc: `https://kixlogic.com${postingPath(p)}`,
+      lastmod: p.updatedAt ? p.updatedAt.slice(0, 10) : undefined,
+      changefreq: 'weekly',
+      priority: '0.6',
+    })));
+  } catch {
+    // keep the index only
+  }
+
+  const urls = [...STATIC_URLS, ...blogUrls, ...libraryUrls, ...tagUrls, ...careerUrls];
   const body = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 ${urls.map((u) => {

@@ -1,0 +1,69 @@
+---
+import Base from '../../layouts/Base.astro';
+import { fetchPostings, postingPath, placeLine, SITE } from '../../lib/careers.js';
+
+// Read from Kixlogic Command on each request (cached briefly), so a newly published role shows without a rebuild.
+export const prerender = false;
+
+let postings;
+try {
+  postings = await fetchPostings();
+} catch {
+  return new Response("Job listings are unavailable right now. Please check back soon.", { status: 503, headers: { "Retry-After": "600" } });
+}
+const itemList = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  itemListElement: postings.map((p, i) => ({ '@type': 'ListItem', position: i + 1, url: `${SITE}${postingPath(p)}`, name: p.title })),
+};
+---
+<Base
+  title="Careers"
+  description="Open roles at Kixlogic: recruiting, HR consulting and the teams we help hire for."
+  canonical="https://kixlogic.com/careers/"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(itemList)} />
+  </Fragment>
+
+  <section class="careers-page section">
+    <div class="container">
+      <header class="careers-header">
+        <span class="tag">Careers</span>
+        <h1>Open roles</h1>
+        <p>These are the roles we are recruiting for now. Select a role to read the full description and apply.</p>
+      </header>
+
+      {postings.length === 0 ? (
+        <p class="careers-empty">There are no open roles right now. Check back soon.</p>
+      ) : (
+        <ul class="careers-list">
+          {postings.map((p) => (
+            <li>
+              <a class="careers-item card" href={postingPath(p)}>
+                <h2>{p.title}</h2>
+                <p class="careers-meta">{placeLine(p)}{p.jobType ? ` · ${p.jobType}` : ''}</p>
+                {p.department && <p class="careers-meta">{p.department}</p>}
+                <span class="careers-more">View role →</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  </section>
+</Base>
+
+<style>
+.careers-page { padding-top: 5rem; }
+.careers-header { text-align: center; margin-bottom: 3rem; }
+.careers-header .tag { margin-bottom: 1rem; }
+.careers-header h1 { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; margin-bottom: 0.75rem; }
+.careers-header p { color: var(--text-muted); font-size: 1.05rem; }
+.careers-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 1rem; max-width: 760px; margin-inline: auto; }
+.careers-item { display: block; padding: 1.5rem; text-decoration: none; color: inherit; }
+.careers-item h2 { font-size: 1.2rem; margin: 0 0 0.35rem; color: var(--ink); }
+.careers-meta { color: var(--text-muted); font-size: 0.95rem; margin: 0.15rem 0; }
+.careers-more { display: inline-block; margin-top: 0.75rem; color: var(--ms-blue); font-weight: 600; }
+.careers-empty { text-align: center; color: var(--text-muted); }
+</style>
