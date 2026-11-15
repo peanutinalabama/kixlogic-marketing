@@ -18,6 +18,8 @@ if (!post) post = localInsights.posts.find((p) => p.slug === slug);
 if (!post || (!preview && !isCurrentPost(post))) return Astro.redirect('/blog/', 302);
 
 const description = post.meta_description || post.excerpt || '';
+// The public address of this article, used by the share buttons.
+const shareUrl = `https://kixlogic.com/blog/${post.slug || slug}/`;
 const date = new Date(post.published_at || post.created_at || Date.now());
 const dateStr = date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 const cover = post.cover_image_url || '';
@@ -41,6 +43,13 @@ const ld = {
     <div class="fw post-w">
       {cover && <img class="post-cover" src={cover} alt="" />}
       <article class="post-body" set:html={post.content_html} />
+      <div class="post-share" aria-label="Share this article">
+        <span class="post-share-label">Share this article</span>
+        <a class="pill pill-sm" href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`} target="_blank" rel="noopener">LinkedIn</a>
+        <a class="pill pill-sm" href={`https://x.com/intent/post?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(post.title)}`} target="_blank" rel="noopener">X</a>
+        <a class="pill pill-sm" href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`} target="_blank" rel="noopener">Facebook</a>
+        <button type="button" class="pill pill-sm" data-copy-link={shareUrl}>Copy link</button>
+      </div>
       <div class="post-end"><a class="link" href="/blog/">← All insights</a><a class="pill pill-blue" href="/contact/">Talk to us</a></div>
     </div>
   </section>
@@ -56,6 +65,21 @@ const ld = {
     .firm .post-body a{color:var(--blue-deep)}
     .firm .post-body img{max-width:100%;height:auto;border-radius:12px}
     .firm .post-body blockquote{margin:28px 0;padding:4px 0 4px 22px;border-left:4px solid var(--hi);color:var(--navy)}
+    .firm .post-share{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:40px 0 0;padding-top:28px;border-top:1px solid var(--line)}
+    .firm .post-share-label{font-family:"IBM Plex Mono",monospace;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--navy);margin-right:6px}
+    .firm .post-share button{cursor:pointer;border:0;font:inherit}
     .firm .post-end{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line);margin-top:48px;padding-top:28px}
   </style>
+  <script>
+    document.querySelectorAll('[data-copy-link]').forEach((btn) => {
+      btn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(btn.dataset.copyLink || '');
+          btn.textContent = 'Link copied';
+        } catch {
+          btn.textContent = 'Copy failed';
+        }
+      });
+    });
+  </script>
 </Firm>
