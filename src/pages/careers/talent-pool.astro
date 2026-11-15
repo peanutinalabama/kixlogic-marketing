@@ -1,4 +1,6 @@
 ---
+// Server-rendered on purpose: a prerendered page adds a rule to Pages' 100-rule _routes.json limit.
+export const prerender = false;
 // Talent pool: a candidate sends a resume when no current opening fits. Stored in Kixlogic Command (kxc.talent_pool)
 // by the public intake at app.kixlogic.com/command/talent/submit. See the consent wording below.
 import Firm from '../../layouts/Firm.astro';
