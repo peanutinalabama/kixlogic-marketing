@@ -1,0 +1,79 @@
+---
+// Talent pool: a candidate sends a resume when no current opening fits. Stored in Kixlogic Command (kxc.talent_pool)
+// by the public intake at app.kixlogic.com/command/talent/submit. See the consent wording below.
+import Firm from '../../layouts/Firm.astro';
+const INTAKE = 'https://app.kixlogic.com/command/talent/submit';
+---
+<Firm title="Join our talent pool" description="Send your resume to Kixlogic even when no current opening fits. We keep it on file and contact you when a matching role comes up.">
+  <section class="hero">
+    <div class="fw">
+      <p class="eyebrow">Careers</p>
+      <h1 class="display xl">Join our <mark>talent pool.</mark></h1>
+      <p class="lede">Don't see the role you're looking for? Send your resume anyway. We keep strong profiles on file and reach out when a matching search opens.</p>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="fw split">
+      <div class="prose">
+        <p class="eyebrow">How it works</p>
+        <ul class="ticks">
+          <li>Send your resume (PDF, Word, RTF or plain text, up to 5 MB).</li>
+          <li>We store it securely and only our recruiting team can open it.</li>
+          <li>When a role fits your background, we contact you directly.</li>
+          <li>Ask us to delete your details at any time: <a class="link" href="mailto:support@kixlogic.com">support@kixlogic.com</a>.</li>
+        </ul>
+      </div>
+      <form class="cform" id="talentForm" enctype="multipart/form-data">
+        <label>Your name<input name="name" type="text" required autocomplete="name" /></label>
+        <label>Email<input name="email" type="email" required autocomplete="email" /></label>
+        <label>Phone (optional)<input name="phone" type="tel" autocomplete="tel" /></label>
+        <label>Location (optional)<input name="location" type="text" autocomplete="address-level2" /></label>
+        <label>LinkedIn or portfolio link (optional)<input name="linkedin" type="url" /></label>
+        <label>Type of work you are looking for (optional)<input name="role_interest" type="text" /></label>
+        <label>Anything else we should know (optional)<textarea name="message" rows="4"></textarea></label>
+        <label>Resume<input name="resume" type="file" required accept=".pdf,.doc,.docx,.rtf,.txt" /></label>
+        <label class="consent"><input name="consent" type="checkbox" value="yes" required />
+          <span>I agree that Kixlogic may store my resume and contact details in its talent pool and contact me about suitable roles. I can ask for them to be deleted at any time.</span>
+        </label>
+        <div class="hp" aria-hidden="true"><label>Leave this empty<input name="website" type="text" tabindex="-1" autocomplete="off" /></label></div>
+        <button type="submit" class="pill pill-blue">Send my resume</button>
+        <p id="talentMsg" class="cmsg" role="status"></p>
+      </form>
+    </div>
+  </section>
+
+  <style>
+    .firm .consent{display:flex;gap:12px;align-items:flex-start;font-family:inherit;font-size:15px;font-weight:400;letter-spacing:0;text-transform:none;color:#2A3555}
+    .firm .consent input{margin-top:4px}
+    .firm .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+    .firm .cform input[type=file]{padding:10px 0}
+  </style>
+
+  <script define:vars={{ INTAKE }}>
+  document.getElementById('talentForm')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const msg = document.getElementById('talentMsg');
+    const btn = form.querySelector('button[type=submit]');
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    msg.textContent = '';
+    try {
+      const res = await fetch(INTAKE, { method: 'POST', body: new FormData(form) });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.ok) {
+        form.reset();
+        msg.textContent = data.message || 'Thank you. Your resume is in our talent pool.';
+      } else {
+        msg.textContent = data.message || 'Something went wrong. Please try again, or email support@kixlogic.com.';
+      }
+    } catch {
+      msg.textContent = 'We could not reach the server. Please try again, or email support@kixlogic.com.';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Send my resume';
+    }
+  });
+  </script>
+</Firm>
