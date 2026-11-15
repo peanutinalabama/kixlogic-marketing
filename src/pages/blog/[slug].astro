@@ -4,6 +4,7 @@
 export const prerender = false;
 import Firm from '../../layouts/Firm.astro';
 import { isCurrentPost } from '../../lib/blog-since';
+import localInsights from '../../data/insights-local.json';
 
 const { slug } = Astro.params;
 const preview = Astro.url.searchParams.get('preview') === '1';
@@ -13,6 +14,7 @@ try {
   const res = await fetch(`https://api.kixlogic.com/api/blog/posts/${slug}/public${preview ? '?preview=1' : ''}`);
   if (res.ok) post = (await res.json()).post;
 } catch {}
+if (!post) post = localInsights.posts.find((p) => p.slug === slug);
 if (!post || (!preview && !isCurrentPost(post))) return Astro.redirect('/blog/', 302);
 
 const description = post.meta_description || post.excerpt || '';
