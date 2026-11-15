@@ -4,7 +4,7 @@
 export const prerender = false;
 import Firm from '../../layouts/Firm.astro';
 import { photoUrl } from '../../data/firm';
-import { isCurrentPost } from '../../lib/blog-since';
+import { isCurrentPost, isSitePost } from '../../lib/blog-since';
 import localInsights from '../../data/insights-local.json';
 
 let posts: any[] = [];
@@ -13,7 +13,7 @@ try {
   if (res.ok) posts = ((await res.json()).posts || []).filter(isCurrentPost);
 } catch {}
 // Articles published straight from the site's source (src/data/insights-local.json).
-for (const p of localInsights.posts) if (!posts.some((x) => x.slug === p.slug) && isCurrentPost(p)) posts.push(p);
+for (const p of localInsights.posts) if (!posts.some((x) => x.slug === p.slug) && (isCurrentPost(p) || isSitePost(p))) posts.push(p);
 posts.sort((a, b) => Date.parse(b.published_at) - Date.parse(a.published_at));
 const fmt = (d: string) => new Date(d).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 // Photo: free Unsplash licence, served from images.unsplash.com.

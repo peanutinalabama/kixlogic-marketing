@@ -3,7 +3,7 @@
 // older ones go to the Insights page. ?preview=1 shows a draft from the Command Center.
 export const prerender = false;
 import Firm from '../../layouts/Firm.astro';
-import { isCurrentPost } from '../../lib/blog-since';
+import { isCurrentPost, isSitePost } from '../../lib/blog-since';
 import localInsights from '../../data/insights-local.json';
 
 const { slug } = Astro.params;
@@ -15,7 +15,7 @@ try {
   if (res.ok) post = (await res.json()).post;
 } catch {}
 if (!post) post = localInsights.posts.find((p) => p.slug === slug);
-if (!post || (!preview && !isCurrentPost(post))) return Astro.redirect('/blog/', 302);
+if (!post || (!preview && !isCurrentPost(post) && !isSitePost(post))) return Astro.redirect('/blog/', 302);
 
 const description = post.meta_description || post.excerpt || '';
 // The public address of this article, used by the share buttons.
