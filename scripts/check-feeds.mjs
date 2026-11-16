@@ -3,6 +3,7 @@
 // It asserts that each feed is well-formed XML, never carries a client field, has pay only when payRange is set,
 // and maps the fields the way the Indeed and LinkedIn specs ask.
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { jobsXml, linkedinXml, linkedinEligible, feedHtml, linkedinHtml, workplaceType } from '../src/lib/careers.js';
 
 // ---- A small strict XML well-formedness checker (tags balanced, names valid, CDATA closed, entities known). ----
@@ -151,16 +152,46 @@ check('Indeed: required and optional elements', () => {
   assert.deepEqual(values(indeed, 'category'), ['Pharmaceuticals', 'Clinical research', '', '']);
   assert.deepEqual(values(indeed, 'experience'), ['Senior', 'Manager', 'Entry level', '']);
   assert.deepEqual(values(indeed, 'email'), Array(4).fill('jobs@kixlogic.com'));
-  assert.ok(!/<email>/.test(indeedBare), 'email left out when not set');
+  assert.deepEqual(values(indeedBare, 'email'), ['', '', '', ''], 'email sent blank (Indeed requires it) when not set');
 });
 
-check('Indeed: remote job does not combine "Remote" with a real city', () => {
+check('Indeed: every job carries the same elements (only <salary> depends on payRange)', () => {
+  const names = (job) => [...job.replace(/<!\[CDATA\[[\s\S]*?\]\]>/g, '').matchAll(/<([a-z_]+)>/gi)].map((m) => m[1]).filter((n) => n !== 'salary').join(',');
+  for (const xml of [indeed, indeedBare]) {
+    const jobs = xml.split('<job>').slice(1);
+    for (const j of jobs) assert.equal(names(j), names(jobs[0]));
+    assert.ok(names(jobs[0]).includes('email'));
+  }
+});
+
+check('Indeed: a fully remote job sends city "Remote" with state and postal code blank', () => {
   const remote = indeed.split('<job>')[2];
-  assert.equal(values(remote, 'city')[0], '');
-  assert.equal(values(remote, 'state')[0], 'AL');
+  assert.equal(values(remote, 'city')[0], 'Remote');
+  assert.equal(values(remote, 'state')[0], '');
   assert.equal(values(remote, 'postalcode')[0], '');
   const onlyRemote = jobsXml([{ ...samples[1], location: { remoteType: 'Remote' } }]);
   assert.equal(values(onlyRemote, 'city')[0], 'Remote');
+  assert.equal(values(onlyRemote, 'state')[0], '');
+  const onsite = indeed.split('<job>')[1];
+  assert.equal(values(onsite, 'city')[0], 'Huntsville');
+  assert.equal(values(onsite, 'state')[0], 'AL');
+  assert.equal(values(onsite, 'postalcode')[0], '35801');
+});
+
+check('entities inside tags stay encoded, so a quote in a link cannot add an attribute', () => {
+  const evil = '<a href="https://x.com/&quot;onmouseover=alert(1)" rel="noopener">apply &amp; go</a>';
+  assert.equal(feedHtml(evil), '<a href="https://x.com/&quot;onmouseover=alert(1)" rel="noopener">apply & go</a>');
+  const d = values(jobsXml([{ ...samples[0], description: LONG + evil }]), 'description')[0];
+  assert.ok(!/href="[^"]*"onmouseover/.test(d), 'attribute broke out');
+  // An &amp; that would spell another entity stays, so text cannot rebuild "&lt;" into markup.
+  assert.equal(feedHtml('a &amp;lt;b&amp;gt; c'), 'a &amp;lt;b&amp;gt; c');
+});
+
+check('the site pages never show the department field', () => {
+  for (const f of ['../src/pages/careers/index.astro', '../src/pages/careers/[id].astro', '../src/pages/index.astro']) {
+    const src = readFileSync(new URL(f, import.meta.url), 'utf8');
+    assert.ok(!/\.department\b/.test(src), `${f} reads department`);
+  }
 });
 
 check('descriptions use literal characters inside CDATA, and "]]>" cannot break out', () => {

@@ -105,7 +105,8 @@ export function jobDescriptionHtml(p) {
 // when Command sent payRange, which it does only when the requisition's show_pay switch is on.
 //
 // Feed settings. Each can be set here or as an environment variable of the same name on the site's Cloudflare
-// project (the environment variable wins). Left empty, the element is left out of the feed.
+// project (the environment variable wins). Left empty, Indeed's <email> is sent blank (Indeed requires the element)
+// and LinkedIn's companyId and posterEmail are left out.
 //   LINKEDIN_COMPANY_ID: the numeric ID of the Kixlogic LinkedIn Page (from the Page's admin address).
 //   JOB_FEED_EMAIL:      a kixlogic.com address. Indeed's <email> and LinkedIn's <posterEmail> both ask for one.
 export const LINKEDIN_COMPANY_ID = '';
@@ -170,18 +171,28 @@ function cdata(v) {
 const el = (indent, tag, v) => `${indent}<${tag}>${cdata(v)}</${tag}>`;
 
 /**
- * Indeed and LinkedIn both ask for HTML inside CDATA with literal characters rather than entities. Entities are
- * turned back into characters, except &lt; and &gt;, which stay so text such as "<5 years" is not read as a tag.
+ * Indeed and LinkedIn both ask for HTML inside CDATA with literal characters rather than entities. Entities in the
+ * text between tags are turned back into characters, except &lt; and &gt;, which stay so text such as "<5 years"
+ * is not read as a tag, and an &amp; that would spell out another entity. Tags themselves are left exactly as
+ * Command cleaned them: an attribute value keeps its &quot;, so a quote in a link address cannot end the
+ * attribute and add a new one.
  */
-export function feedHtml(html) {
-  return String(html || '').replace(/&(#x[0-9a-f]+|#\d+|[a-z]+);/gi, (m, name) => {
+function decodeTextEntities(text) {
+  return text.replace(/&(#x[0-9a-f]+|#\d+|[a-z]+);/gi, (m, name, offset, whole) => {
     let code;
     if (name[0] === '#') code = name[1].toLowerCase() === 'x' ? parseInt(name.slice(2), 16) : parseInt(name.slice(1), 10);
     else code = { amp: 38, quot: 34, apos: 39, nbsp: 160, lt: 60, gt: 62 }[name.toLowerCase()];
     if (code === undefined || Number.isNaN(code) || code === 60 || code === 62) return m;
+    if (code === 38 && /^(#x[0-9a-f]+|#\d+|[a-z]+);/i.test(whole.slice(offset + m.length))) return m;
     if (code === 160) return ' ';
     try { return String.fromCodePoint(code); } catch { return m; }
   });
+}
+export function feedHtml(html) {
+  return String(html || '')
+    .split(/(<[^>]*>)/)
+    .map((part, i) => (i % 2 ? part : decodeTextEntities(part)))
+    .join('');
 }
 
 /**
@@ -214,12 +225,15 @@ export function jobsXml(postings, settings = {}) {
   const jobs = postings.map((p) => {
     const loc = p.location || {};
     const remote = workplaceType(loc.remoteType);
-    // Indeed: a fully remote job says "Remote" in place of a real city (or keeps only its state when the role is
-    // limited to one state). Remote is never combined with a real city.
+    // Indeed: a fully remote job sends "remote" in one of city or state and leaves the other blank (never "remote"
+    // next to a real place, and a blank city alone reads as a statewide on-site job). Indeed does not use
+    // <remotetype> to set the location, so city carries "Remote" and state and postal code are left blank.
     let city = loc.city || '';
+    let state = loc.state || '';
     let postal = loc.postalCode || '';
     if (remote === 'Remote') {
-      city = loc.state ? '' : 'Remote';
+      city = 'Remote';
+      state = '';
       postal = '';
     }
     const jt = JOB_TYPE[jobTypeKey(p.jobType)];
@@ -233,10 +247,10 @@ export function jobsXml(postings, settings = {}) {
       el(I, 'url', `${SITE}${postingPath(p)}?source=Indeed`),
       el(I, 'company', COMPANY),
       el(I, 'city', city),
-      el(I, 'state', loc.state || ''),
+      el(I, 'state', state),
       el(I, 'country', 'US'),
       el(I, 'postalcode', postal),
-      email ? el(I, 'email', email) : null,
+      el(I, 'email', email), // Indeed requires <email> in every job; blank until JOB_FEED_EMAIL is set
       el(I, 'description', feedHtml(jobDescriptionHtml(p))),
       p.payRange ? el(I, 'salary', p.payRange) : null,
       el(I, 'jobtype', jt ? jt.indeed : (p.jobType || '')),

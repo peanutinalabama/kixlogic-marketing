@@ -16,12 +16,12 @@ What goes in them:
 - Only requisitions you switched to Publish in Command, that are open and not past their close date.
 - The company is always "Kixlogic, LLC". A client name is never in either feed.
 - Pay appears only when that requisition's "Show pay" switch is on.
-- The Department field is left out of both feeds, because it can hold a client label.
+- The Department field is never public: Command no longer sends it, so it is not in either feed or on the careers pages (the small heading above each job title now shows the industry). It can safely hold a client label.
 - If Command cannot be reached, the feeds answer "try again later" (503) instead of an empty list, so no board removes your jobs because of a short outage.
 
 ## Two settings to fill in (your step)
 
-Both boards ask for details only you have. Until they are filled in, the matching lines are simply left out of the feeds.
+Both boards ask for details only you have. Until they are filled in, Indeed's email line is sent blank (Indeed wants the line present in every job) and LinkedIn's two lines are left out.
 
 1. **A kixlogic.com email address for the feeds.** Indeed calls it `<email>` (tied to your Indeed employer account) and LinkedIn calls it `<posterEmail>` (LinkedIn says it must be a company domain address, used to check that the business is real). Note: this address is readable by anyone who opens the feed, so a shared address such as a careers inbox is a good choice.
 2. **Your LinkedIn Company ID** (LinkedIn feed only). To find it: open your Kixlogic LinkedIn Page in Admin view, look at the web address, and copy the number right after `/company/`.
@@ -44,7 +44,7 @@ Steps:
 3. Indeed reviews the feed. Once accepted, Indeed reads a feed address about four times a day (every six hours). Indeed may ask for corrections; send them to me and I will make them.
 4. **Your step:** sponsor the jobs you want seen, in the Indeed employer dashboard. You choose the budget.
 
-Things Indeed expects that are already handled: every job on the careers page is in the feed (Indeed does not accept partial feeds), descriptions match the job pages, filled or closed jobs drop out on their own, and fully remote jobs are marked "Fully remote" instead of being given a fake city.
+Things Indeed expects that are already handled: every job on the careers page is in the feed (Indeed does not accept partial feeds), descriptions match the job pages, filled or closed jobs drop out on their own, and fully remote jobs follow Indeed's rule: the city says "Remote" and the state and postal code are left blank (Indeed says never to pair "remote" with a real place). If a remote role is limited to one state, say so in the posting text, because Indeed's location fields cannot show both.
 
 ## LinkedIn: how to get the feed picked up
 

@@ -43,7 +43,7 @@ const itemList = {
           {postings.map((p) => (
             <li>
               <a class="card" href={postingPath(p)}>
-                <p class="eyebrow">{p.department || 'Role'}</p>
+                <p class="eyebrow">{p.industry || 'Role'}</p>
                 <h2>{p.title}</h2>
                 <p>{placeLine(p)}{p.jobType ? ` · ${p.jobType}` : ''}</p>
                 <span class="link">View role →</span>
