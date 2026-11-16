@@ -1,0 +1,74 @@
+---
+// "Get new job alerts": a compact sign-up that posts cross-site to Kixlogic Command, the same way the talent pool
+// form does. Command emails a confirmation link (double opt-in) and always gives the same neutral reply.
+// Works without script too: the form then posts straight to Command, which answers with a small page.
+const INTAKE = 'https://app.kixlogic.com/command/alerts/subscribe';
+const STATES = [["AL","Alabama"],["AK","Alaska"],["AZ","Arizona"],["AR","Arkansas"],["CA","California"],["CO","Colorado"],["CT","Connecticut"],["DE","Delaware"],["DC","District of Columbia"],["FL","Florida"],["GA","Georgia"],["HI","Hawaii"],["ID","Idaho"],["IL","Illinois"],["IN","Indiana"],["IA","Iowa"],["KS","Kansas"],["KY","Kentucky"],["LA","Louisiana"],["ME","Maine"],["MD","Maryland"],["MA","Massachusetts"],["MI","Michigan"],["MN","Minnesota"],["MS","Mississippi"],["MO","Missouri"],["MT","Montana"],["NE","Nebraska"],["NV","Nevada"],["NH","New Hampshire"],["NJ","New Jersey"],["NM","New Mexico"],["NY","New York"],["NC","North Carolina"],["ND","North Dakota"],["OH","Ohio"],["OK","Oklahoma"],["OR","Oregon"],["PA","Pennsylvania"],["PR","Puerto Rico"],["RI","Rhode Island"],["SC","South Carolina"],["SD","South Dakota"],["TN","Tennessee"],["TX","Texas"],["UT","Utah"],["VT","Vermont"],["VA","Virginia"],["WA","Washington"],["WV","West Virginia"],["WI","Wisconsin"],["WY","Wyoming"]];
+---
+<section class="ja" aria-labelledby="ja-title">
+  <div class="ja-text">
+    <p class="eyebrow">Job alerts</p>
+    <h2 id="ja-title">Get new job alerts</h2>
+    <p>We email you when we post a new role. Pick a state or a few keywords if you only want some of them. You can stop the emails at any time.</p>
+  </div>
+  <form class="ja-form" id="jobAlertForm" method="post" action={INTAKE}>
+    <label class="ja-email">Email<input name="email" type="email" required maxlength="200" autocomplete="email" inputmode="email" /></label>
+    <label>State (optional)
+      <select name="state">
+        <option value="">Any state</option>
+        {STATES.map(([code, name]) => <option value={code}>{name}</option>)}
+      </select>
+    </label>
+    <label>Keywords (optional)<input name="keywords" type="text" maxlength="200" placeholder="for example: chemist, HPLC" /></label>
+    <div class="ja-hp" aria-hidden="true"><label>Leave this empty<input name="website" type="text" tabindex="-1" autocomplete="off" /></label></div>
+    <button type="submit" class="pill pill-blue ja-btn">Get job alerts</button>
+    <p id="jobAlertMsg" class="ja-msg" role="status"></p>
+  </form>
+</section>
+
+<style>
+  .ja { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 28px; align-items: start; margin-top: 48px; padding: 28px; background: var(--soft); border: 1px solid var(--line); border-radius: 16px; }
+  .ja h2 { margin: 0 0 8px; font-size: 1.35rem; color: var(--navy); }
+  .ja-text p:last-child { color: var(--muted); margin: 0; }
+  .ja-form { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; min-width: 0; }
+  .ja-form label { display: grid; gap: 6px; min-width: 0; font-family: "IBM Plex Mono", monospace; font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--navy); }
+  .ja-form .ja-email { grid-column: 1 / -1; }
+  .ja-form input, .ja-form select { width: 100%; min-width: 0; min-height: 46px; font: 400 16px "IBM Plex Sans", sans-serif; letter-spacing: normal; text-transform: none; color: var(--ink, var(--navy)); border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; background: #fff; box-sizing: border-box; }
+  .ja-form input:focus, .ja-form select:focus { outline: 2px solid var(--blue); border-color: var(--blue); }
+  .ja-btn { grid-column: 1 / -1; justify-self: start; cursor: pointer; min-height: 48px; }
+  .ja-msg { grid-column: 1 / -1; margin: 0; min-height: 1em; color: var(--navy); overflow-wrap: anywhere; }
+  .ja-msg.bad { color: #B42318; }
+  .ja-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  @media (max-width: 860px) { .ja { grid-template-columns: 1fr; gap: 18px; } }
+  @media (max-width: 560px) { .ja { padding: 20px; } .ja-form { grid-template-columns: 1fr; } .ja-btn { justify-self: stretch; text-align: center; } }
+</style>
+
+<script define:vars={{ INTAKE }}>
+document.getElementById('jobAlertForm')?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const form = e.currentTarget;
+  const msg = document.getElementById('jobAlertMsg');
+  const btn = form.querySelector('button[type=submit]');
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+  msg.textContent = '';
+  msg.classList.remove('bad');
+  try {
+    const res = await fetch(INTAKE, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
+    const data = await res.json().catch(() => ({}));
+    if (res.ok && data.ok) {
+      form.reset();
+      msg.textContent = data.message || 'Thanks. Check your inbox to confirm your job alerts.';
+    } else {
+      msg.classList.add('bad');
+      msg.textContent = data.message || 'Something went wrong. Please try again, or email support@kixlogic.com.';
+    }
+  } catch {
+    msg.classList.add('bad');
+    msg.textContent = 'We could not reach the server. Please try again, or email support@kixlogic.com.';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Get job alerts';
+  }
+});
+</script>

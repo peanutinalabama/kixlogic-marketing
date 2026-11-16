@@ -1,5 +1,6 @@
 ---
 import Firm from '../../layouts/Firm.astro';
+import JobAlerts from '../../components/JobAlerts.astro';
 import { fetchPostings, postingPath, placeLine, payLine, SITE } from '../../lib/careers.js';
 
 // Read from Kixlogic Command on each request (cached briefly), so a newly published role shows without a rebuild.
@@ -54,6 +55,7 @@ const itemList = {
         </ul>
       )}
       <p style="margin-top:40px">Don't see a role that fits? <a class="link" href="/careers/talent-pool/">Join our talent pool</a> and send your resume anyway.</p>
+      <JobAlerts />
     </div>
   </section>
 

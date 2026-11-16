@@ -1,5 +1,6 @@
 ---
 import Firm from '../../layouts/Firm.astro';
+import JobAlerts from '../../components/JobAlerts.astro';
 import { fetchPostings, postingPath, placeLine, jobPostingJsonLd, jobDescriptionHtml, plainPosting, payLine } from '../../lib/careers.js';
 
 // One page per published role, read from Kixlogic Command on each request.
@@ -43,6 +44,7 @@ const pathUrl = `https://kixlogic.com${postingPath(p)}`;
       <div class="job-body" set:html={jobDescriptionHtml(p)} />
 
       <p class="job-foot">Applications are reviewed by the Kixlogic recruiting team.</p>
+      <JobAlerts />
     </div>
   </section>
 
