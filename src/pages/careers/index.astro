@@ -1,6 +1,6 @@
 ---
 import Firm from '../../layouts/Firm.astro';
-import { fetchPostings, postingPath, placeLine, SITE } from '../../lib/careers.js';
+import { fetchPostings, postingPath, placeLine, payLine, SITE } from '../../lib/careers.js';
 
 // Read from Kixlogic Command on each request (cached briefly), so a newly published role shows without a rebuild.
 export const prerender = false;
@@ -46,6 +46,7 @@ const itemList = {
                 <p class="eyebrow">{p.industry || 'Role'}</p>
                 <h2>{p.title}</h2>
                 <p>{placeLine(p)}{p.jobType ? ` · ${p.jobType}` : ''}</p>
+                {payLine(p) && <p class="opening-pay">{payLine(p)}</p>}
                 <span class="link">View role →</span>
               </a>
             </li>
@@ -59,6 +60,7 @@ const itemList = {
   <style>
     .openings-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
     .openings-list a.card { display: block; height: 100%; text-decoration: none; color: inherit; }
+    .openings-list .opening-pay { color: var(--navy); font-weight: 500; overflow-wrap: anywhere; }
     .openings-list h2 { margin: 0.25rem 0 0.5rem; font-size: 1.25rem; }
     @media (max-width: 980px) { .openings-list { grid-template-columns: 1fr; } }
   </style>

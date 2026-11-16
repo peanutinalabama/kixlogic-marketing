@@ -1,10 +1,10 @@
 // Checks the two job feeds (Indeed jobs.xml and LinkedIn linkedin.xml) from sample postings, with no network.
 // Run: node scripts/check-feeds.mjs
-// It asserts that each feed is well-formed XML, never carries a client field, has pay only when payRange is set,
+// It asserts that each feed is well-formed XML, never carries a client field, has pay only when Command sent it (payRange or pay),
 // and maps the fields the way the Indeed and LinkedIn specs ask.
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { jobsXml, linkedinXml, linkedinEligible, feedHtml, linkedinHtml, workplaceType } from '../src/lib/careers.js';
+import { jobsXml, linkedinXml, linkedinEligible, feedHtml, linkedinHtml, workplaceType, jobPostingJsonLd, baseSalaryLd, payLine, composedPayText, linkedinSalaries, structuredPay, jobDescriptionHtml } from '../src/lib/careers.js';
 
 // ---- A small strict XML well-formedness checker (tags balanced, names valid, CDATA closed, entities known). ----
 function checkWellFormed(xml, label) {
@@ -61,7 +61,8 @@ const samples = [
   {
     id: 'KX-1001', title: 'Senior Analytical Chemist', department: 'Quality', jobType: 'FT', industry: 'Pharmaceuticals',
     experienceLevel: 'Senior', location: { city: 'Huntsville', state: 'AL', postalCode: '35801', remoteType: 'On-site' },
-    payRange: '$95,000 - $115,000 per year', description: LONG, closeDate: '2026-12-31',
+    payRange: '$95,000 - $115,000 per year', pay: { min: 95000, max: 115000, unit: 'YEAR', currency: 'USD' },
+    description: LONG, closeDate: '2026-12-31',
     postedAt: '2026-11-01T14:00:00.000Z', updatedAt: '2026-11-10T09:30:00.000Z', applyUrl: 'https://app.kixlogic.com/command/apply/KX-1001',
     client: 'Acme Pharma Secret', clientName: 'Acme Pharma Secret',
   },
@@ -126,19 +127,66 @@ check('department is not sent (it can hold a client label)', () => {
   assert.ok(!/Quality/.test(linkedin.replace(/<description>[\s\S]*?<\/description>/g, '')));
 });
 
-check('Indeed: salary only when payRange is set', () => {
+check('Indeed: salary only when pay is set, the composed range when structured pay came', () => {
   const sal = values(indeed, 'salary');
-  assert.deepEqual(sal, ['$95,000 - $115,000 per year', '$22 - $26 per hour']);
+  assert.deepEqual(sal, ['$95,000.00 to $115,000.00 per year', '$22 - $26 per hour']);
   assert.equal(values(indeed, 'job').length, 4);
   const jobs = indeed.split('<job>').slice(1);
   assert.ok(!/<salary>/.test(jobs[1]) && !/<salary>/.test(jobs[2]));
 });
 
-check('LinkedIn: no structured salary, pay only in the description when payRange is set', () => {
-  assert.ok(!/<salar/.test(linkedin));
+check('LinkedIn: <salaries> per the spec only for structured pay, pay text in the description', () => {
+  const jobs = linkedin.split('<job>').slice(1);
+  assert.ok(/<salaries>/.test(jobs[0]));
+  assert.ok(!/<salar/.test(jobs[1]) && !/<salar/.test(jobs[2]), 'no salaries without structured pay');
+  assert.deepEqual(values(jobs[0], 'amount'), ['115000', '95000'], 'highEnd first, then lowEnd');
+  assert.deepEqual(values(jobs[0], 'currencyCode'), ['USD', 'USD']);
+  assert.deepEqual(values(jobs[0], 'period'), ['YEARLY']);
+  assert.deepEqual(values(jobs[0], 'type'), ['BASE_SALARY']);
+  assert.ok(/<highEnd>\s*<amount>[\s\S]*<\/highEnd>\s*<lowEnd>\s*<amount>/.test(jobs[0]), 'highEnd and lowEnd each hold amount and currencyCode');
   const desc = values(linkedin, 'description');
-  assert.ok(desc[0].includes('$95,000 - $115,000 per year'));
+  assert.ok(desc[0].includes('$95,000 - $115,000 per year'), 'the typed text wins for display');
   assert.ok(!desc[1].includes('Pay:') && !desc[2].includes('Pay:'));
+  const hourly = linkedinSalaries({ pay: { min: 30, max: 42, unit: 'HOUR', currency: 'USD' } });
+  assert.deepEqual(values(hourly, 'period'), ['HOURLY']);
+  assert.equal(linkedinSalaries({ pay: { min: 22.5, max: 26, unit: 'HOUR', currency: 'USD' } }), null, 'LinkedIn takes whole numbers: cents are left out, not rounded');
+});
+
+check('JSON-LD: baseSalary is a MonetaryAmount with a QuantitativeValue when pay is present', () => {
+  const ld = jobPostingJsonLd(samples[0]);
+  assert.deepEqual(ld.baseSalary, {
+    '@type': 'MonetaryAmount',
+    currency: 'USD',
+    value: { '@type': 'QuantitativeValue', minValue: 95000, maxValue: 115000, unitText: 'YEAR' },
+  });
+  assert.equal('baseSalary' in jobPostingJsonLd(samples[1]), false, 'no pay, no baseSalary');
+  assert.equal('baseSalary' in jobPostingJsonLd(samples[3]), false, 'pay text alone is not structured salary');
+  assert.deepEqual(baseSalaryLd({ pay: { min: 32.5, max: 32.5, unit: 'HOUR', currency: 'USD' } }).value, { '@type': 'QuantitativeValue', value: 32.5, unitText: 'HOUR' });
+  const text = JSON.stringify(jobPostingJsonLd(samples[0]));
+  assert.ok(!/Acme Pharma Secret/.test(text) && !/Quality/.test(text.replace(/"description":"(?:[^"\\]|\\.)*"/, '')), 'no client or department');
+  JSON.parse(text);
+});
+
+check('pay values are checked again on the site before they are published', () => {
+  for (const pay of [
+    { min: 0, max: 10, unit: 'HOUR' }, { min: 20, max: 10, unit: 'HOUR' }, { min: 10, max: 20, unit: 'WEEK' },
+    { min: 'x', max: 20, unit: 'HOUR' }, { min: 10, max: 20, unit: 'HOUR', currency: 'EUR' }, null, 'text',
+  ]) {
+    assert.equal(structuredPay({ pay }), null, JSON.stringify(pay));
+    assert.equal(baseSalaryLd({ pay }), undefined);
+  }
+  assert.equal(composedPayText({ pay: { min: 120000, max: 140000, unit: 'YEAR', currency: 'USD' } }), '$120,000.00 to $140,000.00 per year');
+  assert.equal(payLine({ payRange: '', pay: { min: 120000, max: 140000, unit: 'YEAR' } }), '$120,000.00 to $140,000.00 per year');
+  assert.equal(payLine({ payRange: 'DOE plus bonus', pay: { min: 120000, max: 140000, unit: 'YEAR' } }), 'DOE plus bonus');
+  assert.equal(payLine({ payRange: null, pay: null }), null);
+  assert.ok(jobDescriptionHtml({ description: '<p>x</p>', pay: { min: 30, max: 40, unit: 'HOUR' } }).includes('$30.00 to $40.00 per hour'));
+});
+
+check('the role page shows the pay line under the title, above the posting body', () => {
+  const src = readFileSync(new URL('../src/pages/careers/[id].astro', import.meta.url), 'utf8');
+  const pay = src.indexOf('job-pay');
+  assert.ok(pay > 0 && pay < src.indexOf('job-body'), 'pay line is near the top');
+  assert.ok(src.indexOf('<h1') < pay);
 });
 
 check('Indeed: required and optional elements', () => {

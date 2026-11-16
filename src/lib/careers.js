@@ -40,7 +40,50 @@ export function placeLine(p) {
   return [where, remote].filter(Boolean).join(' · ') || 'Location to be confirmed';
 }
 
-/** schema.org JobPosting. Pay is not sent as structured salary, because the pay text is free text. */
+// ---------------------------------------------------------------------------------------------------------------
+// Pay. Command sends payRange (the text to show) and pay ({ min, max, unit: 'YEAR' | 'HOUR', currency: 'USD' })
+// only when the requisition's Show pay switch is on. pay is checked again here so a bad value is left out
+// rather than published.
+const PAY_UNIT_WORD = { YEAR: 'per year', HOUR: 'per hour' };
+const usd = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+/** The structured pay from the feed, or null when it is missing or does not make sense. */
+export function structuredPay(p) {
+  const pay = p && p.pay;
+  if (!pay || typeof pay !== 'object') return null;
+  const min = Number(pay.min);
+  const max = Number(pay.max);
+  if (!Number.isFinite(min) || !Number.isFinite(max) || min <= 0 || max < min) return null;
+  if (!PAY_UNIT_WORD[pay.unit]) return null;
+  if ((pay.currency || 'USD') !== 'USD') return null;
+  return { min, max, unit: pay.unit, currency: 'USD' };
+}
+
+/** "$120,000.00 to $140,000.00 per year" (the same wording Command composes), or null. */
+export function composedPayText(p) {
+  const pay = structuredPay(p);
+  if (!pay) return null;
+  const amount = pay.min === pay.max ? usd.format(pay.min) : `${usd.format(pay.min)} to ${usd.format(pay.max)}`;
+  return `${amount} ${PAY_UNIT_WORD[pay.unit]}`;
+}
+
+/** The pay line shown on the careers pages: the text Command sent (Charles's own wording wins), else the composed range. */
+export function payLine(p) {
+  const typed = p && p.payRange ? String(p.payRange).trim() : '';
+  return typed || composedPayText(p) || null;
+}
+
+/** schema.org MonetaryAmount for JobPosting.baseSalary, or undefined when there is no structured pay. */
+export function baseSalaryLd(p) {
+  const pay = structuredPay(p);
+  if (!pay) return undefined;
+  const value = pay.min === pay.max
+    ? { '@type': 'QuantitativeValue', value: pay.min, unitText: pay.unit }
+    : { '@type': 'QuantitativeValue', minValue: pay.min, maxValue: pay.max, unitText: pay.unit };
+  return { '@type': 'MonetaryAmount', currency: pay.currency, value };
+}
+
+/** schema.org JobPosting. baseSalary is sent only when Command sent structured pay (Show pay on). */
 export function jobPostingJsonLd(p) {
   const loc = p.location || {};
   const ld = {
@@ -63,7 +106,8 @@ export function jobPostingJsonLd(p) {
     },
     employmentType: p.jobType ? (JOB_TYPE[jobTypeKey(p.jobType)]?.schema || String(p.jobType).toUpperCase().replace(/[\s-]+/g, '_')) : undefined,
     validThrough: p.closeDate || undefined,
-    url: `${SITE}${postingPath(p)}`,
+    baseSalary: baseSalaryLd(p),
+    url:`${SITE}${postingPath(p)}`,
   };
   if (String(loc.remoteType || '').toLowerCase().includes('remote')) ld.jobLocationType = 'TELECOMMUTE';
   return stripUndefined(ld);
@@ -85,7 +129,8 @@ export function plainPosting(p) {
  * already cleaned by Command, so it is shown as it is. Postings made before that box keep their separate sections.
  */
 export function jobDescriptionHtml(p) {
-  const pay = p.payRange ? `<p><strong>Pay:</strong> ${esc(p.payRange)}</p>` : '';
+  const line = payLine(p);
+  const pay = line ? `<p><strong>Pay:</strong> ${esc(line)}</p>` : '';
   if (p.description) return p.description + pay;
   const parts = [
     ['About the role', p.positionSummary],
@@ -102,7 +147,7 @@ export function jobDescriptionHtml(p) {
 
 // ---------------------------------------------------------------------------------------------------------------
 // XML job feeds. Both feeds read only the public posting fields above (never a client), and pay is only present
-// when Command sent payRange, which it does only when the requisition's show_pay switch is on.
+// when Command sent payRange or pay, which it does only when the requisition's show_pay switch is on.
 //
 // Feed settings. Each can be set here or as an environment variable of the same name on the site's Cloudflare
 // project (the environment variable wins). Left empty, Indeed's <email> is sent blank (Indeed requires the element)
@@ -237,6 +282,9 @@ export function jobsXml(postings, settings = {}) {
       postal = '';
     }
     const jt = JOB_TYPE[jobTypeKey(p.jobType)];
+    // Indeed reads <salary> as text. The composed range ("$120,000.00 to $140,000.00 per year") parses cleanly,
+    // so it is used when Command sent structured pay; otherwise the pay text as typed.
+    const salary = composedPayText(p) || payLine(p);
     const I = '    ';
     return [
       '  <job>',
@@ -252,7 +300,7 @@ export function jobsXml(postings, settings = {}) {
       el(I, 'postalcode', postal),
       el(I, 'email', email), // Indeed requires <email> in every job; blank until JOB_FEED_EMAIL is set
       el(I, 'description', feedHtml(jobDescriptionHtml(p))),
-      p.payRange ? el(I, 'salary', p.payRange) : null,
+      salary ? el(I, 'salary', salary) : null,
       el(I, 'jobtype', jt ? jt.indeed : (p.jobType || '')),
       el(I, 'category', p.industry || ''),
       el(I, 'experience', p.experienceLevel || ''),
@@ -275,6 +323,31 @@ export function linkedinEligible(p) {
   if (!id || id.length > 40) return false;
   if (!p.applyUrl || !p.title) return false;
   return plainPosting({ description: jobDescriptionHtml(p) }).length >= 100;
+}
+
+/**
+ * LinkedIn's <salaries> block (XML Feeds Development Guide): one BASE_SALARY <salary> with <highEnd> and <lowEnd>
+ * amounts in USD and a YEARLY or HOURLY <period>. LinkedIn takes the amounts as whole numbers, so a range with cents
+ * (say $22.50 an hour) is left out here rather than rounded; the pay still shows in the description.
+ */
+const LINKEDIN_PERIOD = { YEAR: 'YEARLY', HOUR: 'HOURLY' };
+export function linkedinSalaries(p, indent = '    ') {
+  const pay = structuredPay(p);
+  if (!pay || !Number.isInteger(pay.min) || !Number.isInteger(pay.max)) return null;
+  const I2 = `${indent}    `;
+  const I3 = `${I2}    `;
+  const I4 = `${I3}    `;
+  const end = (tag, amount) => [`${I3}<${tag}>`, el(I4, 'amount', amount), el(I4, 'currencyCode', pay.currency), `${I3}</${tag}>`].join('\n');
+  return [
+    `${indent}<salaries>`,
+    `${I2}<salary>`,
+    end('highEnd', pay.max),
+    end('lowEnd', pay.min),
+    el(I3, 'period', LINKEDIN_PERIOD[pay.unit]),
+    el(I3, 'type', 'BASE_SALARY'),
+    `${I2}</salary>`,
+    `${indent}</salaries>`,
+  ].join('\n');
 }
 
 /**
@@ -304,6 +377,7 @@ export function linkedinXml(postings, settings = {}) {
       loc.state ? el(I, 'state', loc.state) : null,
       el(I, 'country', 'US'),
       loc.postalCode ? el(I, 'postalCode', loc.postalCode) : null,
+      linkedinSalaries(p, I),
       workplace ? el(I, 'workplaceTypes', workplace) : null,
       exp ? el(I, 'experienceLevel', exp) : null,
       jt && jt.linkedin ? el(I, 'jobtype', jt.linkedin) : null,

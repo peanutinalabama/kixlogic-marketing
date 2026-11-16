@@ -16,6 +16,7 @@ What goes in them:
 - Only requisitions you switched to Publish in Command, that are open and not past their close date.
 - The company is always "Kixlogic, LLC". A client name is never in either feed.
 - Pay appears only when that requisition's "Show pay" switch is on.
+- When you fill in Min, Max and Per year or Per hour in Command, Indeed's salary line reads like "$120,000.00 to $140,000.00 per year", LinkedIn gets its own salary fields, and Google gets the range in the job's search data. LinkedIn only takes whole dollars, so a range with cents (say $22.50 an hour) shows in the LinkedIn description but not in its salary fields.
 - The Department field is never public: Command no longer sends it, so it is not in either feed or on the careers pages (the small heading above each job title now shows the industry). It can safely hold a client label.
 - If Command cannot be reached, the feeds answer "try again later" (503) instead of an empty list, so no board removes your jobs because of a short outage.
 
