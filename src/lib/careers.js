@@ -282,9 +282,10 @@ export function jobsXml(postings, settings = {}) {
       postal = '';
     }
     const jt = JOB_TYPE[jobTypeKey(p.jobType)];
-    // Indeed reads <salary> as text. The composed range ("$120,000.00 to $140,000.00 per year") parses cleanly,
-    // so it is used when Command sent structured pay; otherwise the pay text as typed.
-    const salary = composedPayText(p) || payLine(p);
+    // Indeed reads <salary> as text. It gets the same pay line the careers page shows (Charles's typed text wins,
+    // else the composed "$120,000.00 to $140,000.00 per year"), so Indeed never shows different pay than the site.
+    // Command warns Charles in the editor when his typed text and Min/Max disagree.
+    const salary = payLine(p);
     const I = '    ';
     return [
       '  <job>',

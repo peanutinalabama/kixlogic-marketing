@@ -127,12 +127,17 @@ check('department is not sent (it can hold a client label)', () => {
   assert.ok(!/Quality/.test(linkedin.replace(/<description>[\s\S]*?<\/description>/g, '')));
 });
 
-check('Indeed: salary only when pay is set, the composed range when structured pay came', () => {
+check('Indeed: salary only when pay is set, and always the same pay line the careers page shows', () => {
   const sal = values(indeed, 'salary');
-  assert.deepEqual(sal, ['$95,000.00 to $115,000.00 per year', '$22 - $26 per hour']);
+  // The typed text wins, exactly as on the page (payLine), so Indeed never disagrees with kixlogic.com.
+  assert.deepEqual(sal, ['$95,000 - $115,000 per year', '$22 - $26 per hour']);
+  assert.deepEqual(sal, samples.map(payLine).filter(Boolean));
   assert.equal(values(indeed, 'job').length, 4);
   const jobs = indeed.split('<job>').slice(1);
   assert.ok(!/<salary>/.test(jobs[1]) && !/<salary>/.test(jobs[2]));
+  // With no typed text, the composed range from Min and Max is used.
+  const composedOnly = jobsXml([{ ...samples[0], payRange: null }], settings);
+  assert.deepEqual(values(composedOnly, 'salary'), ['$95,000.00 to $115,000.00 per year']);
 });
 
 check('LinkedIn: <salaries> per the spec only for structured pay, pay text in the description', () => {
