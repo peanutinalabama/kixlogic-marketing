@@ -6,6 +6,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "check:feeds": "node scripts/check-feeds.mjs",
     "cms": "decap-server"
   },
   "dependencies": {
