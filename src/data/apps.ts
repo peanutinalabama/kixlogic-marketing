@@ -4,7 +4,7 @@
 //                      and the live app (kixlogic-site dashboard.html, apply.html, jobs.html).
 //   Renumify         - src/pages/renumify.astro and renumify-site/site-src/pages-compensation.js.
 //   Kixlogic Sourcer - kixlogic-command/worker/sourcer.js, sourcing.js, engsourcer.js.
-//   Value Health     - valuebridge README.md, docs/USER_GUIDE.md, docs/SECURITY.md. PRE-LAUNCH: never say it is
+//   ValueBridge Health AI   - valuebridge README.md, docs/USER_GUIDE.md, docs/SECURITY.md. PRE-LAUNCH: never say it is
 //                      available, live or in use.
 // No prices, customers, counts, results or certifications. Every call to action goes to the Contact page.
 import type { IconName } from './firm';
@@ -122,14 +122,14 @@ export const APPS: AppInfo[] = [
     why: 'You reach qualified people who would never see your job post, and you know why each one is on the list. If a source cannot be reached, Sourcer says so instead of hiding it.',
   },
   {
-    slug: 'value-health',
-    name: 'Value Health',
+    slug: 'valuebridge-health-ai',
+    name: 'ValueBridge Health AI',
     kind: 'Health economics value platform · Pre-launch',
     icon: 'pulse',
     line: 'Helps diagnostics and digital health companies prove the economic value of their product to the people who buy it. Pre-launch.',
     headline: 'Prove your value [with numbers that hold up.]',
     intro:
-      'Value Health is a health economics value platform we are building for diagnostics and digital health companies. It is not yet available; demos are by request. It is designed to help you answer the buyer’s question: what will this save us, and can you prove it?',
+      'ValueBridge Health AI is a health economics value platform we are building for diagnostics and digital health companies. It is not yet available; demos are by request. It is designed to help you answer the buyer’s question: what will this save us, and can you prove it?',
     problem:
       'Hospitals, health systems, labs, employers and health plans want proof of economic value before they buy. The answer is often a spreadsheet whose numbers are hard to trace back to a source, kept apart from the deal and the rollout.',
     audience:
@@ -149,6 +149,6 @@ export const APPS: AppInfo[] = [
       ['Share and deliver', 'Send the buyer a secure link, then track what the customer actually realizes.'],
     ],
     why: 'Buyers see numbers they can trace to a source, with assumptions marked as assumptions. Your team keeps the case, the deal and the results together, so the proof is ready for the next buyer.',
-    note: 'Value Health is in development and is not yet available. It is built for business data only: it is not for patient information and does not give clinical advice. Ask us about a demo.',
+    note: 'ValueBridge Health AI is in development and is not yet available. It is built for business data only: it is not for patient information and does not give clinical advice. Ask us about a demo.',
   },
 ];
