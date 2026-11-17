@@ -148,6 +148,8 @@ const on = (p: string) => (path === p || path.startsWith(p) ? 'on' : '');
       document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeAll(null); });
       var burger = document.querySelector('.fh-burger'), nav = document.getElementById('fhNav');
       if (burger && nav) burger.addEventListener('click', function () { var o = nav.classList.toggle('open'); burger.setAttribute('aria-expanded', o ? 'true' : 'false'); });
+      // A menu link may be a same-page anchor (/apps/#renumify while on /apps/): close the phone menu so the jump is visible.
+      if (burger && nav) nav.addEventListener('click', function (e) { if (e.target.closest && e.target.closest('a')) { nav.classList.remove('open'); burger.setAttribute('aria-expanded', 'false'); } });
     })();
   </script>
 
@@ -166,7 +168,7 @@ const on = (p: string) => (path === p || path.startsWith(p) ? 'on' : '');
     .firm .fh-logo img{display:block;height:40px;width:auto}
     .firm .fh-nav{display:flex;align-items:center;gap:36px;margin-left:auto}
     .firm .fh-item{position:relative}
-    .firm .fh-link{font-family:"IBM Plex Mono",monospace;font-size:16px;font-weight:500;color:var(--muted);background:none;border:0;padding:8px 0;cursor:pointer;text-decoration:none}
+    .firm .fh-link{font-family:"IBM Plex Mono",monospace;font-size:16px;font-weight:500;color:var(--muted);background:none;border:0;padding:8px 0;cursor:pointer;text-decoration:none;white-space:nowrap}
     .firm .fh-link:hover,.firm .fh-link.on{color:var(--navy)}
     .firm .fh-menu{display:none;position:absolute;top:calc(100% + 14px);left:-20px;width:340px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 18px 40px rgba(10,27,77,.12);padding:10px}
     .firm .fh-item > button[aria-expanded="true"] + .fh-menu{display:block}
@@ -290,6 +292,8 @@ const on = (p: string) => (path === p || path.startsWith(p) ? 'on' : '');
       .firm .fh-burger{display:block}
       .firm .fh-nav{display:none;position:absolute;top:84px;left:0;right:0;background:#fff;border-bottom:1px solid var(--line);flex-direction:column;align-items:flex-start;gap:4px;padding:16px 32px}
       .firm .fh-nav.open{display:flex}
+      /* The open menu rides the sticky header, so it scrolls itself when it is taller than the screen. */
+      .firm .fh-nav{max-height:calc(100vh - 84px);max-height:calc(100dvh - 84px);overflow-y:auto;overscroll-behavior:contain}
       .firm .fh-menu{position:static;width:auto;box-shadow:none;border:0;padding:0 0 0 8px}
       .firm .hero{padding:72px 0 64px}
       .firm .band{padding:64px 0}

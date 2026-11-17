@@ -9,13 +9,13 @@ import { APPS } from '../data/apps';
 ---
 <Firm
   title="Apps"
-  description="Kixlogic builds AI-enabled applications for hiring, pay and proving value: Kixlogic ATS, Renumify, Kixlogic Sourcer and Value Health."
+  description="Kixlogic builds software for hiring, pay and proving value: Kixlogic ATS, Renumify and Kixlogic Sourcer, plus Value Health, now in development."
 >
   <section class="hero">
     <div class="fw">
       <p class="eyebrow">Apps</p>
-      <h1 class="display xl">Software built by people <mark>who do the work.</mark></h1>
-      <p class="lede">We recruit and run HR for a living, and we build the tools we wish we had. Here are the applications we make for hiring, pay and proving value.</p>
+      <h1 class="display xl">Software for hiring, pay <mark>and proving value.</mark></h1>
+      <p class="lede">Kixlogic began by building HR and business software, and we still do. Here are the applications we make for tracking applicants, setting pay, sourcing specialists and proving value to buyers.</p>
       <ul class="app-jump">
         {APPS.map((a) => <li><a class="pill" href={`#${a.slug}`}>{a.name}</a></li>)}
       </ul>

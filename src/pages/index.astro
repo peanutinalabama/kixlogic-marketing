@@ -102,8 +102,8 @@ const steps = [
     <div class="fw">
       <div class="head">
         <p class="eyebrow">Our apps</p>
-        <h2 class="display lg">Software we build <mark>for hiring and pay.</mark></h2>
-        <p class="lede">We build the tools we wish we had: for tracking applicants, setting pay, sourcing specialists and proving value to buyers.</p>
+        <h2 class="display lg">Software for hiring, pay <mark>and proving value.</mark></h2>
+        <p class="lede">We build software for tracking applicants, setting pay, sourcing specialists and proving value to buyers.</p>
       </div>
       <div class="cards two">
         {APPS.map((a) => (
@@ -113,7 +113,7 @@ const steps = [
             <p>{a.line}</p>
             <div class="app-card-actions">
               <a class="pill" href="/contact/" aria-label={`Find Out More about ${a.name}`}>Find Out More</a>
-              <a class="link" href={`/apps/#${a.slug}`}>How it works →</a>
+              <a class="link" href={`/apps/#${a.slug}`} aria-label={`How ${a.name} works`}>How it works <span aria-hidden="true">→</span></a>
             </div>
           </div>
         ))}

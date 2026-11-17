@@ -109,7 +109,7 @@ export const APPS: AppInfo[] = [
       { title: 'Searches where the work is', body: 'Publications, preprints, research grants, clinical-trial investigators, researcher profiles, patents and, for software roles, GitHub.' },
       { title: 'Evidence on every result', body: 'Each person comes with where we found them and a link to it. Each rank lists the evidence behind it.' },
       { title: 'Contact details done carefully', body: 'Contact details come only from public records that publish them for contact, each with its source. Personal mailboxes are dropped.' },
-      { title: 'Fair by design', body: 'Filters on age, gender, ethnicity, religion, nationality, marital status, disability, veteran status, name or school prestige are refused.' },
+      { title: 'Fair by design', body: 'Sourcer does not filter or rank people by age, gender, ethnicity, religion, nationality, marital status, disability, veteran status or school prestige. In IT and engineering searches, a filter that asks for one is refused.' },
       { title: 'Opt-outs respected', body: 'Anyone who has opted out is removed from results.' },
       { title: 'Outreach you approve', body: 'Sourcer drafts outreach that cites the evidence. Drafts stay drafts. Nothing is sent without a person.' },
     ],
@@ -129,15 +129,15 @@ export const APPS: AppInfo[] = [
     line: 'Helps diagnostics and digital health companies prove the economic value of their product to the people who buy it. Pre-launch.',
     headline: 'Prove your value [with numbers that hold up.]',
     intro:
-      'Value Health is a health economics value platform for diagnostics and digital health companies. It helps you answer the buyer’s question: what will this save us, and can you prove it?',
+      'Value Health is a health economics value platform we are building for diagnostics and digital health companies. It is not yet available; demos are by request. It is designed to help you answer the buyer’s question: what will this save us, and can you prove it?',
     problem:
-      'Hospitals, health systems, labs, employers and health plans want proof of economic value before they buy. Too often the answer is a spreadsheet with numbers nobody can trace, and the proof, the deal and the delivery live in different places.',
+      'Hospitals, health systems, labs, employers and health plans want proof of economic value before they buy. The answer is often a spreadsheet whose numbers are hard to trace back to a source, kept apart from the deal and the rollout.',
     audience:
       'Commercial-stage diagnostics and digital health companies selling to hospitals, health systems, labs, employers and health plans.',
     capabilities: [
       { title: 'Value calculator', body: 'Templates for diagnostics and digital health. Every input is tagged observed, externally sourced or assumed. See net first-year benefit, ROI, payback month, low and high scenarios, and which input matters most.' },
       { title: 'Evidence library', body: 'Upload studies, contracts and customer exports in PDF, Word, Excel or CSV. Claims are pulled out with the page, row or cell they came from, and a reviewer verifies each one.' },
-      { title: 'Reports that cannot overstate', body: 'Figures come from the calculator. Any other number must appear in a verified source, or the statement is flagged unsupported. Once approved, a report is frozen.' },
+      { title: 'Every number traced or flagged', body: 'Figures come from the calculator. Any other number must appear in a cited, reviewed source, or the statement is flagged unsupported. Once a reviewer approves a report, it is frozen.' },
       { title: 'Buyer share links', body: 'Send a named buyer a read-only, time-limited link. They need no account. Withdraw it at any time and see whether it was opened.' },
       { title: 'Deals and delivery in one place', body: 'Accounts, the buying committee, opportunities linked to their value case, and pipeline planning. Then track implementation milestones and compare realized results with the projection.' },
       { title: 'Built for trust', body: 'Each organization’s data is kept separate and checked on every request. Roles control who can build, review and share. The audit log cannot be edited.' },
@@ -149,6 +149,6 @@ export const APPS: AppInfo[] = [
       ['Share and deliver', 'Send the buyer a secure link, then track what the customer actually realizes.'],
     ],
     why: 'Buyers see numbers they can trace to a source, with assumptions marked as assumptions. Your team keeps the case, the deal and the results together, so the proof is ready for the next buyer.',
-    note: 'Value Health is in development and is not yet available. It works with business data only: it is not built for patient information and does not give clinical advice. Ask us about a demo.',
+    note: 'Value Health is in development and is not yet available. It is built for business data only: it is not for patient information and does not give clinical advice. Ask us about a demo.',
   },
 ];
