@@ -4,6 +4,7 @@ export const prerender = false;
 import Firm from '../layouts/Firm.astro';
 import Icon from '../components/Icon.astro';
 import { SERVICES, INDUSTRIES, photoUrl } from '../data/firm';
+import { APPS } from '../data/apps';
 import { fetchPostings, postingPath, placeLine } from '../lib/careers.js';
 
 // Open roles from Kixlogic Command. If the feed is unreachable, the section says so and the rest of the page still loads.
@@ -97,7 +98,31 @@ const steps = [
     </div>
   </section>
 
-  <section class="band soft">
+  <section class="band soft" id="apps">
+    <div class="fw">
+      <div class="head">
+        <p class="eyebrow">Our apps</p>
+        <h2 class="display lg">Software we build <mark>for hiring and pay.</mark></h2>
+        <p class="lede">We build the tools we wish we had: for tracking applicants, setting pay, sourcing specialists and proving value to buyers.</p>
+      </div>
+      <div class="cards two">
+        {APPS.map((a) => (
+          <div class="card app-card">
+            <p class="eyebrow"><span class="ic-chip"><Icon name={a.icon} size={20} /></span>{a.kind}</p>
+            <h3>{a.name}</h3>
+            <p>{a.line}</p>
+            <div class="app-card-actions">
+              <a class="pill" href="/contact/" aria-label={`Find Out More about ${a.name}`}>Find Out More</a>
+              <a class="link" href={`/apps/#${a.slug}`}>How it works →</a>
+            </div>
+          </div>
+        ))}
+      </div>
+      <p style="margin-top:1.5rem"><a class="pill" href="/apps/">See all apps →</a></p>
+    </div>
+  </section>
+
+  <section class="band">
     <div class="fw">
       <div class="head">
         <p class="eyebrow">Where we recruit</p>
@@ -167,5 +192,7 @@ const steps = [
     .careers-band mark { background: #fff; }
     .careers-band .card { background: #fff; }
     @media (max-width: 980px) { .openings-list { grid-template-columns: 1fr; } }
+    .app-card-actions { margin-top: auto; display: flex; flex-wrap: wrap; gap: 12px 22px; align-items: center; }
+    .app-card-actions .link { display: inline-block; padding: 12px 0; }
   </style>
 </Firm>

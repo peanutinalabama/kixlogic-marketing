@@ -2,7 +2,7 @@
 // Everything here is a plain description of what we do. No client names, counts, results or
 // figures until Charles supplies real ones (see the no-invented-claims rule for this site).
 
-export type IconName = 'search' | 'people' | 'spark' | 'globe' | 'code' | 'gear' | 'flask';
+export type IconName = 'search' | 'people' | 'spark' | 'globe' | 'code' | 'gear' | 'flask' | 'chart' | 'pulse';
 
 /** Sized Unsplash image URL. */
 export const photoUrl = (id: string, w: number, h?: number) =>

@@ -1,0 +1,97 @@
+---
+// Apps: the four applications Kixlogic builds, one anchored section each (#kixlogic-ats, #renumify,
+// #kixlogic-sourcer, #value-health). One static page, so it costs one rule in _routes.json; old product
+// addresses in public/_redirects point at the anchors. Copy and sources: src/data/apps.ts.
+import Firm from '../layouts/Firm.astro';
+import Icon from '../components/Icon.astro';
+import { headlineParts } from '../data/firm';
+import { APPS } from '../data/apps';
+---
+<Firm
+  title="Apps"
+  description="Kixlogic builds AI-enabled applications for hiring, pay and proving value: Kixlogic ATS, Renumify, Kixlogic Sourcer and Value Health."
+>
+  <section class="hero">
+    <div class="fw">
+      <p class="eyebrow">Apps</p>
+      <h1 class="display xl">Software built by people <mark>who do the work.</mark></h1>
+      <p class="lede">We recruit and run HR for a living, and we build the tools we wish we had. Here are the applications we make for hiring, pay and proving value.</p>
+      <ul class="app-jump">
+        {APPS.map((a) => <li><a class="pill" href={`#${a.slug}`}>{a.name}</a></li>)}
+      </ul>
+    </div>
+  </section>
+
+  {APPS.map((a, i) => (
+    <section class={`band app-sec ${i % 2 ? 'soft' : ''}`} id={a.slug} aria-labelledby={`${a.slug}-name`}>
+      <div class="fw">
+        <div class="head">
+          <p class="eyebrow"><span class="ic-chip"><Icon name={a.icon} size={20} /></span>{a.kind}</p>
+          <h2 class="display lg" id={`${a.slug}-name`}>{a.name}</h2>
+          <p class="display md app-hl">{headlineParts(a.headline).map((p) => (p.mark ? <mark>{p.text}</mark> : p.text))}</p>
+          <p class="lede">{a.intro}</p>
+        </div>
+
+        <div class="split app-split">
+          <div class="prose">
+            <h3 class="app-h">The problem</h3>
+            <p>{a.problem}</p>
+            <h3 class="app-h">Who it is for</h3>
+            <p>{a.audience}</p>
+          </div>
+          <div>
+            <h3 class="app-h">What it does</h3>
+            <ul class="ticks app-caps">
+              {a.capabilities.map((c) => <li><b>{c.title}.</b> {c.body}</li>)}
+            </ul>
+          </div>
+        </div>
+
+        <h3 class="app-h app-how">How it works</h3>
+        <ol class="steps app-steps">
+          {a.steps.map(([t, d]) => <li><b>{t}</b><span>{d}</span></li>)}
+        </ol>
+
+        <div class="app-why prose">
+          <h3 class="app-h">Why it matters</h3>
+          <p>{a.why}</p>
+          {a.note && <p class="app-note">{a.note}</p>}
+        </div>
+
+        <div class="app-cta">
+          <a class="pill pill-blue" href="/contact/" aria-label={`Find Out More about ${a.name}`}>Find Out More</a>
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <section class="band navy">
+    <div class="fw">
+      <h2 class="display lg">Want to see one <mark style="color:#0A1B4D">in action?</mark></h2>
+      <p class="lede">Tell us which app you are interested in and what you want it to do. We reply to every message.</p>
+      <div style="margin-top:32px"><a class="pill" href="/contact/">Contact us</a></div>
+    </div>
+  </section>
+
+  <!-- Global on purpose: these rules must outrank the layout's .firm rules, and every class is app- prefixed. -->
+  <style is:global>
+    .firm ul.app-jump{list-style:none;margin:36px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:12px}
+    .firm .app-sec{scroll-margin-top:84px}
+    .firm p.app-hl{margin-top:18px}
+    .firm h3.app-h{font-family:"IBM Plex Mono",monospace;font-size:14px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--blue-deep);margin:0 0 12px}
+    .firm .prose h3.app-h + p{margin-bottom:30px}
+    .firm ul.app-caps li{font-size:16.5px;color:var(--muted);overflow-wrap:anywhere}
+    .firm ul.app-caps b{color:var(--navy)}
+    .firm h3.app-how{margin-top:56px;margin-bottom:22px}
+    .firm ol.app-steps{grid-template-columns:repeat(4,minmax(0,1fr))}
+    .firm .app-why{margin-top:48px;max-width:820px}
+    .firm .app-why p.app-note{font-size:15px;border-left:3px solid var(--hi);padding-left:14px}
+    .firm .app-cta{margin-top:36px}
+    @media (max-width:980px){.firm ol.app-steps{grid-template-columns:1fr 1fr}}
+    @media (max-width:560px){
+      .firm ol.app-steps{grid-template-columns:1fr}
+      .firm ul.app-jump .pill{font-size:13px;padding:12px 16px}
+      .firm .app-cta .pill{display:block;text-align:center}
+    }
+  </style>
+</Firm>

@@ -11,5 +11,7 @@ const { name, size = 28 } = Astro.props;
   {name === 'globe' && <><circle cx="16" cy="16" r="11" /><path d="M5 16h22" /><path d="M16 5c3 3 4.5 7 4.5 11s-1.5 8-4.5 11c-3-3-4.5-7-4.5-11S13 8 16 5z" /></>}
   {name === 'code' && <><path d="M11 10l-6 6 6 6" /><path d="M21 10l6 6-6 6" /><path d="M18 7l-4 18" /></>}
   {name === 'gear' && <><circle cx="16" cy="16" r="4" /><path d="M16 4v4M16 24v4M4 16h4M24 16h4M7.5 7.5l2.8 2.8M21.7 21.7l2.8 2.8M7.5 24.5l2.8-2.8M21.7 10.3l2.8-2.8" /></>}
+  {name === 'chart' && <><path d="M5 5v22h22" /><path d="M10 21v-5M15 21v-9M20 21v-7M25 21V8" /></>}
+  {name === 'pulse' && <><path d="M16 27s-10-6.2-10-13.2A5.8 5.8 0 0 1 16 10a5.8 5.8 0 0 1 10 3.8C26 20.8 16 27 16 27z" /><path d="M9 17h4l2-3 3 5 2-2h3" /></>}
   {name === 'flask' && <><path d="M13 4h6M14 4v8L7 25a2 2 0 0 0 1.8 3h14.4a2 2 0 0 0 1.8-3L18 12V4" /><path d="M10 20h12" /></>}
 </svg>

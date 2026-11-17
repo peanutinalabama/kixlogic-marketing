@@ -17,6 +17,7 @@ const STATIC_URLS = [
   { loc: 'https://kixlogic.com/industries/information-technology/', changefreq: 'monthly', priority: '0.9' },
   { loc: 'https://kixlogic.com/industries/engineering/', changefreq: 'monthly', priority: '0.9' },
   { loc: 'https://kixlogic.com/industries/life-sciences/', changefreq: 'monthly', priority: '0.9' },
+  { loc: 'https://kixlogic.com/apps/', changefreq: 'monthly', priority: '0.9' },
   { loc: 'https://kixlogic.com/renumify/', changefreq: 'monthly', priority: '0.9' },
   { loc: 'https://kixlogic.com/about/', changefreq: 'monthly', priority: '0.7' },
   { loc: 'https://kixlogic.com/contact/', changefreq: 'monthly', priority: '0.7' },
