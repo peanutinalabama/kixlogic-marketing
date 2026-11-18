@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node scripts/trim-routes.mjs",
     "preview": "astro preview",
     "check:feeds": "node scripts/check-feeds.mjs",
     "cms": "decap-server"
