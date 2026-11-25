@@ -30,11 +30,11 @@ export const SERVICES: Offer[] = [
     photo: '1607799279861-4dd421887fb3',
     photoAlt: 'A laptop screen showing application code',
     icon: 'spark',
-    name: 'AI App Building & Design',
-    line: 'A custom AI app, designed around how your business works and built to your need.',
+    name: 'AI Web & App Development',
+    line: 'AI-powered websites and apps, designed around how your business works and built to your need.',
     headline: 'Your problem, [built as an app.]',
     intro:
-      'Tell us which process is slowing your business down. We design an AI-powered app around it, show you what it will look like before we build it, and then build it where your people already work: on the web, inside Microsoft Office or on a phone.',
+      'Tell us which process is slowing your business down. We design an AI-powered website or app around it, show you what it will look like before we build it, and then build it where your people already work: on the web, inside Microsoft Office or on a phone.',
     sections: [
       {
         title: 'How a build works',
@@ -54,7 +54,7 @@ export const SERVICES: Offer[] = [
           'Assistants that read, draft, summarize and check documents for a person to approve.',
           'Intake, screening, scheduling and reporting tools that remove manual steps from a recurring process.',
           'Apps that answer questions from your own data and files.',
-          'Add-ins for Microsoft Word, Excel and PowerPoint, web apps for the browser, and mobile apps.',
+          'Websites and web apps for the browser, add-ins for Microsoft Word, Excel and PowerPoint, and mobile apps.',
         ],
       },
       {
@@ -117,6 +117,10 @@ export const SERVICES: Offer[] = [
       {
         title: 'What you can expect',
         body: 'A named recruiter who knows the field, regular updates, and candidates who have already agreed to talk to you about this role.',
+      },
+      {
+        title: 'Where we recruit',
+        body: 'We focus on three fields: information technology, engineering and the life sciences. Looking for work with us instead? See our current openings on the jobs page at kixlogic.com/careers/.',
       },
     ],
     cta: 'Start a search',

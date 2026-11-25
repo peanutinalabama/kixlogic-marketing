@@ -1,21 +1,11 @@
 ---
-// Kixlogic: home page. Custom AI app building and design come first, then Seekapedia, the apps we have built, and the
-// HR and recruiting services in the background. SSR, as before, so the route count stays the same.
+// Kixlogic: home page. It is about one thing: AI web and app development, designed around each customer's need. Seekapedia is the last section.
+// Recruiting, HR and the job openings live on their own pages (/services/ and /careers/), not here. SSR, as before, so the route count stays the same.
 export const prerender = false;
 import Firm from '../layouts/Firm.astro';
 import Icon from '../components/Icon.astro';
-import { CORE_SERVICES, ALSO_SERVICES, photoUrl } from '../data/firm';
+import { CORE_SERVICES, photoUrl } from '../data/firm';
 import { APPS } from '../data/apps';
-import { fetchPostings, postingPath, placeLine } from '../lib/careers.js';
-
-// Open roles from Kixlogic Command, shown small near the bottom. If the feed is unreachable, that section says so and the rest of the page still loads.
-let openings = [];
-let openingsOk = true;
-try {
-  openings = (await fetchPostings()).slice(0, 3);
-} catch {
-  openingsOk = false;
-}
 
 // Photos: free Unsplash licence, served from images.unsplash.com.
 const heroPhoto = '1607799279861-4dd421887fb3';
@@ -30,10 +20,17 @@ const steps = [
 ];
 
 const principles = [
-  ['Design first', 'We show you the app before we build it, so you decide with something in front of you.'],
-  ['Built to your need', 'No template to bend your process around. The app follows the work you actually do.'],
+  ['Design first', 'We show you the site or app before we build it, so you decide with something in front of you.'],
+  ['Built to your need', 'No template to bend your process around. What we build follows the work you actually do.'],
   ['A person makes the call', 'AI drafts and flags. The decisions that matter stay with your people, by design.'],
-  ['Yours to run', 'You own the app and your data, with the scope and price agreed in writing first.'],
+  ['Yours to run', 'You own what we build and your data, with the scope and price agreed in writing first.'],
+];
+
+const kinds = [
+  ['Websites and web apps', 'Sites and browser-based apps with AI built into the parts that save your team time.'],
+  ['Microsoft Office add-ins', 'AI inside Word, Excel and PowerPoint, where your people already do the work.'],
+  ['Mobile apps', 'Phone apps designed for the person using them, with AI behind the scenes.'],
+  ['Assistants and automation', 'Assistants that read, draft and check documents, and automation that connects the tools you already use.'],
 ];
 
 const seekapedia = [
@@ -45,14 +42,14 @@ const seekapedia = [
 ---
 <Firm
   title="Kixlogic"
-  description="Kixlogic designs and builds custom AI apps around how your business works: web, Microsoft Office and mobile. We also run Seekapedia, public business data in one API, and offer HR consulting and recruiting."
+  description="Kixlogic designs and builds AI-powered websites, web apps, Microsoft Office add-ins and mobile apps around how your business works. We also run Seekapedia, public business data in one API."
 >
   <section class="hero hero-split">
     <div class="fw hs-in">
       <div>
-        <p class="eyebrow">Custom AI apps, designed for you</p>
+        <p class="eyebrow">AI web and app development</p>
         <h1 class="display xl">Tell us the problem. We design <mark>the AI app.</mark></h1>
-        <p class="lede">Kixlogic designs and builds AI-powered apps around how your business actually works. You see the design first, then a working app on the web, inside Microsoft Office or on a phone, built to your need and yours to run.</p>
+        <p class="lede">Kixlogic designs and builds AI-powered websites and apps around how your business actually works. You see the design first, then a working site or app on the web, inside Microsoft Office or on a phone, built to your need and yours to run.</p>
         <div class="actions">
           <a class="pill pill-blue" href="/contact/">Start a project</a>
           <a class="link" href="/services/ai-applications/">How we build →</a>
@@ -68,8 +65,8 @@ const seekapedia = [
     <div class="fw">
       <div class="head">
         <p class="eyebrow">What we build</p>
-        <h2 class="display lg">Apps and automation <mark>made to order.</mark></h2>
-        <p class="lede">Start with the process that is costing you time. We will tell you whether it needs a new app or just a connection between the tools you have.</p>
+        <h2 class="display lg">Sites, apps and automation <mark>made to order.</mark></h2>
+        <p class="lede">Start with the process that is costing you time. We will tell you whether it needs a new app, a better site, or just a connection between the tools you have.</p>
       </div>
       <div class="cards two">
         {CORE_SERVICES.map((s) => (
@@ -82,6 +79,11 @@ const seekapedia = [
               <span class="link">Learn more →</span>
             </div>
           </a>
+        ))}
+      </div>
+      <div class="cards two" style="margin-top:22px">
+        {kinds.map(([t, d]) => (
+          <div class="card"><h3>{t}</h3><p>{d}</p></div>
         ))}
       </div>
     </div>
@@ -115,31 +117,12 @@ const seekapedia = [
     </div>
   </section>
 
-  <section class="band soft" id="seekapedia">
-    <div class="fw">
-      <div class="head">
-        <p class="eyebrow">Our data product</p>
-        <h2 class="display lg">Seekapedia: public business data, <mark>in one API.</mark></h2>
-        <p class="lede">Seekapedia brings public records on companies into one schema, each with its source: more than 20 million company records from 10 state registries, state license data, sanctions, safety and environmental records, and SEC filings. Look a business up, then add whatever else you need to the same call.</p>
-      </div>
-      <div class="cards two">
-        {seekapedia.map(([t, d]) => (
-          <div class="card"><h3>{t}</h3><p>{d}</p></div>
-        ))}
-      </div>
-      <div style="margin-top:32px;display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center">
-        <a class="pill pill-blue" href="/seekapedia/">About Seekapedia</a>
-        <a class="link" href="https://seekapedia.com" rel="noopener">Visit seekapedia.com →</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="band" id="apps">
+  <section class="band soft" id="apps">
     <div class="fw">
       <div class="head">
         <p class="eyebrow">Built and shipped</p>
         <h2 class="display lg">Apps we have built <mark>ourselves.</mark></h2>
-        <p class="lede">We build our own products the way we build yours. These are the applications we make for tracking applicants, setting pay, sourcing specialists and proving value to buyers.</p>
+        <p class="lede">We build our own products the way we build yours: on the web, inside Microsoft Office and on mobile.</p>
       </div>
       <div class="cards two">
         {APPS.map((a) => (
@@ -158,48 +141,6 @@ const seekapedia = [
     </div>
   </section>
 
-  <section class="band soft" id="people-services">
-    <div class="fw">
-      <div class="head">
-        <p class="eyebrow">Also from Kixlogic</p>
-        <h2 class="display lg">HR, recruiting <mark>and visas.</mark></h2>
-        <p class="lede">Kixlogic started in HR, and we still help companies with the people side of the business.</p>
-      </div>
-      <div class="cards">
-        {ALSO_SERVICES.map((s) => (
-          <a class="card" href={`/services/${s.slug}/`}>
-            <p class="eyebrow">Services</p>
-            <h3>{s.name}</h3>
-            <p>{s.line}</p>
-            <span class="link">Learn more →</span>
-          </a>
-        ))}
-      </div>
-      <div class="openings" id="current-openings">
-        <p class="eyebrow" style="margin-top:36px">Current openings</p>
-        {!openingsOk ? (
-          <p>Our open roles are unavailable at the moment. Please check back soon.</p>
-        ) : openings.length === 0 ? (
-          <p>There are no open roles posted right now. New roles appear on our careers page as they open.</p>
-        ) : (
-          <ul class="openings-list">
-            {openings.map((p) => (
-              <li>
-                <a class="card" href={postingPath(p)}>
-                  <p class="eyebrow">{p.industry || 'Role'}</p>
-                  <h3>{p.title}</h3>
-                  <p>{placeLine(p)}{p.jobType ? ` · ${p.jobType}` : ''}</p>
-                  <span class="link">View role →</span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        )}
-        <p style="margin-top:1.25rem"><a class="link" href="/careers/">See all current openings →</a></p>
-      </div>
-    </div>
-  </section>
-
   <section class="band">
     <div class="fw split" style="align-items:center">
       <figure class="photo wide" style="max-width:520px">
@@ -208,7 +149,7 @@ const seekapedia = [
       <div class="prose">
         <p class="eyebrow">Who we are</p>
         <h2 class="display lg" style="margin-bottom:28px">A software company that <mark>knows the work.</mark></h2>
-        <p>Kixlogic began by building HR and business software. Building those products meant living inside the problems our users faced every day, and that is how we approach a customer's app: start with the work, design for the people doing it, and build only what earns its place.</p>
+        <p>Kixlogic began by building business software. Building those products meant living inside the problems our users faced every day, and that is how we approach a customer's site or app: start with the work, design for the people doing it, and build only what earns its place.</p>
         <a class="link" href="/about/">About Kixlogic →</a>
       </div>
     </div>
@@ -222,11 +163,26 @@ const seekapedia = [
     </div>
   </section>
 
+  <section class="band soft" id="seekapedia">
+    <div class="fw">
+      <div class="head">
+        <p class="eyebrow">Also from Kixlogic</p>
+        <h2 class="display lg">Seekapedia: public business data, <mark>in one API.</mark></h2>
+        <p class="lede">Seekapedia brings public records on companies into one schema, each with its source: more than 20 million company records from 10 state registries, state license data, sanctions, safety and environmental records, and SEC filings. Look a business up, then add whatever else you need to the same call.</p>
+      </div>
+      <div class="cards two">
+        {seekapedia.map(([t, d]) => (
+          <div class="card"><h3>{t}</h3><p>{d}</p></div>
+        ))}
+      </div>
+      <div style="margin-top:32px;display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center">
+        <a class="pill pill-blue" href="/seekapedia/">About Seekapedia</a>
+        <a class="link" href="https://seekapedia.com" rel="noopener">Visit seekapedia.com →</a>
+      </div>
+    </div>
+  </section>
+
   <style>
-    .openings-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
-    .openings-list a.card { display: block; height: 100%; text-decoration: none; color: inherit; }
-    .openings-list h3 { margin: 0.25rem 0 0.5rem; }
-    @media (max-width: 980px) { .openings-list { grid-template-columns: 1fr; } }
     .app-card-actions { margin-top: auto; display: flex; flex-wrap: wrap; gap: 12px 22px; align-items: center; }
     .app-card-actions .link { display: inline-block; padding: 12px 0; }
   </style>
