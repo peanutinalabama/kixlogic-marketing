@@ -1,11 +1,9 @@
-// The four applications Kixlogic builds, as shown on the home page and on /apps/.
+// The three applications Kixlogic builds, as shown on the home page and on /apps/.
 // Every capability below was checked against the product's own source:
 //   Kixlogic ATS     - the retired product page (git bc577fb^:src/pages/hired.astro), src/data/ats-features.ts,
 //                      and the live app (kixlogic-site dashboard.html, apply.html, jobs.html).
 //   Renumify         - src/pages/renumify.astro and renumify-site/site-src/pages-compensation.js.
 //   Kixlogic Sourcer - kixlogic-command/worker/sourcer.js, sourcing.js, engsourcer.js.
-//   ValueBridge Health AI   - valuebridge README.md, docs/USER_GUIDE.md, docs/SECURITY.md. PRE-LAUNCH: never say it is
-//                      available, live or in use.
 // No prices, customers, counts, results or certifications. Every call to action goes to the Contact page.
 import type { IconName } from './firm';
 
@@ -120,35 +118,5 @@ export const APPS: AppInfo[] = [
       ['Review and reach out', 'Open the evidence, shortlist the best and draft outreach.'],
     ],
     why: 'You reach qualified people who would never see your job post, and you know why each one is on the list. If a source cannot be reached, Sourcer says so instead of hiding it.',
-  },
-  {
-    slug: 'valuebridge-health-ai',
-    name: 'ValueBridge Health AI',
-    kind: 'Health economics value platform · Pre-launch',
-    icon: 'pulse',
-    line: 'Helps diagnostics and digital health companies prove the economic value of their product to the people who buy it. Pre-launch.',
-    headline: 'Prove your value [with numbers that hold up.]',
-    intro:
-      'ValueBridge Health AI is a health economics value platform we are building for diagnostics and digital health companies. It is not yet available; demos are by request. It is designed to help you answer the buyer’s question: what will this save us, and can you prove it?',
-    problem:
-      'Hospitals, health systems, labs, employers and health plans want proof of economic value before they buy. The answer is often a spreadsheet whose numbers are hard to trace back to a source, kept apart from the deal and the rollout.',
-    audience:
-      'Commercial-stage diagnostics and digital health companies selling to hospitals, health systems, labs, employers and health plans.',
-    capabilities: [
-      { title: 'Value calculator', body: 'Templates for diagnostics and digital health. Every input is tagged observed, externally sourced or assumed. See net first-year benefit, ROI, payback month, low and high scenarios, and which input matters most.' },
-      { title: 'Evidence library', body: 'Upload studies, contracts and customer exports in PDF, Word, Excel or CSV. Claims are pulled out with the page, row or cell they came from, and a reviewer verifies each one.' },
-      { title: 'Every number traced or flagged', body: 'Figures come from the calculator. Any other number must appear in a cited, reviewed source, or the statement is flagged unsupported. Once a reviewer approves a report, it is frozen.' },
-      { title: 'Buyer share links', body: 'Send a named buyer a read-only, time-limited link. They need no account. Withdraw it at any time and see whether it was opened.' },
-      { title: 'Deals and delivery in one place', body: 'Accounts, the buying committee, opportunities linked to their value case, and pipeline planning. Then track implementation milestones and compare realized results with the projection.' },
-      { title: 'Built for trust', body: 'Each organization’s data is kept separate and checked on every request. Roles control who can build, review and share. The audit log cannot be edited.' },
-    ],
-    steps: [
-      ['Build the case', 'Pick a template, enter the inputs and tag where each came from.'],
-      ['Back it with evidence', 'Upload the proof and have a reviewer verify each claim.'],
-      ['Approve the report', 'Edit the draft, then a reviewer approves and freezes it.'],
-      ['Share and deliver', 'Send the buyer a secure link, then track what the customer actually realizes.'],
-    ],
-    why: 'Buyers see numbers they can trace to a source, with assumptions marked as assumptions. Your team keeps the case, the deal and the results together, so the proof is ready for the next buyer.',
-    note: 'ValueBridge Health AI is in development and is not yet available. It is built for business data only: it is not for patient information and does not give clinical advice. Ask us about a demo.',
   },
 ];

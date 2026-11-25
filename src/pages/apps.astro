@@ -1,6 +1,6 @@
 ---
-// Apps: the four applications Kixlogic builds, one anchored section each (#kixlogic-ats, #renumify,
-// #kixlogic-sourcer, #valuebridge-health-ai). One static page, so it costs one rule in _routes.json; old product
+// Apps: the three applications Kixlogic builds, one anchored section each (#kixlogic-ats, #renumify,
+// #kixlogic-sourcer). One static page, so it costs one rule in _routes.json; old product
 // addresses in public/_redirects point at the anchors. Copy and sources: src/data/apps.ts.
 import Firm from '../layouts/Firm.astro';
 import Icon from '../components/Icon.astro';
@@ -9,13 +9,13 @@ import { APPS } from '../data/apps';
 ---
 <Firm
   title="Apps"
-  description="Kixlogic builds software for hiring, pay and proving value: Kixlogic ATS, Renumify and Kixlogic Sourcer, plus ValueBridge Health AI, now in development."
+  description="Kixlogic builds software for hiring and pay: Kixlogic ATS, Renumify and Kixlogic Sourcer."
 >
   <section class="hero">
     <div class="fw">
       <p class="eyebrow">Apps</p>
-      <h1 class="display xl">Software for hiring, pay <mark>and proving value.</mark></h1>
-      <p class="lede">Kixlogic began by building HR and business software, and we still do. Here are the applications we make for tracking applicants, setting pay, sourcing specialists and proving value to buyers.</p>
+      <h1 class="display xl">Software for hiring <mark>and pay.</mark></h1>
+      <p class="lede">Kixlogic began by building HR and business software, and we still do. Here are the applications we make for tracking applicants, setting pay, and sourcing specialists.</p>
       <ul class="app-jump">
         {APPS.map((a) => <li><a class="pill" href={`#${a.slug}`}>{a.name}</a></li>)}
       </ul>
