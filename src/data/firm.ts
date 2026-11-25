@@ -1,4 +1,4 @@
-// Kixlogic the firm: HR services and consulting, direct-hire recruiting, AI-enabled applications.
+// Kixlogic the firm: custom AI apps designed and built around each customer's need, Seekapedia public-data APIs, and HR and recruiting services in the background.
 // Everything here is a plain description of what we do. No client names, counts, results or
 // figures until Charles supplies real ones (see the no-invented-claims rule for this site).
 
@@ -25,6 +25,73 @@ export interface Offer {
 }
 
 export const SERVICES: Offer[] = [
+  {
+    slug: 'ai-applications',
+    photo: '1607799279861-4dd421887fb3',
+    photoAlt: 'A laptop screen showing application code',
+    icon: 'spark',
+    name: 'AI App Building & Design',
+    line: 'A custom AI app, designed around how your business works and built to your need.',
+    headline: 'Your problem, [built as an app.]',
+    intro:
+      'Tell us which process is slowing your business down. We design an AI-powered app around it, show you what it will look like before we build it, and then build it where your people already work: on the web, inside Microsoft Office or on a phone.',
+    sections: [
+      {
+        title: 'How a build works',
+        body: 'Every project starts from the need, not from a template, and design comes before code.',
+        points: [
+          'Listen: we watch the work, ask who does what today, and write the problem down in plain language you can check.',
+          'Design: you get screens and flows you can click through before anything is built, so changes are cheap.',
+          'Build: we make a working version early, you try it on real tasks, and we adjust it with you.',
+          'Check: wherever the AI drafts, scores or decides something, we design in the step where a person reviews it.',
+          'Launch: we ship it, train your people, and stay on to fix and improve it.',
+        ],
+      },
+      {
+        title: 'What we build',
+        body: 'Focused apps that fit the way your team already works:',
+        points: [
+          'Assistants that read, draft, summarize and check documents for a person to approve.',
+          'Intake, screening, scheduling and reporting tools that remove manual steps from a recurring process.',
+          'Apps that answer questions from your own data and files.',
+          'Add-ins for Microsoft Word, Excel and PowerPoint, web apps for the browser, and mobile apps.',
+        ],
+      },
+      {
+        title: 'What you get',
+        body: 'A scope and price agreed in writing before work starts, one team to talk to from first call to launch, and an app that is yours to run. We have built our own products on the web, in Microsoft Office and on mobile, and we build to order for other businesses.',
+      },
+    ],
+    cta: 'Start a project',
+  },
+  {
+    slug: 'workflow-automation',
+    photo: '1758691737278-3af15b37af48',
+    photoAlt: 'Two colleagues talking through a piece of work in a modern office',
+    icon: 'gear',
+    name: 'Workflow Automation',
+    line: 'Connect AI to the tools you already use and take repetitive work off your team.',
+    headline: 'Less busywork, [same tools.]',
+    intro:
+      'Not every problem needs a new app. Sometimes the answer is to connect the systems you already use, add AI where judgment helps, and take the repetitive steps off your team.',
+    sections: [
+      {
+        title: 'Where it helps',
+        body: 'Typical projects:',
+        points: [
+          'Moving data between the systems your team re-types it into today.',
+          'Reading incoming documents and emails, sorting them and drafting the reply or the record.',
+          'Recurring reports, reminders and hand-offs that depend on one person remembering.',
+          'Checks that catch missing or inconsistent information before it causes a problem.',
+        ],
+      },
+      {
+        title: 'How we work',
+        body: 'We map the process with the people who run it, agree what to automate and what to leave to a person, and build the smallest version that proves it works. People stay in charge of the decisions that matter, and every automated step is logged so you can see what happened.',
+      },
+    ],
+    cta: 'Talk to us about automation',
+  },
   {
     slug: 'direct-hire-recruiting',
     photo: '1698047682091-782b1e5c6536',
@@ -71,29 +138,6 @@ export const SERVICES: Offer[] = [
       },
     ],
     cta: 'Talk to us about HR',
-  },
-  {
-    slug: 'ai-applications',
-    photo: '1607799279861-4dd421887fb3',
-    photoAlt: 'A laptop screen showing application code',
-    icon: 'spark',
-    name: 'AI-Enabled Applications',
-    line: 'We design and build AI-enabled software for HR and business teams.',
-    headline: 'Software that [does the busywork.]',
-    intro:
-      'We build AI-enabled applications that take repetitive work off HR and business teams: screening, scheduling, document handling, reporting and more. We have shipped our own products on the web, in Microsoft Office and on mobile, and we build to order.',
-    sections: [
-      {
-        title: 'What we build',
-        body: 'Focused tools that fit the way your team already works, with people kept in charge of every decision that matters.',
-        points: [
-          'Workflow tools that cut manual steps out of a recurring process.',
-          'Assistants that draft, summarise and check documents for a person to approve.',
-          'Integrations that move data between the systems you already use.',
-        ],
-      },
-    ],
-    cta: 'Talk to us about a build',
   },
   {
     slug: 'immigration-support',
@@ -183,6 +227,11 @@ export const INDUSTRIES: Offer[] = [
     cta: 'Start a life sciences search',
   },
 ];
+
+/** The services shown first and largest: what Kixlogic builds. The rest are the people services, shown after them. */
+export const CORE_SERVICE_SLUGS = ['ai-applications', 'workflow-automation'];
+export const CORE_SERVICES = SERVICES.filter((s) => CORE_SERVICE_SLUGS.includes(s.slug));
+export const ALSO_SERVICES = SERVICES.filter((s) => !CORE_SERVICE_SLUGS.includes(s.slug));
 
 export const findService = (slug: string) => SERVICES.find((s) => s.slug === slug);
 export const findIndustry = (slug: string) => INDUSTRIES.find((s) => s.slug === slug);

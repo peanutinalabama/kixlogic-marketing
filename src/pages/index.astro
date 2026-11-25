@@ -1,93 +1,82 @@
 ---
-// Kixlogic the firm: home page. SSR, as before, so the route count stays the same.
+// Kixlogic: home page. Custom AI app building and design come first, then Seekapedia, the apps we have built, and the
+// HR and recruiting services in the background. SSR, as before, so the route count stays the same.
 export const prerender = false;
 import Firm from '../layouts/Firm.astro';
 import Icon from '../components/Icon.astro';
-import { SERVICES, INDUSTRIES, photoUrl } from '../data/firm';
+import { CORE_SERVICES, ALSO_SERVICES, photoUrl } from '../data/firm';
 import { APPS } from '../data/apps';
 import { fetchPostings, postingPath, placeLine } from '../lib/careers.js';
 
-// Open roles from Kixlogic Command. If the feed is unreachable, the section says so and the rest of the page still loads.
+// Open roles from Kixlogic Command, shown small near the bottom. If the feed is unreachable, that section says so and the rest of the page still loads.
 let openings = [];
 let openingsOk = true;
 try {
-  openings = await fetchPostings();
+  openings = (await fetchPostings()).slice(0, 3);
 } catch {
   openingsOk = false;
 }
 
 // Photos: free Unsplash licence, served from images.unsplash.com.
-const heroPhoto = '1758691737543-09a1b2b715fa';
+const heroPhoto = '1607799279861-4dd421887fb3';
 const whoPhoto = '1521791136064-7986c2920216';
 
 const steps = [
-  ['Intake', 'We agree the role, the must-haves, the pay range and the timeline.'],
-  ['Search', 'We go beyond applicants to the people who are not actively looking.'],
-  ['Screening', 'We interview every candidate before you see them.'],
-  ['Shortlist', 'You get a short list of qualified people, with our reasons.'],
-  ['Offer', 'We support interviews, references and the offer through to day one.'],
+  ['Listen', 'We learn how the work happens today and write the problem down in plain language.'],
+  ['Design', 'You click through screens and flows before any code is written.'],
+  ['Build', 'A working version early, tried on your real tasks and adjusted with you.'],
+  ['Check', 'Anywhere AI drafts or decides, we design in the step where a person reviews it.'],
+  ['Launch', 'We ship it, train your people and stay on to improve it.'],
+];
+
+const principles = [
+  ['Design first', 'We show you the app before we build it, so you decide with something in front of you.'],
+  ['Built to your need', 'No template to bend your process around. The app follows the work you actually do.'],
+  ['A person makes the call', 'AI drafts and flags. The decisions that matter stay with your people, by design.'],
+  ['Yours to run', 'You own the app and your data, with the scope and price agreed in writing first.'],
+];
+
+const seekapedia = [
+  ['Company records', 'State business registries, with one Seekapedia Business ID per company.'],
+  ['Licenses', 'Liquor and cannabis licenses from state agencies, with a daily change feed.'],
+  ['Risk and compliance', 'Sanctions screening, recalls, OSHA inspections and EPA records.'],
+  ['Public companies', 'SEC filings, financials and identifiers, plus industry statistics by place.'],
 ];
 ---
 <Firm
   title="Kixlogic"
-  description="Kixlogic is an HR services and consulting firm. We recruit direct-hire talent for IT, engineering and life science roles, support the HR side of work visas, and build AI-enabled HR applications that help SMBs do more with less."
+  description="Kixlogic designs and builds custom AI apps around how your business works: web, Microsoft Office and mobile. We also run Seekapedia, public business data in one API, and offer HR consulting and recruiting."
 >
   <section class="hero hero-split">
     <div class="fw hs-in">
       <div>
-        <h1 class="display xl">We find the people who <mark>build what's next.</mark></h1>
-        <p class="lede">Kixlogic is an HR services and consulting firm. We recruit permanent talent for IT, engineering and life science roles, help growing companies run HR well, support the HR side of work visas, and build AI-enabled HR applications that help SMBs do more with less.</p>
+        <p class="eyebrow">Custom AI apps, designed for you</p>
+        <h1 class="display xl">Tell us the problem. We design <mark>the AI app.</mark></h1>
+        <p class="lede">Kixlogic designs and builds AI-powered apps around how your business actually works. You see the design first, then a working app on the web, inside Microsoft Office or on a phone, built to your need and yours to run.</p>
         <div class="actions">
-          <a class="pill pill-blue" href="/contact/">Talk to us</a>
-          <a class="link" href="/services/direct-hire-recruiting/">How we recruit →</a>
+          <a class="pill pill-blue" href="/contact/">Start a project</a>
+          <a class="link" href="/services/ai-applications/">How we build →</a>
         </div>
       </div>
       <figure class="photo">
-        <img src={photoUrl(heroPhoto, 900, 1000)} srcset={`${photoUrl(heroPhoto, 600, 667)} 600w, ${photoUrl(heroPhoto, 900, 1000)} 900w`} sizes="(max-width:980px) 100vw, 480px" alt="A team meeting around a table in a bright office" width="900" height="1000" loading="eager" />
+        <img src={photoUrl(heroPhoto, 900, 1000)} srcset={`${photoUrl(heroPhoto, 600, 667)} 600w, ${photoUrl(heroPhoto, 900, 1000)} 900w`} sizes="(max-width:980px) 100vw, 480px" alt="A laptop screen showing application code" width="900" height="1000" loading="eager" />
       </figure>
-    </div>
-  </section>
-
-  <section class="band careers-band" id="current-openings">
-    <div class="fw">
-      <div class="head">
-        <p class="eyebrow">Current openings</p>
-        <h2 class="display lg">Open roles <mark>right now.</mark></h2>
-      </div>
-      {!openingsOk ? (
-        <p>Our open roles are unavailable at the moment. Please check back soon.</p>
-      ) : openings.length === 0 ? (
-        <p>There are no open roles posted right now. New roles appear here as they open.</p>
-      ) : (
-        <ul class="openings-list">
-          {openings.map((p) => (
-            <li>
-              <a class="card" href={postingPath(p)}>
-                <p class="eyebrow">{p.industry || 'Role'}</p>
-                <h3>{p.title}</h3>
-                <p>{placeLine(p)}{p.jobType ? ` · ${p.jobType}` : ''}</p>
-                <span class="link">View role →</span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      )}
-      <p style="margin-top:1.5rem"><a class="pill" href="/careers/">See all current openings →</a></p>
     </div>
   </section>
 
   <section class="band">
     <div class="fw">
       <div class="head">
-        <p class="eyebrow">Start with what you need</p>
-        <h2 class="display lg">Four ways <mark>we help.</mark></h2>
+        <p class="eyebrow">What we build</p>
+        <h2 class="display lg">Apps and automation <mark>made to order.</mark></h2>
+        <p class="lede">Start with the process that is costing you time. We will tell you whether it needs a new app or just a connection between the tools you have.</p>
       </div>
       <div class="cards two">
-        {SERVICES.map((s) => (
+        {CORE_SERVICES.map((s) => (
           <a class="card card-photo" href={`/services/${s.slug}/`}>
             <div class="cp-img"><img src={photoUrl(s.photo, 720, 405)} alt={s.photoAlt} width="720" height="405" loading="lazy" /><span class="cp-ic"><Icon name={s.icon} /></span></div>
             <div class="cp-body">
-              <p class="eyebrow">Services</p>
+              <p class="eyebrow">Build</p>
               <h3>{s.name}</h3>
               <p>{s.line}</p>
               <span class="link">Learn more →</span>
@@ -98,12 +87,59 @@ const steps = [
     </div>
   </section>
 
-  <section class="band soft" id="apps">
+  <section class="band navy">
     <div class="fw">
       <div class="head">
-        <p class="eyebrow">Our apps</p>
-        <h2 class="display lg">Software for hiring, pay <mark>and proving value.</mark></h2>
-        <p class="lede">We build software for tracking applicants, setting pay, sourcing specialists and proving value to buyers.</p>
+        <p class="eyebrow" style="color:#9FC3FF">How a build works</p>
+        <h2 class="display lg">Design comes <mark style="color:#0A1B4D">before code.</mark></h2>
+        <p class="lede">Every project follows the same five steps, so you always know where it stands.</p>
+      </div>
+      <ol class="steps" style="--navy:#ffffff">
+        {steps.map(([t, d]) => <li><b>{t}</b><span style="color:#C9D3F0">{d}</span></li>)}
+      </ol>
+      <div style="margin-top:44px"><a class="pill" href="/contact/">Describe your project</a></div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="fw">
+      <div class="head">
+        <p class="eyebrow">How we work</p>
+        <h2 class="display lg">Four things we hold <mark>to every time.</mark></h2>
+      </div>
+      <div class="cards">
+        {principles.map(([t, d]) => (
+          <div class="card"><h3>{t}</h3><p>{d}</p></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band soft" id="seekapedia">
+    <div class="fw">
+      <div class="head">
+        <p class="eyebrow">Our data product</p>
+        <h2 class="display lg">Seekapedia: public business data, <mark>in one API.</mark></h2>
+        <p class="lede">Seekapedia brings public records on companies into one schema, each with its source: more than 20 million company records from 10 state registries, state license data, sanctions, safety and environmental records, and SEC filings. Look a business up, then add whatever else you need to the same call.</p>
+      </div>
+      <div class="cards two">
+        {seekapedia.map(([t, d]) => (
+          <div class="card"><h3>{t}</h3><p>{d}</p></div>
+        ))}
+      </div>
+      <div style="margin-top:32px;display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center">
+        <a class="pill pill-blue" href="/seekapedia/">About Seekapedia</a>
+        <a class="link" href="https://seekapedia.com" rel="noopener">Visit seekapedia.com →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="apps">
+    <div class="fw">
+      <div class="head">
+        <p class="eyebrow">Built and shipped</p>
+        <h2 class="display lg">Apps we have built <mark>ourselves.</mark></h2>
+        <p class="lede">We build our own products the way we build yours. These are the applications we make for tracking applicants, setting pay, sourcing specialists and proving value to buyers.</p>
       </div>
       <div class="cards two">
         {APPS.map((a) => (
@@ -122,40 +158,45 @@ const steps = [
     </div>
   </section>
 
-  <section class="band">
+  <section class="band soft" id="people-services">
     <div class="fw">
       <div class="head">
-        <p class="eyebrow">Where we recruit</p>
-        <h2 class="display lg">Specialists in <mark>three fields.</mark></h2>
-        <p class="lede">We focus on the fields we know, so we can tell a strong candidate from a strong résumé.</p>
+        <p class="eyebrow">Also from Kixlogic</p>
+        <h2 class="display lg">HR, recruiting <mark>and visas.</mark></h2>
+        <p class="lede">Kixlogic started in HR, and we still help companies with the people side of the business.</p>
       </div>
       <div class="cards">
-        {INDUSTRIES.map((s) => (
-          <a class="card card-photo" href={`/industries/${s.slug}/`}>
-            <div class="cp-img"><img src={photoUrl(s.photo, 600, 338)} alt={s.photoAlt} width="600" height="338" loading="lazy" /><span class="cp-ic"><Icon name={s.icon} /></span></div>
-            <div class="cp-body">
-              <p class="eyebrow">Industries</p>
-              <h3>{s.name}</h3>
-              <p>{s.line}</p>
-              <span class="link">See the roles →</span>
-            </div>
+        {ALSO_SERVICES.map((s) => (
+          <a class="card" href={`/services/${s.slug}/`}>
+            <p class="eyebrow">Services</p>
+            <h3>{s.name}</h3>
+            <p>{s.line}</p>
+            <span class="link">Learn more →</span>
           </a>
         ))}
       </div>
-    </div>
-  </section>
-
-  <section class="band navy">
-    <div class="fw">
-      <div class="head">
-        <p class="eyebrow" style="color:#9FC3FF">Direct hire, on contingency</p>
-        <h2 class="display lg">You pay only <mark style="color:#0A1B4D">when you hire.</mark></h2>
-        <p class="lede">Every search follows the same five steps, so you always know where it stands.</p>
+      <div class="openings" id="current-openings">
+        <p class="eyebrow" style="margin-top:36px">Current openings</p>
+        {!openingsOk ? (
+          <p>Our open roles are unavailable at the moment. Please check back soon.</p>
+        ) : openings.length === 0 ? (
+          <p>There are no open roles posted right now. New roles appear on our careers page as they open.</p>
+        ) : (
+          <ul class="openings-list">
+            {openings.map((p) => (
+              <li>
+                <a class="card" href={postingPath(p)}>
+                  <p class="eyebrow">{p.industry || 'Role'}</p>
+                  <h3>{p.title}</h3>
+                  <p>{placeLine(p)}{p.jobType ? ` · ${p.jobType}` : ''}</p>
+                  <span class="link">View role →</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
+        <p style="margin-top:1.25rem"><a class="link" href="/careers/">See all current openings →</a></p>
       </div>
-      <ol class="steps" style="--navy:#ffffff">
-        {steps.map(([t, d]) => <li><b>{t}</b><span style="color:#C9D3F0">{d}</span></li>)}
-      </ol>
-      <div style="margin-top:44px"><a class="pill" href="/contact/">Start a search</a></div>
     </div>
   </section>
 
@@ -166,19 +207,18 @@ const steps = [
       </figure>
       <div class="prose">
         <p class="eyebrow">Who we are</p>
-        <h2 class="display lg" style="margin-bottom:28px">HR people who <mark>build software.</mark></h2>
-        <p>Kixlogic began by building HR and business software. We now put that experience to work for clients directly: recruiting the people they need, helping them run HR well, and building the tools that make it easier.</p>
-        <p>That mix is the point. We understand the hiring and HR problems first-hand, and we can build the software that fixes the ones worth automating.</p>
+        <h2 class="display lg" style="margin-bottom:28px">A software company that <mark>knows the work.</mark></h2>
+        <p>Kixlogic began by building HR and business software. Building those products meant living inside the problems our users faced every day, and that is how we approach a customer's app: start with the work, design for the people doing it, and build only what earns its place.</p>
         <a class="link" href="/about/">About Kixlogic →</a>
       </div>
     </div>
   </section>
 
-  <section class="band soft">
+  <section class="band navy">
     <div class="fw">
-      <h2 class="display lg">Let's talk about <mark>your next hire.</mark></h2>
-      <p class="lede">Tell us about the role, the HR problem or the tool you need. We reply to every message.</p>
-      <div style="margin-top:32px"><a class="pill pill-blue" href="/contact/">Contact us</a></div>
+      <h2 class="display lg">Have a process <mark style="color:#0A1B4D">worth fixing?</mark></h2>
+      <p class="lede">Describe it in a few sentences. We reply to every message within one business day.</p>
+      <div style="margin-top:32px"><a class="pill" href="/contact/">Start a project</a></div>
     </div>
   </section>
 
@@ -186,11 +226,6 @@ const steps = [
     .openings-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
     .openings-list a.card { display: block; height: 100%; text-decoration: none; color: inherit; }
     .openings-list h3 { margin: 0.25rem 0 0.5rem; }
-    .careers-band { background: #2bc2c5; }
-    .careers-band .eyebrow, .careers-band .link { color: var(--navy); }
-    .careers-band .display, .careers-band p { color: var(--navy); }
-    .careers-band mark { background: #fff; }
-    .careers-band .card { background: #fff; }
     @media (max-width: 980px) { .openings-list { grid-template-columns: 1fr; } }
     .app-card-actions { margin-top: auto; display: flex; flex-wrap: wrap; gap: 12px 22px; align-items: center; }
     .app-card-actions .link { display: inline-block; padding: 12px 0; }

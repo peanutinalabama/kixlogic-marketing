@@ -11,6 +11,8 @@ const STATIC_URLS = [
   { loc: 'https://kixlogic.com/flipbookiq/library/', changefreq: 'daily', priority: '0.8' },
   { loc: 'https://kixlogic.com/flipbookiq/library/contact/', changefreq: 'yearly', priority: '0.4' },
   { loc: 'https://kixlogic.com/services/direct-hire-recruiting/', changefreq: 'monthly', priority: '0.9' },
+  { loc: 'https://kixlogic.com/services/workflow-automation/', changefreq: 'monthly', priority: '0.9' },
+  { loc: 'https://kixlogic.com/seekapedia/', changefreq: 'monthly', priority: '0.9' },
   { loc: 'https://kixlogic.com/services/hr-consulting/', changefreq: 'monthly', priority: '0.9' },
   { loc: 'https://kixlogic.com/services/ai-applications/', changefreq: 'monthly', priority: '0.9' },
   { loc: 'https://kixlogic.com/services/immigration-support/', changefreq: 'monthly', priority: '0.9' },

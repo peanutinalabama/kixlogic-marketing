@@ -1,12 +1,12 @@
 ---
 import Firm from '../layouts/Firm.astro';
 ---
-<Firm title="Contact" description="Talk to Kixlogic about a direct-hire search, HR consulting or an AI-enabled application. We reply to every message within one business day.">
+<Firm title="Contact" description="Tell Kixlogic about the process you want an AI app to handle, or ask about Seekapedia, HR consulting, recruiting or visa support. We reply within one business day.">
   <section class="hero">
     <div class="fw">
       <p class="eyebrow">Contact us</p>
       <h1 class="display xl">Let's <mark>talk.</mark></h1>
-      <p class="lede">Tell us about the role you need to fill, the HR problem in front of you, or the tool you want built. We reply within one business day.</p>
+      <p class="lede">Tell us about the process you want an app to handle, the data you need, or the people help you are looking for. We reply within one business day.</p>
     </div>
   </section>
 
@@ -17,10 +17,11 @@ import Firm from '../layouts/Firm.astro';
         <p><a class="link" style="font-size:16px" href="mailto:support@kixlogic.com">support@kixlogic.com</a></p>
         <p class="eyebrow" style="margin-top:32px">What helps us reply faster</p>
         <ul class="ticks">
+          <li>For an app: the process you want to take off your team's plate, who does it today, and the tools involved</li>
+          <li>For Seekapedia: the data you need and how you plan to use it</li>
           <li>For a search: the job title, location and pay range</li>
           <li>For HR consulting: what is getting in the way today</li>
           <li>For immigration support: the role and the kind of visa or status involved, if you know it</li>
-          <li>For an application: the process you want to take off your team's plate</li>
         </ul>
       </div>
       <form class="cform" id="contactForm">
@@ -29,10 +30,12 @@ import Firm from '../layouts/Firm.astro';
         <label>Company<input id="contactCompany" name="company" type="text" autocomplete="organization" /></label>
         <label>I'm interested in
           <select id="contactTopic" name="topic">
+            <option>A custom AI app</option>
+            <option>Workflow automation</option>
+            <option>Seekapedia data API</option>
             <option>Direct hire recruiting</option>
             <option>HR consulting</option>
             <option>Immigration processing support</option>
-            <option>An AI-enabled application</option>
             <option>Something else</option>
           </select>
         </label>

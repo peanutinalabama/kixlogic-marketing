@@ -1,0 +1,114 @@
+---
+// Seekapedia: Kixlogic's public business data product (seekapedia.com). One static page. Every fact below was checked against the live product on
+// 2026-11-25 (seekapedia.com home, docs and coverage pages). No customers, results or prices: those stay on seekapedia.com, which keeps them current.
+import Firm from '../layouts/Firm.astro';
+import { photoUrl } from '../data/firm';
+
+const heroPhoto = '1758691737543-09a1b2b715fa';
+
+const datasets = [
+  ['Company records', 'The state business registries of 10 states, more than 20 million company records, each with its status, type, formation date and source. Every company gets a stable Seekapedia Business ID.'],
+  ['Licenses', 'Liquor license records from more than twenty states, plus cannabis licenses from several, with a daily change feed and signed webhooks so you hear when a status changes.'],
+  ['Sanctions and recalls', 'Screen a name against the OFAC, UK and EU sanctions lists, and search FDA, CPSC and NHTSA recalls by company, product or UPC.'],
+  ['Safety and environment', 'OSHA inspections and citations since 2016, and EPA-regulated facilities with their compliance and enforcement history.'],
+  ['Public companies', 'SEC filings and events, annual financials and identifiers such as CIK, EIN and LEI, tied together for companies that file with the SEC.'],
+  ['Industry and place', 'Census establishment, jobs and payroll counts by industry for any state, county or ZIP code, plus wages by occupation and economic series.'],
+  ['Grants and lobbying', 'NIH and NSF research awards by recipient, and federal lobbying filings by client and firm.'],
+  ['Rules and trials', 'Federal Register rules and notices and ClinicalTrials.gov studies, searched live.'],
+];
+
+const steps = [
+  ['Ask', 'Look a business up by name or by its Seekapedia Business ID.'],
+  ['Add', 'Ask for linked records in the same call: sanctions, licenses, OSHA, EPA, SEC and more.'],
+  ['Check', 'Every record carries its source link and the date it was read, and every match says how it was made.'],
+];
+
+const uses = [
+  'Due diligence and vendor checks that need a company, its status and its red flags in one place.',
+  'Compliance teams that verify licenses and screen names against sanctions lists.',
+  'Sales and market research that needs real company records, not scraped guesses.',
+  'AI assistants and agents that need trustworthy public data, through the Model Context Protocol or a plain API.',
+];
+---
+<Firm
+  title="Seekapedia"
+  description="Seekapedia is Kixlogic's public business data API: state company registries, license records, sanctions, OSHA and EPA records, SEC filings and Census statistics, each with its source."
+>
+  <section class="hero hero-split">
+    <div class="fw hs-in">
+      <div>
+        <p class="eyebrow">Seekapedia · a Kixlogic product</p>
+        <h1 class="display xl">Public business data, <mark>in one API.</mark></h1>
+        <p class="lede">Seekapedia gathers public records on companies from many agencies into one schema. Look a business up, then add whatever else you need to the same call. Every record shows where it came from and when it was read.</p>
+        <div class="actions">
+          <a class="pill pill-blue" href="https://seekapedia.com/request">Get an API key</a>
+          <a class="link" href="https://seekapedia.com/apis/registry/docs" rel="noopener">Read the docs →</a>
+        </div>
+      </div>
+      <figure class="photo">
+        <img src={photoUrl(heroPhoto, 900, 1000)} srcset={`${photoUrl(heroPhoto, 600, 667)} 600w, ${photoUrl(heroPhoto, 900, 1000)} 900w`} sizes="(max-width:980px) 100vw, 480px" alt="A team reviewing data together at a table" width="900" height="1000" loading="eager" />
+      </figure>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="fw">
+      <div class="head">
+        <p class="eyebrow">What is in it</p>
+        <h2 class="display lg">Records that answer <mark>real questions.</mark></h2>
+        <p class="lede">Is this company real and active? Is it licensed? Is it on a sanctions list? Has it been cited for safety violations? Each answer comes from a public source.</p>
+      </div>
+      <div class="cards two">
+        {datasets.map(([t, d]) => (
+          <div class="card"><h3>{t}</h3><p>{d}</p></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band navy">
+    <div class="fw">
+      <div class="head">
+        <p class="eyebrow" style="color:#9FC3FF">How it works</p>
+        <h2 class="display lg">One call, <mark style="color:#0A1B4D">with sources.</mark></h2>
+      </div>
+      <ol class="steps" style="--navy:#ffffff">
+        {steps.map(([t, d]) => <li><b>{t}</b><span style="color:#C9D3F0">{d}</span></li>)}
+      </ol>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="fw split">
+      <div><h2 class="display md">Who uses it</h2></div>
+      <div class="prose">
+        <ul class="ticks">{uses.map((u) => <li>{u}</li>)}</ul>
+        <p>Seekapedia also connects to AI assistants such as Claude and ChatGPT, so a person can ask a question in plain language and get an answer from the same records.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band soft">
+    <div class="fw split">
+      <div><h2 class="display md">Good to know</h2></div>
+      <div class="prose">
+        <ul class="ticks">
+          <li>Records are published by government agencies and shown as published, with the date they were read. They can be late, incomplete or wrong at the source.</li>
+          <li>A match by name is a lead for a person to check, not proof that two records are the same legal entity.</li>
+          <li>Seekapedia is not legal advice and is not affiliated with the agencies whose records it serves.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="band navy">
+    <div class="fw">
+      <h2 class="display lg">Try it, <mark style="color:#0A1B4D">or build on it.</mark></h2>
+      <p class="lede">There is a free plan to start with. Need an app that uses this data, or a data product of your own? That is what we build.</p>
+      <div style="margin-top:32px;display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center">
+        <a class="pill" href="https://seekapedia.com">Visit seekapedia.com</a>
+        <a class="pill" href="/contact/">Talk to us about a build</a>
+      </div>
+    </div>
+  </section>
+</Firm>
