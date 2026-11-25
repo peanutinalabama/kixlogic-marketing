@@ -33,6 +33,14 @@ const kinds = [
   ['Assistants and automation', 'Assistants that read, draft and check documents, and automation that connects the tools you already use.'],
 ];
 
+const questions = [
+  'Is this company active, and in which state is it registered?',
+  'Does it hold a liquor or cannabis license, and is it current?',
+  'Is its name on an OFAC, UK or EU sanctions list?',
+  'Has OSHA cited it for safety violations, or the EPA for environmental ones?',
+  'What does it file with the SEC, and how big is its industry where it operates?',
+];
+
 const seekapedia = [
   ['Company records', 'State business registries, with one Seekapedia Business ID per company.'],
   ['Licenses', 'Liquor and cannabis licenses from state agencies, with a daily change feed.'],
@@ -42,14 +50,14 @@ const seekapedia = [
 ---
 <Firm
   title="Kixlogic"
-  description="Kixlogic designs and builds AI-powered websites, web apps, Microsoft Office add-ins and mobile apps around how your business works. We also run Seekapedia, public business data in one API."
+  description="Kixlogic designs and builds AI apps and websites around how your business works: web apps, Microsoft Office add-ins and mobile apps. We also run Seekapedia, public business data in one API."
 >
   <section class="hero hero-split">
     <div class="fw hs-in">
       <div>
-        <p class="eyebrow">AI web and app development</p>
-        <h1 class="display xl">Tell us the problem. We design <mark>the AI app.</mark></h1>
-        <p class="lede">Kixlogic designs and builds AI-powered websites and apps around how your business actually works. You see the design first, then a working site or app on the web, inside Microsoft Office or on a phone, built to your need and yours to run.</p>
+        <p class="eyebrow">AI app and website development</p>
+        <h1 class="display xl">We design and build AI apps and <mark>websites.</mark></h1>
+        <p class="lede">Tell us the problem. Kixlogic designs the solution around how your business actually works, shows you the design first, then builds the AI-powered website or app: on the web, inside Microsoft Office or on a phone. Built to your need, and yours to run.</p>
         <div class="actions">
           <a class="pill pill-blue" href="/contact/">Start a project</a>
           <a class="link" href="/services/ai-applications/">How we build →</a>
@@ -166,18 +174,28 @@ const seekapedia = [
   <section class="band soft" id="seekapedia">
     <div class="fw">
       <div class="head">
-        <p class="eyebrow">Also from Kixlogic</p>
-        <h2 class="display lg">Seekapedia: public business data, <mark>in one API.</mark></h2>
-        <p class="lede">Seekapedia brings public records on companies into one schema, each with its source: more than 20 million company records from 10 state registries, state license data, sanctions, safety and environmental records, and SEC filings. Look a business up, then add whatever else you need to the same call.</p>
+        <p class="eyebrow">Seekapedia, a Kixlogic product</p>
+        <h2 class="display lg">Public business data, <mark>in one API.</mark></h2>
+        <p class="lede">Stop stitching together state websites and government downloads. Seekapedia brings public records on companies into one schema, each with its source and the date it was read: more than 20 million company records from 10 state registries, state license data, sanctions, safety and environmental records, and SEC filings.</p>
       </div>
       <div class="cards two">
         {seekapedia.map(([t, d]) => (
           <div class="card"><h3>{t}</h3><p>{d}</p></div>
         ))}
       </div>
-      <div style="margin-top:32px;display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center">
-        <a class="pill pill-blue" href="/seekapedia/">About Seekapedia</a>
-        <a class="link" href="https://seekapedia.com" rel="noopener">Visit seekapedia.com →</a>
+      <div class="split" style="margin-top:44px;align-items:start">
+        <div><h3 class="display md">Ask it things like</h3></div>
+        <div class="prose">
+          <ul class="ticks">
+            {questions.map((q) => <li>{q}</li>)}
+          </ul>
+          <p>Connect it to your own software with one API key, or to an AI assistant such as Claude or ChatGPT. There is a free plan to start with.</p>
+        </div>
+      </div>
+      <div style="margin-top:36px;display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center">
+        <a class="pill pill-blue" href="https://seekapedia.com/request" rel="noopener">Get a free API key</a>
+        <a class="pill" href="https://seekapedia.com/apis/registry/docs" rel="noopener">Read the docs</a>
+        <a class="link" href="/seekapedia/">About Seekapedia →</a>
       </div>
     </div>
   </section>
