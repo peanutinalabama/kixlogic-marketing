@@ -59,7 +59,7 @@ export const SERVICES: Offer[] = [
       },
       {
         title: 'What you get',
-        body: 'A scope and price agreed in writing before work starts, one team to talk to from first call to launch, and an app that is yours to run. We have built our own products on the web, in Microsoft Office and on mobile, and we build to order for other businesses.',
+        body: 'A conversation about scope and price before work starts, one team to talk to from first call to launch, and an app built so you can run it. We have built our own products on the web, in Microsoft Office and on mobile, and we build to order for other businesses.',
       },
     ],
     cta: 'Start a project',
